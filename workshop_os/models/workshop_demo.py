@@ -79,14 +79,16 @@ class WorkshopOrderDemo(models.Model):
 
     def _demo_order(self, vehicle, arrived, services, rng, mechanics):
         chosen = services.browse(rng.sample(services.ids, k=rng.randint(1, 3)))
+        mechanic = rng.choice(mechanics.ids)
+        Line = self.env["workshop.order.line"]
         order = self.create({
             "partner_id": vehicle.partner_id.id,
             "vehicle_id": vehicle.id,
             "odometer": vehicle.odometer + rng.randint(500, 4000),
             "driver_name": rng.choice(["João", "Marcos", "Adriano", "Célio", "Wesley"]),
             "complaint": rng.choice(COMPLAINTS),
-            "user_id": rng.choice(mechanics.ids),
-            "line_ids": [Command.create(self.env["workshop.order.line"]._vals_from_service(s)) for s in chosen],
+            "user_id": mechanic,
+            "line_ids": [Command.create(dict(Line._vals_from_service(s), user_id=mechanic)) for s in chosen],
         })
         order.write({"date_in": arrived})
         order.stage_log_ids.write({"date_start": arrived})

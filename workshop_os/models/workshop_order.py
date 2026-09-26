@@ -23,6 +23,7 @@ class WorkshopOrder(models.Model):
     vehicle_id = fields.Many2one("workshop.vehicle", "Vehicle", required=True, index=True, tracking=True,
                                  domain="['|', ('partner_id', '=', False), ('partner_id', '=', partner_id)]")
     plate = fields.Char(related="vehicle_id.plate_display", string="Plate")
+    vehicle_desc = fields.Char("Vehicle model", compute="_compute_vehicle_desc")
     odometer = fields.Integer("Odometer (km)")
     driver_name = fields.Char("Brought by", help="Driver or employee of the customer who brought the vehicle.")
     stage_id = fields.Many2one("workshop.stage", "Stage", index=True, tracking=True, group_expand="_read_group_stage_ids",
@@ -84,6 +85,13 @@ class WorkshopOrder(models.Model):
             order.amount_total = sum(lines.mapped("subtotal"))
             order.amount_approved = sum(lines.filtered(lambda l: l.approval == "approved").mapped("subtotal"))
             order.hours_total = sum(l.hours * l.quantity for l in lines)
+
+    @api.depends("vehicle_id.brand", "vehicle_id.model", "vehicle_id.fleet_number")
+    def _compute_vehicle_desc(self):
+        for order in self:
+            vehicle = order.vehicle_id
+            desc = " ".join(filter(None, [vehicle.brand, vehicle.model]))
+            order.vehicle_desc = f"{desc} · #{vehicle.fleet_number}" if vehicle.fleet_number else desc
 
     @api.depends("photo_ids", "checklist_line_ids.result")
     def _compute_counts(self):
@@ -454,7 +462,7 @@ class WorkshopOrder(models.Model):
         actions = []
         if self.state in ("draft", "rejected") and manager:
             actions.append({"action": "action_approve", "label": _("Approve"), "style": "primary"})
-        if self.state in ("draft", "approved"):
+        if self.state in ("draft", "approved") and self.line_ids:
             actions.append({"action": "action_done", "label": _("Job ready"), "style": "primary" if self.state == "approved" else "ghost"})
         if self.state == "done":
             actions.append({"action": "action_deliver", "label": _("Delivered"), "style": "primary"})

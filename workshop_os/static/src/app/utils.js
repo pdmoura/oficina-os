@@ -3,6 +3,20 @@ import { _t } from "@web/core/l10n/translation";
 const { DateTime } = luxon;
 
 /** 'abc-1d23' -> 'ABC1D23' */
+/**
+ * OWL hoists the names an event-handler arrow calls (`() => set("x", 1)`) into locals and calls them bare, so a
+ * screen's methods lose `this` there. Screens bind their own methods once in setup().
+ */
+export function bindMethods(component) {
+    const proto = Object.getPrototypeOf(component);
+    for (const name of Object.getOwnPropertyNames(proto)) {
+        const descriptor = Object.getOwnPropertyDescriptor(proto, name);
+        if (name !== "constructor" && name !== "setup" && typeof descriptor.value === "function") {
+            component[name] = descriptor.value.bind(component);
+        }
+    }
+}
+
 export function normalizePlate(value) {
     return (value || "").replace(/[^a-z0-9]/gi, "").toUpperCase().slice(0, 7);
 }

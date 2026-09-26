@@ -94,6 +94,13 @@ class TestOrderFlow(WorkshopCase):
         with self.assertRaises(UserError):
             order.action_done()
 
+    def test_app_offers_ready_only_with_services(self):
+        order = self._order()
+        actions = [a["action"] for a in order.with_user(self.mechanic)._app_state_actions()]
+        self.assertEqual(actions, ["action_done"])
+        order.line_ids.unlink()
+        self.assertEqual(order.with_user(self.mechanic)._app_state_actions(), [])
+
     def test_mechanic_cannot_approve(self):
         order = self._order()
         with self.assertRaises(UserError):

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- A Brazilian shop: install with the pt_BR language loaded (see docker-compose.yml). -->
+    <record id="base.lang_pt_BR" model="res.lang">
+        <field name="active" eval="True"/>
+    </record>
     <record id="base.BRL" model="res.currency">
         <field name="active" eval="True"/>
     </record>
@@ -8,6 +12,21 @@
         <field name="currency_id" ref="base.BRL"/>
         <field name="logo" type="base64" file="workshop_os/static/img/app-icon-512.png"/>
         <field name="phone">+55 61 3000-0000</field>
+        <field name="email">contato@eletricadiesel.example.com</field>
+        <field name="street">SIA Trecho 3, Lote 1250</field>
+        <field name="city">Brasília</field>
+        <field name="zip">71200-030</field>
+        <field name="state_id" ref="base.state_br_df"/>
+        <field name="country_id" ref="base.br"/>
+        <field name="vat">12.345.678/0001-95</field>
+    </record>
+    <record id="base.main_partner" model="res.partner">
+        <field name="lang">pt_BR</field>
+        <field name="tz">America/Sao_Paulo</field>
+    </record>
+    <record id="base.partner_admin" model="res.partner">
+        <field name="lang">pt_BR</field>
+        <field name="tz">America/Sao_Paulo</field>
     </record>
 
     <record id="demo_partner_fleet_a" model="res.partner">
@@ -18,6 +37,7 @@
         <field name="city">Brasília</field>
         <field name="phone">+55 61 90000-0000</field>
         <field name="email">frota@transportadora-exemplo.example.com</field>
+        <field name="lang">pt_BR</field>
     </record>
     <record id="demo_partner_fleet_b" model="res.partner">
         <field name="name">Frota Norte Logística</field>
@@ -25,6 +45,7 @@
         <field name="workshop_customer" eval="True"/>
         <field name="city">Goiânia</field>
         <field name="email">manutencao@frotanorte.example.com</field>
+        <field name="lang">pt_BR</field>
     </record>
 
     <record id="demo_user_mechanic" model="res.users">
@@ -34,6 +55,7 @@
         <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_user')])]"/>
         <field name="action_id" ref="workshop_os.action_mechanic_app"/>
         <field name="lang">pt_BR</field>
+        <field name="tz">America/Sao_Paulo</field>
     </record>
 
     <record id="demo_service_headlight" model="workshop.service">

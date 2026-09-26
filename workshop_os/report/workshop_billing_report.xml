@@ -7,20 +7,23 @@
         <field name="report_name">workshop_os.report_workshop_billing</field>
         <field name="report_file">workshop_os.report_workshop_billing</field>
         <field name="print_report_name">'Fechamento - %s' % (object.name)</field>
+        <field name="paperformat_id" ref="paperformat_workshop"/>
         <field name="binding_model_id" ref="model_workshop_billing"/>
         <field name="binding_type">report</field>
     </record>
 
     <template id="report_workshop_billing_document">
-        <t t-call="web.external_layout">
+        <t t-call="web.basic_layout">
             <t t-set="company" t-value="b.company_id"/>
             <div class="page wo">
                 <t t-call="workshop_os.report_workshop_styles"/>
-                <div class="label">Monthly report</div>
-                <h2 t-field="b.partner_id.commercial_partner_id.name"/>
-                <div class="muted" style="margin-bottom: 12px;">
-                    <span t-field="b.date_from"/> to <span t-field="b.date_to"/> · <t t-out="b.order_count"/> work orders
-                </div>
+                <t t-call="workshop_os.report_workshop_brand">
+                    <div class="label">Monthly report</div>
+                    <h2 t-field="b.partner_id.commercial_partner_id.name"/>
+                    <div class="muted">
+                        <span t-field="b.date_from"/> to <span t-field="b.date_to"/> · <t t-out="b.order_count"/> work orders
+                    </div>
+                </t>
 
                 <div class="label">By service</div>
                 <table class="items">

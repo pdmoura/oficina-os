@@ -15,6 +15,12 @@ class WorkshopPublic(http.Controller):
         order = request.env["workshop.order"]._get_by_token(token)
         if not order:
             raise request.not_found()
+        # The page speaks the customer's language (texts, dates and money), falling back to the workshop's.
+        installed = dict(request.env["res.lang"].get_installed())
+        lang = next((code for code in (order.partner_id.lang, order.company_id.partner_id.lang) if code in installed), None)
+        if lang:
+            request.update_context(lang=lang)
+            order = order.with_context(lang=lang)
         stages = request.env["workshop.stage"].sudo().search([])
         return request.render("workshop_os.public_order_page", {
             "order": order,
@@ -23,6 +29,7 @@ class WorkshopPublic(http.Controller):
             "lines": order.line_ids,
             "photos": order.photo_ids.filtered("show_to_customer"),
             "accent": order.company_id.workshop_accent_color or "#E8B21E",
+            "html_lang": (lang or "pt_BR").replace("_", "-"),
         })
 
     @http.route("/os/<string:token>/decision", type="jsonrpc", auth="public", methods=["POST"], sitemap=False)

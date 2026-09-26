@@ -1,0 +1,2690 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* workshop_os
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260908\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-26 17:14+0000\n"
+"PO-Revision-Date: 2026-09-26 17:14+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/utils.js:0
+#: code:addons/workshop_os/static/src/backend/fields.js:0
+msgid "%(d)sd %(h)sh"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/utils.js:0
+#: code:addons/workshop_os/static/src/backend/fields.js:0
+msgid "%(h)sh %(m)smin"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/utils.js:0
+#: code:addons/workshop_os/static/src/backend/fields.js:0
+msgid "%(m)s min"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "%s cannot be marked ready from its current status."
+msgstr "%s não pode ser marcada como pronta no status atual."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "%s is not a valid plate."
+msgstr "%s não é uma placa válida."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_vehicle.py:0
+msgid "%s is not a valid plate. Use ABC1234 or ABC1D23."
+msgstr "%s não é uma placa válida. Use ABC1234 ou ABC1D23."
+
+#. module: workshop_os
+#: model:ir.actions.report,print_report_name:workshop_os.action_report_workshop_order
+msgid "'%s - %s' % (object.name, object.plate or '')"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.actions.report,print_report_name:workshop_os.action_report_workshop_billing
+msgid "'Fechamento - %s' % (object.name)"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "<br/><span class=\"muted\">Customer</span>"
+msgstr "<br/><span class=\"muted\">Cliente</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "<br/><span class=\"muted\">Workshop</span>"
+msgstr "<br/><span class=\"muted\">Oficina</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "<span class=\"label\">Diagnosis</span>"
+msgstr "<span class=\"label\">Diagnóstico</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "<span class=\"label\">Reported problem</span>"
+msgstr "<span class=\"label\">Problema relatado</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+msgid "<span class=\"label\">Total of the period</span><br/>"
+msgstr "<span class=\"label\">Total do período</span><br/>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "<span class=\"label\">Total</span><br/>"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "<span class=\"wo-plate__band\">BRASIL</span>"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "<span>Arrived</span>"
+msgstr "<span>Entrada</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "<span>Odometer</span>"
+msgstr "<span>Hodômetro</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "<span>Promised</span>"
+msgstr "<span>Previsão</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "<span>Signature (optional)</span>"
+msgstr "<span>Assinatura (opcional)</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "<span>To approve</span>"
+msgstr "<span>A aprovar</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "<span>Total</span>"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "<span>to</span>"
+msgstr "<span>até</span>"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_form
+msgid "ABC1D23"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_cloudinary_api_key
+msgid "API key"
+msgstr "Chave de API"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_cloudinary_api_secret
+msgid "API secret"
+msgstr "Segredo da API"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_accent_color
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_accent_color
+msgid "Accent colour"
+msgstr "Cor de destaque"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__access_token
+msgid "Access Token"
+msgstr "Token de acesso"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_needaction
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_needaction
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_needaction
+msgid "Action Needed"
+msgstr "Requer ação"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__active
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__active
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__active
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__active
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__active
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__active
+msgid "Active"
+msgstr "Ativo"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_ids
+msgid "Activities"
+msgstr "Atividades"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoração de atividade excepcional"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_state
+msgid "Activity State"
+msgstr "Status da atividade"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Ícone do tipo de atividade"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Add at least one service to %s before marking it ready."
+msgstr "Adicione pelo menos um serviço à %s antes de marcá-la como pronta."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Add service"
+msgstr "Adicionar serviço"
+
+#. module: workshop_os
+#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_service
+msgid "Add the services you sell"
+msgstr "Cadastre os serviços que você vende"
+
+#. module: workshop_os
+#: model:workshop.stage,description:workshop_os.stage_office
+msgid "Aguardando orçamento ou aprovação"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_parts
+msgid "Aguardando peças"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "All"
+msgstr "Todas"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "All orders"
+msgstr "Todas as OS"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+msgid "Amount"
+msgstr "Valor"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__amount_approved
+msgid "Amount Approved"
+msgstr "Valor aprovado"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__amount_total
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__amount_total
+msgid "Amount Total"
+msgstr "Valor total"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Answer"
+msgstr "Resposta"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__checklist_progress
+msgid "Answered checklist items, in %."
+msgstr "Itens do checklist respondidos, em %."
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__any
+msgid "Any"
+msgstr "Todos"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__approval
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Approval"
+msgstr "Aprovação"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__approval_signature
+msgid "Approval Signature"
+msgstr "Assinatura da aprovação"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_terms_text
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_terms_text
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Approval terms"
+msgstr "Termos de aprovação"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Approve"
+msgstr "Aprovar"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Approve the services"
+msgstr "Aprovar os serviços"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__state__approved
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_line__approval__approved
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_line_view_search
+msgid "Approved"
+msgstr "Aprovada"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__approved_on
+msgid "Approved On"
+msgstr "Aprovada em"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__approved_by
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Approved by"
+msgstr "Aprovado por"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Approved items can only be removed by the office."
+msgstr "Somente o escritório pode remover itens aprovados."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Approved online by %(name)s: %(count)s of %(total)s items."
+msgstr "Aprovada on-line por %(name)s: %(count)s de %(total)s itens."
+
+#. module: workshop_os
+#: model:res.groups,comment:workshop_os.group_workshop_manager
+msgid "Approves orders, manages prices, settings and the monthly closing."
+msgstr "Aprova OS, gerencia preços, configurações e o fechamento mensal."
+
+#. module: workshop_os
+#: model:workshop.stage,description:workshop_os.stage_queue
+msgid "Aprovado, esperando mecânico"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.sector,name:workshop_os.sector_ac
+msgid "Ar condicionado"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_search
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_search
+msgid "Archived"
+msgstr "Arquivados"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__entry
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_photo__kind__entry
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Arrival"
+msgstr "Entrada"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__date_in
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__date
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Arrived"
+msgstr "Entrada"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__tow
+msgid "Arrived towed"
+msgstr "Chegou de guincho"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__attachment_id
+msgid "Attachment"
+msgstr "Anexo"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_attachment_count
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_attachment_count
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_attachment_count
+msgid "Attachment Count"
+msgstr "Qtd. de anexos"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_checklist__result__attention
+msgid "Attention"
+msgstr "Atenção"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__state__draft
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Awaiting approval"
+msgstr "Aguardando aprovação"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+#: code:addons/workshop_os/static/src/backend/fields.xml:0
+msgid "BRASIL"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Back"
+msgstr "Voltar"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "Back to draft"
+msgstr "Voltar para rascunho"
+
+#. module: workshop_os
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_billing_root
+msgid "Billing"
+msgstr "Faturamento"
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_bay_1
+msgid "Box 1"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_bay_2
+msgid "Box 2"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_bay_3
+msgid "Box 3"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__brand
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_search
+msgid "Brand"
+msgstr "Marca"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__driver_name
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Brought by"
+msgstr "Motorista"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__bus
+msgid "Bus"
+msgstr "Ônibus"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+msgid "By service"
+msgstr "Por serviço"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "CNPJ/CPF"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Cancel this work order?"
+msgstr "Cancelar esta OS?"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__state__cancel
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__caption
+msgid "Caption"
+msgstr "Legenda"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__checklist_line_ids
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Checklist"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__checklist_progress
+msgid "Checklist Progress"
+msgstr "Progresso do checklist"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_checklist_template
+msgid "Checklist Template"
+msgstr "Modelo de checklist"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_checklist_template_item
+msgid "Checklist Template Item"
+msgstr "Item do modelo de checklist"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_checklist_template
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_checklists
+msgid "Checklists"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Choose the customer for %s."
+msgstr "Escolha o cliente da placa %s."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Clear"
+msgstr "Limpar"
+
+#. module: workshop_os
+#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_billing
+msgid "Close the month for a fleet customer"
+msgstr "Feche o mês de um cliente de frota"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_cloudinary_cloud_name
+msgid "Cloud name"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__res_config_settings__workshop_photo_storage__cloudinary
+msgid "Cloudinary"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid "Cloudinary connected."
+msgstr "Cloudinary conectado."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/utils.js:0
+msgid "Cloudinary did not accept the photo."
+msgstr "O Cloudinary não aceitou a foto."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order_photo__public_id
+msgid "Cloudinary public id, used to delete the image."
+msgstr "ID público no Cloudinary, usado para excluir a imagem."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid "Cloudinary refused the credentials (HTTP %s)."
+msgstr "O Cloudinary recusou as credenciais (HTTP %s)."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__code
+msgid "Code"
+msgstr "Código"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__stage_color
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__color
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__color
+msgid "Color"
+msgstr "Cor"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Colours and logo"
+msgstr "Cores e logotipo"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_res_company
+msgid "Companies"
+msgstr "Empresas"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__company_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__company_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__company_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__company_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configurações"
+
+#. module: workshop_os
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_config
+msgid "Configuration"
+msgstr "Configuração"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_billing__state__confirmed
+msgid "Confirmed"
+msgstr "Confirmado"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_res_partner
+msgid "Contact"
+msgstr "Contato"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Continue"
+msgstr "Continuar"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__cost
+msgid "Cost"
+msgstr "Custo"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid "Could not reach Cloudinary: %s"
+msgstr "Não foi possível acessar o Cloudinary: %s"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__create_uid
+msgid "Created by"
+msgstr "Criado por"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__create_date
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__currency_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__currency_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__currency_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__currency_id
+msgid "Currency"
+msgstr "Moeda"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__partner_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__partner_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__partner_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__partner_id
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_search
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Customer link"
+msgstr "Link do cliente"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_customers
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_customers
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_partners
+msgid "Customers"
+msgstr "Clientes"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "Customers this month"
+msgstr "Clientes do mês"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__res_config_settings__workshop_photo_storage__database
+msgid "Database"
+msgstr "Banco de dados"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid ""
+"Database works everywhere. Cloudinary keeps the database small and serves "
+"images faster"
+msgstr ""
+"O banco de dados funciona em qualquer servidor. O Cloudinary deixa o banco "
+"menor e carrega as imagens mais rápido"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_line_view_search
+msgid "Date"
+msgstr "Data"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__date_end
+msgid "Date End"
+msgstr "Data final"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__date_start
+msgid "Date Start"
+msgstr "Data inicial"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Deliver"
+msgstr "Entregar"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__state__delivered
+msgid "Delivered"
+msgstr "Entregue"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__date_delivered
+msgid "Delivered on"
+msgstr "Entregue em"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__exit
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_photo__kind__exit
+msgid "Delivery"
+msgstr "Saída"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__description
+msgid "Description"
+msgstr "Descrição"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__diagnosis
+msgid "Diagnosis"
+msgstr "Diagnóstico"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__diesel
+#: model:workshop.sector,name:workshop_os.sector_diesel
+msgid "Diesel"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.sector,name:workshop_os.sector_steering
+msgid "Direção hidráulica"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_res_partner__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__display_name
+msgid "Display Name"
+msgstr "Nome exibido"
+
+#. module: workshop_os
+#: model:workshop.sector,name:workshop_os.sector_misc
+msgid "Diversos"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Do the arrival checklist"
+msgstr "Fazer o checklist de entrada"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_billing__state__draft
+msgid "Draft"
+msgstr "Rascunho"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Driver"
+msgstr "Nome do motorista"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__driver_name
+msgid "Driver or employee of the customer who brought the vehicle."
+msgstr "Motorista ou funcionário do cliente que trouxe o veículo."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__duration_hours
+msgid "Duration Hours"
+msgstr "Duração (horas)"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_photo__kind__work
+msgid "During the job"
+msgstr "Serviço"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__electric
+msgid "Electric"
+msgstr "Elétrico"
+
+#. module: workshop_os
+#: model:workshop.sector,name:workshop_os.sector_electric
+msgid "Elétrica"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_working
+msgid "Em serviço"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_road
+msgid "Em teste na rua"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Empty plate"
+msgstr "Placa vazia"
+
+#. module: workshop_os
+#: model:workshop.checklist.template,name:workshop_os.checklist_truck_entry
+msgid "Entrada do caminhão"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_office
+msgid "Escritório"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_service__hours
+msgid "Estimated time, in hours (1.5 = 1h30)."
+msgstr "Tempo estimado, em horas (1.5 = 1h30)."
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__ethanol
+msgid "Ethanol"
+msgstr "Etanol"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__favorite
+msgid "Favorite"
+msgstr "Favorito"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_search
+msgid "Favourites"
+msgstr "Favoritos"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid "Fill in cloud name, API key and API secret first."
+msgstr "Preencha antes o cloud name, a chave de API e o segredo da API."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "Finished this month"
+msgstr "Concluídas no mês"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "Finished, not billed yet"
+msgstr "Concluídas, ainda não faturadas"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Fleet no."
+msgstr "Nº de frota"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__fleet_number
+msgid "Fleet number"
+msgstr "Nº de frota"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_partner__workshop_auto_approve
+#: model:ir.model.fields,help:workshop_os.field_res_users__workshop_auto_approve
+msgid ""
+"Fleet under contract: new orders and services start approved, no per-order "
+"approval needed."
+msgstr ""
+"Frota com contrato: novas OS e serviços já entram aprovados, sem precisar "
+"aprovar cada OS."
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__flex
+msgid "Flex"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__fold
+msgid "Fold"
+msgstr "Recolhida"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_stage__fold
+msgid "Folded in the kanban view."
+msgstr "Recolhida na visualização kanban."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_cloudinary_folder
+msgid "Folder"
+msgstr "Pasta"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_follower_ids
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_follower_ids
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_partner_ids
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_partner_ids
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (parceiros)"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Ícone do Font Awesome, ex.: fa-tasks"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__plate_display
+msgid "Formatted plate"
+msgstr "Placa formatada"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__date_from
+msgid "From"
+msgstr "De"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__fuel
+msgid "Fuel"
+msgstr "Combustível"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__gasoline
+msgid "Gasoline"
+msgstr "Gasolina"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "Goes into the next monthly closing"
+msgstr "Entra no próximo fechamento mensal"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Good afternoon"
+msgstr "Boa tarde"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Good evening"
+msgstr "Boa noite"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Good morning"
+msgstr "Bom dia"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__has_message
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__has_message
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__has_message
+msgid "Has Message"
+msgstr "Tem mensagem"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Hello! Work order %(name)s for %(plate)s: %(url)s"
+msgstr "Olá! Segue a ordem de serviço %(name)s da placa %(plate)s: %(url)s"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__stage_color
+#: model:ir.model.fields,help:workshop_os.field_workshop_stage__color
+msgid "Hex colour used on the kanban column and the mechanic app."
+msgstr "Cor hexadecimal usada na coluna do kanban e no app do mecânico."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_accent_color
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_accent_color
+msgid "Highlight colour of the mechanic app and the customer pages."
+msgstr "Cor de destaque do app do mecânico e das páginas do cliente."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "History"
+msgstr "Histórico"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_list
+msgid "Hours"
+msgstr "Horas"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__hours
+msgid "Hours (each)"
+msgstr "Horas (cada)"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_service__usage_count
+msgid "How many order lines used this service."
+msgstr "Quantas vezes este serviço foi usado em OS."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__id
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__id
+#: model:ir.model.fields,field_description:workshop_os.field_res_partner__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__id
+msgid "ID"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_exception_icon
+msgid "Icon"
+msgstr "Ícone"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ícone para indicar uma atividade excepcional."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_billing__message_needaction
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__message_needaction
+#: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Se marcado, novas mensagens precisam da sua atenção."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_billing__message_has_error
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__message_has_error
+#: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Se marcado, algumas mensagens têm erro de entrega."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "In the yard"
+msgstr "Na oficina"
+
+#. module: workshop_os
+#: model:workshop.sector,name:workshop_os.sector_injection
+msgid "Injeção eletrônica"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__inspection
+msgid "Inspection"
+msgstr "Inspeção"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__internal_notes
+msgid "Internal Notes"
+msgstr "Observações internas"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_billing__state__invoiced
+msgid "Invoiced"
+msgstr "Faturado"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_is_follower
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_is_follower
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_is_follower
+msgid "Is Follower"
+msgstr "É seguidor"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__is_late
+msgid "Is Late"
+msgstr "Em atraso"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__item_count
+msgid "Item Count"
+msgstr "Qtd. de itens"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__item_ids
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_checklist_template_view_list
+msgid "Items"
+msgstr "Itens"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Job"
+msgstr "Serviço"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Job ready"
+msgstr "Serviço pronto"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__kind
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__kind
+msgid "Kind"
+msgstr "Tipo"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__hours_total
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__hours
+msgid "Labour hours"
+msgstr "Horas de mão de obra"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Labour:"
+msgstr "Mão de obra:"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__write_uid
+msgid "Last Updated by"
+msgstr "Última atualização por"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__write_date
+msgid "Last Updated on"
+msgstr "Última atualização em"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__last_visit
+msgid "Last Visit"
+msgstr "Última visita"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__odometer
+msgid "Last odometer (km)"
+msgstr "Último hodômetro (km)"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Late"
+msgstr "Em atraso"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__light
+msgid "Light vehicle"
+msgstr "Veículo leve"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "Load orders of the period"
+msgstr "Carregar OS do período"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_billing.py:0
+msgid "Load the orders of the period before confirming."
+msgstr "Carregue as OS do período antes de confirmar."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__location_id
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Location"
+msgstr "Localização"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_location
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_locations
+msgid "Locations"
+msgstr "Localizações"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Looking up…"
+msgstr "Consultando…"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Mark %s as ready before delivering it."
+msgstr "Marque a %s como pronta antes de entregá-la."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "Mark paid"
+msgstr "Marcar como pago"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Mark ready"
+msgstr "Marcar como pronta"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__user_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__user_id
+#: model:res.groups,name:workshop_os.group_workshop_user
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Mechanic"
+msgstr "Mecânico"
+
+#. module: workshop_os
+#: model:ir.actions.client,name:workshop_os.action_mechanic_app
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_app
+msgid "Mechanic App"
+msgstr "App do mecânico"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "Mechanic app"
+msgstr "App do mecânico"
+
+#. module: workshop_os
+#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_order
+msgid ""
+"Mechanics open orders from the phone app by typing the plate; the office "
+"follows the yard here."
+msgstr ""
+"Os mecânicos abrem OS pelo app no celular digitando a placa; o escritório "
+"acompanha a oficina por aqui."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Menu"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_has_error
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_has_error
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_has_error
+msgid "Message Delivery error"
+msgstr "Erro na entrega da mensagem"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_ids
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_ids
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_ids
+msgid "Messages"
+msgstr "Mensagens"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__model
+msgid "Model"
+msgstr "Modelo"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Month"
+msgstr "Mês"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_billing
+#: model:ir.model,name:workshop_os.model_workshop_billing
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_billing
+msgid "Monthly Closing"
+msgstr "Fechamento mensal"
+
+#. module: workshop_os
+#: model:ir.actions.report,name:workshop_os.action_report_workshop_billing
+msgid "Monthly Report"
+msgstr "Relatório mensal"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__billing_id
+msgid "Monthly closing"
+msgstr "Fechamento mensal"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+msgid "Monthly report"
+msgstr "Relatório mensal"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Prazo da minha atividade"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "My orders"
+msgstr "Minhas OS"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_checklist__result__na
+msgid "N/A"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_queue
+msgid "Na fila"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__name
+msgid "Name"
+msgstr "Nome"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "New order"
+msgstr "Nova OS"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "New vehicle"
+msgstr "Veículo novo"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "New vehicle: we will register it now."
+msgstr "Veículo novo: vamos cadastrá-lo agora."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Prazo da próxima atividade"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumo da próxima atividade"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo da próxima atividade"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "No checklist on this order yet."
+msgstr "Esta OS ainda não tem checklist."
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_customer
+msgid "No cliente"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "No finished orders this month yet."
+msgstr "Nenhuma OS concluída neste mês ainda."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid "No image received."
+msgstr "Nenhuma imagem recebida."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "No open orders here. Tap + to receive a vehicle."
+msgstr "Nenhuma OS aberta aqui. Toque em + para receber um veículo."
+
+#. module: workshop_os
+#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_order
+msgid "No open work orders"
+msgstr "Nenhuma OS aberta"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "No services yet."
+msgstr "Nenhum serviço ainda."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "No vehicle waiting for the customer."
+msgstr "Nenhum veículo aguardando retirada."
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__priority__0
+msgid "Normal"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Not a valid plate."
+msgstr "Placa inválida."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__note
+msgid "Note"
+msgstr "Observação"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__notes
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__notes
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "Notes"
+msgstr "Observações"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_form
+msgid "Notes about this vehicle..."
+msgstr "Observações sobre este veículo..."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Nothing found for this search."
+msgstr "Nada encontrado nesta busca."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "Nothing late. Nice."
+msgstr "Nada atrasado. Boa!"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__name
+msgid "Number"
+msgstr "Número"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_needaction_counter
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_needaction_counter
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de ações"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_has_error_counter
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_has_error_counter
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de erros"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_billing__message_needaction_counter
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__message_needaction_counter
+#: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensagens que exigem ação"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_billing__message_has_error_counter
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__message_has_error_counter
+#: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensagens com erro de entrega"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_checklist__result__ok
+msgid "OK"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Odometer"
+msgstr "Hodômetro"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__odometer
+msgid "Odometer (km)"
+msgstr "Hodômetro (km)"
+
+#. module: workshop_os
+#: model:res.groups,name:workshop_os.group_workshop_manager
+msgid "Office"
+msgstr "Escritório"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Office view"
+msgstr "Visão do escritório"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_billing.py:0
+msgid "Only draft closings can be changed."
+msgstr "Só é possível alterar fechamentos em rascunho."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_billing.py:0
+msgid "Only draft closings can be deleted."
+msgstr "Só é possível excluir fechamentos em rascunho."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Only for the team"
+msgstr "Só para a equipe"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Only the office can approve an order."
+msgstr "Somente o escritório pode aprovar uma OS."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Open"
+msgstr "Abertas"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__open_order_id
+msgid "Open Order"
+msgstr "OS aberta"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Open current order"
+msgstr "Abrir OS atual"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_list
+msgid "Open orders"
+msgstr "OS abertas"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Open work order"
+msgstr "Abrir OS"
+
+#. module: workshop_os
+#: model:res.groups,comment:workshop_os.group_workshop_user
+msgid ""
+"Opens and runs work orders, takes photos and fills checklists. Cannot "
+"approve or bill."
+msgstr ""
+"Abre e executa OS, tira fotos e preenche checklists. Não pode aprovar nem "
+"faturar."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__order_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__order_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__order_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__order_id
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+msgid "Order"
+msgstr "OS"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__order_count
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__order_count
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__order_count
+msgid "Order Count"
+msgstr "Qtd. de OS"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__open_order_id
+msgid "Order currently open for this vehicle, if any."
+msgstr "OS aberta no momento para este veículo, se houver."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Order, plate or customer"
+msgstr "OS, placa ou cliente"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_list
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_form
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_list
+msgid "Orders"
+msgstr "OS"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Orders already included in a monthly closing cannot be cancelled."
+msgstr "OS já incluídas em um fechamento mensal não podem ser canceladas."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Orders already included in a monthly closing cannot be reopened."
+msgstr "OS já incluídas em um fechamento mensal não podem ser reabertas."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_billing.py:0
+msgid "Orders: %s"
+msgstr "OS: %s"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__other
+msgid "Other"
+msgstr "Outro"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_billing__state__paid
+msgid "Paid"
+msgstr "Pago"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_service__cost
+msgid "Parts or third-party cost, for margin reports."
+msgstr "Custo de peças ou de terceiros, para relatórios de margem."
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_line__approval__pending
+msgid "Pending"
+msgstr "Pendente"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "Period"
+msgstr "Período"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Photo"
+msgstr "Foto"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__photo_count
+msgid "Photo Count"
+msgstr "Qtd. de fotos"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Photo not sent"
+msgstr "Foto não enviada"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Photo of the vehicle"
+msgstr "Foto do veículo"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_photo_storage
+msgid "Photo storage"
+msgstr "Armazenamento de fotos"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__photo_ids
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Photos"
+msgstr "Fotos"
+
+#. module: workshop_os
+#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_billing
+msgid ""
+"Pick the customer and the period, load the finished orders, print the report"
+" and issue the NFS-e."
+msgstr ""
+"Escolha o cliente e o período, carregue as OS concluídas, imprima o "
+"relatório e emita a NFS-e."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/fields.js:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__plate
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__plate
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_list
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_search
+msgid "Plate"
+msgstr "Placa"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Plate, order or customer"
+msgstr "Placa, OS ou cliente"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Please type your name."
+msgstr "Digite seu nome."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_partner__workshop_auto_approve
+#: model:ir.model.fields,field_description:workshop_os.field_res_users__workshop_auto_approve
+msgid "Pre-approved orders"
+msgstr "Aprovação automática"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__list_price
+msgid "Price"
+msgstr "Preço"
+
+#. module: workshop_os
+#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_service
+msgid ""
+"Price and labour hours are copied to the work order. Starred services become one-tap buttons in the\n"
+"                mechanic app."
+msgstr ""
+"Preço e horas de mão de obra são copiados para a OS. Serviços com estrela viram botões de um toque no\n"
+"                app do mecânico."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Print"
+msgstr "Imprimir"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "Print report"
+msgstr "Imprimir relatório"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Printed on every work order"
+msgstr "Impresso em todas as OS"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__priority
+msgid "Priority"
+msgstr "Prioridade"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_checklist__result__fail
+msgid "Problem"
+msgstr "Com defeito"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Problem and diagnosis"
+msgstr "Problema e diagnóstico"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__date_promised
+msgid "Promised for"
+msgstr "Previsão"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__public_id
+msgid "Public"
+msgstr "ID público"
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_yard
+msgid "Pátio"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Qty"
+msgstr "Qtd."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__quantity
+msgid "Quantity"
+msgstr "Quantidade"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "R 450"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__state__done
+msgid "Ready"
+msgstr "Pronta"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Ready for pickup"
+msgstr "Prontas para retirada"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__date_done
+msgid "Ready on"
+msgstr "Concluída em"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Receive vehicle"
+msgstr "Receber veículo"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Refresh"
+msgstr "Atualizar"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Reject"
+msgstr "Recusar"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Reject the quote"
+msgstr "Recusar o orçamento"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__state__rejected
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_line__approval__rejected
+msgid "Rejected"
+msgstr "Recusada"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Rejected by"
+msgstr "Recusado por"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Rejected online by %(name)s."
+msgstr "Recusada on-line por %(name)s."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Remove"
+msgstr "Remover"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Reopen"
+msgstr "Reabrir"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__complaint
+msgid "Reported problem"
+msgstr "Problema relatado"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_user_id
+msgid "Responsible User"
+msgstr "Usuário responsável"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__result
+msgid "Result"
+msgstr "Resultado"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__rework
+msgid "Return of a previous job (reserviço)."
+msgstr "Retorno de um serviço anterior (reserviço)."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__rework
+msgid "Rework"
+msgstr "Retrabalho"
+
+#. module: workshop_os
+#: model:workshop.checklist.template,name:workshop_os.checklist_truck_exit
+msgid "Saída do caminhão"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Scania"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Search services"
+msgstr "Buscar serviços"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__section
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__section
+msgid "Section"
+msgstr "Seção"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__sector_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__sector_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__sector_id
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_search
+msgid "Sector"
+msgstr "Setor"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_sector
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_sectors
+msgid "Sectors"
+msgstr "Setores"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Send to customer"
+msgstr "Enviar ao cliente"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Sending"
+msgstr "Enviando"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__sequence
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__sequence
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_location__sequence
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__sequence
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__sequence
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__sequence
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__sequence
+msgid "Sequence"
+msgstr "Sequência"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__service_id
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Service"
+msgstr "Serviço"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Service added"
+msgstr "Serviço adicionado"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_service
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__line_ids
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_services
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Services"
+msgstr "Serviços"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_order_line_analysis
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_analysis
+msgid "Services Analysis"
+msgstr "Análise de serviços"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_billing.py:0
+msgid "Services on %(count)s work orders, %(start)s to %(end)s:"
+msgstr "Serviços em %(count)s OS, de %(start)s a %(end)s:"
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_stopped
+msgid "Serviço parado"
+msgstr ""
+
+#. module: workshop_os
+#: model:workshop.sector,name:workshop_os.sector_third
+msgid "Serviços de terceiros"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order_photo__attachment_id
+msgid "Set when photos are stored in the database."
+msgstr "Preenchido quando as fotos ficam no banco de dados."
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_settings
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_settings
+msgid "Settings"
+msgstr "Configurações"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__show_to_customer
+msgid "Show To Customer"
+msgstr "Mostrar ao cliente"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_service__favorite
+msgid "Shown as a one-tap button in the mechanic app."
+msgstr "Aparece como botão de um toque no app do mecânico."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_partner__workshop_customer
+#: model:ir.model.fields,help:workshop_os.field_res_users__workshop_customer
+msgid "Shown in the customer list of the mechanic app."
+msgstr "Aparece na lista de clientes do app do mecânico."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_terms_text
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_terms_text
+msgid "Shown to the customer on the approval page."
+msgstr "Exibido ao cliente na página de aprovação."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Sign out"
+msgstr "Sair"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__stage_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__stage_id
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "Stage"
+msgstr "Situação"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__stage_since
+msgid "Stage Since"
+msgstr "Na situação desde"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Stage for"
+msgstr "Na situação há"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__stage_log_ids
+msgid "Stage history"
+msgstr "Histórico de situações"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_stage
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_stages
+msgid "Stages"
+msgstr "Situações"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Start “"
+msgstr "Iniciar “"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__state
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__state
+msgid "State"
+msgstr "Status"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Status"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status baseado nas atividades\n"
+"Atrasada: a data de vencimento já passou\n"
+"Hoje: a data da atividade é hoje\n"
+"Planejada: atividades futuras."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__subtotal
+msgid "Subtotal"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid ""
+"Take photos of the problem: the customer sees them on the approval link."
+msgstr "Fotografe o problema: o cliente vê as fotos no link de aprovação."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__template_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__template_id
+msgid "Template"
+msgstr "Modelo"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Test connection"
+msgstr "Testar conexão"
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_test
+msgid "Teste / conferência"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Texts"
+msgstr "Textos"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "The customer accepts these terms on the approval page"
+msgstr "O cliente aceita estes termos na página de aprovação"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__fleet_number
+msgid "The customer's own number for this vehicle (prefixo, frota)."
+msgstr "Número que o próprio cliente usa para este veículo (prefixo, frota)."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid ""
+"The logo comes from the company; the accent colour marks buttons and "
+"highlights in the app and on customer pages"
+msgstr ""
+"O logotipo vem da empresa; a cor de destaque marca botões e destaques no app"
+" e nas páginas do cliente"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "This order was already answered."
+msgstr "Esta OS já foi respondida."
+
+#. module: workshop_os
+#: model:ir.model.constraint,message:workshop_os.constraint_workshop_vehicle_plate_company_uniq
+msgid "This plate is already registered."
+msgstr "Esta placa já está cadastrada."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "This vehicle already has an open order; opening it."
+msgstr "Este veículo já tem OS aberta. Abrindo…"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "This vehicle is already in the yard as"
+msgstr "Este veículo já está na oficina com a"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__thumb_url
+msgid "Thumb Url"
+msgstr "URL da miniatura"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/fields.js:0
+msgid "Time elapsed"
+msgstr "Tempo decorrido"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/fields.xml:0
+msgid "Time in the current stage"
+msgstr "Tempo na situação atual"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order_stage_log__is_waiting
+#: model:ir.model.fields,help:workshop_os.field_workshop_stage__is_waiting
+msgid ""
+"Time in this stage does not count as work time (waiting for parts, for "
+"approval...)."
+msgstr ""
+"O tempo nesta situação não conta como tempo de trabalho (aguardando peças, "
+"aprovação...)."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Timeline"
+msgstr "Histórico"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__date_to
+msgid "To"
+msgstr "Até"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "To approve"
+msgstr "A aprovar"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
+msgid "To bill"
+msgstr "A faturar"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_list
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_list
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_list
+msgid "Total"
+msgstr ""
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__truck
+msgid "Truck"
+msgstr "Caminhão"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_checklist_template_view_form
+msgid "Truck arrival"
+msgstr "Entrada do caminhão"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo da atividade excepcional no registro."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Type the plate"
+msgstr "Digite a placa"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Unit"
+msgstr "Unitário"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__price_unit
+msgid "Unit price"
+msgstr "Preço unitário"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Unknown action."
+msgstr "Ação desconhecida."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Unsupported search on late orders."
+msgstr "Busca não suportada em OS atrasadas."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Updated"
+msgstr "Atualizado"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__priority__1
+msgid "Urgent"
+msgstr "Urgente"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__url
+msgid "Url"
+msgstr "URL"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__usage_count
+msgid "Usage Count"
+msgstr "Qtd. de usos"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_list
+msgid "Used"
+msgstr "Usos"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__user_id
+msgid "User"
+msgstr "Usuário"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__chassis
+msgid "VIN / chassis"
+msgstr "Chassi"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_vehicle
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__vehicle_id
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "Vehicle"
+msgstr "Veículo"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Vehicle %(plate)s belongs to %(owner)s, not to %(partner)s."
+msgstr "O veículo %(plate)s pertence a %(owner)s, não a %(partner)s."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__vehicle_type
+msgid "Vehicle Type"
+msgstr "Tipo de veículo"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__vehicle_desc
+msgid "Vehicle model"
+msgstr "Modelo"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_vehicle
+#: model:ir.model.fields,field_description:workshop_os.field_res_partner__workshop_vehicle_ids
+#: model:ir.model.fields,field_description:workshop_os.field_res_users__workshop_vehicle_ids
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_vehicles
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_partner_view_form_workshop
+msgid "Vehicles"
+msgstr "Veículos"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__is_waiting
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__is_waiting
+msgid "Waiting stage"
+msgstr "Situação de espera"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Warranty"
+msgstr "Garantia"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__warranty_text
+msgid "Warranty Text"
+msgstr "Texto de garantia"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_warranty_text
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_warranty_text
+msgid "Warranty text"
+msgstr "Texto de garantia"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "What is the problem?"
+msgstr "Qual é o problema?"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "What the driver reported"
+msgstr "O que o motorista relatou"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "What the mechanic found"
+msgstr "O que o mecânico encontrou"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "What we found"
+msgstr "O que encontramos"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "WhatsApp"
+msgstr ""
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Where photos are stored"
+msgstr "Onde as fotos ficam salvas"
+
+#. module: workshop_os
+#: model:ir.actions.report,name:workshop_os.action_report_workshop_order
+#: model:ir.model,name:workshop_os.model_workshop_order
+msgid "Work Order"
+msgstr "Ordem de serviço"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_order_checklist
+msgid "Work Order Checklist Answer"
+msgstr "Resposta do checklist da OS"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_order_photo
+msgid "Work Order Photo"
+msgstr "Foto da OS"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_order_line
+msgid "Work Order Service"
+msgstr "Serviço da OS"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_stage
+msgid "Work Order Stage"
+msgstr "Situação da OS"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_order_stage_log
+msgid "Work Order Stage History"
+msgstr "Histórico de situações da OS"
+
+#. module: workshop_os
+#: model:ir.actions.act_window,name:workshop_os.action_workshop_order
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_orders
+msgid "Work Orders"
+msgstr "Ordens de serviço"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Work order"
+msgstr "Ordem de serviço"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Work order %(name)s, %(plate)s:"
+msgstr "Ordem de serviço %(name)s, placa %(plate)s:"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__order_ids
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__order_ids
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_partner_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
+msgid "Work orders"
+msgstr "Ordens de serviço"
+
+#. module: workshop_os
+#: model:ir.module.category,name:workshop_os.module_category_workshop
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_root
+#: model:res.groups.privilege,name:workshop_os.res_groups_privilege_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_partner_view_form_workshop
+msgid "Workshop"
+msgstr "Oficina"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_location
+msgid "Workshop Location"
+msgstr "Localização da oficina"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_partner__workshop_order_count
+#: model:ir.model.fields,field_description:workshop_os.field_res_users__workshop_order_count
+msgid "Workshop Order Count"
+msgstr "Qtd. de OS"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_sector
+msgid "Workshop Sector"
+msgstr "Setor da oficina"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_service
+msgid "Workshop Service"
+msgstr "Serviço da oficina"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_partner__workshop_vehicle_count
+#: model:ir.model.fields,field_description:workshop_os.field_res_users__workshop_vehicle_count
+msgid "Workshop Vehicle Count"
+msgstr "Qtd. de veículos"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_partner__workshop_customer
+#: model:ir.model.fields,field_description:workshop_os.field_res_users__workshop_customer
+msgid "Workshop customer"
+msgstr "Cliente da oficina"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+#: model:ir.actions.client,name:workshop_os.action_workshop_dashboard
+#: model:ir.ui.menu,name:workshop_os.menu_workshop_dashboard
+msgid "Yard"
+msgstr "Painel"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__year
+msgid "Year"
+msgstr "Ano"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Your name"
+msgstr "Seu nome"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "e.g. left headlight without high beam"
+msgstr "ex.: farol esquerdo sem luz alta"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "h"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "h average in the yard"
+msgstr "h em média na oficina"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "km"
+msgstr ""
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.xml:0
+msgid "orders ·"
+msgstr "OS ·"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "photo(s)…"
+msgstr "foto(s)…"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "previous orders ·"
+msgstr "OS anteriores ·"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "selected"
+msgstr "selecionado(s)"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+msgid "to"
+msgstr "a"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+msgid "work orders"
+msgstr "OS"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "· awaiting approval"
+msgstr "· aguardando aprovação"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "· promised"
+msgstr "· previsão"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "· rejected"
+msgstr "· recusado"

@@ -1,3 +1,4 @@
+/** @odoo-module ignore **/
 /* Customer page: live total of the chosen items, signature pad and the approve/reject call. No framework on purpose:
  * this page must open fast on a cheap phone over 4G. */
 (function () {
@@ -16,7 +17,10 @@
     const canvas = document.getElementById("wo-sign");
     const checks = Array.from(document.querySelectorAll(".wo-line__check"));
     const totalOut = document.getElementById("wo-approve-total");
-    const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+    const money = new Intl.NumberFormat(document.documentElement.lang || "pt-BR", {
+        style: "currency",
+        currency: bar.dataset.currency || "BRL",
+    });
     let mode = "approve";
     let signed = false;
 

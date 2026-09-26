@@ -21,6 +21,7 @@ class TestPublicPage(HttpCase):
         response = self.url_open(f"/os/{self.order.access_token}")
         self.assertEqual(response.status_code, 200)
         self.assertIn("PUB1C23", response.text)
+        self.assertIn('<html lang="en-US">', response.text, "a BCP 47 tag, or Intl.NumberFormat throws in the page")
         self.assertIn("Harness repair", response.text)
 
         self.assertEqual(self.url_open("/os/not-a-real-token-at-all").status_code, 404)

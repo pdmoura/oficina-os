@@ -13,6 +13,7 @@
                 <progressbar field="state" colors='{"draft": "warning", "approved": "success", "rejected": "danger", "done": "info"}'/>
                 <templates>
                     <t t-name="card" class="o_workshop_card">
+                        <div class="o_workshop_card_stripe" t-attf-style="background: {{ record.stage_color.raw_value or '#64748B' }}"/>
                         <div class="d-flex align-items-center gap-2">
                             <field name="priority" widget="priority"/>
                             <field name="name" class="fw-bold small text-muted"/>
@@ -22,7 +23,7 @@
                         </div>
                         <div class="d-flex align-items-center gap-2 mt-2">
                             <field name="plate" widget="workshop_plate"/>
-                            <field name="vehicle_id" class="small text-truncate" options="{'no_open': True}"/>
+                            <field name="vehicle_desc" class="small text-truncate text-muted"/>
                         </div>
                         <field name="partner_id" class="fw-semibold text-truncate mt-1"/>
                         <footer class="pt-2 small">
@@ -50,7 +51,7 @@
                 <field name="name"/>
                 <field name="date_in" widget="date"/>
                 <field name="plate" widget="workshop_plate"/>
-                <field name="vehicle_id" optional="show"/>
+                <field name="vehicle_desc" optional="show"/>
                 <field name="partner_id"/>
                 <field name="driver_name" optional="hide"/>
                 <field name="sector_id" optional="hide"/>

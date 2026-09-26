@@ -1,9 +1,12 @@
 // Office views: kanban cards that read like the yard.
 .o_workshop_kanban {
     .o_kanban_record.o_workshop_card {
+        position: relative;
         border-radius: 12px;
-        border-left: 4px solid var(--o-workshop-stage, #64748b);
+        overflow: hidden;
+        padding-left: 14px;
     }
+    .o_workshop_card_stripe { position: absolute; inset: 0 auto 0 0; width: 4px; }
     .o_workshop_chip {
         background: var(--o-gray-100, #f3f4f6);
         border-radius: 999px;

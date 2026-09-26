@@ -3,7 +3,7 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, onMounted, onWillStart, onWillUnmount, useRef, useState } from "@odoo/owl";
 
 import {
-    displayPlate, elapsedSince, isValidPlate, normalizePlate, shareLink, shortDate, uploadPhoto,
+    bindMethods, displayPlate, elapsedSince, isValidPlate, normalizePlate, shareLink, shortDate, uploadPhoto,
 } from "./utils";
 
 const { DateTime } = luxon;
@@ -26,6 +26,7 @@ export class HomeScreen extends Component {
     static props = { app: Object };
 
     setup() {
+        bindMethods(this);
         this.orm = useService("orm");
         this.state = useState({ data: null, search: "", stageId: null, loading: true, now: DateTime.now() });
         onWillStart(() => this.load());
@@ -90,6 +91,7 @@ export class NewOrderScreen extends Component {
     static props = { app: Object };
 
     setup() {
+        bindMethods(this);
         this.orm = useService("orm");
         this.notification = useService("notification");
         this.plateInput = useRef("plate");
@@ -250,6 +252,7 @@ export class OrderScreen extends Component {
     static props = { app: Object, orderId: Number };
 
     setup() {
+        bindMethods(this);
         this.orm = useService("orm");
         this.notification = useService("notification");
         this.fileInput = useRef("file");
