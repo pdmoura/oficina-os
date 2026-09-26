@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_workshop" model="ir.ui.view">
+        <field name="name">res.config.settings.form.workshop</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Workshop" name="workshop_os" groups="workshop_os.group_workshop_manager">
+                    <block title="Brand" name="workshop_brand">
+                        <setting string="Colours and logo" help="The logo comes from the company; the accent colour marks buttons and highlights in the app and on customer pages">
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label for="workshop_accent_color" class="col-lg-4 o_light_label"/>
+                                    <field name="workshop_accent_color" widget="color"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Texts" name="workshop_texts">
+                        <setting string="Warranty" help="Printed on every work order">
+                            <field name="workshop_warranty_text" class="w-100"/>
+                        </setting>
+                        <setting string="Approval terms" help="The customer accepts these terms on the approval page">
+                            <field name="workshop_terms_text" class="w-100"/>
+                        </setting>
+                    </block>
+                    <block title="Photos" name="workshop_photos">
+                        <setting string="Where photos are stored"
+                                 help="Database works everywhere. Cloudinary keeps the database small and serves images faster">
+                            <field name="workshop_photo_storage" widget="radio"/>
+                            <div class="content-group" invisible="workshop_photo_storage != 'cloudinary'">
+                                <div class="row mt8">
+                                    <label for="workshop_cloudinary_cloud_name" class="col-lg-4 o_light_label"/>
+                                    <field name="workshop_cloudinary_cloud_name"/>
+                                </div>
+                                <div class="row">
+                                    <label for="workshop_cloudinary_api_key" class="col-lg-4 o_light_label"/>
+                                    <field name="workshop_cloudinary_api_key"/>
+                                </div>
+                                <div class="row">
+                                    <label for="workshop_cloudinary_api_secret" class="col-lg-4 o_light_label"/>
+                                    <field name="workshop_cloudinary_api_secret" password="True"/>
+                                </div>
+                                <div class="row">
+                                    <label for="workshop_cloudinary_folder" class="col-lg-4 o_light_label"/>
+                                    <field name="workshop_cloudinary_folder"/>
+                                </div>
+                                <button name="action_workshop_test_cloudinary" type="object" string="Test connection"
+                                        class="btn-link" icon="oi-arrow-right"/>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_workshop_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'module': 'workshop_os', 'bin_size': False}</field>
+    </record>
+</odoo>

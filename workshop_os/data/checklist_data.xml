@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Arrival and delivery checklists for trucks, focused on electrical and air-conditioning work. -->
+<odoo noupdate="1">
+    <record id="checklist_truck_entry" model="workshop.checklist.template">
+        <field name="name">Entrada do caminhão</field>
+        <field name="kind">entry</field>
+        <field name="vehicle_type">truck</field>
+        <field name="sequence">1</field>
+        <field name="item_ids" eval="[
+            (0, 0, {'sequence': 1, 'section': 'Cabine', 'name': 'Painel sem luzes de alerta'}),
+            (0, 0, {'sequence': 2, 'section': 'Cabine', 'name': 'Tacógrafo funcionando'}),
+            (0, 0, {'sequence': 3, 'section': 'Cabine', 'name': 'Nível de combustível anotado'}),
+            (0, 0, {'sequence': 4, 'section': 'Cabine', 'name': 'Pertences do motorista conferidos'}),
+            (0, 0, {'sequence': 10, 'section': 'Elétrica', 'name': 'Farol baixo (esquerdo e direito)'}),
+            (0, 0, {'sequence': 11, 'section': 'Elétrica', 'name': 'Farol alto'}),
+            (0, 0, {'sequence': 12, 'section': 'Elétrica', 'name': 'Lanternas traseiras'}),
+            (0, 0, {'sequence': 13, 'section': 'Elétrica', 'name': 'Setas e pisca-alerta'}),
+            (0, 0, {'sequence': 14, 'section': 'Elétrica', 'name': 'Luz de freio'}),
+            (0, 0, {'sequence': 15, 'section': 'Elétrica', 'name': 'Luz e alarme de ré'}),
+            (0, 0, {'sequence': 16, 'section': 'Elétrica', 'name': 'Buzina'}),
+            (0, 0, {'sequence': 17, 'section': 'Elétrica', 'name': 'Limpador e esguicho'}),
+            (0, 0, {'sequence': 18, 'section': 'Elétrica', 'name': 'Baterias: fixação e terminais'}),
+            (0, 0, {'sequence': 19, 'section': 'Elétrica', 'name': 'Carga do alternador'}),
+            (0, 0, {'sequence': 20, 'section': 'Elétrica', 'name': 'Tomada elétrica do semirreboque'}),
+            (0, 0, {'sequence': 30, 'section': 'Ar condicionado', 'name': 'Ar condicionado gelando'}),
+            (0, 0, {'sequence': 31, 'section': 'Ar condicionado', 'name': 'Ventilação da cabine'}),
+            (0, 0, {'sequence': 40, 'section': 'Externo', 'name': 'Para-brisa sem trincas'}),
+            (0, 0, {'sequence': 41, 'section': 'Externo', 'name': 'Retrovisores'}),
+            (0, 0, {'sequence': 42, 'section': 'Externo', 'name': 'Avarias na lataria (fotografar)'}),
+            (0, 0, {'sequence': 43, 'section': 'Externo', 'name': 'Vazamentos aparentes'}),
+            (0, 0, {'sequence': 44, 'section': 'Externo', 'name': 'Arla 32: nível e mangueiras'}),
+        ]"/>
+    </record>
+
+    <record id="checklist_truck_exit" model="workshop.checklist.template">
+        <field name="name">Saída do caminhão</field>
+        <field name="kind">exit</field>
+        <field name="vehicle_type">truck</field>
+        <field name="sequence">2</field>
+        <field name="item_ids" eval="[
+            (0, 0, {'sequence': 1, 'section': 'Serviço', 'name': 'Todos os itens aprovados executados'}),
+            (0, 0, {'sequence': 2, 'section': 'Serviço', 'name': 'Peças substituídas separadas para o cliente'}),
+            (0, 0, {'sequence': 10, 'section': 'Teste', 'name': 'Todas as luzes testadas'}),
+            (0, 0, {'sequence': 11, 'section': 'Teste', 'name': 'Painel sem alertas'}),
+            (0, 0, {'sequence': 12, 'section': 'Teste', 'name': 'Teste de rodagem feito'}),
+            (0, 0, {'sequence': 20, 'section': 'Entrega', 'name': 'Cabine limpa'}),
+            (0, 0, {'sequence': 21, 'section': 'Entrega', 'name': 'Km de saída anotado'}),
+        ]"/>
+    </record>
+</odoo>

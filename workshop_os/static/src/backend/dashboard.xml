@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="workshop_os.Dashboard">
+        <div class="o_workshop_dashboard" t-att-style="accentStyle">
+            <t t-set="d" t-value="state.data"/>
+            <div class="wd-wrap" t-if="d">
+                <header class="wd-head">
+                    <div>
+                        <span class="wd-eyebrow" t-esc="d.company.name"/>
+                        <h1>Yard</h1>
+                    </div>
+                    <div class="wd-head__actions">
+                        <button class="wd-btn wd-btn--ghost" t-on-click="openApp"><i class="fa fa-mobile"/> Mechanic app</button>
+                        <button class="wd-btn" t-on-click="openKanban"><i class="fa fa-th-large"/> All orders</button>
+                    </div>
+                </header>
+
+                <section class="wd-kpis">
+                    <button class="wd-kpi" t-on-click="() => openOrders([['state', 'in', ['draft', 'approved', 'done']]], 'Open')">
+                        <span>In the yard</span><strong t-esc="d.kpis.open"/>
+                    </button>
+                    <button class="wd-kpi" t-att-class="d.kpis.late ? 'is-danger' : ''" t-on-click="() => openOrders([['is_late', '=', true]], 'Late')">
+                        <span>Late</span><strong t-esc="d.kpis.late"/>
+                    </button>
+                    <button class="wd-kpi" t-att-class="d.kpis.to_approve ? 'is-warning' : ''" t-on-click="() => openOrders([['state', '=', 'draft']], 'To approve')">
+                        <span>Awaiting approval</span><strong t-esc="d.kpis.to_approve"/>
+                    </button>
+                    <button class="wd-kpi is-info" t-on-click="() => openOrders([['state', '=', 'done']], 'Ready')">
+                        <span>Ready for pickup</span><strong t-esc="d.kpis.ready"/>
+                    </button>
+                    <div class="wd-kpi wd-kpi--wide">
+                        <span>Finished this month</span>
+                        <strong t-esc="d.kpis.revenue_month"/>
+                        <small><t t-esc="d.kpis.done_month"/> orders · <t t-esc="d.kpis.avg_hours"/> h average in the yard</small>
+                    </div>
+                    <div class="wd-kpi wd-kpi--wide">
+                        <span>Finished, not billed yet</span>
+                        <strong t-esc="d.kpis.to_bill"/>
+                        <small>Goes into the next monthly closing</small>
+                    </div>
+                </section>
+
+                <section class="wd-stages">
+                    <button t-foreach="d.stages" t-as="stage" t-key="stage.id" class="wd-stage" t-attf-style="--stage: {{ stage.color }}"
+                            t-on-click="() => openStage(stage)">
+                        <span t-esc="stage.name"/>
+                        <strong t-esc="stage.count"/>
+                    </button>
+                </section>
+
+                <div class="wd-grid">
+                    <section class="wd-panel">
+                        <h2><i class="fa fa-clock-o"/> Late</h2>
+                        <p t-if="!d.late.length" class="wd-muted">Nothing late. Nice.</p>
+                        <button t-foreach="d.late" t-as="o" t-key="o.id" class="wd-row" t-on-click="() => openOrder(o.id)">
+                            <span class="wo-plate"><span class="wo-plate__band">BRASIL</span><span class="wo-plate__text" t-esc="plate(o.plate)"/></span>
+                            <span class="wd-row__main"><strong t-esc="o.vehicle"/><small t-esc="o.partner"/></span>
+                            <span class="wd-tag" t-attf-style="--stage: {{ o.stage_color }}" t-esc="o.stage"/>
+                            <small class="wd-muted" t-esc="elapsed(o.stage_since)"/>
+                        </button>
+                    </section>
+                    <section class="wd-panel">
+                        <h2><i class="fa fa-check-circle"/> Ready for pickup</h2>
+                        <p t-if="!d.ready.length" class="wd-muted">No vehicle waiting for the customer.</p>
+                        <button t-foreach="d.ready" t-as="o" t-key="o.id" class="wd-row" t-on-click="() => openOrder(o.id)">
+                            <span class="wo-plate"><span class="wo-plate__band">BRASIL</span><span class="wo-plate__text" t-esc="plate(o.plate)"/></span>
+                            <span class="wd-row__main"><strong t-esc="o.vehicle"/><small t-esc="o.partner"/></span>
+                            <strong t-esc="o.amount_fmt"/>
+                        </button>
+                    </section>
+                    <section class="wd-panel">
+                        <h2><i class="fa fa-building-o"/> Customers this month</h2>
+                        <p t-if="!d.top_customers.length" class="wd-muted">No finished orders this month yet.</p>
+                        <div t-foreach="d.top_customers" t-as="c" t-key="c_index" class="wd-bar">
+                            <div class="wd-bar__label"><span t-esc="c.name"/><strong t-esc="c.amount"/></div>
+                            <div class="wd-bar__track"><div class="wd-bar__fill" t-attf-style="width: {{ c.share }}%"/></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

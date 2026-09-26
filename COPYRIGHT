@@ -1,0 +1,12 @@
+Oficina OS
+Copyright (c) 2026 Pedro Alves (https://github.com/pdmoura). All rights reserved.
+
+The modules workshop_os, workshop_os_nfse and l10n_br_nfse_nacional are licensed under the
+Odoo Proprietary License v1.0 (OPL-1), in the LICENSE file.
+
+Written agreement for evaluation: anyone may run the Software on their own computer to evaluate
+it, without using it in a real business. Any other use, in production or as a service for others,
+needs a license agreed in writing with the author.
+
+The files in l10n_br_nfse_nacional/data/xsd are the official schemas of the Sistema Nacional
+NFS-e and the W3C XML Signature schema, under their own terms.

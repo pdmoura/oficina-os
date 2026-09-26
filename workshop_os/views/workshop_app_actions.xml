@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Full-screen app for mechanics: no Odoo navbar, built for one hand on a phone. -->
+    <record id="action_mechanic_app" model="ir.actions.client">
+        <field name="name">Mechanic App</field>
+        <field name="tag">workshop_os.mechanic_app</field>
+        <field name="target">fullscreen</field>
+    </record>
+
+    <!-- Office cockpit: the yard at a glance. -->
+    <record id="action_workshop_dashboard" model="ir.actions.client">
+        <field name="name">Yard</field>
+        <field name="tag">workshop_os.dashboard</field>
+    </record>
+</odoo>

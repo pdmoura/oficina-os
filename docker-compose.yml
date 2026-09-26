@@ -1,0 +1,33 @@
+# Local Odoo 19 with the workshop modules mounted as extra addons.
+#   docker compose up -d db
+#   docker compose run --rm odoo odoo -d oficina -i workshop_os --with-demo --stop-after-init
+#   docker compose up -d odoo      -> http://localhost:8070 (admin / admin, mechanic: mecanico / mecanico)
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_DB: postgres
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  odoo:
+    image: odoo:19.0
+    depends_on:
+      - db
+    ports:
+      - "8070:8069"
+    environment:
+      HOST: db
+      USER: odoo
+      PASSWORD: odoo
+    command: ["odoo", "--workers=0", "--max-cron-threads=1", "--db_maxconn=8"]
+    volumes:
+      - ./workshop_os:/mnt/extra-addons/workshop_os
+      - ./l10n_br_nfse_nacional:/mnt/extra-addons/l10n_br_nfse_nacional
+      - odoo-data:/var/lib/odoo
+
+volumes:
+  db-data:
+  odoo-data:

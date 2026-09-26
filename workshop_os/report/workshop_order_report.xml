@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_workshop_order" model="ir.actions.report">
+        <field name="name">Work Order</field>
+        <field name="model">workshop.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">workshop_os.report_workshop_order</field>
+        <field name="report_file">workshop_os.report_workshop_order</field>
+        <field name="print_report_name">'%s - %s' % (object.name, object.plate or '')</field>
+        <field name="binding_model_id" ref="model_workshop_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_workshop_styles">
+        <style>
+            .wo { font-size: 12px; color: #1f2933; }
+            .wo h2 { font-size: 22px; margin: 0; }
+            .wo .muted { color: #6b7280; }
+            .wo .plate { display: inline-block; border: 2px solid #1f2933; border-radius: 6px; padding: 0 10px 2px;
+                         font-weight: 800; font-size: 18px; letter-spacing: 2px; background: #fff; }
+            .wo .plate:before { content: "BRASIL"; display: block; font-size: 6px; letter-spacing: 1px; text-align: center;
+                                background: #1d4fa0; color: #fff; margin: 0 -10px 2px; padding: 1px 0; }
+            .wo .box { border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; }
+            .wo .label { font-size: 9px; text-transform: uppercase; letter-spacing: .5px; color: #6b7280; }
+            .wo table.items { width: 100%; border-collapse: collapse; margin-top: 10px; }
+            .wo table.items th { font-size: 10px; text-transform: uppercase; color: #6b7280; border-bottom: 2px solid #1f2933;
+                                 padding: 6px 4px; text-align: left; }
+            .wo table.items td { border-bottom: 1px solid #eef0f3; padding: 6px 4px; }
+            .wo .total { font-size: 18px; font-weight: 800; }
+            .wo .photos img { width: 23%; margin: 0 1% 8px 0; border-radius: 6px; }
+            .wo .sign { border-top: 1px solid #1f2933; padding-top: 4px; text-align: center; margin-top: 48px; }
+            .wo .accent { color: <t t-out="(company.workshop_accent_color or '#E8B21E')"/>; }
+        </style>
+    </template>
+
+    <template id="report_workshop_order_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+            <t t-set="company" t-value="o.company_id"/>
+            <div class="page wo">
+                <t t-call="workshop_os.report_workshop_styles"/>
+                <table style="width: 100%; margin-bottom: 12px;">
+                    <tr>
+                        <td style="vertical-align: middle;">
+                            <div class="label">Work order</div>
+                            <h2><span t-field="o.name"/></h2>
+                            <div class="muted">
+                                Arrived <span t-field="o.date_in" t-options='{"widget": "datetime"}'/>
+                                <t t-if="o.date_promised"> · promised <span t-field="o.date_promised" t-options='{"widget": "date"}'/></t>
+                            </div>
+                        </td>
+                        <td style="text-align: right; vertical-align: middle;">
+                            <span class="plate" t-out="o.plate"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <table style="width: 100%; border-spacing: 8px 0; margin: 0 -8px;">
+                    <tr>
+                        <td class="box" style="width: 50%; vertical-align: top;">
+                            <div class="label">Customer</div>
+                            <strong t-field="o.partner_id.commercial_partner_id.name"/>
+                            <div t-if="o.partner_id.commercial_partner_id.vat" class="muted">CNPJ/CPF <span t-field="o.partner_id.commercial_partner_id.vat"/></div>
+                            <div t-if="o.driver_name" class="muted">Brought by <span t-field="o.driver_name"/></div>
+                        </td>
+                        <td class="box" style="width: 50%; vertical-align: top;">
+                            <div class="label">Vehicle</div>
+                            <strong t-out="' '.join(filter(None, [o.vehicle_id.brand, o.vehicle_id.model, o.vehicle_id.year]))"/>
+                            <div class="muted">
+                                <t t-if="o.vehicle_id.fleet_number">Fleet no. <span t-field="o.vehicle_id.fleet_number"/> · </t>
+                                <t t-if="o.odometer"><span t-out="'{:,}'.format(o.odometer).replace(',', '.')"/> km</t>
+                                <t t-if="o.sector_id"> · <span t-field="o.sector_id.name"/></t>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <div t-if="o.complaint or o.diagnosis" class="box" style="margin-top: 10px;">
+                    <div t-if="o.complaint"><span class="label">Reported problem</span><div t-field="o.complaint"/></div>
+                    <div t-if="o.diagnosis" style="margin-top: 6px;"><span class="label">Diagnosis</span><div t-field="o.diagnosis"/></div>
+                </div>
+
+                <t t-set="lines" t-value="o.line_ids.filtered(lambda l: l.approval != 'rejected')"/>
+                <table class="items">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th style="text-align: right;">Qty</th>
+                            <th style="text-align: right;">Unit</th>
+                            <th style="text-align: right;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="lines" t-as="line">
+                            <td><span t-field="line.name"/><div t-if="line.user_id" class="muted" style="font-size: 10px;" t-field="line.user_id.name"/></td>
+                            <td style="text-align: right;"><span t-out="'%g' % line.quantity"/></td>
+                            <td style="text-align: right;"><span t-field="line.price_unit"/></td>
+                            <td style="text-align: right;"><span t-field="line.subtotal"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="width: 100%; margin-top: 8px;">
+                    <tr>
+                        <td class="muted">
+                            <t t-if="o.hours_total">Labour: <span t-field="o.hours_total" t-options='{"widget": "float_time"}'/> h</t>
+                        </td>
+                        <td style="text-align: right;">
+                            <span class="label">Total</span><br/>
+                            <span class="total" t-field="o.amount_total"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <t t-set="photos" t-value="o.photo_ids.filtered('show_to_customer')[:8]"/>
+                <div t-if="photos" class="photos" style="margin-top: 14px;">
+                    <div class="label" style="margin-bottom: 6px;">Photos</div>
+                    <img t-foreach="photos" t-as="photo" t-att-src="photo.thumb_url" alt="Photo"/>
+                </div>
+
+                <div t-if="o.warranty_text" class="box muted" style="margin-top: 14px; font-size: 10px;" t-field="o.warranty_text"/>
+
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 45%;">
+                            <img t-if="o.approval_signature" t-att-src="image_data_uri(o.approval_signature)" style="max-height: 50px;"/>
+                            <div class="sign"><t t-out="o.approved_by or o.partner_id.commercial_partner_id.name"/><br/><span class="muted">Customer</span></div>
+                        </td>
+                        <td style="width: 10%;"/>
+                        <td style="width: 45%;">
+                            <div class="sign"><t t-out="o.company_id.name"/><br/><span class="muted">Workshop</span></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_workshop_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="workshop_os.report_workshop_order_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

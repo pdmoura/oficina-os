@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="workshop_billing_view_list" model="ir.ui.view">
+        <field name="name">workshop.billing.list</field>
+        <field name="model">workshop.billing</field>
+        <field name="arch" type="xml">
+            <list sample="1">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="order_count" string="Orders"/>
+                <field name="amount_total" sum="Total"/>
+                <field name="state" widget="badge" decoration-info="state == 'confirmed'" decoration-primary="state == 'invoiced'"
+                       decoration-success="state == 'paid'"/>
+                <field name="currency_id" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="workshop_billing_view_form" model="ir.ui.view">
+        <field name="name">workshop.billing.form</field>
+        <field name="model">workshop.billing</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_load_orders" type="object" string="Load orders of the period" class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_confirm" type="object" string="Confirm" invisible="state != 'draft' or not order_ids"/>
+                    <button name="%(action_report_workshop_billing)d" type="action" string="Print report" icon="fa-print"/>
+                    <button name="action_mark_paid" type="object" string="Mark paid" invisible="state not in ('confirmed', 'invoiced')"/>
+                    <button name="action_reset" type="object" string="Back to draft" invisible="state != 'confirmed'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="state != 'draft'"/>
+                            <label for="date_from" string="Period"/>
+                            <div class="o_row">
+                                <field name="date_from" readonly="state != 'draft'"/>
+                                <span>to</span>
+                                <field name="date_to" readonly="state != 'draft'"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="order_count"/>
+                            <field name="amount_total"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Work orders" name="orders">
+                            <field name="order_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="date_done" widget="date"/>
+                                    <field name="plate" widget="workshop_plate"/>
+                                    <field name="vehicle_id"/>
+                                    <field name="driver_name" optional="show"/>
+                                    <field name="amount_total" sum="Total"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_workshop_billing" model="ir.actions.act_window">
+        <field name="name">Monthly Closing</field>
+        <field name="res_model">workshop.billing</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Close the month for a fleet customer</p>
+            <p>Pick the customer and the period, load the finished orders, print the report and issue the NFS-e.</p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="workshop_os.PlateField">
+        <span t-if="value" class="wo-plate" t-att-class="props.size === 'lg' ? 'wo-plate--lg' : ''">
+            <span class="wo-plate__band">BRASIL</span>
+            <span class="wo-plate__text" t-esc="value"/>
+        </span>
+    </t>
+
+    <t t-name="workshop_os.ElapsedField">
+        <span t-if="label" class="o_workshop_elapsed" title="Time in the current stage">
+            <i class="fa fa-hourglass-half me-1"/><t t-esc="label"/>
+        </span>
+    </t>
+
+</templates>

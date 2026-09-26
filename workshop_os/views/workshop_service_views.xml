@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="workshop_service_view_list" model="ir.ui.view">
+        <field name="name">workshop.service.list</field>
+        <field name="model">workshop.service</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" multi_edit="1">
+                <field name="favorite" widget="boolean_favorite" nolabel="1"/>
+                <field name="name"/>
+                <field name="code" optional="hide"/>
+                <field name="sector_id" optional="show"/>
+                <field name="list_price" sum="Total"/>
+                <field name="cost" optional="hide"/>
+                <field name="hours" widget="float_time"/>
+                <field name="usage_count" string="Used" optional="show"/>
+                <field name="currency_id" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+    <record id="workshop_service_view_search" model="ir.ui.view">
+        <field name="name">workshop.service.search</field>
+        <field name="model">workshop.service</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
+                <field name="sector_id"/>
+                <filter name="favorite" string="Favourites" domain="[('favorite', '=', True)]"/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group>
+                    <filter name="group_sector" string="Sector" context="{'group_by': 'sector_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_workshop_service" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="res_model">workshop.service</field>
+        <field name="view_mode">list</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add the services you sell</p>
+            <p>Price and labour hours are copied to the work order. Starred services become one-tap buttons in the
+                mechanic app.</p>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+// Office views: kanban cards that read like the yard.
+.o_workshop_kanban {
+    .o_kanban_record.o_workshop_card {
+        border-radius: 12px;
+        border-left: 4px solid var(--o-workshop-stage, #64748b);
+    }
+    .o_workshop_chip {
+        background: var(--o-gray-100, #f3f4f6);
+        border-radius: 999px;
+        padding: 1px 8px;
+    }
+}
+.o_workshop_photo { aspect-ratio: 1; object-fit: cover; }
+.o_workshop_elapsed { white-space: nowrap; }
+.o_field_workshop_plate { display: inline-flex; }

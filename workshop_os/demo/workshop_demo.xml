@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base.BRL" model="res.currency">
+        <field name="active" eval="True"/>
+    </record>
+    <record id="base.main_company" model="res.company">
+        <field name="name">Elétrica Diesel Demonstração</field>
+        <field name="currency_id" ref="base.BRL"/>
+        <field name="logo" type="base64" file="workshop_os/static/img/app-icon-512.png"/>
+        <field name="phone">+55 61 3000-0000</field>
+    </record>
+
+    <record id="demo_partner_fleet_a" model="res.partner">
+        <field name="name">Transportadora Exemplo Ltda</field>
+        <field name="is_company" eval="True"/>
+        <field name="workshop_customer" eval="True"/>
+        <field name="workshop_auto_approve" eval="True"/>
+        <field name="city">Brasília</field>
+        <field name="phone">+55 61 90000-0000</field>
+        <field name="email">frota@transportadora-exemplo.example.com</field>
+    </record>
+    <record id="demo_partner_fleet_b" model="res.partner">
+        <field name="name">Frota Norte Logística</field>
+        <field name="is_company" eval="True"/>
+        <field name="workshop_customer" eval="True"/>
+        <field name="city">Goiânia</field>
+        <field name="email">manutencao@frotanorte.example.com</field>
+    </record>
+
+    <record id="demo_user_mechanic" model="res.users">
+        <field name="name">Rafael Souza</field>
+        <field name="login">mecanico</field>
+        <field name="password">mecanico</field>
+        <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_user')])]"/>
+        <field name="action_id" ref="workshop_os.action_mechanic_app"/>
+        <field name="lang">pt_BR</field>
+    </record>
+
+    <record id="demo_service_headlight" model="workshop.service">
+        <field name="name">Troca de farol</field><field name="list_price">180</field><field name="cost">40</field>
+        <field name="hours">1.0</field><field name="favorite" eval="True"/><field name="sector_id" ref="sector_electric"/>
+    </record>
+    <record id="demo_service_bulb" model="workshop.service">
+        <field name="name">Troca de lâmpada do farol</field><field name="list_price">35</field>
+        <field name="hours">0.25</field><field name="favorite" eval="True"/><field name="sector_id" ref="sector_electric"/>
+    </record>
+    <record id="demo_service_harness" model="workshop.service">
+        <field name="name">Correção de chicote elétrico</field><field name="list_price">220</field><field name="cost">60</field>
+        <field name="hours">2.5</field><field name="favorite" eval="True"/><field name="sector_id" ref="sector_electric"/>
+    </record>
+    <record id="demo_service_battery" model="workshop.service">
+        <field name="name">Troca de baterias</field><field name="list_price">120</field>
+        <field name="hours">0.5</field><field name="favorite" eval="True"/><field name="sector_id" ref="sector_electric"/>
+    </record>
+    <record id="demo_service_arla" model="workshop.service">
+        <field name="name">Troca da mangueira do Arla</field><field name="list_price">150</field><field name="cost">45</field>
+        <field name="hours">1.0</field><field name="favorite" eval="True"/><field name="sector_id" ref="sector_diesel"/>
+    </record>
+    <record id="demo_service_taillight" model="workshop.service">
+        <field name="name">Revisão da lanterna traseira</field><field name="list_price">60</field>
+        <field name="hours">0.5</field><field name="sector_id" ref="sector_electric"/>
+    </record>
+    <record id="demo_service_coupling" model="workshop.service">
+        <field name="name">Troca do engate elétrico M/F</field><field name="list_price">90</field>
+        <field name="hours">0.75</field><field name="sector_id" ref="sector_electric"/>
+    </record>
+    <record id="demo_service_alternator" model="workshop.service">
+        <field name="name">Revisão do alternador</field><field name="list_price">280</field><field name="cost">70</field>
+        <field name="hours">2.0</field><field name="sector_id" ref="sector_electric"/>
+    </record>
+    <record id="demo_service_ac_gas" model="workshop.service">
+        <field name="name">Carga de gás do ar-condicionado</field><field name="list_price">250</field><field name="cost">90</field>
+        <field name="hours">1.0</field><field name="favorite" eval="True"/><field name="sector_id" ref="sector_ac"/>
+    </record>
+    <record id="demo_service_ac_diag" model="workshop.service">
+        <field name="name">Diagnóstico do ar-condicionado</field><field name="list_price">120</field>
+        <field name="hours">0.75</field><field name="sector_id" ref="sector_ac"/>
+    </record>
+    <record id="demo_service_scanner" model="workshop.service">
+        <field name="name">Diagnóstico com scanner</field><field name="list_price">150</field>
+        <field name="hours">0.5</field><field name="sector_id" ref="sector_injection"/>
+    </record>
+
+    <function model="workshop.order" name="_load_demo_data"/>
+</odoo>

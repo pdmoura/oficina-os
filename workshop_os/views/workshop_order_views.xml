@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="workshop_order_view_kanban" model="ir.ui.view">
+        <field name="name">workshop.order.kanban</field>
+        <field name="model">workshop.order</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id" class="o_workshop_kanban" quick_create="false" sample="1"
+                    group_create="false" archivable="false">
+                <field name="stage_color"/>
+                <field name="state"/>
+                <field name="is_late"/>
+                <field name="priority"/>
+                <progressbar field="state" colors='{"draft": "warning", "approved": "success", "rejected": "danger", "done": "info"}'/>
+                <templates>
+                    <t t-name="card" class="o_workshop_card">
+                        <div class="d-flex align-items-center gap-2">
+                            <field name="priority" widget="priority"/>
+                            <field name="name" class="fw-bold small text-muted"/>
+                            <field name="state" widget="badge" class="ms-auto"
+                                   decoration-warning="state == 'draft'" decoration-success="state == 'approved'"
+                                   decoration-danger="state == 'rejected'" decoration-info="state == 'done'"/>
+                        </div>
+                        <div class="d-flex align-items-center gap-2 mt-2">
+                            <field name="plate" widget="workshop_plate"/>
+                            <field name="vehicle_id" class="small text-truncate" options="{'no_open': True}"/>
+                        </div>
+                        <field name="partner_id" class="fw-semibold text-truncate mt-1"/>
+                        <footer class="pt-2 small">
+                            <div class="d-flex flex-wrap gap-2 text-muted">
+                                <field name="location_id" class="o_workshop_chip"/>
+                                <field name="stage_since" widget="workshop_elapsed"/>
+                            </div>
+                            <div class="d-flex align-items-center gap-2 ms-auto">
+                                <span t-att-class="record.is_late.raw_value ? 'text-danger fw-bold' : 'text-muted'"><field name="date_promised" widget="date"/></span>
+                                <field name="user_id" widget="many2one_avatar_user"/>
+                            </div>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="workshop_order_view_list" model="ir.ui.view">
+        <field name="name">workshop.order.list</field>
+        <field name="model">workshop.order</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="is_late" decoration-muted="state == 'cancel'" sample="1">
+                <field name="is_late" column_invisible="True"/>
+                <field name="name"/>
+                <field name="date_in" widget="date"/>
+                <field name="plate" widget="workshop_plate"/>
+                <field name="vehicle_id" optional="show"/>
+                <field name="partner_id"/>
+                <field name="driver_name" optional="hide"/>
+                <field name="sector_id" optional="hide"/>
+                <field name="stage_id" widget="badge"/>
+                <field name="location_id" optional="show"/>
+                <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="date_promised" widget="date" optional="show"/>
+                <field name="hours_total" widget="float_time" optional="hide" sum="Hours"/>
+                <field name="amount_total" sum="Total"/>
+                <field name="state" widget="badge" decoration-warning="state == 'draft'" decoration-success="state == 'approved'"
+                       decoration-danger="state == 'rejected'" decoration-info="state in ('done', 'delivered')"/>
+                <field name="billing_id" optional="hide"/>
+                <field name="currency_id" column_invisible="True"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="workshop_order_view_form" model="ir.ui.view">
+        <field name="name">workshop.order.form</field>
+        <field name="model">workshop.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary"
+                            invisible="state not in ('draft', 'rejected')" groups="workshop_os.group_workshop_manager"/>
+                    <button name="action_reject" type="object" string="Reject" invisible="state != 'draft'"
+                            groups="workshop_os.group_workshop_manager"/>
+                    <button name="action_done" type="object" string="Mark ready" class="btn-primary" invisible="state != 'approved'"/>
+                    <button name="action_deliver" type="object" string="Deliver" class="btn-primary" invisible="state != 'done'"/>
+                    <button name="action_send_whatsapp" type="object" string="WhatsApp" icon="fa-whatsapp"
+                            invisible="state in ('cancel', 'delivered')"/>
+                    <button name="action_copy_public_url" type="object" string="Customer link" icon="fa-link"/>
+                    <button name="%(action_report_workshop_order)d" type="action" string="Print" icon="fa-print"/>
+                    <button name="action_reopen" type="object" string="Reopen" invisible="state not in ('done', 'delivered', 'cancel')"
+                            groups="workshop_os.group_workshop_manager"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state in ('cancel', 'delivered')"
+                            groups="workshop_os.group_workshop_manager" confirm="Cancel this work order?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,done,delivered"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Late" bg_color="text-bg-danger" invisible="not is_late"/>
+                    <div class="oe_title d-flex align-items-center gap-3">
+                        <h1 class="mb-0"><field name="name" readonly="1"/></h1>
+                        <field name="plate" widget="workshop_plate" options="{'size': 'lg'}"/>
+                        <field name="priority" widget="priority"/>
+                    </div>
+                    <group>
+                        <group string="Vehicle">
+                            <field name="partner_id" context="{'default_workshop_customer': True}"/>
+                            <field name="vehicle_id" context="{'default_partner_id': partner_id}"/>
+                            <field name="odometer"/>
+                            <field name="driver_name"/>
+                            <field name="tow"/>
+                            <field name="rework"/>
+                        </group>
+                        <group string="Job">
+                            <field name="stage_id" options="{'no_create': True}"/>
+                            <field name="location_id" options="{'no_create': True}"/>
+                            <field name="sector_id" options="{'no_create': True}"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="date_in"/>
+                            <field name="date_promised"/>
+                            <field name="is_late" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Services" name="services">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="service_id" options="{'no_create': True}"/>
+                                    <field name="name"/>
+                                    <field name="sector_id" optional="hide"/>
+                                    <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                                    <field name="quantity"/>
+                                    <field name="hours" widget="float_time" optional="show"/>
+                                    <field name="price_unit"/>
+                                    <field name="subtotal" sum="Total"/>
+                                    <field name="approval" widget="badge" decoration-warning="approval == 'pending'"
+                                           decoration-success="approval == 'approved'" decoration-danger="approval == 'rejected'"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer">
+                                <field name="hours_total" widget="float_time"/>
+                                <field name="amount_approved"/>
+                                <field name="amount_total" class="oe_subtotal_footer_separator"/>
+                            </group>
+                        </page>
+                        <page string="Problem and diagnosis" name="problem">
+                            <group>
+                                <field name="complaint" placeholder="What the driver reported"/>
+                                <field name="diagnosis" placeholder="What the mechanic found"/>
+                                <field name="internal_notes" placeholder="Only for the team"/>
+                                <field name="warranty_text"/>
+                            </group>
+                        </page>
+                        <page string="Checklist" name="checklist">
+                            <field name="checklist_line_ids">
+                                <list editable="bottom" create="false">
+                                    <field name="section"/>
+                                    <field name="name"/>
+                                    <field name="result" widget="badge" decoration-success="result == 'ok'"
+                                           decoration-warning="result == 'attention'" decoration-danger="result == 'fail'"/>
+                                    <field name="note"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Photos" name="photos">
+                            <field name="photo_ids" mode="kanban">
+                                <kanban create="false">
+                                    <field name="thumb_url"/>
+                                    <field name="url"/>
+                                    <templates>
+                                        <t t-name="card" class="p-0">
+                                            <a t-att-href="record.url.raw_value" target="_blank">
+                                                <img t-att-src="record.thumb_url.raw_value" class="img-fluid w-100 rounded-top o_workshop_photo" alt="Photo"/>
+                                            </a>
+                                            <div class="p-2 small d-flex justify-content-between">
+                                                <field name="kind"/>
+                                                <field name="create_date" widget="date"/>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                        <page string="Timeline" name="timeline">
+                            <field name="stage_log_ids">
+                                <list>
+                                    <field name="stage_id" widget="badge"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="duration_hours" widget="float_time" sum="Total"/>
+                                    <field name="is_waiting"/>
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Approval" name="approval">
+                            <group>
+                                <field name="approved_by"/>
+                                <field name="approved_on"/>
+                                <field name="approval_signature" widget="image" invisible="not approval_signature"/>
+                                <field name="billing_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="workshop_order_view_search" model="ir.ui.view">
+        <field name="name">workshop.order.search</field>
+        <field name="model">workshop.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Order, plate or customer"
+                       filter_domain="['|', '|', '|', ('name', 'ilike', self), ('vehicle_id.plate', 'ilike', self), ('vehicle_id.fleet_number', 'ilike', self), ('partner_id', 'ilike', self)]"/>
+                <field name="partner_id"/>
+                <field name="vehicle_id"/>
+                <field name="user_id"/>
+                <field name="line_ids" string="Service" filter_domain="[('line_ids.name', 'ilike', self)]"/>
+                <filter name="open" string="Open" domain="[('state', 'in', ('draft', 'approved', 'done'))]"/>
+                <filter name="late" string="Late" domain="[('is_late', '=', True)]"/>
+                <filter name="to_approve" string="Awaiting approval" domain="[('state', '=', 'draft')]"/>
+                <filter name="ready" string="Ready for pickup" domain="[('state', '=', 'done')]"/>
+                <filter name="my" string="My orders" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="to_bill" string="To bill" domain="[('state', 'in', ('done', 'delivered')), ('billing_id', '=', False)]"/>
+                <separator/>
+                <filter name="date_in" string="Arrival" date="date_in"/>
+                <group>
+                    <filter name="group_stage" string="Stage" context="{'group_by': 'stage_id'}"/>
+                    <filter name="group_location" string="Location" context="{'group_by': 'location_id'}"/>
+                    <filter name="group_user" string="Mechanic" context="{'group_by': 'user_id'}"/>
+                    <filter name="group_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'date_in:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="workshop_order_view_calendar" model="ir.ui.view">
+        <field name="name">workshop.order.calendar</field>
+        <field name="model">workshop.order</field>
+        <field name="arch" type="xml">
+            <calendar date_start="date_promised" color="stage_id" mode="week" quick_create="0" event_open_popup="0">
+                <field name="plate"/>
+                <field name="partner_id"/>
+                <field name="user_id" avatar_field="avatar_128"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="workshop_order_view_pivot" model="ir.ui.view">
+        <field name="name">workshop.order.pivot</field>
+        <field name="model">workshop.order</field>
+        <field name="arch" type="xml">
+            <pivot sample="1">
+                <field name="partner_id" type="row"/>
+                <field name="date_in" interval="month" type="col"/>
+                <field name="amount_total" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="workshop_order_view_graph" model="ir.ui.view">
+        <field name="name">workshop.order.graph</field>
+        <field name="model">workshop.order</field>
+        <field name="arch" type="xml">
+            <graph type="bar" sample="1">
+                <field name="date_in" interval="month"/>
+                <field name="amount_total" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_workshop_order" model="ir.actions.act_window">
+        <field name="name">Work Orders</field>
+        <field name="res_model">workshop.order</field>
+        <field name="view_mode">kanban,list,form,calendar,pivot,graph</field>
+        <field name="context">{'search_default_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No open work orders</p>
+            <p>Mechanics open orders from the phone app by typing the plate; the office follows the yard here.</p>
+        </field>
+    </record>
+
+    <record id="workshop_order_line_view_pivot" model="ir.ui.view">
+        <field name="name">workshop.order.line.pivot</field>
+        <field name="model">workshop.order.line</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="name" type="row"/>
+                <field name="date" interval="month" type="col"/>
+                <field name="subtotal" type="measure"/>
+                <field name="quantity" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="workshop_order_line_view_search" model="ir.ui.view">
+        <field name="name">workshop.order.line.search</field>
+        <field name="model">workshop.order.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="user_id"/>
+                <filter name="approved" string="Approved" domain="[('approval', '=', 'approved')]"/>
+                <filter name="date" string="Date" date="date"/>
+            </search>
+        </field>
+    </record>
+    <record id="action_workshop_order_line_analysis" model="ir.actions.act_window">
+        <field name="name">Services Analysis</field>
+        <field name="res_model">workshop.order.line</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="context">{'search_default_approved': 1}</field>
+    </record>
+</odoo>

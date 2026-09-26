@@ -1,0 +1,23 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stage_user,workshop.stage user,model_workshop_stage,group_workshop_user,1,0,0,0
+access_stage_manager,workshop.stage manager,model_workshop_stage,group_workshop_manager,1,1,1,1
+access_location_user,workshop.location user,model_workshop_location,group_workshop_user,1,0,0,0
+access_location_manager,workshop.location manager,model_workshop_location,group_workshop_manager,1,1,1,1
+access_sector_user,workshop.sector user,model_workshop_sector,group_workshop_user,1,0,0,0
+access_sector_manager,workshop.sector manager,model_workshop_sector,group_workshop_manager,1,1,1,1
+access_service_user,workshop.service user,model_workshop_service,group_workshop_user,1,0,0,0
+access_service_manager,workshop.service manager,model_workshop_service,group_workshop_manager,1,1,1,1
+access_vehicle_user,workshop.vehicle user,model_workshop_vehicle,group_workshop_user,1,1,1,0
+access_vehicle_manager,workshop.vehicle manager,model_workshop_vehicle,group_workshop_manager,1,1,1,1
+access_order_user,workshop.order user,model_workshop_order,group_workshop_user,1,1,1,0
+access_order_manager,workshop.order manager,model_workshop_order,group_workshop_manager,1,1,1,1
+access_order_line_user,workshop.order.line user,model_workshop_order_line,group_workshop_user,1,1,1,1
+access_order_photo_user,workshop.order.photo user,model_workshop_order_photo,group_workshop_user,1,1,1,1
+access_order_stage_log_user,workshop.order.stage.log user,model_workshop_order_stage_log,group_workshop_user,1,1,1,0
+access_order_stage_log_manager,workshop.order.stage.log manager,model_workshop_order_stage_log,group_workshop_manager,1,1,1,1
+access_checklist_template_user,workshop.checklist.template user,model_workshop_checklist_template,group_workshop_user,1,0,0,0
+access_checklist_template_manager,workshop.checklist.template manager,model_workshop_checklist_template,group_workshop_manager,1,1,1,1
+access_checklist_item_user,workshop.checklist.template.item user,model_workshop_checklist_template_item,group_workshop_user,1,0,0,0
+access_checklist_item_manager,workshop.checklist.template.item manager,model_workshop_checklist_template_item,group_workshop_manager,1,1,1,1
+access_order_checklist_user,workshop.order.checklist user,model_workshop_order_checklist,group_workshop_user,1,1,1,1
+access_billing_manager,workshop.billing manager,model_workshop_billing,group_workshop_manager,1,1,1,1
