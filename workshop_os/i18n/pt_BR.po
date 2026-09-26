@@ -6,14 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20260908\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-26 17:14+0000\n"
-"PO-Revision-Date: 2026-09-26 17:14+0000\n"
+"POT-Creation-Date: 2026-09-26 18:10+0000\n"
+"PO-Revision-Date: 2026-09-26 18:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -268,6 +269,12 @@ msgstr "Itens do checklist respondidos, em %."
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__any
 msgid "Any"
 msgstr "Todos"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_app_icon
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_app_icon
+msgid "App icon"
+msgstr "Ícone do app"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__approval
@@ -585,7 +592,7 @@ msgstr "Cor"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
 msgid "Colours and logo"
-msgstr "Cores e logotipo"
+msgstr "Cores e logo"
 
 #. module: workshop_os
 #: model:ir.model,name:workshop_os.model_res_company
@@ -1004,6 +1011,26 @@ msgid "Fuel"
 msgstr "Combustível"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid ""
+"Full logo for the customer page and the office dashboard. Documents and the "
+"login page use the company logo"
+msgstr ""
+"Logo completo para a página do cliente e o painel do escritório. Documentos "
+"e a tela de login usam o logo da empresa"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_logo_dark
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_logo_dark
+msgid ""
+"Full logo shown on the dark screens: customer page and office dashboard. The"
+" company logo stays on documents, login and light screens."
+msgstr ""
+"Logo completo exibido nas telas escuras: página do cliente e painel do "
+"escritório. O logo da empresa continua nos documentos, no login e nas telas "
+"claras."
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__gasoline
 msgid "Gasoline"
 msgstr "Gasolina"
@@ -1283,6 +1310,13 @@ msgstr "Localização"
 #: model:ir.ui.menu,name:workshop_os.menu_workshop_locations
 msgid "Locations"
 msgstr "Localizações"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_dark
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_logo_dark
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Logo for dark backgrounds"
+msgstr "Logo para fundo escuro"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1667,6 +1701,14 @@ msgstr ""
 "faturar."
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid ""
+"Optional square image (512 px). Without it, the icon is made from the symbol"
+msgstr ""
+"Imagem quadrada opcional (512 px). Sem ela, o ícone é gerado a partir do "
+"símbolo"
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__order_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__order_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__order_id
@@ -1741,6 +1783,11 @@ msgstr "Pendente"
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
 msgid "Period"
 msgstr "Período"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Phone app icon"
+msgstr "Ícone do app no celular"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
@@ -2136,6 +2183,12 @@ msgid "Sign out"
 msgstr "Sair"
 
 #. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_app_icon
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_app_icon
+msgid "Square image shown when the app is installed on a phone."
+msgstr "Imagem quadrada exibida quando o app é instalado no celular."
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__stage_id
@@ -2202,6 +2255,13 @@ msgid "Subtotal"
 msgstr ""
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_mark
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_logo_mark
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Symbol"
+msgstr "Símbolo"
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid ""
@@ -2247,6 +2307,22 @@ msgid ""
 msgstr ""
 "O logotipo vem da empresa; a cor de destaque marca botões e destaques no app"
 " e nas páginas do cliente"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_logo_mark
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_logo_mark
+msgid ""
+"The logo without text, for small places: the mechanic app header and the "
+"phone icon when no app icon is set."
+msgstr ""
+"O logo sem texto, para espaços pequenos: o cabeçalho do app do mecânico e o "
+"ícone no celular quando não há um ícone do app definido."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "The logo without text, for the mechanic app header and the phone icon"
+msgstr ""
+"O logo sem texto, para o cabeçalho do app do mecânico e o ícone no celular"
 
 #. module: workshop_os
 #. odoo-python
