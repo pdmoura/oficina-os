@@ -24,8 +24,9 @@
     <template id="public_order_page" name="Work order: customer page">
         <t t-call="workshop_os.public_layout">
             <header class="wo-hero">
-                <div class="wo-hero__brand">
-                    <img t-if="company.logo" t-att-src="'/web/image/res.company/%s/logo/160x160' % company.id" alt="" class="wo-hero__logo"/>
+                <div t-attf-class="wo-hero__brand #{'wo-hero__brand--full' if company.workshop_logo_dark else ''}">
+                    <img t-if="company.logo or company.workshop_logo_dark" t-att-src="'/workshop_os/logo/%s/dark' % company.id" alt=""
+                         t-attf-class="wo-hero__logo #{'wo-hero__logo--full' if company.workshop_logo_dark else ''}"/>
                     <div>
                         <div class="wo-hero__company" t-out="company.name"/>
                         <div class="wo-hero__sub" t-out="order.name"/>

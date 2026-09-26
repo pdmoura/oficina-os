@@ -1,0 +1,16 @@
+# Render's free plan sleeps after 15 idle minutes. When the repository variable KEEPALIVE_URL is set
+# (e.g. https://oficina-os.onrender.com), this pings the health endpoint during working hours in Brazil.
+name: Keep alive
+
+on:
+  schedule:
+    - cron: "*/10 10-23 * * 1-6"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    if: ${{ vars.KEEPALIVE_URL != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - run: curl -fsS --max-time 90 --retry 2 "${{ vars.KEEPALIVE_URL }}/web/health"

@@ -1,0 +1,30 @@
+# Render Blueprint: one free web service running the Docker image; the database is on Supabase.
+# Secrets are marked sync: false, so Render asks for them when the Blueprint is created.
+services:
+  - type: web
+    name: oficina-os
+    runtime: docker
+    plan: free
+    region: virginia
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /web/health
+    autoDeploy: true
+    envVars:
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: odoo
+      - key: ADMIN_PASSWD
+        generateValue: true
+      - key: ODOO_ADMIN_EMAIL
+        sync: false
+      - key: ODOO_ADMIN_PASSWORD
+        sync: false
+      - key: LOAD_DEMO
+        value: "false"

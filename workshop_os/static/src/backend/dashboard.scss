@@ -11,6 +11,8 @@
         display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
         h1 { margin: 0; font-size: 30px; font-weight: 800; color: var(--wo-text); }
     }
+    .wd-head__brand { display: flex; align-items: center; gap: 18px; }
+    .wd-logo { height: 72px; width: auto; max-width: 180px; object-fit: contain; }
     .wd-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--wo-muted); }
     .wd-head__actions { display: flex; gap: 8px; }
     .wd-btn {

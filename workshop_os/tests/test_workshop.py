@@ -5,6 +5,7 @@ from dateutil.relativedelta import relativedelta
 from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import tagged
+from odoo.tools import mute_logger
 
 from ..models.workshop_vehicle import format_plate, normalize_plate
 from .common import WorkshopCase
@@ -25,7 +26,7 @@ class TestVehicle(WorkshopCase):
 
     def test_plate_is_unique_per_company(self):
         self._vehicle("RTA2B41")
-        with self.assertRaises(Exception), self.cr.savepoint():
+        with self.assertRaises(Exception), self.cr.savepoint(), mute_logger("odoo.sql_db"):
             self._vehicle("rta-2b41")
 
     def test_find_by_plate_returns_the_open_order(self):
@@ -209,3 +210,14 @@ class TestBilling(WorkshopCase):
         data = self.env["workshop.order"].dashboard_data()
         self.assertGreaterEqual(data["kpis"]["late"], 1)
         self.assertTrue(data["stages"])
+
+
+@tagged("post_install", "-at_install")
+class TestAssets(WorkshopCase):
+
+    def test_styles_compile(self):
+        # libsass rejects CSS min()/max() it cannot evaluate; a failing bundle leaves the pages unstyled.
+        for name in ("workshop_os.assets_public", "web.assets_backend"):
+            bundle = self.env["ir.qweb"]._get_asset_bundle(name, js=False)
+            bundle.preprocess_css()
+            self.assertFalse(bundle.css_errors, name)

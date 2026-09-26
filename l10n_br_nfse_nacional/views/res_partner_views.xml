@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_view_form_nfse" model="ir.ui.view">
+        <field name="name">res.partner.form.nfse</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_view_nfse_documents" type="object" class="oe_stat_button" icon="fa-file-text-o"
+                        invisible="not nfse_document_count" groups="l10n_br_nfse_nacional.group_nfse_user">
+                    <field name="nfse_document_count" widget="statinfo" string="NFS-e"/>
+                </button>
+            </div>
+            <xpath expr="//page[@name='sales_purchases']//group[@name='misc']" position="after">
+                <group name="nfse" string="NFS-e">
+                    <field name="nfse_street_number"/>
+                    <field name="nfse_district"/>
+                    <label for="nfse_city_ibge"/>
+                    <div class="d-flex gap-2 align-items-center">
+                        <field name="nfse_city_ibge" class="w-auto"/>
+                        <button name="action_nfse_fill_address" type="object" string="Fill from CEP"
+                                class="btn-link p-0" icon="fa-search"/>
+                    </div>
+                    <field name="nfse_municipal_registration" invisible="not is_company"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

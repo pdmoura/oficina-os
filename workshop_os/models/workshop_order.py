@@ -289,11 +289,7 @@ class WorkshopOrder(models.Model):
             "stages": [{"id": s.id, "name": s.name, "color": s.color, "waiting": s.is_waiting} for s in stages],
             "orders": [o._app_card() for o in orders],
             "user": {"name": self.env.user.name, "is_manager": self.env.user.has_group("workshop_os.group_workshop_manager")},
-            "company": {
-                "name": self.env.company.name,
-                "logo": f"/web/image/res.company/{self.env.company.id}/logo/256x256",
-                "accent": self.env.company.workshop_accent_color or "#E8B21E",
-            },
+            "company": self.env.company._workshop_brand(),
             "counts": {
                 "open": len(orders),
                 "late": len(orders.filtered("is_late")),
@@ -318,7 +314,7 @@ class WorkshopOrder(models.Model):
         top_customers = sorted(by_customer.items(), key=lambda kv: -kv[1])[:6]
         stages = self.env["workshop.stage"].search([])
         return {
-            "company": {"name": self.env.company.name, "accent": self.env.company.workshop_accent_color or "#E8B21E"},
+            "company": self.env.company._workshop_brand(),
             "kpis": {
                 "open": len(open_orders),
                 "late": len(open_orders.filtered("is_late")),
@@ -438,7 +434,8 @@ class WorkshopOrder(models.Model):
             "public_url": self.get_public_url(),
             "approved_by": self.approved_by or "",
             "lines": [{
-                "id": l.id, "name": l.name, "quantity": l.quantity, "price": l.price_unit, "subtotal": l.subtotal,
+                "id": l.id, "service_id": l.service_id.id, "name": l.name, "quantity": l.quantity,
+                "price": l.price_unit, "subtotal": l.subtotal,
                 "subtotal_fmt": format_amount(self.env, l.subtotal, self.currency_id),
                 "hours": l.hours, "approval": l.approval,
             } for l in self.line_ids],

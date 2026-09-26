@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_nfse" model="ir.ui.view">
+        <field name="name">res.config.settings.form.nfse</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="NFS-e" name="l10n_br_nfse_nacional" groups="base.group_system">
+                    <block title="Emission" name="nfse_emission">
+                        <setting string="How notes are issued"
+                                 help="Assisted needs nothing but a gov.br login. Direct sends the note by itself and needs the company's A1 certificate">
+                            <field name="nfse_mode" widget="radio"/>
+                            <div class="content-group" invisible="nfse_mode != 'api'">
+                                <div class="row mt8">
+                                    <label for="nfse_certificate_id" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_certificate_id" context="{'default_company_id': company_id}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="nfse_series" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_series"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Environment" help="Use the test environment until the first notes come out right">
+                            <field name="nfse_environment" widget="radio"/>
+                        </setting>
+                    </block>
+                    <block title="Company registration" name="nfse_company">
+                        <setting string="City and municipal registration" help="The CNPJ comes from the company's Tax ID and the IBGE code from its CEP">
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label for="nfse_city_ibge" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_city_ibge" placeholder="5300108" class="w-auto"/>
+                                    <button name="action_nfse_fill_city" type="object" string="From the company CEP"
+                                            class="btn-link w-auto" icon="fa-search"/>
+                                </div>
+                                <div class="row">
+                                    <label for="nfse_municipal_registration" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_municipal_registration"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Tax regime">
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label for="nfse_simples" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_simples"/>
+                                </div>
+                                <div class="row" invisible="nfse_simples != '3'">
+                                    <label for="nfse_simples_regime" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_simples_regime"/>
+                                </div>
+                                <div class="row">
+                                    <label for="nfse_special_regime" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_special_regime"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Approximate taxes (Law 12.741)" help="Every note carries the estimated share of taxes in the price">
+                            <div class="content-group">
+                                <div class="row mt8" invisible="nfse_simples != '3'">
+                                    <label for="nfse_simples_total_rate" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_simples_total_rate"/>
+                                </div>
+                                <div invisible="nfse_simples != '1'">
+                                    <div class="row mt8">
+                                        <label for="nfse_tax_federal" class="col-lg-4 o_light_label"/>
+                                        <field name="nfse_tax_federal"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="nfse_tax_state" class="col-lg-4 o_light_label"/>
+                                        <field name="nfse_tax_state"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="nfse_tax_municipal" class="col-lg-4 o_light_label"/>
+                                        <field name="nfse_tax_municipal"/>
+                                    </div>
+                                </div>
+                                <div class="text-muted mt8" invisible="nfse_simples != '2'">MEI notes may leave the estimate out.</div>
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Default service" name="nfse_service">
+                        <setting string="Service codes" help="Pre-filled on every new note; each note can still change them">
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <label for="nfse_service_code" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_service_code" placeholder="140101"/>
+                                </div>
+                                <div class="row">
+                                    <label for="nfse_municipal_service_code" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_municipal_service_code"/>
+                                </div>
+                                <div class="row">
+                                    <label for="nfse_service_nbs" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_service_nbs"/>
+                                </div>
+                                <div class="row">
+                                    <label for="nfse_iss_rate" class="col-lg-4 o_light_label"/>
+                                    <field name="nfse_iss_rate"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_nfse_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'module': 'l10n_br_nfse_nacional', 'bin_size': False}</field>
+    </record>
+</odoo>

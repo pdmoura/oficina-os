@@ -34,6 +34,7 @@
     .wa-top__brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
     .wa-top__logo {
         width: 44px; height: 44px; object-fit: contain; border-radius: 12px; background: #fff; padding: 3px;
+        &.is-bare { background: none; padding: 0; width: 48px; height: 48px; }
     }
     .wa-top__titles { display: flex; flex-direction: column; min-width: 0; }
     .wa-top__titles strong { font-size: 19px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -433,6 +434,7 @@
         color: var(--wo-text); font-size: 15px; text-align: left;
         span { flex: 1; }
         .fa-star { color: var(--wo-accent); }
+        &.is-added { border-color: var(--wo-success); .fa-check-circle { color: var(--wo-success); } }
     }
     .wa-menu-item--danger { color: var(--wo-danger); }
     .wa-menu-user { display: flex; flex-direction: column; padding: 4px 4px 10px; span { color: var(--wo-muted); font-size: 13px; } }

@@ -37,6 +37,8 @@
     background: #fff;
     padding: 4px;
 }
+.wo-hero__brand--full { flex-direction: column; gap: 6px; text-align: center; }
+.wo-hero__logo--full { background: none; padding: 0; border-radius: 0; width: unquote("min(240px, 64vw)"); height: auto; }
 .wo-hero__company { font-weight: 700; font-size: 17px; }
 .wo-hero__sub { color: var(--wo-muted); font-size: 13px; }
 .wo-hero__vehicle { margin-top: 12px; color: var(--wo-muted); font-size: 15px; }

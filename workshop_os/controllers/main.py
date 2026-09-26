@@ -52,6 +52,35 @@ class WorkshopPublic(http.Controller):
         return {"state": order.state}
 
 
+class WorkshopBrand(http.Controller):
+
+    @http.route("/workshop_os/app-icon/<int:size>", type="http", auth="public", sitemap=False, readonly=True)
+    def app_icon(self, size):
+        """The company's own icon when it set one, the product icon otherwise."""
+        size = min(max(size, 32), 512)
+        # iOS rounds the corners itself and paints transparent ones black: give it a full square.
+        png = request.env.company.sudo()._workshop_app_icon_png(size, rounded=size != 180)
+        if png:
+            return request.make_response(png, [("Content-Type", "image/png"), ("Cache-Control", "public, max-age=3600")])
+        return request.redirect(f"/workshop_os/static/img/app-icon-{512 if size > 192 else 192}.png")
+
+
+    @http.route("/workshop_os/logo/<int:company_id>/<string:variant>", type="http", auth="public",
+                sitemap=False, readonly=True)
+    def company_logo(self, company_id, variant, **kwargs):
+        """Public logos for the dark screens: "dark" (full logo) or "mark" (symbol), with fallbacks."""
+        company = request.env["res.company"].sudo().browse(company_id).exists()
+        if not company or variant not in ("dark", "mark"):
+            raise request.not_found()
+        order = ["workshop_logo_mark"] if variant == "mark" else []
+        field = next((f for f in order + ["workshop_logo_dark", "logo"] if company[f]), None)
+        if not field:
+            raise request.not_found()
+        size = 256 if variant == "mark" else 640
+        stream = request.env["ir.binary"]._get_image_stream_from(company, field, width=size, height=size)
+        return stream.get_response(max_age=3600)
+
+
 class WorkshopManifest(WebManifest):
     """Installable app named and coloured after the workshop, opening straight on the mechanic app."""
 
@@ -66,8 +95,8 @@ class WorkshopManifest(WebManifest):
             "background_color": "#0F1115",
             "theme_color": "#0F1115",
             "icons": [
-                {"src": "/workshop_os/static/img/app-icon-192.png", "sizes": "192x192", "type": "image/png"},
-                {"src": "/workshop_os/static/img/app-icon-512.png", "sizes": "512x512", "type": "image/png"},
+                {"src": "/workshop_os/app-icon/192", "sizes": "192x192", "type": "image/png"},
+                {"src": "/workshop_os/app-icon/512", "sizes": "512x512", "type": "image/png"},
             ],
         })
         return manifest

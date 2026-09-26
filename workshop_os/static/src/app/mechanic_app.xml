@@ -41,7 +41,8 @@
         <div class="wa-screen">
             <header class="wa-top">
                 <div class="wa-top__brand">
-                    <img t-if="state.data" t-att-src="state.data.company.logo" class="wa-top__logo" alt=""/>
+                    <img t-if="state.data and state.data.company.mark" t-att-src="state.data.company.mark" class="wa-top__logo" alt=""
+                         t-att-class="state.data.company.has_mark ? 'is-bare' : ''"/>
                     <div class="wa-top__titles">
                         <span class="wa-top__eyebrow" t-esc="state.data ? state.data.company.name : ''"/>
                         <strong t-esc="greeting()"/>
@@ -378,8 +379,10 @@
                             <i class="fa fa-search"/>
                             <input type="search" placeholder="Search services" t-on-input="searchServices" t-att-value="state.serviceSearch"/>
                         </div>
-                        <button t-foreach="state.services" t-as="service" t-key="service.id" class="wa-pick" t-on-click="() => addService(service.id)">
-                            <i t-if="service.favorite" class="fa fa-star"/>
+                        <button t-foreach="state.services" t-as="service" t-key="service.id" class="wa-pick"
+                                t-att-class="addedServiceIds.has(service.id) ? 'is-added' : ''" t-on-click="() => addService(service.id)">
+                            <i t-if="addedServiceIds.has(service.id)" class="fa fa-check-circle"/>
+                            <i t-elif="service.favorite" class="fa fa-star"/>
                             <span t-esc="service.name"/>
                             <strong t-esc="service.price_fmt"/>
                         </button>

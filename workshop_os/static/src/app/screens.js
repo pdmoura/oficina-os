@@ -340,6 +340,10 @@ export class OrderScreen extends Component {
         return this.run("load_checklist", [templateId]);
     }
 
+    get addedServiceIds() {
+        return new Set((this.state.data?.lines || []).map((line) => line.service_id));
+    }
+
     get checklistSections() {
         const sections = [];
         for (const item of this.state.data?.checklist || []) {

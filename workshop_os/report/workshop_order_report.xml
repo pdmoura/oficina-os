@@ -34,7 +34,7 @@
             .wo .brand { width: 100%; }
             .wo .brand td { vertical-align: middle; }
             .wo .brand-logo { width: 1%; padding-right: 12px; }
-            .wo .brand-logo img { max-height: 64px; max-width: 130px; }
+            .wo .brand-logo img { max-height: 84px; max-width: 170px; }
             .wo .brand-name { font-size: 15px; font-weight: 800; }
             .wo .brand-side { text-align: right; }
             .wo .rule { height: 3px; margin: 10px 0 12px; background: <t t-out="company.workshop_accent_color or '#E8B21E'"/>; }

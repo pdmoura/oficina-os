@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="nfse_document_view_form" model="ir.ui.view">
+        <field name="name">nfse.document.form</field>
+        <field name="model">nfse.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_issue" type="object" string="Issue NFS-e" class="btn-primary"
+                            invisible="mode != 'api' or state not in ('draft', 'error')"/>
+                    <button name="action_open_emissor" type="object" string="Open Emissor Nacional" class="btn-primary"
+                            invisible="mode != 'assisted' or state != 'draft'"/>
+                    <field name="nfse_xml" invisible="1"/>
+                    <button name="action_register_issued" type="object" string="Register issued note"
+                            invisible="mode != 'assisted' or state != 'draft'"/>
+                    <button name="%(action_report_danfse)d" type="action" string="DANFSe" icon="fa-print"
+                            invisible="not nfse_xml"/>
+                    <button name="action_view_public" type="object" string="Public consultation" invisible="not access_key"/>
+                    <button name="action_open_cancel" type="object" string="Cancel NFS-e" invisible="state != 'done'"/>
+                    <button name="action_reset_draft" type="object" string="Back to draft" invisible="state != 'error'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-warning mb-3" role="alert" invisible="not issues or state not in ('draft', 'error')">
+                        <strong>Before issuing:</strong>
+                        <field name="issues" class="d-block" nolabel="1"/>
+                    </div>
+                    <div class="alert alert-danger mb-3" role="alert" invisible="state != 'error'">
+                        <strong>Rejected by the national system:</strong>
+                        <field name="error_message" class="d-block" nolabel="1"/>
+                    </div>
+                    <div class="alert alert-info mb-3" role="alert" invisible="environment != '2'">
+                        Test environment (produção restrita): notes issued here have no legal value.
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" readonly="state != 'draft'"/>
+                            <field name="partner_vat" string="CNPJ/CPF"/>
+                            <field name="date_competence" readonly="state != 'draft'"/>
+                            <field name="origin" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="amount" readonly="state != 'draft'"/>
+                            <field name="iss_rate" readonly="state != 'draft'"/>
+                            <field name="iss_amount"/>
+                            <field name="iss_withheld" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Service" name="service">
+                            <group>
+                                <field name="service_code" readonly="state != 'draft'"/>
+                                <field name="municipal_service_code" readonly="state != 'draft'"/>
+                                <field name="nbs_code" readonly="state != 'draft'"/>
+                            </group>
+                            <field name="description" readonly="state != 'draft'" placeholder="What was done, as it should read on the note"/>
+                        </page>
+                        <page string="Emissor Nacional" name="assisted" invisible="mode != 'assisted'">
+                            <p class="text-muted">
+                                Open the Emissor Nacional, start a new NFS-e and copy each value below.
+                                When the note is issued, paste its access key here and register it.
+                            </p>
+                            <group>
+                                <group string="Customer">
+                                    <field name="assist_partner_document" widget="CopyClipboardChar"/>
+                                    <field name="assist_partner_name" widget="CopyClipboardChar"/>
+                                    <field name="assist_competence" widget="CopyClipboardChar"/>
+                                </group>
+                                <group string="Service and amounts">
+                                    <field name="assist_service_code" widget="CopyClipboardChar"/>
+                                    <field name="assist_amount" widget="CopyClipboardChar"/>
+                                    <field name="assist_iss_rate" widget="CopyClipboardChar"/>
+                                </group>
+                            </group>
+                            <div class="mt-2">
+                                <label for="description" string="Description" class="o_form_label"/>
+                                <field name="description" widget="CopyClipboardText" readonly="1"
+                                       class="d-block text-break" style="white-space: pre-wrap;"/>
+                            </div>
+                            <group class="mt-3">
+                                <field name="access_key" readonly="state != 'draft'" placeholder="50 digits"
+                                       help="Shown on the note issued by the Emissor Nacional; paste it and register the note."/>
+                            </group>
+                        </page>
+                        <page string="Issued note" name="issued" invisible="state == 'draft'">
+                            <group>
+                                <group>
+                                    <field name="nfse_number"/>
+                                    <field name="access_key" readonly="1"/>
+                                    <field name="issued_on"/>
+                                </group>
+                                <group>
+                                    <field name="mode"/>
+                                    <field name="environment"/>
+                                    <field name="dps_key"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="dps_xml" filename="dps_xml_name"/>
+                                <field name="dps_xml_name" invisible="1"/>
+                                <field name="nfse_xml" filename="nfse_xml_name"/>
+                                <field name="nfse_xml_name" invisible="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <field name="company_id" invisible="1"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="nfse_document_view_list" model="ir.ui.view">
+        <field name="name">nfse.document.list</field>
+        <field name="model">nfse.document</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'cancel'" decoration-danger="state == 'error'" decoration-info="state == 'draft'">
+                <field name="name"/>
+                <field name="date_competence"/>
+                <field name="partner_id"/>
+                <field name="origin" optional="show"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="amount" sum="Total"/>
+                <field name="iss_amount" optional="hide" sum="ISS"/>
+                <field name="environment" optional="hide"/>
+                <field name="state" widget="badge" decoration-success="state == 'done'" decoration-danger="state == 'error'"
+                       decoration-info="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="nfse_document_view_search" model="ir.ui.view">
+        <field name="name">nfse.document.search</field>
+        <field name="model">nfse.document</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="access_key"/>
+                <field name="origin"/>
+                <filter name="to_issue" string="To issue" domain="[('state', 'in', ('draft', 'error'))]"/>
+                <filter name="issued" string="Issued" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="production" string="Production" domain="[('environment', '=', '1')]"/>
+                <filter name="competence" string="Competence" date="date_competence"/>
+                <group>
+                    <filter name="group_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'date_competence:month'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_nfse_document" model="ir.actions.act_window">
+        <field name="name">NFS-e</field>
+        <field name="res_model">nfse.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No service invoice yet</p>
+            <p>Notes are usually created from a monthly closing or a work order. You can also create one by hand.</p>
+        </field>
+    </record>
+</odoo>

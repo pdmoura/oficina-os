@@ -1,4 +1,7 @@
+import io
 import json
+
+from PIL import Image
 
 from odoo import Command
 from odoo.tests import HttpCase, tagged
@@ -44,3 +47,34 @@ class TestPublicPage(HttpCase):
     def test_manifest_opens_the_mechanic_app(self):
         manifest = self.url_open("/web/manifest.webmanifest").json()
         self.assertEqual(manifest["start_url"], "/odoo/action-workshop_os.action_mechanic_app")
+        self.assertEqual(manifest["icons"][0]["src"], "/workshop_os/app-icon/192")
+
+    def test_company_logo_is_public(self):
+        pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+        company = self.env.company
+        company.write({"logo": pixel, "workshop_logo_dark": False})
+        light = self.url_open(f"/workshop_os/logo/{company.id}/dark")
+        self.assertEqual(light.status_code, 200, "falls back to the company logo, without a session")
+        company.workshop_logo_dark = pixel
+        self.assertEqual(self.url_open(f"/workshop_os/logo/{company.id}/dark").status_code, 200)
+        self.assertEqual(self.url_open("/workshop_os/logo/999999/dark").status_code, 404)
+
+    def test_app_icon_follows_the_company(self):
+        default = self.url_open("/workshop_os/app-icon/192", allow_redirects=False)
+        self.assertEqual(default.status_code, 303)
+        self.assertIn("/workshop_os/static/img/app-icon-192.png", default.headers["Location"])
+        pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+        self.env.company.workshop_app_icon = pixel
+        custom = self.url_open("/workshop_os/app-icon/192")
+        self.assertEqual(custom.status_code, 200)
+        self.assertEqual(custom.headers["Content-Type"], "image/png")
+
+    def test_app_icon_is_made_from_the_symbol(self):
+        pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+        self.env.company.write({"workshop_app_icon": False, "workshop_logo_mark": pixel})
+        for size, corner_alpha in ((192, 0), (180, 255)):
+            response = self.url_open(f"/workshop_os/app-icon/{size}")
+            self.assertEqual(response.status_code, 200)
+            icon = Image.open(io.BytesIO(response.content))
+            self.assertEqual(icon.size, (size, size))
+            self.assertEqual(icon.convert("RGBA").getpixel((0, 0))[3], corner_alpha, "iOS gets square corners")

@@ -40,6 +40,7 @@ the office controls the yard, approvals and the monthly closing per customer.
         "views/workshop_app_actions.xml",
         "views/menus.xml",
         "views/portal_templates.xml",
+        "views/webclient_templates.xml",
     ],
     "demo": [
         "demo/workshop_demo.xml",

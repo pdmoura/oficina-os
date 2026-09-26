@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- iPhones take the home-screen icon from this link, not from the manifest. -->
+    <template id="webclient_bootstrap_app_icon" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//link[@rel='apple-touch-icon']" position="attributes">
+            <attribute name="href">/workshop_os/app-icon/180</attribute>
+        </xpath>
+    </template>
+</odoo>

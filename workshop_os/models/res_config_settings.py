@@ -1,4 +1,6 @@
+import base64
 import hashlib
+import io
 import logging
 import time
 
@@ -6,6 +8,7 @@ import requests
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools.image import base64_to_image, image_process
 
 _logger = logging.getLogger(__name__)
 PARAM = "workshop_os."
@@ -25,6 +28,49 @@ class ResCompany(models.Model):
     )
     workshop_accent_color = fields.Char("Accent colour", default="#E8B21E",
                                         help="Highlight colour of the mechanic app and the customer pages.")
+    workshop_app_icon = fields.Image("App icon", max_width=512, max_height=512,
+                                     help="Square image shown when the app is installed on a phone.")
+    workshop_logo_dark = fields.Image("Logo for dark backgrounds", max_width=1024, max_height=1024,
+                                      help="Full logo shown on the dark screens: customer page and office dashboard. "
+                                           "The company logo stays on documents, login and light screens.")
+    workshop_logo_mark = fields.Image("Symbol", max_width=512, max_height=512,
+                                      help="The logo without text, for small places: the mechanic app header "
+                                           "and the phone icon when no app icon is set.")
+
+    def _workshop_brand(self):
+        """Branding the dark screens need, each image falling back to the next best one."""
+        self.ensure_one()
+        return {
+            "name": self.name,
+            "accent": self.workshop_accent_color or "#E8B21E",
+            "logo_dark": f"/workshop_os/logo/{self.id}/dark" if (self.workshop_logo_dark or self.logo) else False,
+            "mark": f"/workshop_os/logo/{self.id}/mark" if (self.workshop_logo_mark or self.workshop_logo_dark or self.logo) else False,
+            "has_logo_dark": bool(self.workshop_logo_dark),
+            "has_mark": bool(self.workshop_logo_mark or self.workshop_logo_dark),
+        }
+
+    def _workshop_app_icon_png(self, size, rounded=True):
+        """Phone icon: the uploaded one, or the symbol centred on the app's dark tile."""
+        self.ensure_one()
+        if self.workshop_app_icon:
+            return image_process(base64.b64decode(self.workshop_app_icon), size=(size, size), output_format="PNG")
+        if not self.workshop_logo_mark:
+            return None
+        from PIL import Image, ImageDraw  # noqa: PLC0415
+        tile = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+        box = (0, 0, size - 1, size - 1)
+        colour, border = (22, 24, 30, 255), (58, 63, 75, 255)
+        if rounded:
+            ImageDraw.Draw(tile).rounded_rectangle(box, radius=round(size * 0.22), fill=colour, outline=border,
+                                                   width=max(1, size // 128))
+        else:
+            ImageDraw.Draw(tile).rectangle(box, fill=colour)
+        mark = base64_to_image(self.workshop_logo_mark).convert("RGBA")
+        mark.thumbnail((round(size * 0.74), round(size * 0.74)), Image.LANCZOS)
+        tile.alpha_composite(mark, ((size - mark.width) // 2, (size - mark.height) // 2))
+        output = io.BytesIO()
+        tile.save(output, "PNG", optimize=True)
+        return output.getvalue()
 
 
 class ResConfigSettings(models.TransientModel):
@@ -33,6 +79,9 @@ class ResConfigSettings(models.TransientModel):
     workshop_warranty_text = fields.Text(related="company_id.workshop_warranty_text", readonly=False)
     workshop_terms_text = fields.Text(related="company_id.workshop_terms_text", readonly=False)
     workshop_accent_color = fields.Char(related="company_id.workshop_accent_color", readonly=False)
+    workshop_app_icon = fields.Image(related="company_id.workshop_app_icon", readonly=False)
+    workshop_logo_dark = fields.Image(related="company_id.workshop_logo_dark", readonly=False)
+    workshop_logo_mark = fields.Image(related="company_id.workshop_logo_mark", readonly=False)
     workshop_photo_storage = fields.Selection(
         [("database", "Database"), ("cloudinary", "Cloudinary")],
         string="Photo storage", config_parameter=PARAM + "photo_storage", default="database",

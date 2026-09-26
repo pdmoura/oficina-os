@@ -16,6 +16,15 @@
                                 </div>
                             </div>
                         </setting>
+                        <setting string="Logo for dark backgrounds" help="Full logo for the customer page and the office dashboard. Documents and the login page use the company logo">
+                            <field name="workshop_logo_dark" widget="image" class="w-25" options="{'size': [160, 96]}"/>
+                        </setting>
+                        <setting string="Symbol" help="The logo without text, for the mechanic app header and the phone icon">
+                            <field name="workshop_logo_mark" widget="image" class="w-25" options="{'size': [96, 96]}"/>
+                        </setting>
+                        <setting string="Phone app icon" help="Optional square image (512 px). Without it, the icon is made from the symbol">
+                            <field name="workshop_app_icon" widget="image" class="w-25" options="{'size': [96, 96]}"/>
+                        </setting>
                     </block>
                     <block title="Texts" name="workshop_texts">
                         <setting string="Warranty" help="Printed on every work order">

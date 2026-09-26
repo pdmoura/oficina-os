@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_danfse" model="report.paperformat">
+        <field name="name">DANFSe A4</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">8</field>
+        <field name="margin_bottom">8</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="action_report_danfse" model="ir.actions.report">
+        <field name="name">DANFSe</field>
+        <field name="model">nfse.document</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_br_nfse_nacional.report_danfse</field>
+        <field name="report_file">l10n_br_nfse_nacional.report_danfse</field>
+        <field name="print_report_name">'DANFSe-%s' % (object.nfse_number or object.id)</field>
+        <field name="paperformat_id" ref="paperformat_danfse"/>
+        <field name="binding_model_id" ref="model_nfse_document"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Layout of NT 008 (DANFSe v2.0). Fixed Portuguese wording: it is a Brazilian fiscal document,
+         and every value printed comes from the authorised NFS-e XML. -->
+    <template id="report_danfse_document">
+        <t t-set="d" t-value="doc._danfse_values()"/>
+        <div class="page danfse">
+            <style>
+                .danfse { font-family: Arial, Helvetica, sans-serif; font-size: 8pt; color: #000; position: relative; }
+                .danfse table { width: 100%; border-collapse: collapse; }
+                .danfse td { border: 0.5pt solid #000; padding: 2px 4px; vertical-align: top; }
+                .danfse .t { font-size: 6.5pt; font-weight: bold; text-transform: uppercase; }
+                .danfse .v { font-size: 8pt; min-height: 10px; }
+                .danfse .block { background: #e8e8e8; font-weight: bold; font-size: 7.5pt; text-transform: uppercase; }
+                .danfse .head h1 { font-size: 13pt; margin: 0; }
+                .danfse .invalid { color: #c00; font-weight: bold; font-size: 10pt; }
+                .danfse .key { font-family: "Courier New", monospace; font-size: 9pt; letter-spacing: 1px; }
+                .danfse .desc { white-space: pre-wrap; }
+                .danfse .mark { position: absolute; top: 330px; left: 0; right: 0; text-align: center; font-size: 72pt;
+                                font-weight: bold; color: rgba(200, 0, 0, 0.18); transform: rotate(-24deg); }
+            </style>
+            <div t-if="d['cancelled']" class="mark">CANCELADA</div>
+
+            <table class="head">
+                <tr>
+                    <td style="width: 78%; text-align: center; vertical-align: middle;">
+                        <h1>DANFSe v2.0</h1>
+                        <div>Documento Auxiliar da NFS-e</div>
+                        <div t-if="d['environment'] == '2'" class="invalid">NFS-e SEM VALIDADE JURÍDICA</div>
+                    </td>
+                    <td style="width: 22%; text-align: center;" rowspan="2">
+                        <img t-att-src="d['qr']" style="width: 1.9cm; height: 1.9cm;"/>
+                        <div style="font-size: 6pt;">A autenticidade desta NFS-e pode ser verificada pela leitura deste
+                            código QR ou pela consulta da chave de acesso no portal nacional da NFS-e</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="t">Chave de acesso da NFS-e</span><div class="key" t-out="d['access_key']"/></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td><span class="t">Número da NFS-e</span><div class="v" t-out="d['number']"/></td>
+                    <td><span class="t">Competência</span><div class="v" t-out="d['competence']"/></td>
+                    <td><span class="t">Data e hora da emissão da NFS-e</span><div class="v" t-out="d['processed_at']"/></td>
+                    <td><span class="t">Situação</span><div class="v" t-out="'Cancelada' if d['cancelled'] else 'Normal'"/></td>
+                </tr>
+                <tr>
+                    <td><span class="t">Número da DPS</span><div class="v" t-out="d['dps_number']"/></td>
+                    <td><span class="t">Série da DPS</span><div class="v" t-out="d['dps_series']"/></td>
+                    <td><span class="t">Data e hora da emissão da DPS</span><div class="v" t-out="d['dps_issued_at']"/></td>
+                    <td><span class="t">Emitente da NFS-e</span><div class="v" t-out="d['issuer']"/></td>
+                </tr>
+            </table>
+
+            <t t-set="p" t-value="d['provider']"/>
+            <table>
+                <tr><td colspan="4" class="block">Prestador / Fornecedor</td></tr>
+                <tr>
+                    <td><span class="t">CNPJ / CPF / NIF</span><div class="v" t-out="p['document']"/></td>
+                    <td><span class="t">Inscrição municipal</span><div class="v" t-out="p['municipal_registration']"/></td>
+                    <td colspan="2"><span class="t">Telefone</span><div class="v" t-out="p['phone']"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span class="t">Nome / Nome empresarial</span><div class="v" t-out="p['name']"/></td>
+                    <td><span class="t">Código IBGE / UF</span><div class="v" t-out="' / '.join(filter(None, [p['city_ibge'], p['state']]))"/></td>
+                    <td><span class="t">CEP</span><div class="v" t-out="p['zip']"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span class="t">Endereço</span><div class="v" t-out="p['street']"/></td>
+                    <td colspan="2"><span class="t">E-mail</span><div class="v" t-out="p['email']"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span class="t">Simples Nacional na data de competência</span><div class="v" t-out="d['provider_simples']"/></td>
+                    <td colspan="2"><span class="t">Regime de apuração tributária pelo SN</span><div class="v" t-out="d['provider_simples_regime']"/></td>
+                </tr>
+            </table>
+
+            <t t-set="c" t-value="d['customer']"/>
+            <table t-if="c">
+                <tr><td colspan="4" class="block">Tomador / Adquirente da operação</td></tr>
+                <tr>
+                    <td><span class="t">CNPJ / CPF / NIF</span><div class="v" t-out="c['document']"/></td>
+                    <td><span class="t">Inscrição municipal</span><div class="v" t-out="c['municipal_registration']"/></td>
+                    <td colspan="2"><span class="t">Telefone</span><div class="v" t-out="c['phone']"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span class="t">Nome / Nome empresarial</span><div class="v" t-out="c['name']"/></td>
+                    <td><span class="t">Código IBGE</span><div class="v" t-out="c['city_ibge']"/></td>
+                    <td><span class="t">CEP</span><div class="v" t-out="c['zip']"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span class="t">Endereço</span><div class="v" t-out="c['street']"/></td>
+                    <td colspan="2"><span class="t">E-mail</span><div class="v" t-out="c['email']"/></td>
+                </tr>
+            </table>
+            <table t-else="">
+                <tr><td class="block">Tomador / adquirente da operação não identificado na NFS-e</td></tr>
+            </table>
+            <table>
+                <tr><td class="block">Intermediário da operação não identificado na NFS-e</td></tr>
+            </table>
+
+            <t t-set="s" t-value="d['service']"/>
+            <table>
+                <tr><td colspan="4" class="block">Serviço prestado</td></tr>
+                <tr>
+                    <td><span class="t">Código de tributação nacional</span><div class="v" t-out="s['code']"/></td>
+                    <td><span class="t">Código de tributação municipal</span><div class="v" t-out="s['municipal_code']"/></td>
+                    <td><span class="t">Código da NBS</span><div class="v" t-out="s['nbs']"/></td>
+                    <td><span class="t">Local da prestação</span><div class="v" t-out="s['place']"/></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><span class="t">Descrição do código de tributação nacional / municipal</span>
+                        <div class="v" t-out="' / '.join(x for x in [s['code_name'], s['municipal_code_name']] if x != '-') or '-'"/></td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="height: 2.4cm;"><span class="t">Descrição do serviço</span><div class="v desc" t-out="s['description']"/></td>
+                </tr>
+            </table>
+
+            <t t-set="i" t-value="d['iss']"/>
+            <table>
+                <tr><td colspan="4" class="block">Tributação municipal (ISSQN)</td></tr>
+                <tr>
+                    <td><span class="t">Tipo de tributação do ISSQN</span><div class="v" t-out="i['taxation']"/></td>
+                    <td><span class="t">Município de incidência</span><div class="v" t-out="i['place']"/></td>
+                    <td><span class="t">Regime especial de tributação</span><div class="v" t-out="i['special_regime']"/></td>
+                    <td><span class="t">Retenção do ISSQN</span><div class="v" t-out="i['withholding']"/></td>
+                </tr>
+                <tr>
+                    <td><span class="t">Base de cálculo do ISSQN</span><div class="v" t-out="i['base']"/></td>
+                    <td><span class="t">Alíquota aplicada</span><div class="v" t-out="i['rate']"/></td>
+                    <td colspan="2"><span class="t">ISSQN apurado</span><div class="v" t-out="i['amount']"/></td>
+                </tr>
+            </table>
+
+            <t t-set="f" t-value="d['federal']"/>
+            <table>
+                <tr><td colspan="3" class="block">Tributação federal (exceto CBS)</td></tr>
+                <tr>
+                    <td><span class="t">IRRF</span><div class="v" t-out="f['irrf']"/></td>
+                    <td><span class="t">Contribuição previdenciária retida</span><div class="v" t-out="f['cp']"/></td>
+                    <td><span class="t">Contribuições sociais retidas</span><div class="v" t-out="f['csll']"/></td>
+                </tr>
+            </table>
+
+            <t t-set="v" t-value="d['totals']"/>
+            <table>
+                <tr><td colspan="5" class="block">Valor total da NFS-e</td></tr>
+                <tr>
+                    <td><span class="t">Valor do serviço</span><div class="v" t-out="v['service']"/></td>
+                    <td><span class="t">Desconto incondicionado</span><div class="v" t-out="v['discount']"/></td>
+                    <td><span class="t">Desconto condicionado</span><div class="v" t-out="v['conditional_discount']"/></td>
+                    <td><span class="t">Total das retenções</span><div class="v" t-out="v['withheld']"/></td>
+                    <td><span class="t">Valor líquido da NFS-e</span><div class="v" style="font-size: 10pt; font-weight: bold;" t-out="v['net']"/></td>
+                </tr>
+            </table>
+
+            <table>
+                <tr><td class="block">Informações complementares</td></tr>
+                <tr>
+                    <td style="height: 1.6cm;">
+                        <div class="v" t-out="d['estimate']"/>
+                        <div t-if="d['extra']" class="v desc" t-out="d['extra']"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </template>
+
+    <template id="report_danfse">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <t t-call="l10n_br_nfse_nacional.report_danfse_document"/>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

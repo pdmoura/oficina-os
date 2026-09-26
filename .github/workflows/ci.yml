@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  odoo:
+    name: Odoo 19 install and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start PostgreSQL
+        run: docker compose up -d db
+
+      - name: Install the modules and run their tests
+        run: |
+          docker compose run --rm odoo odoo -d ci -i workshop_os,workshop_os_nfse \
+            --test-enable --test-tags /workshop_os,/l10n_br_nfse_nacional,/workshop_os_nfse \
+            --stop-after-init --log-level=test 2>&1 | tee test.log
+          grep -E "tests.result: 0 failed, 0 error\(s\)" test.log
+          ! grep -E " (ERROR|CRITICAL) " test.log
+
+      - name: Install with demo data in Portuguese
+        run: |
+          docker compose run --rm odoo odoo -d demo -i workshop_os,workshop_os_nfse --with-demo \
+            --load-language=pt_BR --stop-after-init 2>&1 | tee demo.log
+          ! grep -E " (ERROR|CRITICAL) |UserWarning" demo.log
+
+  image:
+    name: Production image
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: docker build -t oficina-os .
