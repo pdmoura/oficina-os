@@ -1,5 +1,8 @@
 # Oficina OS
 
+[![English](https://img.shields.io/badge/lang-English-1f6feb.svg)](README.md)
+[![Português](https://img.shields.io/badge/lang-Portugu%C3%AAs-2ea043.svg)](README.pt-BR.md)
+
 Work orders for truck electrics and air-conditioning shops, built on **Odoo 19 Community**. The mechanic
 runs the job from a phone, the fleet customer approves the quote from a WhatsApp link, and the office
 closes the month and issues the **NFS-e** through Brazil's national system.
@@ -90,9 +93,9 @@ Run the tests:
 docker compose run --rm odoo odoo -d test -i workshop_os,workshop_os_nfse --test-tags /workshop_os,/l10n_br_nfse_nacional,/workshop_os_nfse --stop-after-init
 ```
 
-The 38 tests cover:
+The 39 tests cover:
 
-- **Workshop:** plate rules, approval, customer page, billing, reports, style compilation.
+- **Workshop:** plate rules, approval, customer page, billing, reports, style compilation, Brazilian defaults on a new database.
 - **NFS-e:** the DPS against the official XSD, each regime's rules, signature verification and tampering, mocked API success, rejection and E0014 recovery, cancellation, DANFSe, CEP lookup.
 
 ## Deploy (Render + Supabase)
@@ -113,17 +116,6 @@ The [`Dockerfile`](Dockerfile) adds the modules to the official Odoo 19 image. [
 Put the database and the web service in the **same region**, e.g. Supabase East US (North Virginia) and Render Virginia. Odoo runs many queries per request, so a cross-continent link would make every page slow.
 
 On the free plan, Odoo uses about 230 MB of the 512 MB. [`keepalive.yml`](.github/workflows/keepalive.yml) pings the service during shop hours when the repository variable `KEEPALIVE_URL` is set.
-
-## Em português
-
-Sistema de ordens de serviço para oficinas de elétrica e ar-condicionado de caminhões, em Odoo 19:
-
-- **App do mecânico no celular:** receber o veículo pela placa, fotos, checklist e situação.
-- **Aprovação do orçamento pelo cliente:** link no WhatsApp, com assinatura.
-- **Escritório:** painel, kanban, fechamento mensal por frota.
-- **NFS-e pelo Sistema Nacional:** modo assistido (Emissor Nacional) ou emissão direta com certificado A1, validação pelo XSD oficial, cancelamento e DANFSe.
-
-A marca (logos, cores e ícone do app) é configurável para cada oficina.
 
 ## License
 
