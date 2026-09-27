@@ -50,7 +50,7 @@ CONF=/tmp/odoo.conf
 umask 077
 cat > "$CONF" <<CONF
 [options]
-addons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+addons_path = /opt/oficina/addons,/usr/lib/python3/dist-packages/odoo/addons
 data_dir = /var/lib/odoo
 db_host = ${DB_HOST}
 db_port = ${DB_PORT}
