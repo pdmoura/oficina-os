@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Save and discard as labelled buttons (a bar at the bottom on phones) instead of two small icons. -->
+    <t t-inherit="web.FormStatusIndicator" t-inherit-mode="extension">
+        <xpath expr="//button[hasclass('o_form_button_save')]" position="attributes">
+            <attribute name="class">o_form_button_save btn btn-primary</attribute>
+        </xpath>
+        <xpath expr="//button[hasclass('o_form_button_save')]/i" position="after">
+            <span>Save</span>
+        </xpath>
+        <xpath expr="//button[hasclass('o_form_button_cancel')]" position="attributes">
+            <attribute name="class">o_form_button_cancel btn btn-secondary</attribute>
+        </xpath>
+        <xpath expr="//button[hasclass('o_form_button_cancel')]/i" position="after">
+            <span>Discard</span>
+        </xpath>
+    </t>
+
+</templates>

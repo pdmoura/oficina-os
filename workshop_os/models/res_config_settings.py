@@ -84,17 +84,35 @@ class ResCompany(models.Model):
     workshop_logo_mark = fields.Image("Symbol", max_width=512, max_height=512,
                                       help="The logo without text, for small places: the mechanic app header "
                                            "and the phone icon when no app icon is set.")
+    workshop_logo_mark_light = fields.Image(
+        "Symbol for light backgrounds", max_width=512, max_height=512,
+        help="The symbol shown in the light theme of the mechanic app and the dashboard.")
+
+    def _workshop_app_name(self):
+        """Name of the installed app and of the browser tab: the configured web app name, or the company's."""
+        self.ensure_one()
+        return self.env["ir.config_parameter"].sudo().get_param("web.web_app_name") or self.name or "Oficina"
 
     def _workshop_brand(self):
-        """Branding the dark screens need, each image falling back to the next best one."""
+        """Branding the app screens need, each image falling back to the next best one."""
         self.ensure_one()
+        accent = _hex_color(self.workshop_accent_color, "#E8B21E")
+        any_logo = self.workshop_logo_dark or self.logo
         return {
             "name": self.name,
-            "accent": self.workshop_accent_color or "#E8B21E",
-            "logo_dark": f"/workshop_os/logo/{self.id}/dark" if (self.workshop_logo_dark or self.logo) else False,
-            "mark": f"/workshop_os/logo/{self.id}/mark" if (self.workshop_logo_mark or self.workshop_logo_dark or self.logo) else False,
+            "accent": accent,
+            "accent_ink": _text_on(accent),
+            # In the light theme the accent also colours text on white: darkened until it reads.
+            "accent_text": _readable_on_white(accent),
+            "logo_dark": f"/workshop_os/logo/{self.id}/dark" if any_logo else False,
+            "logo_light": f"/workshop_os/logo/{self.id}/light" if any_logo else False,
+            "mark": f"/workshop_os/logo/{self.id}/mark" if (self.workshop_logo_mark or any_logo) else False,
+            "mark_light": f"/workshop_os/logo/{self.id}/mark_light" if (
+                self.workshop_logo_mark_light or self.workshop_logo_mark or any_logo) else False,
             "has_logo_dark": bool(self.workshop_logo_dark),
+            "has_logo_light": bool(self.logo),
             "has_mark": bool(self.workshop_logo_mark or self.workshop_logo_dark),
+            "has_mark_light": bool(self.workshop_logo_mark_light or self.workshop_logo_mark),
         }
 
     def _workshop_login_logo(self):
@@ -268,6 +286,7 @@ class ResConfigSettings(models.TransientModel):
     workshop_app_icon = fields.Image(related="company_id.workshop_app_icon", readonly=False)
     workshop_logo_dark = fields.Image(related="company_id.workshop_logo_dark", readonly=False)
     workshop_logo_mark = fields.Image(related="company_id.workshop_logo_mark", readonly=False)
+    workshop_logo_mark_light = fields.Image(related="company_id.workshop_logo_mark_light", readonly=False)
     workshop_login_background = fields.Char(related="company_id.workshop_login_background", readonly=False)
     workshop_login_theme = fields.Selection(related="company_id.workshop_login_theme", readonly=False)
     workshop_photo_storage = fields.Selection(

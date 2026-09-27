@@ -30,6 +30,9 @@
                         <setting string="Symbol" help="The logo without text, for the mechanic app header and the phone icon">
                             <field name="workshop_logo_mark" widget="image" class="w-25" options="{'size': [96, 96]}"/>
                         </setting>
+                        <setting string="Symbol for light backgrounds" help="The symbol shown by the light theme of the mechanic app and the dashboard">
+                            <field name="workshop_logo_mark_light" widget="image" class="w-25" options="{'size': [96, 96]}"/>
+                        </setting>
                         <setting string="Phone app icon" help="Optional square image (512 px). Without it, the icon is made from the symbol">
                             <field name="workshop_app_icon" widget="image" class="w-25" options="{'size': [96, 96]}"/>
                         </setting>

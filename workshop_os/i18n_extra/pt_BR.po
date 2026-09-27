@@ -1,0 +1,881 @@
+# Portuguese (Brazil) for Odoo 19 core interface terms that Odoo ships untranslated.
+# Odoo looks up a JavaScript term in its own module first and falls back to any module's translation,
+# so these fill the gaps without touching core. Regenerate with the gap extractor when Odoo is updated.
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/web/discuss_core_web_service.js:0
+msgid "%(user)s just connected for the first time. Wish them luck!"
+msgstr "%(user)s acabou de entrar pela primeira vez. Deseje boa sorte!"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/composer.xml:0
+msgid "(Keep formatting)"
+msgstr "(Manter formatação)"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/composer.xml:0
+msgid "(Remove formatting)"
+msgstr "(Remover formatação)"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_actions.js:0
+msgid "Autofocus speaker"
+msgstr "Destacar quem fala"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/blur_performance_warning.xml:0
+msgid "Background Blur Performance Warning"
+msgstr "Aviso de desempenho do desfoque de fundo"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/quick_video_settings.xml:0
+msgid "Blur background"
+msgstr "Desfocar fundo"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/pip_banner.xml:0
+msgid "Bring the call back here"
+msgstr "Trazer a chamada de volta para cá"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/device_select.xml:0
+msgid "Browser Default"
+msgstr "Padrão do navegador"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/rtc_service.js:0
+msgid "Camera access blocked. Enable in browser settings."
+msgstr "Acesso à câmera bloqueado. Ative nas configurações do navegador."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/rtc_service.js:0
+msgid "Camera and microphone access blocked. Enable in browser settings."
+msgstr "Acesso à câmera e ao microfone bloqueado. Ative nas configurações do navegador."
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/others/embedded_components/plugins/caption_plugin/caption_plugin.js:0
+msgid "Caption"
+msgstr "Legenda"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/views/fields/mail_server_configurator_selection/mail_server_configurator_selection.js:0
+msgid "Connection failed: %s"
+msgstr "Falha na conexão: %s"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/composer.xml:0
+msgid "Continue with Full Composer?"
+msgstr "Continuar no editor completo?"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/search_message_input.js:0
+msgid "Conversations"
+msgstr "Conversas"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/column_plugin.js:0
+msgid "Convert columns to regular content"
+msgstr "Converter colunas em conteúdo normal"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/others/embedded_components/backend/syntax_highlighting/code_toolbar.xml:0
+msgid "Convert to paragraph"
+msgstr "Converter em parágrafo"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/tree_editor/tree_editor_components.js:0
+msgid "Custom range"
+msgstr "Período personalizado"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/common/delete_thread_dialog.xml:0
+#: code:addons/mail/static/src/discuss/core/common/thread_actions.js:0
+msgid "Delete Thread"
+msgstr "Excluir conversa"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/notification_model.js:0
+#: model:ir.model.fields.selection,name:mail.selection__mail_mail__failure_type__mail_spam
+#: model:ir.model.fields.selection,name:mail.selection__mail_notification__failure_type__mail_spam
+msgid "Detected As Spam"
+msgstr "Detectado como spam"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_actions.js:0
+msgid "Disable speaker autofocus"
+msgstr "Desativar destaque de quem fala"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/search/search_bar_menu/search_bar_menu.xml:0
+msgid "Disabled due to invalid configuration"
+msgstr "Desativado por configuração inválida"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/composer.xml:0
+msgid "Discard editing"
+msgstr "Descartar edição"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/rtc_service.js:0
+msgid "Disconnected from the call by the server"
+msgstr "Desconectado da chamada pelo servidor"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/blur_performance_warning.xml:0
+msgid "Dismiss warning"
+msgstr "Dispensar aviso"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/datetime/datetime_field.js:0
+msgid ""
+"Displays or hides the seconds in the datetime value. Affect only the "
+"readable datetime format."
+msgstr "Mostra ou oculta os segundos no valor de data e hora. Afeta apenas o formato legível."
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/datetime/datetime_field.js:0
+msgid "Displays the date either in 31/01/%(year)s or in Jan 31, %(year)s"
+msgstr "Mostra a data como 31/01/%(year)s ou 31 de jan. de %(year)s"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_permission_dialog.js:0
+msgid "Do you want people to hear you in the meeting?"
+msgstr "Quer que as pessoas ouçam você na reunião?"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_permission_dialog.js:0
+msgid "Do you want people to see you in the meeting?"
+msgstr "Quer que as pessoas vejam você na reunião?"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/movenode_plugin.js:0
+msgid "Drag to move"
+msgstr "Arraste para mover"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/views/fields/mail_server_configurator_selection/mail_server_configurator_selection.xml:0
+msgid "Emails sent via"
+msgstr "E-mails enviados via"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/search_message_input.xml:0
+msgid "Filter Messages"
+msgstr "Filtrar mensagens"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
+msgid ""
+"For example, if the value is \"1\" and you enter \"+=2\", it will be updated"
+" to \"3\"."
+msgstr "Por exemplo, se o valor for \"1\" e você digitar \"+=2\", ele passará a ser \"3\"."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/composer.xml:0
+msgid "Formatting can only be restored in Full Composer."
+msgstr "A formatação só pode ser restaurada no editor completo."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/blur_performance_warning.xml:0
+msgid ""
+"Hardware acceleration is disabled. Blur effect impacts performance "
+"significantly."
+msgstr "A aceleração de hardware está desativada. O desfoque afeta bastante o desempenho."
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/model/relational_model/record.js:0
+msgid ""
+"Heads up! Your recent changes are too large to save automatically. Please "
+"click the %(upload_icon)s button now to ensure your work is saved before you"
+" exit this tab."
+msgstr "Atenção! Suas alterações recentes são grandes demais para salvar automaticamente. Clique agora no botão %(upload_icon)s para garantir que o trabalho seja salvo antes de sair desta aba."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_invitation.js:0
+msgid "Hide camera preview"
+msgstr "Ocultar prévia da câmera"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/password/password_field.js:0
+msgid "Hide value"
+msgstr "Ocultar valor"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/js/tours/discuss_channel_tour.js:0
+msgid "Hover on your message and add a star"
+msgstr "Passe o mouse sobre a mensagem e marque com uma estrela"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/json_checkboxes/json_checkboxes_field.js:0
+msgid ""
+"If checked, the checkboxes will be displayed in a column. Otherwise, they "
+"will be inlined."
+msgstr "Se marcado, as caixas de seleção aparecem em coluna. Caso contrário, ficam na mesma linha."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
+msgid ""
+"If you were using a Tenor API key, please replace it with a Klipy API key in"
+" the General Settings."
+msgstr "Se você usava uma chave de API do Tenor, troque-a por uma chave do Klipy nas Configurações gerais."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_invitation.js:0
+msgid "Incoming call from %(inviter)s"
+msgstr "Chamada recebida de %(inviter)s"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/banner_plugin.js:0
+msgid "Insert a monospace banner"
+msgstr "Inserir um banner monoespaçado"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/kanban/kanban_record_quick_create.js:0
+msgid "Invalid Display Name"
+msgstr "Nome de exibição inválido"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/common/channel_invitation.xml:0
+msgid "Invitation already sent to this address"
+msgstr "Convite já enviado para este endereço"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/common/channel_invitation.js:0
+msgid "Invitation link copied!"
+msgstr "Link de convite copiado!"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/common/channel_invitation.js:0
+msgid "Invitation link copy failed (Permission denied?)!"
+msgstr "Não foi possível copiar o link de convite (permissão negada?)!"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/views/web/fields/avatar_autocomplete/avatar_many2x_autocomplete.js:0
+msgid "Invite \"%s\""
+msgstr "Convidar \"%s\""
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/common/channel_invitation.js:0
+msgid "Invite people or email"
+msgstr "Convidar pessoas ou e-mail"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/views/web/fields/avatar_autocomplete/avatar_many2x_autocomplete.js:0
+msgid "Invite teammates"
+msgstr "Convidar colegas"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/views/web/fields/avatar_autocomplete/avatar_many2x_autocomplete.js:0
+msgid "Invite teammates via email"
+msgstr "Convidar colegas por e-mail"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/properties/properties_field.js:0
+msgid ""
+"It will be removed for everyone using the \"%(parentName)s\" "
+"%(parentFieldLabel)s."
+msgstr "Será removido para todos que usam %(parentFieldLabel)s \"%(parentName)s\"."
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/properties/properties_field.js:0
+msgid "It will be removed for everyone!"
+msgstr "Será removido para todos!"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/datetime/datetime_field.js:0
+msgid "Jan 31, %s"
+msgstr "31 de jan. de %s"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/public/welcome_page.xml:0
+msgid "Join call"
+msgstr "Entrar na chamada"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_settings.xml:0
+#: code:addons/mail/static/src/discuss/call/common/quick_voice_settings.xml:0
+msgid "Microphone"
+msgstr "Microfone"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/rtc_service.js:0
+msgid "Microphone access blocked. Enable in browser settings."
+msgstr "Acesso ao microfone bloqueado. Ative nas configurações do navegador."
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/float/float_field.js:0
+msgid "Minimum Digits"
+msgstr "Mínimo de dígitos"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/model/relational_model/record.js:0
+msgid "Missing required fields"
+msgstr "Preencha os campos obrigatórios"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/banner_plugin.js:0
+msgid "Monospace"
+msgstr "Monoespaçado"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/banner_plugin.js:0
+msgid "Monospace Banner"
+msgstr "Banner monoespaçado"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/tree_editor/tree_editor_components.js:0
+msgid "Month to date"
+msgstr "Mês até hoje"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
+msgid "My Preferences"
+msgstr "Minhas preferências"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/public_web/discuss_search.js:0
+msgid "New Meeting"
+msgstr "Nova reunião"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/action_list.xml:0
+msgid "No content."
+msgstr "Sem conteúdo."
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/emoji_picker/emoji_picker.xml:0
+msgid "No emojis match your search"
+msgstr "Nenhum emoji encontrado"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/public/welcome_page.xml:0
+msgid "No one else is here."
+msgstr "Não há mais ninguém aqui."
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/properties/property_definition.xml:0
+msgid ""
+"Not possible to create monetary field because there is no currency on "
+"current model."
+msgstr "Não é possível criar um campo monetário porque o modelo atual não tem moeda."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message.js:0
+msgid "Out-of-office message"
+msgstr "Mensagem de ausência"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/blur_performance_warning.xml:0
+msgid "Performance Warning:"
+msgstr "Aviso de desempenho:"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/common/delete_thread_dialog.xml:0
+msgid "Permanently delete this thread?"
+msgstr "Excluir esta conversa permanentemente?"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/device_select.xml:0
+msgid "Permission Needed"
+msgstr "Permissão necessária"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/quick_voice_settings.xml:0
+msgid "Push-to-Talk"
+msgstr "Apertar para falar"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/public/welcome_page.xml:0
+msgid "Ready to join?"
+msgstr "Pronto para entrar?"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/core/format_plugin.js:0
+msgid "Remove Format (Ctrl + Space)"
+msgstr "Remover formatação (Ctrl + Espaço)"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message_actions.js:0
+msgid "Remove Star"
+msgstr "Remover estrela"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/column_plugin.js:0
+msgid "Remove column layout"
+msgstr "Remover layout em colunas"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/password/password_field.js:0
+msgid "Reveal value"
+msgstr "Mostrar valor"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/translation_button.js:0
+msgid "Save this record and its parent to translate"
+msgstr "Salve este registro e o registro pai para traduzir"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/rtc_service.js:0
+msgid "Screen sharing access blocked. Enable in browser settings."
+msgstr "Compartilhamento de tela bloqueado. Ative nas configurações do navegador."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
+msgid "Search Klipy"
+msgstr "Buscar no Klipy"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/reference/reference_field.js:0
+msgid "Search a record..."
+msgstr "Buscar um registro..."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/public_web/discuss_search.xml:0
+msgid "Search conversations"
+msgstr "Buscar conversas"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/media/media_dialog/image_selector.xml:0
+msgid "Search the web for royalty-free images"
+msgstr "Buscar na web imagens livres de direitos"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/link/link_popover.xml:0
+msgid "Select button shape"
+msgstr "Escolher formato do botão"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/link/link_popover.xml:0
+msgid "Select button size"
+msgstr "Escolher tamanho do botão"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/views/web/view_dialog/avatar_user_form_view_dialog.xml:0
+msgid "Send & New Invitation"
+msgstr "Enviar e novo convite"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/fields/badge/badge_field.js:0
+#: code:addons/web/static/src/views/fields/badge_selection/list_badge_selection_field.js:0
+msgid "Set an integer field to use colors with the badge."
+msgstr "Defina um campo inteiro para usar cores no selo."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_invitation.js:0
+msgid "Show camera preview"
+msgstr "Mostrar prévia da câmera"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid ""
+"Showing all differences between the current version and the selected one "
+"updated by"
+msgstr "Mostrando as diferenças entre a versão atual e a selecionada, atualizada por"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid "Showing the document as it was on"
+msgstr "Mostrando o documento como estava em"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid "Split view"
+msgstr "Visão lado a lado"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message.xml:0
+msgid "Starred message"
+msgstr "Mensagem com estrela"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/web/store_service_patch.js:0
+msgid "Starred messages"
+msgstr "Mensagens com estrela"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/media/media_dialog/video_selector.js:0
+msgid "Start at"
+msgstr "Começar em"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_actions.js:0
+msgid "Switch Camera"
+msgstr "Trocar câmera"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/link/link_popover.js:0
+msgid "Tells search engines not to follow this link"
+msgstr "Pede aos buscadores que não sigam este link"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/search/search_arch_parser.js:0
+msgid ""
+"The autocomplete value for %(field)s has not been found: the record with id "
+"%(id)s doesn't seem to exist"
+msgstr "O valor de preenchimento automático de %(field)s não foi encontrado: o registro com id %(id)s parece não existir"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/utils/files.js:0
+msgid "The file is not an image, resizing is not possible"
+msgstr "O arquivo não é uma imagem; não é possível redimensionar"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/errors/error_dialogs.js:0
+msgid "The request sent to the server was too large"
+msgstr "A requisição enviada ao servidor era grande demais"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/utils/files.js:0
+msgid "The resizing of the image failed"
+msgstr "Falha ao redimensionar a imagem"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/js/rotting_mixin/rotting_widget.js:0
+msgid "This applicant has been stuck in this stage for %(numberOfDays)s days."
+msgstr "Este candidato está parado nesta etapa há %(numberOfDays)s dias."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/store_service.js:0
+msgid "This conversation isn’t available."
+msgstr "Esta conversa não está disponível."
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid "This is the current version, nothing to compare."
+msgstr "Esta é a versão atual; não há o que comparar."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/thread.js:0
+msgid "This is the start of the #%(channelName)s channel"
+msgstr "Este é o início do canal #%(channelName)s"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/thread.js:0
+msgid "This is the start of your direct chat with %(userName)s"
+msgstr "Este é o início da sua conversa com %(userName)s"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/js/rotting_mixin/rotting_widget.js:0
+msgid "This lead has been stuck in this stage for %(numberOfDays)s days."
+msgstr "Este lead está parado nesta etapa há %(numberOfDays)s dias."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/js/rotting_mixin/rotting_widget.js:0
+msgid "This record has been stuck in this stage for %(numberOfDays)s days."
+msgstr "Este registro está parado nesta etapa há %(numberOfDays)s dias."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/js/rotting_mixin/rotting_widget.js:0
+msgid "This task has been stuck in this stage for %(numberOfDays)s days."
+msgstr "Esta tarefa está parada nesta etapa há %(numberOfDays)s dias."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/common/delete_thread_dialog.js:0
+msgid "Thread \"%(thread_name)s\" has been deleted"
+msgstr "A conversa \"%(thread_name)s\" foi excluída"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/core/public_web/discuss_sidebar_categories.js:0
+msgid "Thread Actions"
+msgstr "Ações da conversa"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/webclient/debug/profiling/profiling_item.xml:0
+msgid "Time Limit (seconds)"
+msgstr "Tempo limite (segundos)"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/datetime/datetime_picker.xml:0
+msgid "Toggle date range mode"
+msgstr "Alternar modo de período"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/search_message_input.js:0
+msgid "Tracked Changes"
+msgstr "Alterações registradas"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/table/table_menu.js:0
+msgid "Turn into header"
+msgstr "Transformar em cabeçalho"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/table/table_menu.js:0
+msgid "Turn into row"
+msgstr "Transformar em linha"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid "Unified view"
+msgstr "Visão unificada"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_permission_dialog.js:0
+msgid "Use Camera"
+msgstr "Usar câmera"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_permission_dialog.js:0
+msgid "Use Microphone"
+msgstr "Usar microfone"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_permission_dialog.xml:0
+msgid "Use microphone and camera"
+msgstr "Usar microfone e câmera"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/list/list_confirmation_dialog.xml:0
+msgid "Use the operators \"+=\", \"-=\", \"*=\" and \"/=\" to update the current value."
+msgstr "Use os operadores \"+=\", \"-=\", \"*=\" e \"/=\" para atualizar o valor atual."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/pip_banner.xml:0
+msgid ""
+"Using picture-in-picture lets you stay in the call while you do other "
+"things."
+msgstr "Com o picture-in-picture você continua na chamada enquanto faz outras coisas."
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid "Version date"
+msgstr "Data da versão"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid "View Content"
+msgstr "Ver conteúdo"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_invitation.js:0
+msgid "View chat with %(channel_name)s"
+msgstr "Ver conversa com %(channel_name)s"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid "View comparison"
+msgstr "Ver comparação"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/components/history_dialog/history_dialog.xml:0
+msgid "View content"
+msgstr "Ver conteúdo"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_invitation.js:0
+msgid "View the %(channel_name)s channel"
+msgstr "Ver o canal %(channel_name)s"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/tree_editor/tree_editor_components.js:0
+msgid "Year to date"
+msgstr "Ano até hoje"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/call_permission_dialog.js:0
+msgid "You can still turn off your %s anytime."
+msgstr "Você pode desligar seu %s a qualquer momento."
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/call/common/pip_banner.xml:0
+msgid "Your call is in another window."
+msgstr "Sua chamada está em outra janela."
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/tree_editor/tree_editor_operator_editor.js:0
+msgid "before"
+msgstr "antes de"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/separator_plugin.js:0
+msgid "divider"
+msgstr "divisor"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/views/web/fields/shortcut_char_field/shortcut_char_field.js:0
+#: model_terms:ir.ui.view,arch_db:mail.mail_canned_response_view_tree
+msgid "e.g. hello"
+msgstr "ex.: olá"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/webclient/actions/blank_component.xml:0
+msgid "empty"
+msgstr "vazio"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/tree_editor/tree_editor_operator_editor.js:0
+msgid "greater or equal to"
+msgstr "maior ou igual a"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/separator_plugin.js:0
+msgid "line"
+msgstr "linha"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/tree_editor/tree_editor_operator_editor.js:0
+msgid "lower or equal to"
+msgstr "menor ou igual a"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/core/tree_editor/tree_editor_operator_editor.js:0
+msgid "lower than"
+msgstr "menor que"
+
+#. module: html_editor
+#. odoo-javascript
+#: code:addons/html_editor/static/src/main/font/font_plugin.js:0
+msgid "title"
+msgstr "título"
+
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/webclient/user_menu/user_menu_items.js:0
+msgid "Shortcuts"
+msgstr "Atalhos"

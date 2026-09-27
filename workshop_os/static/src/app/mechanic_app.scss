@@ -113,6 +113,23 @@
         &::-webkit-scrollbar { display: none; }
     }
     .wa-chips--wrap { flex-wrap: wrap; overflow: visible; margin: 0; padding: 2px 0 12px; }
+
+    // Stages as a row of chips or as a grid of cards, the mechanic's choice.
+    .wa-section-head {
+        display: flex; align-items: center; justify-content: space-between; margin: 2px 0 8px;
+        > span { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--wo-muted); }
+    }
+    .wa-stage-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .wa-stage-card {
+        display: flex; justify-content: space-between; align-items: center; gap: 8px;
+        min-height: 62px; padding: 12px 14px; border-radius: var(--wo-radius); text-align: left;
+        background: var(--wo-surface); color: var(--wo-text);
+        border: 1px solid var(--wo-border); border-top: 4px solid var(--stage, var(--wo-accent));
+        span { min-width: 0; font-size: 15px; font-weight: 600; overflow-wrap: anywhere; }
+        strong { font-size: 22px; font-variant-numeric: tabular-nums; }
+        &.is-active { background: var(--wo-surface-2); box-shadow: inset 0 0 0 2px var(--stage, var(--wo-accent)); }
+        &:active { transform: scale(.98); }
+    }
     .wa-chip {
         display: inline-flex;
         align-items: center;
@@ -277,7 +294,7 @@
     .wa-vehicle-card {
         display: flex; gap: 14px; align-items: center;
         padding: 14px; border-radius: 16px; background: var(--wo-surface); border: 1px solid var(--wo-border);
-        > i { font-size: 26px; color: var(--wo-accent); }
+        > i { font-size: 26px; color: var(--wo-accent-text); }
         div { display: flex; flex-direction: column; }
         span { font-size: 14px; }
     }

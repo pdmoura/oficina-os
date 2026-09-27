@@ -9,6 +9,7 @@ from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import new_test_user, tagged
 from odoo.tools import mute_logger
+from odoo.tools.translate import code_translations
 
 from ..models.res_config_settings import BACKEND_THEME_URL, _contrast, _readable_on_white
 from ..models.workshop_vehicle import format_plate, normalize_plate
@@ -239,6 +240,13 @@ class TestAssets(WorkshopCase):
         bundle.preprocess_css()
         self.assertFalse(bundle.css_errors)
 
+    def test_core_terms_have_portuguese(self):
+        # Odoo 19 ships these interface terms untranslated; i18n_extra/pt_BR.po fills the gap as a fallback.
+        messages = {m["id"]: m["string"] for m in code_translations.get_web_translations("workshop_os", "pt_BR")["messages"]}
+        self.assertEqual(messages["My Preferences"], "Minhas preferências")
+        self.assertEqual(messages["Missing required fields"], "Preencha os campos obrigatórios")
+        self.assertEqual(messages["Shortcuts"], "Atalhos")
+
     def test_accent_text_stays_readable(self):
         # A yellow brand paints buttons yellow, but its links and outlines are darkened until they read on white.
         for accent in ("#E8B21E", "#FFFFFF", "#22C55E"):
@@ -288,6 +296,12 @@ class TestBrazilDefaults(WorkshopCase):
         Order = self.env["workshop.order"]
         self.assertEqual(Order.with_user(self.office)._workshop_home_action()["tag"], "workshop_os.dashboard")
         self.assertEqual(Order.with_user(self.mechanic)._workshop_home_action()["tag"], "workshop_os.mechanic_app")
+
+    def test_theme_is_a_user_setting(self):
+        settings = self.env["res.users.settings"]._find_or_create_for_user(self.mechanic)
+        self.assertEqual(settings._res_users_settings_format()["workshop_theme"], "dark", "sent to the browser")
+        settings.with_user(self.mechanic).set_res_users_settings({"workshop_theme": "light"})
+        self.assertEqual(settings.workshop_theme, "light", "each user switches their own theme")
 
     def test_odoobot_stays_quiet(self):
         # Its onboarding chat would open over the screen on the first login.

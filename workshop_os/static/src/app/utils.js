@@ -1,8 +1,8 @@
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 
 const { DateTime } = luxon;
 
-/** 'abc-1d23' -> 'ABC1D23' */
 /**
  * OWL hoists the names an event-handler arrow calls (`() => set("x", 1)`) into locals and calls them bare, so a
  * screen's methods lose `this` there. Screens bind their own methods once in setup().
@@ -17,6 +17,25 @@ export function bindMethods(component) {
     }
 }
 
+/** The user's theme for the app screens ("dark" or "light"), kept in their Odoo user settings. */
+export function workshopTheme() {
+    return user.settings.workshop_theme === "light" ? "light" : "dark";
+}
+
+export function saveWorkshopTheme(theme) {
+    return user.setUserSettings("workshop_theme", theme);
+}
+
+/** CSS variables for the company's accent; the light theme adds the darker shade used for text on white. */
+export function brandStyle(company, theme) {
+    if (!company) {
+        return "";
+    }
+    const style = `--wo-accent: ${company.accent}; --wo-accent-ink: ${company.accent_ink};`;
+    return theme === "light" ? `${style} --wo-accent-text: ${company.accent_text};` : style;
+}
+
+/** 'abc-1d23' -> 'ABC1D23' */
 export function normalizePlate(value) {
     return (value || "").replace(/[^a-z0-9]/gi, "").toUpperCase().slice(0, 7);
 }

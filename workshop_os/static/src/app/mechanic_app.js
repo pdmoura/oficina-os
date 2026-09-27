@@ -3,6 +3,7 @@ import { useService } from "@web/core/utils/hooks";
 import { Component, useState } from "@odoo/owl";
 
 import { HomeScreen, NewOrderScreen, OrderScreen } from "./screens";
+import { brandStyle, saveWorkshopTheme, workshopTheme } from "./utils";
 
 /**
  * Full-screen app for mechanics (client action with target "fullscreen"). Screens live in a small stack so the back
@@ -20,7 +21,7 @@ export class MechanicApp extends Component {
         if (orderId) {
             start.push({ screen: "order", orderId, key: 2 });
         }
-        this.state = useState({ stack: start, meta: null, menu: false });
+        this.state = useState({ stack: start, meta: null, menu: false, theme: workshopTheme() });
         this._key = 10;
         this.api = {
             openOrder: (id, replace) => this.push({ screen: "order", orderId: id }, replace),
@@ -38,7 +39,12 @@ export class MechanicApp extends Component {
                 this.state.menu = false;
                 this.api.home();
             },
-            openOffice: () => this.action.doAction("workshop_os.action_workshop_order"),
+            toggleTheme: () => {
+                this.state.theme = this.state.theme === "light" ? "dark" : "light";
+                this.state.menu = false;
+                return saveWorkshopTheme(this.state.theme);
+            },
+            openOffice: () => this.action.doAction("workshop_os.action_workshop_dashboard"),
             logout: () => (window.location.href = "/web/session/logout"),
         };
     }
@@ -63,8 +69,7 @@ export class MechanicApp extends Component {
     }
 
     get accentStyle() {
-        const accent = this.state.meta?.company?.accent;
-        return accent ? `--wo-accent: ${accent};` : "";
+        return brandStyle(this.state.meta?.company, this.state.theme);
     }
 }
 

@@ -100,7 +100,9 @@ msgstr "<span class=\"label\">Total</span><br/>"
 msgid ""
 "<span class=\"o_workshop_chip\" invisible=\"not is_waiting\">Waiting</span>\n"
 "                            <span class=\"o_workshop_chip\" invisible=\"not fold\">Folded</span>"
-msgstr "<span class=\"o_workshop_chip\" invisible=\"not is_waiting\">Aguardando</span>\n                            <span class=\"o_workshop_chip\" invisible=\"not fold\">Recolhida</span>"
+msgstr ""
+"<span class=\"o_workshop_chip\" invisible=\"not is_waiting\">Aguardando</span>\n"
+"                            <span class=\"o_workshop_chip\" invisible=\"not fold\">Recolhida</span>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
@@ -407,6 +409,7 @@ msgstr "Atenção"
 
 #. module: workshop_os
 #. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.js:0
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__state__draft
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
@@ -488,7 +491,9 @@ msgstr "Ônibus"
 msgid ""
 "Buttons and highlights across the system, the mechanic app and the customer "
 "pages."
-msgstr "Botões e destaques em todo o sistema, no app do mecânico e nas páginas do cliente."
+msgstr ""
+"Botões e destaques em todo o sistema, no app do mecânico e nas páginas do "
+"cliente."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
@@ -748,9 +753,21 @@ msgid "Customers this month"
 msgstr "Clientes do mês"
 
 #. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__res_users_settings__workshop_theme__dark
+msgid "Dark"
+msgstr "Escuro"
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__res_company__workshop_login_theme__dark
 msgid "Dark card"
 msgstr "Escuro"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: code:addons/workshop_os/static/src/backend/dashboard.js:0
+msgid "Dark theme"
+msgstr "Tema escuro"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_res_company__workshop_login_theme
@@ -836,10 +853,18 @@ msgid "Direção hidráulica"
 msgstr "Direção hidráulica"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/form_status_indicator.xml:0
+msgid "Discard"
+msgstr "Descartar"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_ir_http__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_res_partner__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_res_users__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_res_users_settings__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__display_name
@@ -1093,6 +1118,11 @@ msgid "Good morning"
 msgstr "Bom dia"
 
 #. module: workshop_os
+#: model:ir.model,name:workshop_os.model_ir_http
+msgid "HTTP Routing"
+msgstr "Roteamento HTTP"
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__has_message
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__has_message
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__has_message
@@ -1138,10 +1168,12 @@ msgid "How many order lines used this service."
 msgstr "Quantas vezes este serviço foi usado em OS."
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_ir_http__id
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__id
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__id
 #: model:ir.model.fields,field_description:workshop_os.field_res_partner__id
 #: model:ir.model.fields,field_description:workshop_os.field_res_users__id
+#: model:ir.model.fields,field_description:workshop_os.field_res_users_settings__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__id
@@ -1184,6 +1216,7 @@ msgstr "Se marcado, algumas mensagens têm erro de entrega."
 
 #. module: workshop_os
 #. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.js:0
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 msgid "In the yard"
 msgstr "Na oficina"
@@ -1308,6 +1341,7 @@ msgstr "Último hodômetro (km)"
 #. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: code:addons/workshop_os/static/src/backend/dashboard.js:0
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
@@ -1315,9 +1349,21 @@ msgid "Late"
 msgstr "Em atraso"
 
 #. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__res_users_settings__workshop_theme__light
+msgid "Light"
+msgstr "Claro"
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__res_company__workshop_login_theme__light
 msgid "Light card"
 msgstr "Claro"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: code:addons/workshop_os/static/src/backend/dashboard.js:0
+msgid "Light theme"
+msgstr "Tema claro"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__light
@@ -1963,6 +2009,11 @@ msgid "Problem and diagnosis"
 msgstr "Problema e diagnóstico"
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__state
+msgid "Progress"
+msgstr "Andamento"
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__date_promised
 msgid "Promised for"
 msgstr "Previsão"
@@ -2001,6 +2052,7 @@ msgstr "Pronta"
 
 #. module: workshop_os
 #. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/dashboard.js:0
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
 msgid "Ready for pickup"
@@ -2086,6 +2138,12 @@ msgstr "Retorno de um serviço anterior (reserviço)."
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__rework
 msgid "Rework"
 msgstr "Retrabalho"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/form_status_indicator.xml:0
+msgid "Save"
+msgstr "Salvar"
 
 #. module: workshop_os
 #: model:workshop.checklist.template,name:workshop_os.checklist_truck_exit
@@ -2211,6 +2269,18 @@ msgid "Show To Customer"
 msgstr "Mostrar ao cliente"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Show stages as a grid"
+msgstr "Mostrar situações em grade"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Show stages in a row"
+msgstr "Mostrar situações em fileira"
+
+#. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_service__favorite
 msgid "Shown as a one-tap button in the mechanic app."
 msgstr "Aparece como botão de um toque no app do mecânico."
@@ -2265,6 +2335,8 @@ msgid "Stage history"
 msgstr "Histórico de situações"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.actions.act_window,name:workshop_os.action_workshop_stage
 #: model:ir.ui.menu,name:workshop_os.menu_workshop_stages
 msgid "Stages"
@@ -2278,14 +2350,9 @@ msgstr "Iniciar “"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__state
-#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__state
-msgid "State"
-msgstr "Status"
-
-#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "Status"
-msgstr "Status"
+msgstr "Situação"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_state
@@ -2311,6 +2378,13 @@ msgstr "Subtotal"
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
 msgid "Symbol"
 msgstr "Símbolo"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_mark_light
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_logo_mark_light
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid "Symbol for light backgrounds"
+msgstr "Símbolo para fundo claro"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2346,7 +2420,10 @@ msgid ""
 "The accent colours buttons and highlights across the system, the mechanic "
 "app, the customer pages and the login; the background colour paints the top "
 "bar and the login page"
-msgstr "A cor de destaque pinta botões e destaques em todo o sistema, no app do mecânico, nas páginas do cliente e no login; a cor de fundo pinta a barra superior e a tela de login"
+msgstr ""
+"A cor de destaque pinta botões e destaques em todo o sistema, no app do "
+"mecânico, nas páginas do cliente e no login; a cor de fundo pinta a barra "
+"superior e a tela de login"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
@@ -2375,10 +2452,28 @@ msgstr ""
 "O logo sem texto, para o cabeçalho do app do mecânico e o ícone no celular"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid ""
+"The symbol shown by the light theme of the mechanic app and the dashboard"
+msgstr "O símbolo mostrado pelo tema claro do app do mecânico e do painel"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_logo_mark_light
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_logo_mark_light
+msgid ""
+"The symbol shown in the light theme of the mechanic app and the dashboard."
+msgstr "O símbolo mostrado no tema claro do app do mecânico e do painel."
+
+#. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_res_company__workshop_login_background
 #: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_login_background
 msgid "The system's top bar and the page behind the login card."
 msgstr "A barra superior do sistema e o fundo da tela de login."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_users_settings__workshop_theme
+msgid "Theme of the mechanic app and the yard dashboard, chosen by each user."
+msgstr "Tema do app do mecânico e do painel, escolhido por cada usuário."
 
 #. module: workshop_os
 #. odoo-python
@@ -2538,6 +2633,11 @@ msgstr "Usos"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__user_id
 msgid "User"
 msgstr "Usuário"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_res_users_settings
+msgid "User Settings"
+msgstr "Configurações do usuário"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__chassis
@@ -2735,6 +2835,11 @@ msgstr "Qtd. de veículos"
 #: model:ir.model.fields,field_description:workshop_os.field_res_users__workshop_customer
 msgid "Workshop customer"
 msgstr "Cliente da oficina"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_users_settings__workshop_theme
+msgid "Workshop theme"
+msgstr "Tema da oficina"
 
 #. module: workshop_os
 #. odoo-javascript

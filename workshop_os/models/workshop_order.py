@@ -41,7 +41,7 @@ class WorkshopOrder(models.Model):
         ("done", "Ready"),
         ("delivered", "Delivered"),
         ("cancel", "Cancelled"),
-    ], default="draft", required=True, tracking=True, index=True, copy=False)
+    ], string="Progress", default="draft", required=True, tracking=True, index=True, copy=False)
     date_in = fields.Datetime("Arrived", default=fields.Datetime.now, required=True, index=True)
     date_promised = fields.Datetime("Promised for", tracking=True)
     date_done = fields.Datetime("Ready on", readonly=True, copy=False)

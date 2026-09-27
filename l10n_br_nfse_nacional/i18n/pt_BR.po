@@ -1280,12 +1280,12 @@ msgstr "Regime especial de tributação"
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__state
 msgid "State"
-msgstr "Status"
+msgstr "Situação"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
 msgid "Status"
-msgstr "Status"
+msgstr "Situação"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_partner__nfse_street_number

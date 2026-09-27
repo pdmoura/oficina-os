@@ -17,6 +17,27 @@
 @include media-breakpoint-down(md) {
     .o_workshop_order_title { flex-wrap: wrap; padding-right: 72px; row-gap: 8px !important; }
 }
+// Breadcrumb, settings cog and save buttons with room between them.
+.o_control_panel_breadcrumbs { column-gap: .5rem !important; }
+.o_form_status_indicator_buttons {
+    gap: .4rem;
+    .btn { display: inline-flex; align-items: center; gap: .4rem; }
+}
+// On a phone, save and discard become a bar at the bottom of the screen, big enough for a thumb. It only shows
+// while there is something to save.
+@include media-breakpoint-down(md) {
+    .o_form_status_indicator_buttons {
+        position: fixed; left: 0; right: 0; bottom: 0; z-index: $zindex-fixed;
+        gap: .6rem; margin: 0;
+        padding: .6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+        background: $o-view-background-color;
+        border-top: 1px solid $border-color;
+        box-shadow: 0 -6px 18px rgba($black, .08);
+        .btn { flex: 1; justify-content: center; min-height: 48px; font-size: 1rem; font-weight: 600; }
+        &.invisible { display: none !important; }
+    }
+    .o_form_view:has(.o_form_status_indicator_buttons:not(.invisible)) .o_content { padding-bottom: 5.5rem; }
+}
 .o_workshop_photo { aspect-ratio: 1; object-fit: cover; }
 .o_workshop_elapsed { white-space: nowrap; }
 .o_field_workshop_plate { display: inline-flex; }

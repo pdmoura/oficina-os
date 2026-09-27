@@ -68,15 +68,23 @@ class WorkshopBrand(http.Controller):
     @http.route("/workshop_os/logo/<int:company_id>/<string:variant>", type="http", auth="public",
                 sitemap=False, readonly=True)
     def company_logo(self, company_id, variant, **kwargs):
-        """Public logos for the dark screens: "dark" (full logo) or "mark" (symbol), with fallbacks."""
+        """Public logos of the app screens, each variant falling back to the next best image.
+
+        "dark"/"light": the full logo for a dark or light background; "mark"/"mark_light": the symbol.
+        """
         company = request.env["res.company"].sudo().browse(company_id).exists()
-        if not company or variant not in ("dark", "mark"):
+        fallbacks = {
+            "dark": ["workshop_logo_dark", "logo"],
+            "light": ["logo", "workshop_logo_dark"],
+            "mark": ["workshop_logo_mark", "workshop_logo_dark", "logo"],
+            "mark_light": ["workshop_logo_mark_light", "workshop_logo_mark", "logo", "workshop_logo_dark"],
+        }
+        if not company or variant not in fallbacks:
             raise request.not_found()
-        order = ["workshop_logo_mark"] if variant == "mark" else []
-        field = next((f for f in order + ["workshop_logo_dark", "logo"] if company[f]), None)
+        field = next((f for f in fallbacks[variant] if company[f]), None)
         if not field:
             raise request.not_found()
-        size = 256 if variant == "mark" else 640
+        size = 256 if variant.startswith("mark") else 640
         stream = request.env["ir.binary"]._get_image_stream_from(company, field, width=size, height=size)
         return stream.get_response(max_age=3600)
 
@@ -86,8 +94,7 @@ class WorkshopManifest(WebManifest):
 
     def _get_webmanifest(self):
         manifest = super()._get_webmanifest()
-        company = request.env.company.sudo()
-        name = request.env["ir.config_parameter"].sudo().get_param("web.web_app_name") or company.name or "Oficina"
+        name = request.env.company.sudo()._workshop_app_name()
         manifest.update({
             "name": name,
             "short_name": name[:12],

@@ -20,6 +20,7 @@
         background: var(--wo-accent); color: var(--wo-accent-ink); font-weight: 700;
     }
     .wd-btn--ghost { background: var(--wo-surface-2); color: var(--wo-text); border: 1px solid var(--wo-border); }
+    .wd-btn--icon { width: 42px; padding: 0; justify-content: center; font-size: 17px; }
 
     .wd-kpis { display: grid; grid-template-columns: repeat(4, 1fr) repeat(2, 1.5fr); gap: 12px; margin-bottom: 14px; }
     .wd-kpi {
@@ -48,7 +49,7 @@
     .wd-grid { display: grid; grid-template-columns: 1.2fr 1.2fr 1fr; gap: 14px; }
     .wd-panel {
         background: var(--wo-surface); border: 1px solid var(--wo-border); border-radius: 20px; padding: 18px;
-        h2 { font-size: 15px; font-weight: 800; color: var(--wo-text); margin: 0 0 12px; i { color: var(--wo-accent); margin-right: 6px; } }
+        h2 { font-size: 15px; font-weight: 800; color: var(--wo-text); margin: 0 0 12px; i { color: var(--wo-accent-text); margin-right: 6px; } }
     }
     .wd-row {
         width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px; margin-bottom: 6px;
@@ -77,7 +78,7 @@
         .wd-head__brand { gap: 12px; min-width: 0; }
         .wd-head h1 { font-size: 24px; }
         .wd-logo { height: 52px; max-width: 120px; }
-        .wd-head__actions { width: 100%; .wd-btn { flex: 1; justify-content: center; } }
+        .wd-head__actions { width: 100%; .wd-btn:not(.wd-btn--icon) { flex: 1; justify-content: center; } }
         .wd-kpis { gap: 10px; }
         .wd-kpi { padding: 14px; strong { font-size: 26px; } }
         .wd-kpi--wide strong { font-size: 21px; }

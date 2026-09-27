@@ -58,6 +58,28 @@ class TestPublicPage(HttpCase):
         company.workshop_logo_dark = pixel
         self.assertEqual(self.url_open(f"/workshop_os/logo/{company.id}/dark").status_code, 200)
         self.assertEqual(self.url_open("/workshop_os/logo/999999/dark").status_code, 404)
+        for variant in ("light", "mark", "mark_light"):
+            self.assertEqual(self.url_open(f"/workshop_os/logo/{company.id}/{variant}").status_code, 200, variant)
+        self.assertEqual(self.url_open(f"/workshop_os/logo/{company.id}/other").status_code, 404)
+
+    def test_light_theme_has_its_own_symbol(self):
+        pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+        company = self.env.company
+        company.write({"workshop_logo_mark": pixel, "workshop_logo_mark_light": False, "workshop_accent_color": "#E8B21E"})
+        brand = company._workshop_brand()
+        self.assertEqual(brand["mark_light"], f"/workshop_os/logo/{company.id}/mark_light")
+        self.assertTrue(brand["has_mark_light"], "falls back to the dark-theme symbol")
+        self.assertEqual(brand["accent_ink"], "#111827", "dark text on a gold accent")
+        self.assertNotEqual(brand["accent_text"].lower(), "#e8b21e", "text in the light theme uses a darker gold")
+
+    def test_browser_tab_shows_the_shop(self):
+        self.env["ir.config_parameter"].sudo().set_param("web.web_app_name", "SV Test")
+        page = self.url_open("/web/login").text
+        self.assertIn("<title>SV Test</title>", page)
+        self.assertIn('href="/workshop_os/app-icon/64"', page, "the shop's icon, not Odoo's favicon")
+        self.authenticate("admin", "admin")
+        info = self.make_jsonrpc_request("/web/session/get_session_info", {})
+        self.assertEqual(info["workshop_app_name"], "SV Test", "the web client puts it after the page name")
 
     def test_login_page_takes_the_shop_colours(self):
         self.env.company.write({"workshop_login_background": "#002848", "workshop_accent_color": "#E8B21E"})

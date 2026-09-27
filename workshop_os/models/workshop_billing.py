@@ -27,7 +27,7 @@ class WorkshopBilling(models.Model):
         ("confirmed", "Confirmed"),
         ("invoiced", "Invoiced"),
         ("paid", "Paid"),
-    ], default="draft", required=True, tracking=True)
+    ], string="Status", default="draft", required=True, tracking=True)
     notes = fields.Text()
     company_id = fields.Many2one("res.company", default=lambda self: self.env.company, required=True)
     currency_id = fields.Many2one(related="company_id.currency_id")

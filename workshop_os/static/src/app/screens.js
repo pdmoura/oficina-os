@@ -20,15 +20,22 @@ class Plate extends Component {
 /* ---------------------------------------------------------------------------------------------------------------
  * Home: the yard, filtered by stage, searchable by plate.
  * ------------------------------------------------------------------------------------------------------------- */
+const STAGE_VIEW_KEY = "workshop_os.stage_view";
+
 export class HomeScreen extends Component {
     static template = "workshop_os.AppHome";
     static components = { Plate };
-    static props = { app: Object };
+    static props = { app: Object, theme: { type: String, optional: true } };
 
     setup() {
         bindMethods(this);
         this.orm = useService("orm");
-        this.state = useState({ data: null, search: "", stageId: null, loading: true, now: DateTime.now() });
+        this.listRef = useRef("list");
+        this.gridLabel = _t("Show stages as a grid");
+        this.chipsLabel = _t("Show stages in a row");
+        this.state = useState({
+            data: null, search: "", stageId: null, loading: true, now: DateTime.now(), stageView: this.savedStageView(),
+        });
         onWillStart(() => this.load());
         // Only after mounting: updating the parent while this screen is still starting would restart it.
         onMounted(() => this.props.app.setMeta(this.state.data));
@@ -66,6 +73,44 @@ export class HomeScreen extends Component {
 
     stageCount(stageId) {
         return (this.state.data?.orders || []).filter((o) => o.stage_id === stageId).length;
+    }
+
+    /** Stages as a sliding row of chips or as a grid of cards; each phone remembers its mechanic's choice. */
+    savedStageView() {
+        try {
+            return window.localStorage.getItem(STAGE_VIEW_KEY) === "grid" ? "grid" : "chips";
+        } catch {
+            return "chips";
+        }
+    }
+
+    toggleStageView() {
+        this.state.stageView = this.state.stageView === "grid" ? "chips" : "grid";
+        try {
+            window.localStorage.setItem(STAGE_VIEW_KEY, this.state.stageView);
+        } catch {
+            // Private browsing or blocked storage: the choice lasts until the app is closed.
+        }
+    }
+
+    pickStage(stageId) {
+        this.state.stageId = this.state.stageId === stageId ? null : stageId;
+        if (this.state.stageView === "grid") {
+            this.listRef.el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
+
+    /** The symbol made for the current background. */
+    get mark() {
+        const company = this.state.data?.company;
+        if (!company) {
+            return { src: false, bare: false };
+        }
+        const light = this.props.theme === "light";
+        return {
+            src: light ? company.mark_light : company.mark,
+            bare: light ? company.has_mark_light : company.has_mark,
+        };
     }
 
     elapsed(order) {

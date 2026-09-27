@@ -11,6 +11,8 @@
     --wo-faint: #6b7483;
     --wo-accent: #e8b21e;
     --wo-accent-ink: #1a1400;
+    // Accent used as text or icon colour; the light theme swaps in a darker shade that reads on white.
+    --wo-accent-text: var(--wo-accent);
     --wo-success: #22c55e;
     --wo-warning: #f59e0b;
     --wo-danger: #ef4444;
@@ -20,6 +22,26 @@
     --wo-shadow: 0 10px 30px rgba(0, 0, 0, .35);
     --wo-font: "Inter", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --wo-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    color-scheme: dark;
+}
+
+// Light theme of the mechanic app and the dashboard, chosen by each user.
+.o_workshop_app.is-light, .o_workshop_dashboard.is-light {
+    --wo-bg: #f3f4f7;
+    --wo-surface: #ffffff;
+    --wo-surface-2: #f0f2f5;
+    --wo-surface-3: #e3e6eb;
+    --wo-border: #dce0e6;
+    --wo-text: #111827;
+    --wo-muted: #566072;
+    --wo-faint: #7d8696;
+    // Status colours one step darker, so numbers and labels in them still read on white.
+    --wo-success: #15803d;
+    --wo-warning: #b45309;
+    --wo-danger: #dc2626;
+    --wo-info: #0369a1;
+    --wo-shadow: 0 10px 24px rgba(17, 24, 39, .1);
+    color-scheme: light;
 }
 
 // Mercosur-style plate, used everywhere a plate is shown.

@@ -2,9 +2,9 @@
 <templates xml:space="preserve">
 
     <t t-name="workshop_os.MechanicApp">
-        <div class="o_workshop_app" t-att-style="accentStyle">
+        <div class="o_workshop_app" t-att-class="{ 'is-light': state.theme === 'light' }" t-att-style="accentStyle">
             <t t-set="cur" t-value="current"/>
-            <HomeScreen t-if="cur.screen === 'home'" app="api" t-key="cur.key"/>
+            <HomeScreen t-if="cur.screen === 'home'" app="api" theme="state.theme" t-key="cur.key"/>
             <NewOrderScreen t-elif="cur.screen === 'new'" app="api" t-key="cur.key"/>
             <OrderScreen t-elif="cur.screen === 'order'" app="api" orderId="cur.orderId" t-key="cur.key"/>
 
@@ -17,6 +17,10 @@
                     </div>
                     <button t-if="state.meta and state.meta.user.is_manager" class="wa-menu-item" t-on-click="api.openOffice">
                         <i class="fa fa-desktop"/> Office view
+                    </button>
+                    <button class="wa-menu-item" t-on-click="api.toggleTheme">
+                        <t t-if="state.theme === 'light'"><i class="fa fa-moon-o"/> Dark theme</t>
+                        <t t-else=""><i class="fa fa-sun-o"/> Light theme</t>
                     </button>
                     <button class="wa-menu-item" t-on-click="api.refresh">
                         <i class="fa fa-refresh"/> Refresh
@@ -41,8 +45,9 @@
         <div class="wa-screen">
             <header class="wa-top">
                 <div class="wa-top__brand">
-                    <img t-if="state.data and state.data.company.mark" t-att-src="state.data.company.mark" class="wa-top__logo" alt=""
-                         t-att-class="state.data.company.has_mark ? 'is-bare' : ''"/>
+                    <t t-set="mark_img" t-value="mark"/>
+                    <img t-if="mark_img.src" t-att-src="mark_img.src" class="wa-top__logo" alt=""
+                         t-att-class="mark_img.bare ? 'is-bare' : ''"/>
                     <div class="wa-top__titles">
                         <span class="wa-top__eyebrow" t-esc="state.data ? state.data.company.name : ''"/>
                         <strong t-esc="greeting()"/>
@@ -63,20 +68,40 @@
                 <div class="wa-kpi" t-att-class="state.data.counts.waiting ? 'is-warning' : ''"><span>To approve</span><strong t-esc="state.data.counts.waiting"/></div>
             </div>
 
-            <div class="wa-chips" t-if="state.data">
-                <button class="wa-chip" t-att-class="!state.stageId ? 'is-active' : ''" t-on-click="() => state.stageId = null">
-                    All <span class="wa-chip__count" t-esc="state.data.orders.length"/>
-                </button>
-                <t t-foreach="state.data.stages" t-as="stage" t-key="stage.id">
-                    <button class="wa-chip" t-att-class="state.stageId === stage.id ? 'is-active' : ''"
-                            t-on-click="() => state.stageId = (state.stageId === stage.id ? null : stage.id)">
-                        <span class="wa-dot" t-attf-style="background: {{ stage.color }}"/>
-                        <t t-esc="stage.name"/> <span class="wa-chip__count" t-esc="stageCount(stage.id)"/>
+            <t t-if="state.data">
+                <div class="wa-section-head">
+                    <span>Stages</span>
+                    <button class="wa-icon-btn wa-icon-btn--sm" t-on-click="toggleStageView"
+                            t-att-aria-label="state.stageView === 'grid' ? chipsLabel : gridLabel"
+                            t-att-title="state.stageView === 'grid' ? chipsLabel : gridLabel">
+                        <i t-att-class="state.stageView === 'grid' ? 'fa fa-ellipsis-h' : 'fa fa-th-large'"/>
                     </button>
-                </t>
-            </div>
+                </div>
+                <div t-if="state.stageView === 'grid'" class="wa-stage-grid">
+                    <button class="wa-stage-card" t-att-class="!state.stageId ? 'is-active' : ''" t-on-click="() => pickStage(null)">
+                        <span>All</span><strong t-esc="state.data.orders.length"/>
+                    </button>
+                    <button t-foreach="state.data.stages" t-as="stage" t-key="stage.id" class="wa-stage-card"
+                            t-att-class="state.stageId === stage.id ? 'is-active' : ''" t-attf-style="--stage: {{ stage.color }}"
+                            t-on-click="() => pickStage(stage.id)">
+                        <span t-esc="stage.name"/><strong t-esc="stageCount(stage.id)"/>
+                    </button>
+                </div>
+                <div t-else="" class="wa-chips">
+                    <button class="wa-chip" t-att-class="!state.stageId ? 'is-active' : ''" t-on-click="() => pickStage(null)">
+                        All <span class="wa-chip__count" t-esc="state.data.orders.length"/>
+                    </button>
+                    <t t-foreach="state.data.stages" t-as="stage" t-key="stage.id">
+                        <button class="wa-chip" t-att-class="state.stageId === stage.id ? 'is-active' : ''"
+                                t-on-click="() => pickStage(stage.id)">
+                            <span class="wa-dot" t-attf-style="background: {{ stage.color }}"/>
+                            <t t-esc="stage.name"/> <span class="wa-chip__count" t-esc="stageCount(stage.id)"/>
+                        </button>
+                    </t>
+                </div>
+            </t>
 
-            <div class="wa-list">
+            <div class="wa-list" t-ref="list">
                 <t t-if="state.loading and !state.data">
                     <div class="wa-skeleton" t-foreach="[1, 2, 3]" t-as="i" t-key="i"/>
                 </t>
