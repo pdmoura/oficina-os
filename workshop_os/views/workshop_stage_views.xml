@@ -15,10 +15,57 @@
             </list>
         </field>
     </record>
+    <record id="workshop_stage_view_kanban" model="ir.ui.view">
+        <field name="name">workshop.stage.kanban</field>
+        <field name="model">workshop.stage</field>
+        <field name="arch" type="xml">
+            <kanban class="o_workshop_kanban" default_order="sequence">
+                <field name="color"/>
+                <field name="is_waiting"/>
+                <field name="fold"/>
+                <templates>
+                    <t t-name="card" class="o_workshop_card">
+                        <div class="o_workshop_card_stripe" t-attf-style="background: {{ record.color.raw_value or '#64748B' }}"/>
+                        <div class="d-flex align-items-center gap-2">
+                            <field name="name" class="fw-bold"/>
+                            <span class="ms-auto small text-muted text-nowrap"><field name="order_count"/> OS</span>
+                        </div>
+                        <field name="description" class="small text-muted"/>
+                        <div class="d-flex flex-wrap gap-2 mt-1 small">
+                            <span class="o_workshop_chip" invisible="not is_waiting">Waiting</span>
+                            <span class="o_workshop_chip" invisible="not fold">Folded</span>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="workshop_stage_view_form" model="ir.ui.view">
+        <field name="name">workshop.stage.form</field>
+        <field name="model">workshop.stage</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="Waiting for parts"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="description"/>
+                            <field name="color" widget="color"/>
+                        </group>
+                        <group>
+                            <field name="is_waiting"/>
+                            <field name="fold"/>
+                            <field name="order_count" string="Open orders"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
     <record id="action_workshop_stage" model="ir.actions.act_window">
         <field name="name">Stages</field>
         <field name="res_model">workshop.stage</field>
-        <field name="view_mode">list</field>
+        <field name="view_mode">list,kanban,form</field>
     </record>
 
     <record id="workshop_location_view_list" model="ir.ui.view">

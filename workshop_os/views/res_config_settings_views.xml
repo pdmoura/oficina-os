@@ -8,7 +8,7 @@
             <xpath expr="//form" position="inside">
                 <app string="Workshop" name="workshop_os" groups="workshop_os.group_workshop_manager">
                     <block title="Brand" name="workshop_brand">
-                        <setting string="Colours and logo" help="The accent colours buttons and highlights in the mechanic app, the customer pages and the login; the login background sits behind the login card">
+                        <setting string="Colours and logo" help="The accent colours buttons and highlights across the system, the mechanic app, the customer pages and the login; the background colour paints the top bar and the login page">
                             <div class="content-group">
                                 <div class="row mt8">
                                     <label for="workshop_accent_color" class="col-lg-4 o_light_label"/>

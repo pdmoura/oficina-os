@@ -69,4 +69,27 @@
         .wd-kpis { grid-template-columns: repeat(2, 1fr); }
         .wd-grid { grid-template-columns: 1fr; }
     }
+
+    // Phone: everything within the screen width, stages as a grid instead of a row that runs off the edge.
+    @media (max-width: 640px) {
+        .wd-wrap { padding: 16px 12px 32px; }
+        .wd-head { align-items: stretch; }
+        .wd-head__brand { gap: 12px; min-width: 0; }
+        .wd-head h1 { font-size: 24px; }
+        .wd-logo { height: 52px; max-width: 120px; }
+        .wd-head__actions { width: 100%; .wd-btn { flex: 1; justify-content: center; } }
+        .wd-kpis { gap: 10px; }
+        .wd-kpi { padding: 14px; strong { font-size: 26px; } }
+        .wd-kpi--wide strong { font-size: 21px; }
+        .wd-stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
+        .wd-stage { padding: 12px 14px; span { min-width: 0; overflow-wrap: anywhere; } strong { font-size: 20px; } }
+        .wd-panel { padding: 14px 12px; }
+        // Plate on the left over two lines; name on the first, stage/time or amount on the second.
+        .wd-row {
+            display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 12px; row-gap: 6px;
+            .wo-plate { grid-row: span 2; }
+        }
+        .wd-row__main { grid-column: 2 / -1; }
+        .wd-tag { justify-self: start; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    }
 }

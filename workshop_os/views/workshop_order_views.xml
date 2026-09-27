@@ -4,7 +4,7 @@
         <field name="name">workshop.order.kanban</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="stage_id" class="o_workshop_kanban" quick_create="false" sample="1"
+            <kanban default_group_by="stage_id" class="o_workshop_kanban" quick_create="false"
                     group_create="false" archivable="false">
                 <field name="stage_color"/>
                 <field name="state"/>
@@ -46,7 +46,7 @@
         <field name="name">workshop.order.list</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
-            <list decoration-danger="is_late" decoration-muted="state == 'cancel'" sample="1">
+            <list decoration-danger="is_late" decoration-muted="state == 'cancel'">
                 <field name="is_late" column_invisible="True"/>
                 <field name="name"/>
                 <field name="date_in" widget="date"/>
@@ -93,7 +93,7 @@
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Late" bg_color="text-bg-danger" invisible="not is_late"/>
-                    <div class="oe_title d-flex align-items-center gap-3">
+                    <div class="oe_title o_workshop_order_title d-flex align-items-center gap-3">
                         <h1 class="mb-0"><field name="name" readonly="1"/></h1>
                         <field name="plate" widget="workshop_plate" options="{'size': 'lg'}"/>
                         <field name="priority" widget="priority"/>
@@ -253,7 +253,7 @@
         <field name="name">workshop.order.pivot</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
-            <pivot sample="1">
+            <pivot>
                 <field name="partner_id" type="row"/>
                 <field name="date_in" interval="month" type="col"/>
                 <field name="amount_total" type="measure"/>
@@ -265,7 +265,7 @@
         <field name="name">workshop.order.graph</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
-            <graph type="bar" sample="1">
+            <graph type="bar">
                 <field name="date_in" interval="month"/>
                 <field name="amount_total" type="measure"/>
             </graph>

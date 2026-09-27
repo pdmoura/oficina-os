@@ -13,6 +13,10 @@
         padding: 1px 8px;
     }
 }
+// On a phone the plate drops under the order number, clear of the "Late" ribbon in the corner.
+@include media-breakpoint-down(md) {
+    .o_workshop_order_title { flex-wrap: wrap; padding-right: 72px; row-gap: 8px !important; }
+}
 .o_workshop_photo { aspect-ratio: 1; object-fit: cover; }
 .o_workshop_elapsed { white-space: nowrap; }
 .o_field_workshop_plate { display: inline-flex; }

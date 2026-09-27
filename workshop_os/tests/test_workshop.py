@@ -10,6 +10,7 @@ from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import new_test_user, tagged
 from odoo.tools import mute_logger
 
+from ..models.res_config_settings import BACKEND_THEME_URL, _contrast, _readable_on_white
 from ..models.workshop_vehicle import format_plate, normalize_plate
 from .common import WorkshopCase
 
@@ -225,6 +226,25 @@ class TestAssets(WorkshopCase):
             bundle.preprocess_css()
             self.assertFalse(bundle.css_errors, name)
 
+    def test_backend_takes_the_brand_colours(self):
+        company = self.env.ref("base.main_company")
+        company.write({"workshop_accent_color": "#1D4FA0", "workshop_login_background": "#FFFFFF"})
+        theme = self.env["ir.attachment"].search([("url", "=", BACKEND_THEME_URL)])
+        scss = theme.raw.decode()
+        self.assertIn("$o-brand-primary: #1D4FA0;", scss)
+        self.assertIn("$o-navbar-background: #FFFFFF;", scss)
+        self.assertIn("$o-navbar-entry-color--hover: #111827;", scss, "dark text on a light top bar")
+        bundle = self.env["ir.qweb"]._get_asset_bundle("web.assets_backend", js=False)
+        self.assertIn(BACKEND_THEME_URL, [asset.url for asset in bundle.stylesheets])
+        bundle.preprocess_css()
+        self.assertFalse(bundle.css_errors)
+
+    def test_accent_text_stays_readable(self):
+        # A yellow brand paints buttons yellow, but its links and outlines are darkened until they read on white.
+        for accent in ("#E8B21E", "#FFFFFF", "#22C55E"):
+            self.assertGreaterEqual(_contrast(_readable_on_white(accent), "#ffffff"), 4.5, accent)
+        self.assertEqual(_readable_on_white("#1D4FA0"), "#1d4fa0", "a dark brand is used as it is")
+
     def test_arrow_handlers_have_bound_methods(self):
         # OWL calls `() => openOrders(...)` without `this`; such components must run bindMethods(this) in setup.
         static = Path(__file__).parents[1] / "static" / "src"
@@ -261,6 +281,18 @@ class TestBrazilDefaults(WorkshopCase):
         self.assertEqual(blank.partner_id.tz, "America/Sao_Paulo")
         self.assertEqual(worker.tz, "America/Sao_Paulo")
         self.assertEqual(usa.currency_id, usd, "a company set elsewhere is left alone")
+
+    def test_login_opens_the_workshop_by_role(self):
+        roots = self.env["ir.ui.menu"].with_user(self.office).search([("parent_id", "=", False)])
+        self.assertEqual(roots[:1], self.env.ref("workshop_os.menu_workshop_root"), "first app, ahead of Discuss")
+        Order = self.env["workshop.order"]
+        self.assertEqual(Order.with_user(self.office)._workshop_home_action()["tag"], "workshop_os.dashboard")
+        self.assertEqual(Order.with_user(self.mechanic)._workshop_home_action()["tag"], "workshop_os.mechanic_app")
+
+    def test_odoobot_stays_quiet(self):
+        # Its onboarding chat would open over the screen on the first login.
+        self.mechanic._on_webclient_bootstrap()
+        self.assertEqual(self.mechanic.odoobot_state, "disabled")
 
     def test_self_signup_is_closed(self):
         scope = self.env["ir.config_parameter"].sudo().get_param("auth_signup.invitation_scope")

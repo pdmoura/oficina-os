@@ -14,6 +14,8 @@ from odoo.tools.image import base64_to_image, image_process
 
 _logger = logging.getLogger(__name__)
 PARAM = "workshop_os."
+# Attachment the backend asset bundles read the brand colours from (see data/backend_theme.xml).
+BACKEND_THEME_URL = "/_custom/workshop_os/brand_variables.scss"
 
 
 def _hex_color(value, default):
@@ -21,12 +23,36 @@ def _hex_color(value, default):
     return value if re.fullmatch(r"#[0-9a-fA-F]{6}", value or "") else default
 
 
-def _text_on(color):
-    """Dark or white text, whichever reads better on the given background (WCAG luminance)."""
+def _luminance(color):
     channels = [int(color[i:i + 2], 16) / 255 for i in (1, 3, 5)]
     linear = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in channels]
-    luminance = 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
-    return "#111827" if luminance > 0.36 else "#ffffff"
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+
+
+def _contrast(one, other):
+    """WCAG contrast ratio between two #rrggbb colours (1 to 21)."""
+    light, dark = sorted((_luminance(one), _luminance(other)), reverse=True)
+    return (light + 0.05) / (dark + 0.05)
+
+
+def _mix(color, other, weight):
+    """`weight` of `color` blended with the rest of `other`, as #rrggbb."""
+    channels = (round(int(color[i:i + 2], 16) * weight + int(other[i:i + 2], 16) * (1 - weight)) for i in (1, 3, 5))
+    return "#" + "".join(f"{channel:02x}" for channel in channels)
+
+
+def _text_on(color):
+    """Dark or white text, whichever reads better on the given background (WCAG luminance)."""
+    return "#111827" if _luminance(color) > 0.36 else "#ffffff"
+
+
+def _readable_on_white(color):
+    """The colour, darkened just enough to be read as text on white (WCAG AA, 4.5:1)."""
+    for step in range(0, 101, 2):
+        candidate = _mix(color, "#000000", 1 - step / 100)
+        if _contrast(candidate, "#ffffff") >= 4.5:
+            return candidate
+    return "#000000"
 
 
 class ResCompany(models.Model):
@@ -42,15 +68,16 @@ class ResCompany(models.Model):
         default="Ao aprovar, autorizo a execução dos serviços listados e o pagamento conforme combinado.",
     )
     workshop_accent_color = fields.Char("Accent colour", default="#E8B21E",
-                                        help="Highlight colour of the mechanic app and the customer pages.")
+                                        help="Buttons and highlights across the system, the mechanic app and the "
+                                             "customer pages.")
     workshop_app_icon = fields.Image("App icon", max_width=512, max_height=512,
                                      help="Square image shown when the app is installed on a phone.")
     workshop_logo_dark = fields.Image("Logo for dark backgrounds", max_width=1024, max_height=1024,
                                       help="Full logo shown on the dark screens: customer page and office dashboard. "
                                            "The company logo stays on documents, login and light screens.")
     workshop_login_background = fields.Char(
-        "Login background", default="#0F1115",
-        help="Colour behind the login card; the button takes the accent colour.")
+        "Background colour", default="#0F1115",
+        help="The system's top bar and the page behind the login card.")
     workshop_login_theme = fields.Selection(
         [("light", "Light card"), ("dark", "Dark card")], string="Login card", default="light", required=True,
         help="Dark uses the logo for dark backgrounds; light uses the company logo.")
@@ -126,6 +153,65 @@ class ResCompany(models.Model):
                 f"{card} a {{ color: color-mix(in srgb, {background} 85%, #000000); }}",
             ]
         return Markup(" ".join(rules))
+
+    def _workshop_theme_scss(self):
+        """Odoo's own SCSS variables in the shop's colours: buttons, tabs, filters, checkboxes and the top bar.
+
+        Filled surfaces take the accent as it is, with dark or white text on top. Text and thin lines on white
+        take the accent darkened until it reads (WCAG AA), so a yellow brand never turns into yellow text.
+        """
+        self.ensure_one()
+        accent = _hex_color(self.workshop_accent_color, "#E8B21E")
+        bar = _hex_color(self.workshop_login_background, "#0F1115")
+        on_accent, on_bar, readable = _text_on(accent), _text_on(bar), _readable_on_white(accent)
+        hover = _mix(accent, "#000000", 0.88)
+        return "\n".join([
+            "// Generated from Settings > Workshop > Brand; saving those settings rewrites it.",
+            f"$o-community-color: {accent};",
+            f"$o-enterprise-color: {accent};",
+            f"$o-brand-odoo: {accent};",
+            f"$o-brand-primary: {accent};",
+            f"$o-action: {readable};",
+            f"$o-main-link-color: {readable};",
+            f"$primary: {readable};",
+            f"$form-check-input-checked-bg-color: {readable};",
+            f"$o-navbar-background: {bar};",
+            f"$o-navbar-border-bottom: 1px solid {_mix(bar, on_bar, 0.9)};",
+            f"$o-navbar-entry-color: rgba({on_bar}, .86);",
+            f"$o-navbar-entry-color--hover: {on_bar};",
+            f"$o-navbar-entry-bg--hover: rgba({on_bar}, .08);",
+            '$o-btns-bs-override: ("primary": (',
+            f"    background: {accent}, border: {accent}, color: {on_accent},",
+            f"    hover-background: {hover}, hover-border: {hover}, hover-color: {on_accent},",
+            f"    active-background: {_mix(accent, '#ffffff', 0.14)}, active-border: {readable}, active-color: {readable},",
+            "));",
+            "",
+        ])
+
+    @api.model
+    def _workshop_apply_backend_theme(self):
+        """Store the brand variables where the asset bundles read them; the bundles rebuild only when they change.
+
+        One set of assets serves the whole database, so the main company's colours paint it.
+        """
+        company = self.env.ref("base.main_company", raise_if_not_found=False) or self.sudo().search([], limit=1)
+        raw = company.sudo()._workshop_theme_scss().encode()
+        attachments = self.env["ir.attachment"].sudo()
+        theme = attachments.search([("url", "=", BACKEND_THEME_URL), ("type", "=", "binary")], limit=1)
+        if theme.raw == raw:
+            return
+        if theme:
+            theme.raw = raw
+        else:
+            attachments.create({"name": "brand_variables.scss", "url": BACKEND_THEME_URL, "type": "binary",
+                                "mimetype": "text/scss", "raw": raw})
+        self.env.registry.clear_cache("assets")
+
+    def write(self, vals):
+        result = super().write(vals)
+        if {"workshop_accent_color", "workshop_login_background"} & vals.keys():
+            self.env["res.company"]._workshop_apply_backend_theme()
+        return result
 
     def _workshop_app_icon_png(self, size, rounded=True):
         """Phone icon: the uploaded one, or the symbol centred on the app's dark tile."""

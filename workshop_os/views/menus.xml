@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- First app in the list, so a login without a personal home action opens here, not in Discuss. -->
     <menuitem id="menu_workshop_root" name="Workshop" web_icon="workshop_os,static/description/icon.png"
-              groups="group_workshop_user" sequence="15"/>
+              groups="group_workshop_user" sequence="1" action="action_workshop_home"/>
 
     <menuitem id="menu_workshop_dashboard" name="Yard" parent="menu_workshop_root" action="action_workshop_dashboard"
               sequence="1"/>

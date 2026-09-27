@@ -7,8 +7,8 @@ Work orders for truck electrics and air-conditioning shops, built on **Odoo 19 C
 runs the job from a phone, the fleet customer approves the quote from a WhatsApp link, and the office
 closes the month and issues the **NFS-e** through Brazil's national system.
 
-White-label: each shop gets its own logos, colours and phone icon. The interface is in Brazilian
-Portuguese.
+White-label: each shop gets its own logos, colours and phone icon, and the colours reach Odoo's own
+screens too. The interface is in Brazilian Portuguese.
 
 **Try it:** https://oficina-os.onrender.com. Log in as `escritorio` / `escritorio` (office) or
 `mecanico` / `mecanico` (mechanic app; open it on a phone). The demo runs on a free plan, so the first

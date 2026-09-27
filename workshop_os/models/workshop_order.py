@@ -298,6 +298,13 @@ class WorkshopOrder(models.Model):
         }
 
     @api.model
+    def _workshop_home_action(self):
+        """Where the Workshop app opens: the office on the yard dashboard, mechanics straight in their app."""
+        office = self.env.user.has_group("workshop_os.group_workshop_manager")
+        xmlid = "workshop_os.action_workshop_dashboard" if office else "workshop_os.action_mechanic_app"
+        return self.env["ir.actions.actions"]._for_xml_id(xmlid)
+
+    @api.model
     def dashboard_data(self):
         """Office cockpit: the yard now and the month so far, in one call."""
         now = fields.Datetime.now()

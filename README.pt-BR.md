@@ -7,7 +7,8 @@ Ordens de serviço para oficinas de elétrica e ar-condicionado de caminhões, f
 O mecânico toca o serviço pelo celular, o cliente da frota aprova o orçamento por um link no WhatsApp e o
 escritório faz o fechamento do mês e emite a **NFS-e** pelo Sistema Nacional.
 
-Marca própria para cada oficina: logos, cores e ícone do app no celular. A interface é em português.
+Marca própria para cada oficina: logos, cores e ícone do app no celular, com as cores valendo também nas
+telas do próprio Odoo. A interface é em português.
 
 **Experimente:** https://oficina-os.onrender.com. Entre como `escritorio` / `escritorio` (escritório) ou
 `mecanico` / `mecanico` (app do mecânico; abra no celular). A demonstração roda num plano gratuito, então a

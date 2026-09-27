@@ -96,6 +96,13 @@ msgid "<span class=\"label\">Total</span><br/>"
 msgstr "<span class=\"label\">Total</span><br/>"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_kanban
+msgid ""
+"<span class=\"o_workshop_chip\" invisible=\"not is_waiting\">Waiting</span>\n"
+"                            <span class=\"o_workshop_chip\" invisible=\"not fold\">Folded</span>"
+msgstr "<span class=\"o_workshop_chip\" invisible=\"not is_waiting\">Aguardando</span>\n                            <span class=\"o_workshop_chip\" invisible=\"not fold\">Recolhida</span>"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "<span class=\"wo-plate__band\">BRASIL</span>"
 msgstr "<span class=\"wo-plate__band\">BRASIL</span>"
@@ -427,6 +434,12 @@ msgid "Back to draft"
 msgstr "Voltar para rascunho"
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_login_background
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_login_background
+msgid "Background colour"
+msgstr "Cor de fundo"
+
+#. module: workshop_os
 #: model:ir.ui.menu,name:workshop_os.menu_workshop_billing_root
 msgid "Billing"
 msgstr "Faturamento"
@@ -468,6 +481,14 @@ msgstr "Motorista"
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__bus
 msgid "Bus"
 msgstr "Ônibus"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_accent_color
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_accent_color
+msgid ""
+"Buttons and highlights across the system, the mechanic app and the customer "
+"pages."
+msgstr "Botões e destaques em todo o sistema, no app do mecânico e nas páginas do cliente."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
@@ -727,6 +748,17 @@ msgid "Customers this month"
 msgstr "Clientes do mês"
 
 #. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__res_company__workshop_login_theme__dark
+msgid "Dark card"
+msgstr "Escuro"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_login_theme
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_login_theme
+msgid "Dark uses the logo for dark backgrounds; light uses the company logo."
+msgstr "O escuro usa o logo para fundo escuro; o claro usa o logo da empresa."
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__res_config_settings__workshop_photo_storage__database
 msgid "Database"
 msgstr "Banco de dados"
@@ -807,6 +839,7 @@ msgstr "Direção hidráulica"
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_res_partner__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_res_users__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__display_name
@@ -1067,6 +1100,11 @@ msgid "Has Message"
 msgstr "Tem mensagem"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_form
+msgid "Headlight replacement"
+msgstr "Troca de farol"
+
+#. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "Hello! Work order %(name)s for %(plate)s: %(url)s"
@@ -1077,12 +1115,6 @@ msgstr "Olá! Segue a ordem de serviço %(name)s da placa %(plate)s: %(url)s"
 #: model:ir.model.fields,help:workshop_os.field_workshop_stage__color
 msgid "Hex colour used on the kanban column and the mechanic app."
 msgstr "Cor hexadecimal usada na coluna do kanban e no app do mecânico."
-
-#. module: workshop_os
-#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_accent_color
-#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_accent_color
-msgid "Highlight colour of the mechanic app and the customer pages."
-msgstr "Cor de destaque do app do mecânico e das páginas do cliente."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1109,6 +1141,7 @@ msgstr "Quantas vezes este serviço foi usado em OS."
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__id
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__id
 #: model:ir.model.fields,field_description:workshop_os.field_res_partner__id
+#: model:ir.model.fields,field_description:workshop_os.field_res_users__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__id
@@ -1282,6 +1315,11 @@ msgid "Late"
 msgstr "Em atraso"
 
 #. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__res_company__workshop_login_theme__light
+msgid "Light card"
+msgstr "Claro"
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__light
 msgid "Light vehicle"
 msgstr "Veículo leve"
@@ -1310,6 +1348,12 @@ msgstr "Localização"
 #: model:ir.ui.menu,name:workshop_os.menu_workshop_locations
 msgid "Locations"
 msgstr "Localizações"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_login_theme
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_login_theme
+msgid "Login card"
+msgstr "Cartão do login"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_dark
@@ -1616,6 +1660,12 @@ msgid "OK"
 msgstr "OK"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_kanban
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_kanban
+msgid "OS"
+msgstr "OS"
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Odometer"
@@ -1681,6 +1731,7 @@ msgid "Open current order"
 msgstr "Abrir OS atual"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_list
 msgid "Open orders"
 msgstr "OS abertas"
@@ -2291,6 +2342,14 @@ msgstr "Textos"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+msgid ""
+"The accent colours buttons and highlights across the system, the mechanic "
+"app, the customer pages and the login; the background colour paints the top "
+"bar and the login page"
+msgstr "A cor de destaque pinta botões e destaques em todo o sistema, no app do mecânico, nas páginas do cliente e no login; a cor de fundo pinta a barra superior e a tela de login"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
 msgid "The customer accepts these terms on the approval page"
 msgstr "O cliente aceita estes termos na página de aprovação"
 
@@ -2298,15 +2357,6 @@ msgstr "O cliente aceita estes termos na página de aprovação"
 #: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__fleet_number
 msgid "The customer's own number for this vehicle (prefixo, frota)."
 msgstr "Número que o próprio cliente usa para este veículo (prefixo, frota)."
-
-#. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
-msgid ""
-"The accent colours buttons and highlights in the mechanic app, the customer "
-"pages and the login; the login background sits behind the login card"
-msgstr ""
-"A cor de destaque pinta botões e destaques no app do mecânico, nas páginas do "
-"cliente e no login; o fundo do login fica atrás do cartão de login"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_res_company__workshop_logo_mark
@@ -2323,6 +2373,12 @@ msgstr ""
 msgid "The logo without text, for the mechanic app header and the phone icon"
 msgstr ""
 "O logo sem texto, para o cabeçalho do app do mecânico e o ícone no celular"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_login_background
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_login_background
+msgid "The system's top bar and the page behind the login card."
+msgstr "A barra superior do sistema e o fundo da tela de login."
 
 #. module: workshop_os
 #. odoo-python
@@ -2472,11 +2528,13 @@ msgid "Usage Count"
 msgstr "Qtd. de usos"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_list
 msgid "Used"
 msgstr "Usos"
 
 #. module: workshop_os
+#: model:ir.model,name:workshop_os.model_res_users
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__user_id
 msgid "User"
 msgstr "Usuário"
@@ -2519,6 +2577,11 @@ msgstr "Modelo"
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_partner_view_form_workshop
 msgid "Vehicles"
 msgstr "Veículos"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_form
+msgid "Waiting for parts"
+msgstr "Aguardando peças"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__is_waiting
@@ -2631,6 +2694,7 @@ msgid "Work orders"
 msgstr "Ordens de serviço"
 
 #. module: workshop_os
+#: model:ir.actions.server,name:workshop_os.action_workshop_home
 #: model:ir.module.category,name:workshop_os.module_category_workshop
 #: model:ir.ui.menu,name:workshop_os.menu_workshop_root
 #: model:res.groups.privilege,name:workshop_os.res_groups_privilege_workshop
@@ -2764,37 +2828,3 @@ msgstr "· previsão"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "· rejected"
 msgstr "· recusado"
-
-#. module: workshop_os
-#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_login_background
-#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_login_background
-msgid "Login background"
-msgstr "Fundo do login"
-
-#. module: workshop_os
-#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_login_background
-#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_login_background
-msgid "Colour behind the login card; the button takes the accent colour."
-msgstr "Cor atrás do cartão de login; o botão usa a cor de destaque."
-
-#. module: workshop_os
-#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_login_theme
-#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_login_theme
-msgid "Login card"
-msgstr "Cartão do login"
-
-#. module: workshop_os
-#: model:ir.model.fields.selection,name:workshop_os.selection__res_company__workshop_login_theme__light
-msgid "Light card"
-msgstr "Claro"
-
-#. module: workshop_os
-#: model:ir.model.fields.selection,name:workshop_os.selection__res_company__workshop_login_theme__dark
-msgid "Dark card"
-msgstr "Escuro"
-
-#. module: workshop_os
-#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_login_theme
-#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_login_theme
-msgid "Dark uses the logo for dark backgrounds; light uses the company logo."
-msgstr "O escuro usa o logo para fundo escuro; o claro usa o logo da empresa."

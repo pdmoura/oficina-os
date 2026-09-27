@@ -4,7 +4,7 @@
         <field name="name">workshop.billing.list</field>
         <field name="model">workshop.billing</field>
         <field name="arch" type="xml">
-            <list sample="1">
+            <list>
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="date_from"/>

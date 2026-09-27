@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- The shop's colours on Odoo's own screens. The function writes the variables file on install and on every
+         update, before the asset below needs it; saving the brand settings rewrites it. -->
+    <function model="res.company" name="_workshop_apply_backend_theme"/>
+
+    <record id="asset_brand_variables" model="ir.asset">
+        <field name="name">Workshop brand colours</field>
+        <field name="bundle">web._assets_primary_variables</field>
+        <field name="directive">prepend</field>
+        <field name="path">/_custom/workshop_os/brand_variables.scss</field>
+    </record>
+</odoo>
