@@ -72,6 +72,28 @@ class ResCompany(models.Model):
         tile.save(output, "PNG", optimize=True)
         return output.getvalue()
 
+    @api.model
+    def _workshop_brazil_defaults(self):
+        """Without demo data a new database is "My Company", in USD, with no time zone: make it a Brazilian shop.
+
+        Runs on install and on every update, so it only fills what is still at Odoo's defaults.
+        """
+        brazil, brl, usd = self.env.ref("base.br"), self.env.ref("base.BRL"), self.env.ref("base.USD")
+        brl.active = True
+        booked = self.env["res.company"]
+        if "account.move" in self.env:  # a currency with entries behind it must not change
+            booked = booked.browse([company.id for company, in self.env["account.move"].sudo()._read_group([], ["company_id"])])
+        for company in self.sudo().search([]):
+            if not company.country_id:
+                company.country_id = brazil
+            if company.country_id == brazil and company.currency_id == usd and company not in booked:
+                company.currency_id = brl
+        # country_id of a company is not searchable: filter in Python.
+        companies = self.sudo().search([]).filtered(lambda c: c.country_id == brazil)
+        users = self.env["res.users"].sudo().with_context(active_test=False).search(
+            [("tz", "=", False), ("company_id", "in", companies.ids)])
+        (companies.partner_id.filtered(lambda p: not p.tz) | users.partner_id).write({"tz": "America/Sao_Paulo"})
+
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"

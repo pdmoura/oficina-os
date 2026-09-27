@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Every install and update: BRL, Brazil and São Paulo time where Odoo's defaults are still in place. -->
+    <function model="res.company" name="_workshop_brazil_defaults"/>
+</odoo>

@@ -25,6 +25,7 @@ the office controls the yard, approvals and the monthly closing per customer.
     "data": [
         "security/security.xml",
         "security/ir.model.access.csv",
+        "data/brazil_defaults.xml",
         "data/ir_sequence.xml",
         "data/workshop_data.xml",
         "data/checklist_data.xml",

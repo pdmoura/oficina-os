@@ -4,7 +4,7 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tests import tagged
+from odoo.tests import new_test_user, tagged
 from odoo.tools import mute_logger
 
 from ..models.workshop_vehicle import format_plate, normalize_plate
@@ -221,3 +221,19 @@ class TestAssets(WorkshopCase):
             bundle = self.env["ir.qweb"]._get_asset_bundle(name, js=False)
             bundle.preprocess_css()
             self.assertFalse(bundle.css_errors, name)
+
+
+@tagged("post_install", "-at_install")
+class TestBrazilDefaults(WorkshopCase):
+
+    def test_new_companies_become_brazilian(self):
+        usd, brl, brazil = self.env.ref("base.USD"), self.env.ref("base.BRL"), self.env.ref("base.br")
+        blank = self.env["res.company"].create({"name": "Blank Shop", "currency_id": usd.id})
+        usa = self.env["res.company"].create({"name": "US Shop", "currency_id": usd.id,
+                                              "country_id": self.env.ref("base.us").id})
+        worker = new_test_user(self.env, login="blank_user", company_id=blank.id, company_ids=[blank.id], tz=False)
+        self.env["res.company"]._workshop_brazil_defaults()
+        self.assertEqual((blank.country_id, blank.currency_id), (brazil, brl))
+        self.assertEqual(blank.partner_id.tz, "America/Sao_Paulo")
+        self.assertEqual(worker.tz, "America/Sao_Paulo")
+        self.assertEqual(usa.currency_id, usd, "a company set elsewhere is left alone")
