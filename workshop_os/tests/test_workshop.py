@@ -329,7 +329,7 @@ class TestBrazilDefaults(WorkshopCase):
 
     def test_login_opens_the_workshop_by_role(self):
         roots = self.env["ir.ui.menu"].with_user(self.office).search([("parent_id", "=", False)])
-        self.assertEqual(roots[:1], self.env.ref("workshop_os.menu_workshop_root"), "first app, ahead of Discuss")
+        self.assertEqual(roots[:1], self.env.ref("workshop_os.workshop_os_menu_root"), "first app, ahead of Discuss")
         Order = self.env["workshop.order"]
         self.assertEqual(Order.with_user(self.office)._workshop_home_action()["tag"], "workshop_os.dashboard")
         self.assertEqual(Order.with_user(self.mechanic)._workshop_home_action()["tag"], "workshop_os.mechanic_app")

@@ -2,30 +2,30 @@
 <templates xml:space="preserve">
 
     <t t-name="workshop_os.MechanicApp">
-        <div class="o_workshop_app" t-att-class="{ 'is-light': state.theme === 'light' }" t-att-style="accentStyle">
+        <div class="o_workshop_app" t-att-class="{ 'o_workshop_is_light': state.theme === 'light' }" t-att-style="accentStyle">
             <t t-set="cur" t-value="current"/>
             <HomeScreen t-if="cur.screen === 'home'" app="api" theme="state.theme" t-key="cur.key"/>
             <NewOrderScreen t-elif="cur.screen === 'new'" app="api" t-key="cur.key"/>
             <OrderScreen t-elif="cur.screen === 'order'" app="api" orderId="cur.orderId" t-key="cur.key"/>
 
-            <div t-if="state.menu" class="wa-sheet-backdrop" t-on-click="api.toggleMenu">
-                <div class="wa-sheet" t-on-click.stop="">
-                    <div class="wa-sheet__grip"/>
-                    <div class="wa-menu-user" t-if="state.meta">
+            <div t-if="state.menu" class="o_workshop_app_sheet_backdrop" t-on-click="api.toggleMenu">
+                <div class="o_workshop_app_sheet" t-on-click.stop="">
+                    <div class="o_workshop_app_sheet__grip"/>
+                    <div class="o_workshop_app_menu_user" t-if="state.meta">
                         <strong t-esc="state.meta.user.name"/>
                         <span t-esc="state.meta.company.name"/>
                     </div>
-                    <button t-if="state.meta and state.meta.user.is_manager" class="wa-menu-item" t-on-click="api.openOffice">
+                    <button t-if="state.meta and state.meta.user.is_manager" class="o_workshop_app_menu_item" t-on-click="api.openOffice">
                         <i class="fa fa-desktop"/> Office view
                     </button>
-                    <button class="wa-menu-item" t-on-click="api.toggleTheme">
+                    <button class="o_workshop_app_menu_item" t-on-click="api.toggleTheme">
                         <t t-if="state.theme === 'light'"><i class="fa fa-moon-o"/> Dark theme</t>
                         <t t-else=""><i class="fa fa-sun-o"/> Light theme</t>
                     </button>
-                    <button class="wa-menu-item" t-on-click="api.refresh">
+                    <button class="o_workshop_app_menu_item" t-on-click="api.refresh">
                         <i class="fa fa-refresh"/> Refresh
                     </button>
-                    <button class="wa-menu-item wa-menu-item--danger" t-on-click="api.logout">
+                    <button class="o_workshop_app_menu_item o_workshop_app_menu_item--danger" t-on-click="api.logout">
                         <i class="fa fa-sign-out"/> Sign out
                     </button>
                 </div>
@@ -34,102 +34,102 @@
     </t>
 
     <t t-name="workshop_os.AppPlate">
-        <span class="wo-plate" t-att-class="props.size === 'lg' ? 'wo-plate--lg' : ''">
-            <span class="wo-plate__band">BRASIL</span>
-            <span class="wo-plate__text" t-esc="text"/>
+        <span class="o_workshop_plate" t-att-class="props.size === 'lg' ? 'o_workshop_plate--lg' : ''">
+            <span class="o_workshop_plate__band">BRASIL</span>
+            <span class="o_workshop_plate__text" t-esc="text"/>
         </span>
     </t>
 
     <!-- Home -->
     <t t-name="workshop_os.AppHome">
-        <div class="wa-screen">
-            <header class="wa-top">
-                <div class="wa-top__brand">
+        <div class="o_workshop_app_screen">
+            <header class="o_workshop_app_top">
+                <div class="o_workshop_app_top__brand">
                     <t t-set="mark_img" t-value="mark"/>
-                    <img t-if="mark_img.src" t-att-src="mark_img.src" class="wa-top__logo" alt=""
-                         t-att-class="mark_img.bare ? 'is-bare' : ''"/>
-                    <div class="wa-top__titles">
-                        <span class="wa-top__eyebrow" t-esc="state.data ? state.data.company.name : ''"/>
+                    <img t-if="mark_img.src" t-att-src="mark_img.src" class="o_workshop_app_top__logo" alt=""
+                         t-att-class="mark_img.bare ? 'o_workshop_is_bare' : ''"/>
+                    <div class="o_workshop_app_top__titles">
+                        <span class="o_workshop_app_top__eyebrow" t-esc="state.data ? state.data.company.name : ''"/>
                         <strong t-esc="greeting()"/>
                     </div>
                 </div>
-                <button class="wa-icon-btn" t-on-click="props.app.toggleMenu" aria-label="Menu"><i class="fa fa-bars"/></button>
+                <button class="o_workshop_app_icon_btn" t-on-click="props.app.toggleMenu" aria-label="Menu"><i class="fa fa-bars"/></button>
             </header>
 
-            <div class="wa-search">
+            <div class="o_workshop_app_search">
                 <i class="fa fa-search"/>
                 <input type="search" placeholder="Plate, order or customer" t-att-value="state.search"
                        t-on-input="onSearchInput" autocapitalize="characters" enterkeyhint="search"/>
             </div>
 
-            <div class="wa-kpis" t-if="state.data">
-                <div class="wa-kpi"><span>Open</span><strong t-esc="state.data.counts.open"/></div>
-                <div class="wa-kpi" t-att-class="state.data.counts.late ? 'is-danger' : ''"><span>Late</span><strong t-esc="state.data.counts.late"/></div>
-                <div class="wa-kpi" t-att-class="state.data.counts.waiting ? 'is-warning' : ''"><span>To approve</span><strong t-esc="state.data.counts.waiting"/></div>
+            <div class="o_workshop_app_kpis" t-if="state.data">
+                <div class="o_workshop_app_kpi"><span>Open</span><strong t-esc="state.data.counts.open"/></div>
+                <div class="o_workshop_app_kpi" t-att-class="state.data.counts.late ? 'o_workshop_is_danger' : ''"><span>Late</span><strong t-esc="state.data.counts.late"/></div>
+                <div class="o_workshop_app_kpi" t-att-class="state.data.counts.waiting ? 'o_workshop_is_warning' : ''"><span>To approve</span><strong t-esc="state.data.counts.waiting"/></div>
             </div>
 
             <t t-if="state.data">
-                <div class="wa-section-head">
+                <div class="o_workshop_app_section_head">
                     <span>Stages</span>
-                    <button class="wa-icon-btn wa-icon-btn--sm" t-on-click="toggleStageView"
+                    <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="toggleStageView"
                             t-att-aria-label="state.stageView === 'grid' ? chipsLabel : gridLabel"
                             t-att-title="state.stageView === 'grid' ? chipsLabel : gridLabel">
                         <i t-att-class="state.stageView === 'grid' ? 'fa fa-ellipsis-h' : 'fa fa-th-large'"/>
                     </button>
                 </div>
-                <div t-if="state.stageView === 'grid'" class="wa-stage-grid">
-                    <button class="wa-stage-card" t-att-class="!state.stageId ? 'is-active' : ''" t-on-click="() => pickStage(null)">
+                <div t-if="state.stageView === 'grid'" class="o_workshop_app_stage_grid">
+                    <button class="o_workshop_app_stage_card" t-att-class="!state.stageId ? 'o_workshop_is_active' : ''" t-on-click="() => pickStage(null)">
                         <span>All</span><strong t-esc="state.data.orders.length"/>
                     </button>
-                    <button t-foreach="state.data.stages" t-as="stage" t-key="stage.id" class="wa-stage-card"
-                            t-att-class="state.stageId === stage.id ? 'is-active' : ''" t-attf-style="--stage: {{ stage.color }}"
+                    <button t-foreach="state.data.stages" t-as="stage" t-key="stage.id" class="o_workshop_app_stage_card"
+                            t-att-class="state.stageId === stage.id ? 'o_workshop_is_active' : ''" t-attf-style="--WorkshopStage-color: {{ stage.color }}"
                             t-on-click="() => pickStage(stage.id)">
                         <span t-esc="stage.name"/><strong t-esc="stageCount(stage.id)"/>
                     </button>
                 </div>
-                <div t-else="" class="wa-chips">
-                    <button class="wa-chip" t-att-class="!state.stageId ? 'is-active' : ''" t-on-click="() => pickStage(null)">
-                        All <span class="wa-chip__count" t-esc="state.data.orders.length"/>
+                <div t-else="" class="o_workshop_app_chips">
+                    <button class="o_workshop_app_chip" t-att-class="!state.stageId ? 'o_workshop_is_active' : ''" t-on-click="() => pickStage(null)">
+                        All <span class="o_workshop_app_chip__count" t-esc="state.data.orders.length"/>
                     </button>
                     <t t-foreach="state.data.stages" t-as="stage" t-key="stage.id">
-                        <button class="wa-chip" t-att-class="state.stageId === stage.id ? 'is-active' : ''"
+                        <button class="o_workshop_app_chip" t-att-class="state.stageId === stage.id ? 'o_workshop_is_active' : ''"
                                 t-on-click="() => pickStage(stage.id)">
-                            <span class="wa-dot" t-attf-style="background: {{ stage.color }}"/>
-                            <t t-esc="stage.name"/> <span class="wa-chip__count" t-esc="stageCount(stage.id)"/>
+                            <span class="o_workshop_app_dot" t-attf-style="background: {{ stage.color }}"/>
+                            <t t-esc="stage.name"/> <span class="o_workshop_app_chip__count" t-esc="stageCount(stage.id)"/>
                         </button>
                     </t>
                 </div>
             </t>
 
-            <div class="wa-list" t-ref="list">
+            <div class="o_workshop_app_list" t-ref="list">
                 <t t-if="state.loading and !state.data">
-                    <div class="wa-skeleton" t-foreach="[1, 2, 3]" t-as="i" t-key="i"/>
+                    <div class="o_workshop_app_skeleton" t-foreach="[1, 2, 3]" t-as="i" t-key="i"/>
                 </t>
-                <div t-elif="!orders.length" class="wa-empty">
+                <div t-elif="!orders.length" class="o_workshop_app_empty">
                     <i class="fa fa-truck"/>
                     <p t-if="state.search">Nothing found for this search.</p>
                     <p t-else="">No open orders here. Tap + to receive a vehicle.</p>
                 </div>
-                <button t-foreach="orders" t-as="order" t-key="order.id" class="wa-card"
-                        t-attf-style="--stage: {{ order.stage_color }}" t-on-click="() => props.app.openOrder(order.id)">
-                    <div class="wa-card__row">
+                <button t-foreach="orders" t-as="order" t-key="order.id" class="o_workshop_app_card"
+                        t-attf-style="--WorkshopStage-color: {{ order.stage_color }}" t-on-click="() => props.app.openOrder(order.id)">
+                    <div class="o_workshop_app_card__row">
                         <Plate plate="order.plate"/>
-                        <div class="wa-card__main">
+                        <div class="o_workshop_app_card__main">
                             <strong t-esc="order.vehicle or order.name"/>
                             <span t-esc="order.partner"/>
                         </div>
-                        <span t-if="order.is_late" class="wa-pill is-danger"><i class="fa fa-clock-o"/> Late</span>
+                        <span t-if="order.is_late" class="o_workshop_app_pill o_workshop_is_danger"><i class="fa fa-clock-o"/> Late</span>
                     </div>
-                    <div class="wa-card__foot">
-                        <span class="wa-stage"><span class="wa-dot" t-attf-style="background: {{ order.stage_color }}"/><t t-esc="order.stage"/></span>
-                        <span class="wa-muted"><i class="fa fa-hourglass-half"/> <t t-esc="elapsed(order)"/></span>
-                        <span t-if="order.location" class="wa-muted"><i class="fa fa-map-marker"/> <t t-esc="order.location"/></span>
-                        <span class="wa-card__id" t-esc="order.name"/>
+                    <div class="o_workshop_app_card__foot">
+                        <span class="o_workshop_app_stage"><span class="o_workshop_app_dot" t-attf-style="background: {{ order.stage_color }}"/><t t-esc="order.stage"/></span>
+                        <span class="o_workshop_app_muted"><i class="fa fa-hourglass-half"/> <t t-esc="elapsed(order)"/></span>
+                        <span t-if="order.location" class="o_workshop_app_muted"><i class="fa fa-map-marker"/> <t t-esc="order.location"/></span>
+                        <span class="o_workshop_app_card__id" t-esc="order.name"/>
                     </div>
                 </button>
             </div>
 
-            <button class="wa-fab" t-on-click="props.app.newOrder" aria-label="New order">
+            <button class="o_workshop_app_fab" t-on-click="props.app.newOrder" aria-label="New order">
                 <i class="fa fa-plus"/><span>Receive vehicle</span>
             </button>
         </div>
@@ -137,43 +137,43 @@
 
     <!-- New order -->
     <t t-name="workshop_os.AppNewOrder">
-        <div class="wa-screen wa-screen--form">
-            <header class="wa-bar">
-                <button class="wa-icon-btn" t-on-click="cancel" aria-label="Back"><i class="fa fa-arrow-left"/></button>
+        <div class="o_workshop_app_screen o_workshop_app_screen--form">
+            <header class="o_workshop_app_bar">
+                <button class="o_workshop_app_icon_btn" t-on-click="cancel" aria-label="Back"><i class="fa fa-arrow-left"/></button>
                 <strong>Receive vehicle</strong>
-                <span class="wa-step" t-esc="state.step + '/2'"/>
+                <span class="o_workshop_app_step" t-esc="state.step + '/2'"/>
             </header>
 
             <t t-if="state.step === 1">
-                <section class="wa-plate-entry">
-                    <p class="wa-lead">Type the plate</p>
+                <section class="o_workshop_app_plate_entry">
+                    <p class="o_workshop_app_lead">Type the plate</p>
                     <Plate plate="state.values.plate" size="'lg'"/>
-                    <input t-ref="plate" class="wa-plate-input" maxlength="8" inputmode="text" autocapitalize="characters"
+                    <input t-ref="plate" class="o_workshop_app_plate_input" maxlength="8" inputmode="text" autocapitalize="characters"
                            autocomplete="off" spellcheck="false" placeholder="ABC1D23" t-att-value="state.values.plate"
                            t-on-input="onPlateInput"/>
-                    <div class="wa-lookup">
-                        <span t-if="state.looking" class="wa-muted"><i class="fa fa-circle-o-notch fa-spin"/> Looking up…</span>
+                    <div class="o_workshop_app_lookup">
+                        <span t-if="state.looking" class="o_workshop_app_muted"><i class="fa fa-circle-o-notch fa-spin"/> Looking up…</span>
                         <t t-elif="state.lookup and state.lookup.found">
-                            <div class="wa-vehicle-card">
+                            <div class="o_workshop_app_vehicle_card">
                                 <i class="fa fa-truck"/>
                                 <div>
                                     <strong t-esc="state.lookup.description or state.lookup.display"/>
                                     <span t-esc="state.lookup.partner_name"/>
-                                    <span class="wa-muted" t-if="state.lookup.order_count">
+                                    <span class="o_workshop_app_muted" t-if="state.lookup.order_count">
                                         <t t-esc="state.lookup.order_count"/> previous orders · <t t-esc="state.lookup.odometer.toLocaleString('pt-BR')"/> km
                                     </span>
                                 </div>
                             </div>
-                            <div t-if="state.lookup.open_order_id" class="wa-notice">
+                            <div t-if="state.lookup.open_order_id" class="o_workshop_app_notice">
                                 <i class="fa fa-info-circle"/> This vehicle is already in the yard as <strong t-esc="state.lookup.open_order_name"/>.
                             </div>
                         </t>
-                        <span t-elif="state.lookup and !state.lookup.valid" class="wa-error">Not a valid plate.</span>
-                        <span t-elif="state.lookup" class="wa-muted"><i class="fa fa-plus-circle"/> New vehicle: we will register it now.</span>
+                        <span t-elif="state.lookup and !state.lookup.valid" class="o_workshop_app_error">Not a valid plate.</span>
+                        <span t-elif="state.lookup" class="o_workshop_app_muted"><i class="fa fa-plus-circle"/> New vehicle: we will register it now.</span>
                     </div>
                 </section>
-                <footer class="wa-footer">
-                    <button class="wa-btn wa-btn--block" t-att-disabled="!plateValid or state.looking" t-on-click="continueFromPlate">
+                <footer class="o_workshop_app_footer">
+                    <button class="o_workshop_app_btn o_workshop_app_btn--block" t-att-disabled="!plateValid or state.looking" t-on-click="continueFromPlate">
                         <t t-if="state.lookup and state.lookup.open_order_id">Open current order</t>
                         <t t-else="">Continue</t>
                     </button>
@@ -181,8 +181,8 @@
             </t>
 
             <t t-else="">
-                <div class="wa-form">
-                    <button class="wa-summary" t-on-click="() => state.step = 1">
+                <div class="o_workshop_app_form">
+                    <button class="o_workshop_app_summary" t-on-click="() => state.step = 1">
                         <Plate plate="state.values.plate"/>
                         <span t-if="state.lookup and state.lookup.description" t-esc="state.lookup.description"/>
                         <span t-else="">New vehicle</span>
@@ -190,78 +190,78 @@
                     </button>
 
                     <t t-if="!(state.lookup and state.lookup.partner_id)">
-                        <label class="wa-label">Customer</label>
-                        <div class="wa-chips wa-chips--wrap">
-                            <button t-foreach="state.form.partners" t-as="partner" t-key="partner.id" class="wa-chip"
-                                    t-att-class="state.values.partner_id === partner.id ? 'is-active' : ''"
+                        <label class="o_workshop_app_label">Customer</label>
+                        <div class="o_workshop_app_chips o_workshop_app_chips--wrap">
+                            <button t-foreach="state.form.partners" t-as="partner" t-key="partner.id" class="o_workshop_app_chip"
+                                    t-att-class="state.values.partner_id === partner.id ? 'o_workshop_is_active' : ''"
                                     t-on-click="() => set('partner_id', partner.id)" t-esc="partner.name"/>
                         </div>
                         <t t-if="!(state.lookup and state.lookup.found)">
-                            <div class="wa-grid-2">
-                                <label class="wa-field"><span>Brand</span>
+                            <div class="o_workshop_app_grid_2">
+                                <label class="o_workshop_app_field"><span>Brand</span>
                                     <input t-att-value="state.values.brand" t-on-input="(ev) => set('brand', ev.target.value)" placeholder="Scania"/>
                                 </label>
-                                <label class="wa-field"><span>Model</span>
+                                <label class="o_workshop_app_field"><span>Model</span>
                                     <input t-att-value="state.values.model" t-on-input="(ev) => set('model', ev.target.value)" placeholder="R 450"/>
                                 </label>
                             </div>
-                            <label class="wa-field"><span>Fleet number</span>
+                            <label class="o_workshop_app_field"><span>Fleet number</span>
                                 <input t-att-value="state.values.fleet_number" t-on-input="(ev) => set('fleet_number', ev.target.value)" placeholder="101"/>
                             </label>
                         </t>
                     </t>
 
-                    <div class="wa-grid-2">
-                        <label class="wa-field"><span>Odometer (km)</span>
+                    <div class="o_workshop_app_grid_2">
+                        <label class="o_workshop_app_field"><span>Odometer (km)</span>
                             <input inputmode="numeric" t-att-value="state.values.odometer" t-on-input="(ev) => set('odometer', ev.target.value)"
                                    t-att-placeholder="odometerHint"/>
                         </label>
-                        <label class="wa-field"><span>Brought by</span>
+                        <label class="o_workshop_app_field"><span>Brought by</span>
                             <input t-att-value="state.values.driver_name" t-on-input="(ev) => set('driver_name', ev.target.value)" placeholder="Driver"/>
                         </label>
                     </div>
 
-                    <label class="wa-field"><span>What is the problem?</span>
+                    <label class="o_workshop_app_field"><span>What is the problem?</span>
                         <textarea rows="3" t-att-value="state.values.complaint" t-on-input="(ev) => set('complaint', ev.target.value)"
                                   placeholder="e.g. left headlight without high beam"/>
                     </label>
 
-                    <label class="wa-label">Services <span class="wa-muted" t-if="state.values.service_ids.length">· <t t-esc="state.values.service_ids.length"/> selected</span></label>
-                    <div class="wa-search wa-search--sm">
+                    <label class="o_workshop_app_label">Services <span class="o_workshop_app_muted" t-if="state.values.service_ids.length">· <t t-esc="state.values.service_ids.length"/> selected</span></label>
+                    <div class="o_workshop_app_search o_workshop_app_search--sm">
                         <i class="fa fa-search"/>
                         <input type="search" placeholder="Search services" t-model="state.serviceSearch"/>
                     </div>
-                    <div class="wa-chips wa-chips--wrap">
-                        <button t-foreach="services" t-as="service" t-key="service.id" class="wa-chip wa-chip--service"
-                                t-att-class="state.values.service_ids.includes(service.id) ? 'is-active' : ''"
+                    <div class="o_workshop_app_chips o_workshop_app_chips--wrap">
+                        <button t-foreach="services" t-as="service" t-key="service.id" class="o_workshop_app_chip o_workshop_app_chip--service"
+                                t-att-class="state.values.service_ids.includes(service.id) ? 'o_workshop_is_active' : ''"
                                 t-on-click="() => toggleService(service.id)">
                             <i t-att-class="state.values.service_ids.includes(service.id) ? 'fa fa-check' : 'fa fa-plus'"/>
                             <t t-esc="service.name"/>
                         </button>
                     </div>
 
-                    <label class="wa-label">Stage</label>
-                    <div class="wa-chips wa-chips--wrap">
-                        <button t-foreach="state.form.stages" t-as="stage" t-key="stage.id" class="wa-chip"
-                                t-att-class="state.values.stage_id === stage.id ? 'is-active' : ''" t-on-click="() => set('stage_id', stage.id)">
-                            <span class="wa-dot" t-attf-style="background: {{ stage.color }}"/><t t-esc="stage.name"/>
+                    <label class="o_workshop_app_label">Stage</label>
+                    <div class="o_workshop_app_chips o_workshop_app_chips--wrap">
+                        <button t-foreach="state.form.stages" t-as="stage" t-key="stage.id" class="o_workshop_app_chip"
+                                t-att-class="state.values.stage_id === stage.id ? 'o_workshop_is_active' : ''" t-on-click="() => set('stage_id', stage.id)">
+                            <span class="o_workshop_app_dot" t-attf-style="background: {{ stage.color }}"/><t t-esc="stage.name"/>
                         </button>
                     </div>
-                    <label class="wa-label">Location</label>
-                    <div class="wa-chips wa-chips--wrap">
-                        <button t-foreach="state.form.locations" t-as="loc" t-key="loc.id" class="wa-chip"
-                                t-att-class="state.values.location_id === loc.id ? 'is-active' : ''"
+                    <label class="o_workshop_app_label">Location</label>
+                    <div class="o_workshop_app_chips o_workshop_app_chips--wrap">
+                        <button t-foreach="state.form.locations" t-as="loc" t-key="loc.id" class="o_workshop_app_chip"
+                                t-att-class="state.values.location_id === loc.id ? 'o_workshop_is_active' : ''"
                                 t-on-click="() => set('location_id', state.values.location_id === loc.id ? false : loc.id)" t-esc="loc.name"/>
                     </div>
 
-                    <label class="wa-toggle" t-if="state.form.templates.length">
+                    <label class="o_workshop_app_toggle" t-if="state.form.templates.length">
                         <input type="checkbox" t-att-checked="!!state.values.template_id"
                                t-on-change="onChecklistToggle"/>
                         <span>Do the arrival checklist</span>
                     </label>
                 </div>
-                <footer class="wa-footer">
-                    <button class="wa-btn wa-btn--block" t-att-disabled="!canSave" t-on-click="() => save()">
+                <footer class="o_workshop_app_footer">
+                    <button class="o_workshop_app_btn o_workshop_app_btn--block" t-att-disabled="!canSave" t-on-click="() => save()">
                         <i t-if="state.saving" class="fa fa-circle-o-notch fa-spin"/> Open work order
                     </button>
                 </footer>
@@ -271,110 +271,110 @@
 
     <!-- Order -->
     <t t-name="workshop_os.AppOrder">
-        <div class="wa-screen wa-screen--order">
+        <div class="o_workshop_app_screen o_workshop_app_screen--order">
             <t t-set="d" t-value="state.data"/>
-            <header class="wa-bar">
-                <button class="wa-icon-btn" t-on-click="props.app.back" aria-label="Back"><i class="fa fa-arrow-left"/></button>
+            <header class="o_workshop_app_bar">
+                <button class="o_workshop_app_icon_btn" t-on-click="props.app.back" aria-label="Back"><i class="fa fa-arrow-left"/></button>
                 <strong t-esc="d ? d.name : ''"/>
-                <button class="wa-icon-btn" t-if="d" t-on-click="share" aria-label="Send to customer"><i class="fa fa-share-alt"/></button>
+                <button class="o_workshop_app_icon_btn" t-if="d" t-on-click="share" aria-label="Send to customer"><i class="fa fa-share-alt"/></button>
             </header>
             <t t-if="d">
-                <section class="wa-hero-card" t-attf-style="--stage: {{ d.stage_color }}">
-                    <div class="wa-hero-card__top">
+                <section class="o_workshop_app_hero_card" t-attf-style="--WorkshopStage-color: {{ d.stage_color }}">
+                    <div class="o_workshop_app_hero_card__top">
                         <Plate plate="d.plate" size="'lg'"/>
-                        <span class="wa-pill" t-attf-class="wa-pill wa-pill--{{ d.state }}" t-esc="d.state_label"/>
+                        <span class="o_workshop_app_pill" t-attf-class="o_workshop_app_pill o_workshop_app_pill--{{ d.state }}" t-esc="d.state_label"/>
                     </div>
-                    <strong class="wa-hero-card__vehicle" t-esc="d.vehicle"/>
-                    <span class="wa-muted" t-esc="d.partner"/>
-                    <div class="wa-facts">
+                    <strong class="o_workshop_app_hero_card__vehicle" t-esc="d.vehicle"/>
+                    <span class="o_workshop_app_muted" t-esc="d.partner"/>
+                    <div class="o_workshop_app_facts">
                         <div><span>Stage for</span><strong t-esc="elapsed()"/></div>
                         <div><span>Odometer</span><strong t-esc="d.odometer ? d.odometer.toLocaleString('pt-BR') + ' km' : '—'"/></div>
                         <div><span>Total</span><strong t-esc="d.amount_fmt"/></div>
                     </div>
-                    <p t-if="d.complaint" class="wa-complaint"><i class="fa fa-comment-o"/> <t t-esc="d.complaint"/></p>
+                    <p t-if="d.complaint" class="o_workshop_app_complaint"><i class="fa fa-comment-o"/> <t t-esc="d.complaint"/></p>
                 </section>
 
-                <label class="wa-label">Stage</label>
-                <div class="wa-chips">
-                    <button t-foreach="d.stages" t-as="stage" t-key="stage.id" class="wa-chip"
-                            t-att-class="d.stage_id === stage.id ? 'is-active' : ''" t-on-click="() => setStage(stage.id)">
-                        <span class="wa-dot" t-attf-style="background: {{ stage.color }}"/><t t-esc="stage.name"/>
+                <label class="o_workshop_app_label">Stage</label>
+                <div class="o_workshop_app_chips">
+                    <button t-foreach="d.stages" t-as="stage" t-key="stage.id" class="o_workshop_app_chip"
+                            t-att-class="d.stage_id === stage.id ? 'o_workshop_is_active' : ''" t-on-click="() => setStage(stage.id)">
+                        <span class="o_workshop_app_dot" t-attf-style="background: {{ stage.color }}"/><t t-esc="stage.name"/>
                     </button>
                 </div>
-                <label class="wa-label">Location</label>
-                <div class="wa-chips">
-                    <button t-foreach="d.locations" t-as="loc" t-key="loc.id" class="wa-chip"
-                            t-att-class="d.location_id === loc.id ? 'is-active' : ''" t-on-click="() => setLocation(loc.id)" t-esc="loc.name"/>
+                <label class="o_workshop_app_label">Location</label>
+                <div class="o_workshop_app_chips">
+                    <button t-foreach="d.locations" t-as="loc" t-key="loc.id" class="o_workshop_app_chip"
+                            t-att-class="d.location_id === loc.id ? 'o_workshop_is_active' : ''" t-on-click="() => setLocation(loc.id)" t-esc="loc.name"/>
                 </div>
 
-                <nav class="wa-tabs">
-                    <button t-att-class="state.tab === 'services' ? 'is-active' : ''" t-on-click="() => state.tab = 'services'">
+                <nav class="o_workshop_app_tabs">
+                    <button t-att-class="state.tab === 'services' ? 'o_workshop_is_active' : ''" t-on-click="() => state.tab = 'services'">
                         Services <span t-esc="d.lines.length"/>
                     </button>
-                    <button t-att-class="state.tab === 'photos' ? 'is-active' : ''" t-on-click="() => state.tab = 'photos'">
+                    <button t-att-class="state.tab === 'photos' ? 'o_workshop_is_active' : ''" t-on-click="() => state.tab = 'photos'">
                         Photos <span t-esc="d.photos.length"/>
                     </button>
-                    <button t-att-class="state.tab === 'checklist' ? 'is-active' : ''" t-on-click="() => state.tab = 'checklist'">
+                    <button t-att-class="state.tab === 'checklist' ? 'o_workshop_is_active' : ''" t-on-click="() => state.tab = 'checklist'">
                         Checklist <span t-if="d.checklist.length" t-esc="checklistDone + '/' + d.checklist.length"/>
                     </button>
-                    <button t-att-class="state.tab === 'history' ? 'is-active' : ''" t-on-click="() => state.tab = 'history'">
+                    <button t-att-class="state.tab === 'history' ? 'o_workshop_is_active' : ''" t-on-click="() => state.tab = 'history'">
                         History
                     </button>
                 </nav>
 
-                <section t-if="state.tab === 'services'" class="wa-panel">
-                    <div t-foreach="d.lines" t-as="line" t-key="line.id" class="wa-line" t-attf-class="wa-line wa-line--{{ line.approval }}">
-                        <div class="wa-line__main">
+                <section t-if="state.tab === 'services'" class="o_workshop_app_panel">
+                    <div t-foreach="d.lines" t-as="line" t-key="line.id" class="o_workshop_app_line" t-attf-class="o_workshop_app_line o_workshop_app_line--{{ line.approval }}">
+                        <div class="o_workshop_app_line__main">
                             <strong t-esc="line.name"/>
-                            <span class="wa-muted">
+                            <span class="o_workshop_app_muted">
                                 <t t-if="line.quantity !== 1"><t t-esc="line.quantity"/> × </t><t t-esc="hours(line.hours)"/>
                                 <t t-if="line.approval === 'pending'"> · awaiting approval</t>
                                 <t t-if="line.approval === 'rejected'"> · rejected</t>
                             </span>
                         </div>
-                        <strong class="wa-line__amount" t-esc="line.subtotal_fmt"/>
-                        <button class="wa-icon-btn wa-icon-btn--sm" t-on-click="() => removeLine(line.id)" aria-label="Remove">
+                        <strong class="o_workshop_app_line__amount" t-esc="line.subtotal_fmt"/>
+                        <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="() => removeLine(line.id)" aria-label="Remove">
                             <i class="fa fa-trash-o"/>
                         </button>
                     </div>
-                    <div t-if="!d.lines.length" class="wa-empty wa-empty--sm"><p>No services yet.</p></div>
-                    <button class="wa-btn wa-btn--ghost wa-btn--block" t-on-click="openPicker"><i class="fa fa-plus"/> Add service</button>
+                    <div t-if="!d.lines.length" class="o_workshop_app_empty o_workshop_app_empty--sm"><p>No services yet.</p></div>
+                    <button class="o_workshop_app_btn o_workshop_app_btn--ghost o_workshop_app_btn--block" t-on-click="openPicker"><i class="fa fa-plus"/> Add service</button>
                 </section>
 
-                <section t-if="state.tab === 'photos'" class="wa-panel">
+                <section t-if="state.tab === 'photos'" class="o_workshop_app_panel">
                     <input type="file" accept="image/*" capture="environment" multiple="multiple" class="d-none" t-ref="file" t-on-change="onFiles"/>
-                    <div class="wa-photo-actions">
-                        <button class="wa-btn" t-on-click="() => takePhoto('entry')"><i class="fa fa-camera"/> Arrival</button>
-                        <button class="wa-btn wa-btn--ghost" t-on-click="() => takePhoto('work')"><i class="fa fa-wrench"/> Job</button>
-                        <button class="wa-btn wa-btn--ghost" t-on-click="() => takePhoto('exit')"><i class="fa fa-check"/> Delivery</button>
+                    <div class="o_workshop_app_photo_actions">
+                        <button class="o_workshop_app_btn" t-on-click="() => takePhoto('entry')"><i class="fa fa-camera"/> Arrival</button>
+                        <button class="o_workshop_app_btn o_workshop_app_btn--ghost" t-on-click="() => takePhoto('work')"><i class="fa fa-wrench"/> Job</button>
+                        <button class="o_workshop_app_btn o_workshop_app_btn--ghost" t-on-click="() => takePhoto('exit')"><i class="fa fa-check"/> Delivery</button>
                     </div>
-                    <p t-if="state.uploading" class="wa-muted"><i class="fa fa-circle-o-notch fa-spin"/> Sending <t t-esc="state.uploading"/> photo(s)…</p>
-                    <div class="wa-gallery">
-                        <button t-foreach="d.photos" t-as="photo" t-key="photo.id" class="wa-gallery__item" t-on-click="() => state.viewer = photo.url">
+                    <p t-if="state.uploading" class="o_workshop_app_muted"><i class="fa fa-circle-o-notch fa-spin"/> Sending <t t-esc="state.uploading"/> photo(s)…</p>
+                    <div class="o_workshop_app_gallery">
+                        <button t-foreach="d.photos" t-as="photo" t-key="photo.id" class="o_workshop_app_gallery__item" t-on-click="() => state.viewer = photo.url">
                             <img t-att-src="photo.thumb" loading="lazy" alt=""/>
                         </button>
                     </div>
-                    <div t-if="!d.photos.length and !state.uploading" class="wa-empty wa-empty--sm"><p>Take photos of the problem: the customer sees them on the approval link.</p></div>
+                    <div t-if="!d.photos.length and !state.uploading" class="o_workshop_app_empty o_workshop_app_empty--sm"><p>Take photos of the problem: the customer sees them on the approval link.</p></div>
                 </section>
 
-                <section t-if="state.tab === 'checklist'" class="wa-panel">
+                <section t-if="state.tab === 'checklist'" class="o_workshop_app_panel">
                     <t t-if="d.checklist.length">
-                        <div t-foreach="checklistSections" t-as="section" t-key="section.name" class="wa-check-section">
+                        <div t-foreach="checklistSections" t-as="section" t-key="section.name" class="o_workshop_app_check_section">
                             <h3 t-esc="section.name"/>
-                            <div t-foreach="section.items" t-as="item" t-key="item.id" class="wa-check">
-                                <span class="wa-check__name" t-esc="item.name"/>
-                                <div class="wa-check__buttons">
-                                    <button t-att-class="item.result === 'ok' ? 'is-ok' : ''" t-on-click="() => answer(item, 'ok')" aria-label="OK"><i class="fa fa-check"/></button>
-                                    <button t-att-class="item.result === 'attention' ? 'is-attention' : ''" t-on-click="() => answer(item, 'attention')" aria-label="Attention"><i class="fa fa-exclamation"/></button>
-                                    <button t-att-class="item.result === 'fail' ? 'is-fail' : ''" t-on-click="() => answer(item, 'fail')" aria-label="Problem"><i class="fa fa-times"/></button>
+                            <div t-foreach="section.items" t-as="item" t-key="item.id" class="o_workshop_app_check">
+                                <span class="o_workshop_app_check__name" t-esc="item.name"/>
+                                <div class="o_workshop_app_check__buttons">
+                                    <button t-att-class="item.result === 'ok' ? 'o_workshop_is_ok' : ''" t-on-click="() => answer(item, 'ok')" aria-label="OK"><i class="fa fa-check"/></button>
+                                    <button t-att-class="item.result === 'attention' ? 'o_workshop_is_attention' : ''" t-on-click="() => answer(item, 'attention')" aria-label="Attention"><i class="fa fa-exclamation"/></button>
+                                    <button t-att-class="item.result === 'fail' ? 'o_workshop_is_fail' : ''" t-on-click="() => answer(item, 'fail')" aria-label="Problem"><i class="fa fa-times"/></button>
                                 </div>
                             </div>
                         </div>
                     </t>
-                    <div t-else="" class="wa-empty wa-empty--sm">
+                    <div t-else="" class="o_workshop_app_empty o_workshop_app_empty--sm">
                         <p>No checklist on this order yet.</p>
-                        <div class="wa-stack">
-                            <button t-foreach="d.templates" t-as="tpl" t-key="tpl.id" class="wa-btn wa-btn--ghost wa-btn--block"
+                        <div class="o_workshop_app_stack">
+                            <button t-foreach="d.templates" t-as="tpl" t-key="tpl.id" class="o_workshop_app_btn o_workshop_app_btn--ghost o_workshop_app_btn--block"
                                     t-on-click="() => loadChecklist(tpl.id)">
                                 <i class="fa fa-list-ul"/> Start “<t t-esc="tpl.name"/>”
                             </button>
@@ -382,30 +382,30 @@
                     </div>
                 </section>
 
-                <section t-if="state.tab === 'history'" class="wa-panel">
-                    <ol class="wa-timeline">
-                        <li t-foreach="d.timeline" t-as="step" t-key="step_index" t-attf-style="--stage: {{ step.color }}">
+                <section t-if="state.tab === 'history'" class="o_workshop_app_panel">
+                    <ol class="o_workshop_app_timeline">
+                        <li t-foreach="d.timeline" t-as="step" t-key="step_index" t-attf-style="--WorkshopStage-color: {{ step.color }}">
                             <strong t-esc="step.stage"/>
-                            <span class="wa-muted"><t t-esc="date(step.start)"/> · <t t-esc="hours(step.hours)"/> · <t t-esc="step.user"/></span>
+                            <span class="o_workshop_app_muted"><t t-esc="date(step.start)"/> · <t t-esc="hours(step.hours)"/> · <t t-esc="step.user"/></span>
                         </li>
                     </ol>
                 </section>
 
-                <footer class="wa-footer wa-footer--actions" t-if="d.state_actions.length">
-                    <button t-foreach="d.state_actions" t-as="act" t-key="act.action" class="wa-btn"
-                            t-att-class="act.style === 'ghost' ? 'wa-btn--ghost' : ''" t-att-disabled="state.busy"
+                <footer class="o_workshop_app_footer o_workshop_app_footer--actions" t-if="d.state_actions.length">
+                    <button t-foreach="d.state_actions" t-as="act" t-key="act.action" class="o_workshop_app_btn"
+                            t-att-class="act.style === 'ghost' ? 'o_workshop_app_btn--ghost' : ''" t-att-disabled="state.busy"
                             t-on-click="() => doAction(act.action)" t-esc="act.label"/>
                 </footer>
 
-                <div t-if="state.picker" class="wa-sheet-backdrop" t-on-click="() => state.picker = false">
-                    <div class="wa-sheet wa-sheet--tall" t-on-click.stop="">
-                        <div class="wa-sheet__grip"/>
-                        <div class="wa-search">
+                <div t-if="state.picker" class="o_workshop_app_sheet_backdrop" t-on-click="() => state.picker = false">
+                    <div class="o_workshop_app_sheet o_workshop_app_sheet--tall" t-on-click.stop="">
+                        <div class="o_workshop_app_sheet__grip"/>
+                        <div class="o_workshop_app_search">
                             <i class="fa fa-search"/>
                             <input type="search" placeholder="Search services" t-on-input="searchServices" t-att-value="state.serviceSearch"/>
                         </div>
-                        <button t-foreach="state.services" t-as="service" t-key="service.id" class="wa-pick"
-                                t-att-class="addedServiceIds.has(service.id) ? 'is-added' : ''" t-on-click="() => addService(service.id)">
+                        <button t-foreach="state.services" t-as="service" t-key="service.id" class="o_workshop_app_pick"
+                                t-att-class="addedServiceIds.has(service.id) ? 'o_workshop_is_added' : ''" t-on-click="() => addService(service.id)">
                             <i t-if="addedServiceIds.has(service.id)" class="fa fa-check-circle"/>
                             <i t-elif="service.favorite" class="fa fa-star"/>
                             <span t-esc="service.name"/>
@@ -414,11 +414,11 @@
                     </div>
                 </div>
 
-                <div t-if="state.viewer" class="wa-viewer" t-on-click="() => state.viewer = null">
+                <div t-if="state.viewer" class="o_workshop_app_viewer" t-on-click="() => state.viewer = null">
                     <img t-att-src="state.viewer" alt=""/>
                 </div>
             </t>
-            <div t-else="" class="wa-list"><div class="wa-skeleton" t-foreach="[1, 2]" t-as="i" t-key="i"/></div>
+            <div t-else="" class="o_workshop_app_list"><div class="o_workshop_app_skeleton" t-foreach="[1, 2]" t-as="i" t-key="i"/></div>
         </div>
     </t>
 

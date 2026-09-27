@@ -13,6 +13,7 @@ from decimal import ROUND_HALF_UP, Decimal
 from pathlib import Path
 
 from cryptography import x509
+from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from lxml import etree
@@ -268,7 +269,7 @@ def verify(xml_bytes):
     try:
         public_key.verify(base64.b64decode(signature.findtext(f"{{{DS}}}SignatureValue")),
                           _c14n(signature.find(f"{{{DS}}}SignedInfo")), padding.PKCS1v15(), hashes.SHA1())
-    except Exception:  # noqa: BLE001 - any failure means "not valid"
+    except (InvalidSignature, ValueError, TypeError):
         return False
     return True
 

@@ -3,20 +3,20 @@
  * this page must open fast on a cheap phone over 4G. */
 (function () {
     "use strict";
-    const bar = document.getElementById("wo-actionbar");
+    const bar = document.getElementById("o_workshop_page_actionbar");
     if (!bar) {
         return;
     }
     const token = bar.dataset.token;
-    const dialog = document.getElementById("wo-dialog");
-    const form = document.getElementById("wo-form");
-    const nameInput = document.getElementById("wo-name");
-    const errorBox = document.getElementById("wo-error");
-    const title = document.getElementById("wo-dialog-title");
-    const signBlock = document.getElementById("wo-sign-block");
-    const canvas = document.getElementById("wo-sign");
-    const checks = Array.from(document.querySelectorAll(".wo-line__check"));
-    const totalOut = document.getElementById("wo-approve-total");
+    const dialog = document.getElementById("o_workshop_page_dialog");
+    const form = document.getElementById("o_workshop_page_form");
+    const nameInput = document.getElementById("o_workshop_page_name");
+    const errorBox = document.getElementById("o_workshop_page_error");
+    const title = document.getElementById("o_workshop_page_dialog_title");
+    const signBlock = document.getElementById("o_workshop_page_sign_block");
+    const canvas = document.getElementById("o_workshop_page_sign");
+    const checks = Array.from(document.querySelectorAll(".o_workshop_page_line__check"));
+    const totalOut = document.getElementById("o_workshop_page_approve_total");
     const money = new Intl.NumberFormat(document.documentElement.lang || "pt-BR", {
         style: "currency",
         currency: bar.dataset.currency || "BRL",
@@ -30,7 +30,7 @@
         bar.querySelector("[data-wo-open='approve']").disabled = !checks.some((c) => c.checked);
     }
     checks.forEach((c) => c.addEventListener("change", () => {
-        c.closest(".wo-line").classList.toggle("wo-line--rejected", !c.checked);
+        c.closest(".o_workshop_page_line").classList.toggle("o_workshop_page_line--rejected", !c.checked);
         refreshTotal();
     }));
 
@@ -62,11 +62,11 @@
         }
     });
     ["pointerup", "pointercancel", "pointerleave"].forEach((t) => canvas.addEventListener(t, () => (drawing = false)));
-    document.getElementById("wo-sign-clear").addEventListener("click", sizeCanvas);
+    document.getElementById("o_workshop_page_sign_clear").addEventListener("click", sizeCanvas);
 
     bar.querySelectorAll("[data-wo-open]").forEach((btn) => btn.addEventListener("click", () => {
         mode = btn.dataset.woOpen;
-        title.textContent = document.getElementById(mode === "approve" ? "wo-t-approve" : "wo-t-reject").textContent;
+        title.textContent = document.getElementById(mode === "approve" ? "o_workshop_page_t_approve" : "o_workshop_page_t_reject").textContent;
         signBlock.hidden = mode !== "approve";
         errorBox.hidden = true;
         dialog.showModal();
@@ -75,11 +75,11 @@
         }
         nameInput.focus();
     }));
-    document.getElementById("wo-cancel").addEventListener("click", () => dialog.close());
+    document.getElementById("o_workshop_page_cancel").addEventListener("click", () => dialog.close());
 
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
-        const submit = document.getElementById("wo-submit");
+        const submit = document.getElementById("o_workshop_page_submit");
         submit.disabled = true;
         errorBox.hidden = true;
         const params = {

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- The office bills, so it issues the notes too. -->
+    <record id="workshop_os.workshop_os_group_manager" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('l10n_br_nfse_nacional.l10n_br_nfse_nacional_group_user'))]"/>
+    </record>
+</odoo>

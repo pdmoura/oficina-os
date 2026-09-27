@@ -46,7 +46,7 @@ class TestPublicPage(HttpCase):
 
     def test_manifest_opens_the_mechanic_app(self):
         manifest = self.url_open("/web/manifest.webmanifest").json()
-        self.assertEqual(manifest["start_url"], "/odoo/action-workshop_os.action_mechanic_app")
+        self.assertEqual(manifest["start_url"], "/odoo/mechanic-app")
         self.assertEqual(manifest["icons"][0]["src"], "/workshop_os/app-icon/192")
 
     def test_company_logo_is_public(self):

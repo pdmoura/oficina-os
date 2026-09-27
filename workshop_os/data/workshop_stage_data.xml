@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Starting lists, taken from how truck workshops already organise the yard. Everything is editable. -->
+<odoo noupdate="1">
+    <record id="stage_office" model="workshop.stage">
+        <field name="name">Escritório</field>
+        <field name="description">Aguardando orçamento ou aprovação</field>
+        <field name="sequence">1</field>
+        <field name="color">#3B82F6</field>
+        <field name="is_waiting" eval="True"/>
+    </record>
+    <record id="stage_parts" model="workshop.stage">
+        <field name="name">Aguardando peças</field>
+        <field name="sequence">2</field>
+        <field name="color">#F59E0B</field>
+        <field name="is_waiting" eval="True"/>
+    </record>
+    <record id="stage_queue" model="workshop.stage">
+        <field name="name">Na fila</field>
+        <field name="description">Aprovado, esperando mecânico</field>
+        <field name="sequence">3</field>
+        <field name="color">#8B5CF6</field>
+        <field name="is_waiting" eval="True"/>
+    </record>
+    <record id="stage_working" model="workshop.stage">
+        <field name="name">Em serviço</field>
+        <field name="sequence">4</field>
+        <field name="color">#10B981</field>
+    </record>
+    <record id="stage_stopped" model="workshop.stage">
+        <field name="name">Serviço parado</field>
+        <field name="sequence">5</field>
+        <field name="color">#EF4444</field>
+        <field name="is_waiting" eval="True"/>
+    </record>
+    <record id="stage_test" model="workshop.stage">
+        <field name="name">Teste / conferência</field>
+        <field name="sequence">6</field>
+        <field name="color">#06B6D4</field>
+    </record>
+</odoo>

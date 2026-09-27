@@ -1,1 +1,1 @@
-from . import nfse_cancel
+from . import nfse_document_cancel

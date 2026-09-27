@@ -18,7 +18,7 @@ msgstr ""
 
 #. module: workshop_os_nfse
 #. odoo-python
-#: code:addons/workshop_os_nfse/models/workshop.py:0
+#: code:addons/workshop_os_nfse/models/workshop_billing.py:0
 msgid "Confirm the monthly closing before issuing its NFS-e."
 msgstr "Confirme o fechamento mensal antes de emitir a NFS-e."
 
@@ -39,8 +39,8 @@ msgid "ID"
 msgstr "ID"
 
 #. module: workshop_os_nfse
-#: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_billing_view_form_nfse
-#: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_order_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_billing_view_form
+#: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_order_view_form
 msgid "Issue NFS-e"
 msgstr "Emitir NFS-e"
 
@@ -63,9 +63,9 @@ msgstr "Fechamento mensal"
 #. module: workshop_os_nfse
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_billing__nfse_state
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_order__nfse_state
-#: model:ir.ui.menu,name:workshop_os_nfse.menu_workshop_nfse
-#: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_billing_view_form_nfse
-#: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_order_view_form_nfse
+#: model:ir.ui.menu,name:workshop_os_nfse.nfse_document_menu_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_billing_view_form
+#: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_order_view_form
 msgid "NFS-e"
 msgstr "NFS-e"
 
@@ -83,7 +83,7 @@ msgstr "Não emitida"
 
 #. module: workshop_os_nfse
 #. odoo-python
-#: code:addons/workshop_os_nfse/models/workshop.py:0
+#: code:addons/workshop_os_nfse/models/workshop_order.py:0
 msgid "Only finished work orders can be invoiced."
 msgstr "Só é possível emitir NFS-e de OS concluídas."
 
@@ -105,13 +105,13 @@ msgstr "Notas fiscais de serviço"
 
 #. module: workshop_os_nfse
 #. odoo-python
-#: code:addons/workshop_os_nfse/models/workshop.py:0
+#: code:addons/workshop_os_nfse/models/workshop_order.py:0
 msgid "Services on work order %(order)s, plate %(plate)s"
 msgstr "Serviços referentes à OS %(order)s, placa %(plate)s"
 
 #. module: workshop_os_nfse
 #. odoo-python
-#: code:addons/workshop_os_nfse/models/workshop.py:0
+#: code:addons/workshop_os_nfse/models/workshop_order.py:0
 msgid "This order is billed in the monthly closing %s."
 msgstr "Esta OS é faturada no fechamento mensal %s."
 

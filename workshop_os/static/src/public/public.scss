@@ -1,27 +1,27 @@
 // Customer page: opened from WhatsApp on a phone, so mobile first and legible in sunlight.
-.wo-public {
+.o_workshop_page {
     margin: 0;
     min-height: 100vh;
-    background: var(--wo-bg);
-    color: var(--wo-text);
-    font-family: var(--wo-font);
+    background: var(--Workshop-bg);
+    color: var(--Workshop-text);
+    font-family: var(--Workshop-font);
     -webkit-font-smoothing: antialiased;
     padding-bottom: 110px;
 
     * { box-sizing: border-box; }
-    a { color: var(--wo-accent); }
+    a { color: var(--Workshop-accent); }
 }
 
-.wo-hero {
+.o_workshop_page_hero {
     position: relative;
     padding: 28px 20px 30px;
     text-align: center;
     background:
-        radial-gradient(120% 90% at 50% -10%, color-mix(in srgb, var(--wo-accent) 26%, transparent), transparent 60%),
-        linear-gradient(180deg, #1a1d24, var(--wo-bg));
-    border-bottom: 1px solid var(--wo-border);
+        radial-gradient(120% 90% at 50% -10%, color-mix(in srgb, var(--Workshop-accent) 26%, transparent), transparent 60%),
+        linear-gradient(180deg, #1a1d24, var(--Workshop-bg));
+    border-bottom: 1px solid var(--Workshop-border);
 }
-.wo-hero__brand {
+.o_workshop_page_hero__brand {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,7 @@
     margin-bottom: 22px;
     text-align: left;
 }
-.wo-hero__logo {
+.o_workshop_page_hero__logo {
     width: 52px;
     height: 52px;
     object-fit: contain;
@@ -37,13 +37,13 @@
     background: #fff;
     padding: 4px;
 }
-.wo-hero__brand--full { flex-direction: column; gap: 6px; text-align: center; }
-.wo-hero__logo--full { background: none; padding: 0; border-radius: 0; width: unquote("min(240px, 64vw)"); height: auto; }
-.wo-hero__company { font-weight: 700; font-size: 17px; }
-.wo-hero__sub { color: var(--wo-muted); font-size: 13px; }
-.wo-hero__vehicle { margin-top: 12px; color: var(--wo-muted); font-size: 15px; }
+.o_workshop_page_hero__brand--full { flex-direction: column; gap: 6px; text-align: center; }
+.o_workshop_page_hero__logo--full { background: none; padding: 0; border-radius: 0; width: unquote("min(240px, 64vw)"); height: auto; }
+.o_workshop_page_hero__company { font-weight: 700; font-size: 17px; }
+.o_workshop_page_hero__sub { color: var(--Workshop-muted); font-size: 13px; }
+.o_workshop_page_hero__vehicle { margin-top: 12px; color: var(--Workshop-muted); font-size: 15px; }
 
-.wo-main {
+.o_workshop_page_main {
     max-width: 640px;
     margin: 0 auto;
     padding: 18px 16px 0;
@@ -51,39 +51,39 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 14px;
 }
-.wo-card {
+.o_workshop_page_card {
     min-width: 0;
-    background: var(--wo-surface);
-    border: 1px solid var(--wo-border);
-    border-radius: var(--wo-radius);
+    background: var(--Workshop-surface);
+    border: 1px solid var(--Workshop-border);
+    border-radius: var(--Workshop-radius);
     padding: 18px;
 }
-.wo-card__label {
+.o_workshop_page_card__label {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
-    color: var(--wo-faint);
+    color: var(--Workshop-faint);
     margin-bottom: 10px;
 }
-.wo-muted { color: var(--wo-muted); }
-.wo-status { display: flex; align-items: center; gap: 10px; font-size: 18px; flex-wrap: wrap; }
-.wo-dot { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255, 255, 255, .05); }
-.wo-badge {
+.o_workshop_page_muted { color: var(--Workshop-muted); }
+.o_workshop_page_status { display: flex; align-items: center; gap: 10px; font-size: 18px; flex-wrap: wrap; }
+.o_workshop_page_dot { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255, 255, 255, .05); }
+.o_workshop_page_badge {
     margin-left: auto;
     font-size: 12px;
     font-weight: 700;
     padding: 5px 10px;
     border-radius: 999px;
-    background: var(--wo-surface-3);
-    color: var(--wo-muted);
+    background: var(--Workshop-surface-3);
+    color: var(--Workshop-muted);
 }
-.wo-badge--draft { background: color-mix(in srgb, var(--wo-warning) 18%, transparent); color: var(--wo-warning); }
-.wo-badge--approved { background: color-mix(in srgb, var(--wo-success) 18%, transparent); color: var(--wo-success); }
-.wo-badge--rejected { background: color-mix(in srgb, var(--wo-danger) 18%, transparent); color: var(--wo-danger); }
-.wo-badge--done, .wo-badge--delivered { background: color-mix(in srgb, var(--wo-info) 18%, transparent); color: var(--wo-info); }
+.o_workshop_page_badge--draft { background: color-mix(in srgb, var(--Workshop-warning) 18%, transparent); color: var(--Workshop-warning); }
+.o_workshop_page_badge--approved { background: color-mix(in srgb, var(--Workshop-success) 18%, transparent); color: var(--Workshop-success); }
+.o_workshop_page_badge--rejected { background: color-mix(in srgb, var(--Workshop-danger) 18%, transparent); color: var(--Workshop-danger); }
+.o_workshop_page_badge--done, .o_workshop_page_badge--delivered { background: color-mix(in srgb, var(--Workshop-info) 18%, transparent); color: var(--Workshop-info); }
 
-.wo-steps {
+.o_workshop_page_steps {
     list-style: none;
     display: flex;
     gap: 6px;
@@ -94,120 +94,120 @@
     li {
         flex: 1 0 auto;
         font-size: 11px;
-        color: var(--wo-faint);
-        border-top: 3px solid var(--wo-surface-3);
+        color: var(--Workshop-faint);
+        border-top: 3px solid var(--Workshop-surface-3);
         padding-top: 6px;
         white-space: nowrap;
     }
-    li.is-current { color: var(--wo-text); font-weight: 700; border-top-color: var(--wo-accent); }
+    li.o_workshop_is_current { color: var(--Workshop-text); font-weight: 700; border-top-color: var(--Workshop-accent); }
 }
-.wo-meta {
+.o_workshop_page_meta {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 10px;
     margin-top: 16px;
-    div { background: var(--wo-surface-2); border-radius: var(--wo-radius-sm); padding: 10px 12px; }
-    span { display: block; font-size: 11px; color: var(--wo-faint); margin-bottom: 3px; }
+    div { background: var(--Workshop-surface-2); border-radius: var(--Workshop-radius-sm); padding: 10px 12px; }
+    span { display: block; font-size: 11px; color: var(--Workshop-faint); margin-bottom: 3px; }
     strong { font-size: 15px; }
 }
 
-.wo-gallery {
+.o_workshop_page_gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 8px;
-    img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--wo-radius-sm); display: block; }
+    img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--Workshop-radius-sm); display: block; }
 }
 
-.wo-lines { list-style: none; margin: 0; padding: 0; }
-.wo-line {
-    border-bottom: 1px solid var(--wo-border);
+.o_workshop_page_lines { list-style: none; margin: 0; padding: 0; }
+.o_workshop_page_line {
+    border-bottom: 1px solid var(--Workshop-border);
     label { display: flex; align-items: center; gap: 12px; padding: 14px 0; cursor: pointer; }
     &:last-child { border-bottom: 0; }
 }
-.wo-line--rejected { opacity: .45; text-decoration: line-through; }
-.wo-line__check { width: 22px; height: 22px; accent-color: var(--wo-accent); flex: 0 0 auto; }
-.wo-line__name { flex: 1; font-size: 15px; }
-.wo-line__qty { color: var(--wo-muted); font-size: 13px; }
-.wo-line__amount { font-weight: 700; font-variant-numeric: tabular-nums; }
-.wo-total {
+.o_workshop_page_line--rejected { opacity: .45; text-decoration: line-through; }
+.o_workshop_page_line__check { width: 22px; height: 22px; accent-color: var(--Workshop-accent); flex: 0 0 auto; }
+.o_workshop_page_line__name { flex: 1; font-size: 15px; }
+.o_workshop_page_line__qty { color: var(--Workshop-muted); font-size: 13px; }
+.o_workshop_page_line__amount { font-weight: 700; font-variant-numeric: tabular-nums; }
+.o_workshop_page_total {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     margin-top: 12px;
     padding-top: 12px;
-    border-top: 1px dashed var(--wo-border);
-    span { color: var(--wo-muted); }
+    border-top: 1px dashed var(--Workshop-border);
+    span { color: var(--Workshop-muted); }
     strong { font-size: 22px; }
 }
 
-.wo-foot { text-align: center; color: var(--wo-faint); font-size: 13px; padding: 12px 0 24px; }
+.o_workshop_page_foot { text-align: center; color: var(--Workshop-faint); font-size: 13px; padding: 12px 0 24px; }
 
-.wo-actionbar {
+.o_workshop_page_actionbar {
     position: fixed;
     inset: auto 0 0 0;
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
-    background: color-mix(in srgb, var(--wo-bg) 88%, transparent);
+    background: color-mix(in srgb, var(--Workshop-bg) 88%, transparent);
     backdrop-filter: blur(14px);
-    border-top: 1px solid var(--wo-border);
+    border-top: 1px solid var(--Workshop-border);
 }
-.wo-actionbar__total {
+.o_workshop_page_actionbar__total {
     flex: 1;
-    span { display: block; font-size: 11px; color: var(--wo-faint); }
+    span { display: block; font-size: 11px; color: var(--Workshop-faint); }
     strong { font-size: 19px; font-variant-numeric: tabular-nums; }
 }
-.wo-btn {
+.o_workshop_page_btn {
     appearance: none;
     border: 0;
     border-radius: 12px;
     padding: 14px 22px;
-    font: 700 16px/1 var(--wo-font);
-    background: var(--wo-accent);
-    color: var(--wo-accent-ink);
+    font: 700 16px/1 var(--Workshop-font);
+    background: var(--Workshop-accent);
+    color: var(--Workshop-accent-ink);
     cursor: pointer;
     transition: transform .08s ease, filter .15s ease;
     &:active { transform: scale(.97); }
     &:disabled { opacity: .6; }
 }
-.wo-btn--ghost { background: var(--wo-surface-2); color: var(--wo-text); }
-.wo-link { background: none; border: 0; color: var(--wo-accent); font: inherit; cursor: pointer; }
+.o_workshop_page_btn--ghost { background: var(--Workshop-surface-2); color: var(--Workshop-text); }
+.o_workshop_page_link { background: none; border: 0; color: var(--Workshop-accent); font: inherit; cursor: pointer; }
 
-.wo-dialog {
+.o_workshop_page_dialog {
     width: unquote("min(520px, calc(100vw - 24px))");
-    border: 1px solid var(--wo-border);
+    border: 1px solid var(--Workshop-border);
     border-radius: 20px;
-    background: var(--wo-surface);
-    color: var(--wo-text);
+    background: var(--Workshop-surface);
+    color: var(--Workshop-text);
     padding: 22px;
     &::backdrop { background: rgba(0, 0, 0, .6); backdrop-filter: blur(3px); }
     h2 { margin: 0 0 8px; font-size: 20px; }
 }
-.wo-terms { font-size: 13px; }
-.wo-field {
+.o_workshop_page_terms { font-size: 13px; }
+.o_workshop_page_field {
     display: grid;
     gap: 6px;
     font-size: 13px;
-    color: var(--wo-muted);
+    color: var(--Workshop-muted);
     margin: 14px 0;
     input {
-        font: 500 16px var(--wo-font);
+        font: 500 16px var(--Workshop-font);
         padding: 13px 14px;
         border-radius: 12px;
-        border: 1px solid var(--wo-border);
-        background: var(--wo-surface-2);
-        color: var(--wo-text);
-        &:focus { outline: 2px solid var(--wo-accent); outline-offset: 1px; }
+        border: 1px solid var(--Workshop-border);
+        background: var(--Workshop-surface-2);
+        color: var(--Workshop-text);
+        &:focus { outline: 2px solid var(--Workshop-accent); outline-offset: 1px; }
     }
 }
-.wo-sign__head { display: flex; justify-content: space-between; font-size: 13px; color: var(--wo-muted); margin-bottom: 6px; }
-#wo-sign {
+.o_workshop_page_sign__head { display: flex; justify-content: space-between; font-size: 13px; color: var(--Workshop-muted); margin-bottom: 6px; }
+.o_workshop_page_sign__canvas {
     width: 100%;
     height: 150px;
     background: #fff;
     border-radius: 12px;
     touch-action: none;
 }
-.wo-error { color: var(--wo-danger); font-size: 14px; }
-.wo-dialog__actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+.o_workshop_page_error { color: var(--Workshop-danger); font-size: 14px; }
+.o_workshop_page_dialog__actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }

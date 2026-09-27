@@ -11,8 +11,9 @@ import requests
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
+from odoo.tools import plaintext2html
 
-from . import nfse_xml
+from ..tools import nfse_xml
 
 _logger = logging.getLogger(__name__)
 
@@ -86,6 +87,9 @@ class NfseDocument(models.Model):
     assist_amount = fields.Char("Amount (as typed)", compute="_compute_assist")
     assist_iss_rate = fields.Char("ISS rate (as typed)", compute="_compute_assist")
 
+    # ------------------------------------------------------------------
+    # Computes
+    # ------------------------------------------------------------------
     @api.depends("nfse_number", "dps_number", "dps_series")
     def _compute_name(self):
         for doc in self:
@@ -125,6 +129,64 @@ class NfseDocument(models.Model):
         for doc in self:
             doc.issues = "\n".join(f"• {issue}" for issue in doc._nfse_issues())
 
+    # ------------------------------------------------------------------
+    # CRUD
+    # ------------------------------------------------------------------
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_sent(self):
+        if any(doc.state in ("done", "cancel") or doc.dps_key for doc in self):
+            raise UserError(_("Notes already sent to the national system cannot be deleted; cancel them instead."))
+
+    # ------------------------------------------------------------------
+    # Actions (assisted mode: the note is issued on the Emissor Nacional website; direct mode: sent to SEFIN)
+    # ------------------------------------------------------------------
+    def action_open_emissor(self):
+        self.ensure_one()
+        return {"type": "ir.actions.act_url", "url": EMISSOR_URLS[self.environment], "target": "new"}
+
+    def action_register_issued(self):
+        for doc in self:
+            key = nfse_xml.clean_document(doc.access_key)
+            if len(key) != 50 or not key.isdigit():
+                raise UserError(_("Paste the 50-digit access key of the note issued on the Emissor Nacional."))
+            doc.write({"access_key": key, "state": "done", "issued_on": fields.Datetime.now(),
+                       "nfse_number": nfse_xml.number_from_access_key(key), "error_message": False})
+            doc.message_post(body=_("NFS-e issued on the Emissor Nacional and registered."))
+        self._nfse_after_issue()
+
+    def action_view_public(self):
+        self.ensure_one()
+        return {"type": "ir.actions.act_url", "url": PUBLIC_URL.format(key=self.access_key), "target": "new"}
+
+    def action_issue(self):
+        for doc in self:
+            if doc.state not in ("draft", "error"):
+                continue
+            issues = doc._nfse_issues()
+            if issues:
+                raise UserError("\n".join(issues))
+            doc._issue_api()
+        failed = self.filtered(lambda d: d.state == "error")
+        if len(self) == 1 and failed:
+            return {"type": "ir.actions.client", "tag": "display_notification", "params": {
+                "type": "danger", "sticky": True, "title": _("NFS-e rejected"), "message": failed.error_message,
+                "next": {"type": "ir.actions.client", "tag": "soft_reload"},
+            }}
+        return True
+
+    def action_open_cancel(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window", "res_model": "nfse.document.cancel", "view_mode": "form", "target": "new",
+            "name": _("Cancel NFS-e"), "context": {"default_document_id": self.id},
+        }
+
+    def action_reset_draft(self):
+        self.filtered(lambda d: d.state == "error").write({"state": "draft", "error_message": False})
+
+    # ------------------------------------------------------------------
+    # Checks before issuing
+    # ------------------------------------------------------------------
     def _nfse_issues(self):
         """What the national system would reject, found before anything is sent."""
         self.ensure_one()
@@ -176,47 +238,8 @@ class NfseDocument(models.Model):
         return issues
 
     # ------------------------------------------------------------------
-    # Assisted mode: the note is issued on the Emissor Nacional website.
-    # ------------------------------------------------------------------
-
-    def action_open_emissor(self):
-        self.ensure_one()
-        return {"type": "ir.actions.act_url", "url": EMISSOR_URLS[self.environment], "target": "new"}
-
-    def action_register_issued(self):
-        for doc in self:
-            key = nfse_xml.clean_document(doc.access_key)
-            if len(key) != 50 or not key.isdigit():
-                raise UserError(_("Paste the 50-digit access key of the note issued on the Emissor Nacional."))
-            doc.write({"access_key": key, "state": "done", "issued_on": fields.Datetime.now(),
-                       "nfse_number": nfse_xml.number_from_access_key(key), "error_message": False})
-            doc.message_post(body=_("NFS-e issued on the Emissor Nacional and registered."))
-        self._nfse_after_issue()
-
-    def action_view_public(self):
-        self.ensure_one()
-        return {"type": "ir.actions.act_url", "url": PUBLIC_URL.format(key=self.access_key), "target": "new"}
-
-    # ------------------------------------------------------------------
     # Direct mode: sign the DPS and send it to SEFIN Nacional.
     # ------------------------------------------------------------------
-
-    def action_issue(self):
-        for doc in self:
-            if doc.state not in ("draft", "error"):
-                continue
-            issues = doc._nfse_issues()
-            if issues:
-                raise UserError("\n".join(issues))
-            doc._issue_api()
-        failed = self.filtered(lambda d: d.state == "error")
-        if len(self) == 1 and failed:
-            return {"type": "ir.actions.client", "tag": "display_notification", "params": {
-                "type": "danger", "sticky": True, "title": _("NFS-e rejected"), "message": failed.error_message,
-                "next": {"type": "ir.actions.client", "tag": "soft_reload"},
-            }}
-        return True
-
     def _issue_api(self):
         self.ensure_one()
         retry = bool(self.dps_key)  # a previous attempt reached the point of sending
@@ -271,12 +294,12 @@ class NfseDocument(models.Model):
             "error_message": False,
         })
         alerts = nfse_xml.format_messages(nfse_xml.get_ci(payload, "alertas"))
-        self.message_post(body=_("NFS-e %s authorised.", self.nfse_number) + (f"\n{alerts}" if alerts else ""))
+        self.message_post(body=plaintext2html(_("NFS-e %s authorised.", self.nfse_number) + (f"\n{alerts}" if alerts else "")))
         self._nfse_after_issue()
 
     def _nfse_rejected(self, message):
         self.write({"state": "error", "error_message": message})
-        self.message_post(body=_("Rejected:\n%s", message))
+        self.message_post(body=plaintext2html(_("Rejected:\n%s", message)))
 
     def _next_dps_number(self):
         """DPS numbers are per company and series, sequential; a rejected number may be sent again."""
@@ -391,7 +414,6 @@ class NfseDocument(models.Model):
     # ------------------------------------------------------------------
     # DANFSe: the auxiliary PDF, drawn from the authorised XML (NT 008).
     # ------------------------------------------------------------------
-
     def _danfse_values(self):
         self.ensure_one()
         if not self.nfse_xml:
@@ -413,16 +435,8 @@ class NfseDocument(models.Model):
         return "data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode()
 
     # ------------------------------------------------------------------
-    # Cancellation and housekeeping.
+    # Cancellation and hooks for other modules.
     # ------------------------------------------------------------------
-
-    def action_open_cancel(self):
-        self.ensure_one()
-        return {
-            "type": "ir.actions.act_window", "res_model": "nfse.cancel", "view_mode": "form", "target": "new",
-            "name": _("Cancel NFS-e"), "context": {"default_document_id": self.id},
-        }
-
     def _cancel(self, reason_code, reason):
         self.ensure_one()
         if self.state != "done":
@@ -449,15 +463,7 @@ class NfseDocument(models.Model):
                 message = nfse_xml.response_errors(payload) or _("HTTP %s without details.", status)
                 raise UserError(_("The cancellation was refused:\n%s", message))
         self.state = "cancel"
-        self.message_post(body=_("NFS-e cancelled: %s", reason))
-
-    def action_reset_draft(self):
-        self.filtered(lambda d: d.state == "error").write({"state": "draft", "error_message": False})
+        self.message_post(body=plaintext2html(_("NFS-e cancelled: %s", reason)))
 
     def _nfse_after_issue(self):
         """Hook for the modules that create notes (e.g. mark a billing as invoiced)."""
-
-    @api.ondelete(at_uninstall=False)
-    def _unlink_only_drafts(self):
-        if any(doc.state in ("done", "cancel") or doc.dps_key for doc in self):
-            raise UserError(_("Notes already sent to the national system cannot be deleted; cancel them instead."))

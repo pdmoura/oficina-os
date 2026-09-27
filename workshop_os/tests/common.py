@@ -18,8 +18,8 @@ class WorkshopCase(TransactionCase):
             {"name": "Office test", "sequence": -2, "is_waiting": True},
             {"name": "Working test", "sequence": -1},
         ])
-        cls.mechanic = new_test_user(cls.env, login="mech_test", groups="workshop_os.group_workshop_user")
-        cls.office = new_test_user(cls.env, login="office_test", groups="workshop_os.group_workshop_manager")
+        cls.mechanic = new_test_user(cls.env, login="mech_test", groups="workshop_os.workshop_os_group_user")
+        cls.office = new_test_user(cls.env, login="office_test", groups="workshop_os.workshop_os_group_manager")
 
     def _vehicle(self, plate="ABC1D23", partner=None):
         return self.env["workshop.vehicle"].create({"plate": plate, "partner_id": (partner or self.fleet).id,

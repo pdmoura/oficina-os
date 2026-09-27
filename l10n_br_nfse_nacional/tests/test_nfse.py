@@ -13,7 +13,8 @@ from lxml import etree
 from odoo.exceptions import UserError
 from odoo.tests import TransactionCase, tagged
 
-from ..models import nfse_document, nfse_xml
+from ..models import nfse_document
+from ..tools import nfse_xml
 
 N = {"n": nfse_xml.NS}
 KEY = "31062002211222333000181000000000004226090000000017"

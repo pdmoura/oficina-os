@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <menuitem id="menu_nfse_root" name="NFS-e" web_icon="l10n_br_nfse_nacional,static/description/icon.png"
-              groups="group_nfse_user" sequence="60"/>
-    <menuitem id="menu_nfse_documents" name="Service invoices" parent="menu_nfse_root" action="action_nfse_document" sequence="10"/>
-    <menuitem id="menu_nfse_settings" name="Settings" parent="menu_nfse_root" action="action_nfse_settings"
-              groups="base.group_system" sequence="90"/>
-</odoo>

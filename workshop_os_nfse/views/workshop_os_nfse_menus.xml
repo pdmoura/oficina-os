@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="nfse_document_menu_workshop" name="NFS-e" parent="workshop_os.workshop_os_menu_billing"
+              action="l10n_br_nfse_nacional.nfse_document_action" sequence="15"/>
+</odoo>

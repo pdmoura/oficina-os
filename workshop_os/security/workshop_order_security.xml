@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="workshop_order_rule_company" model="ir.rule">
+        <field name="name">Work orders: multi-company</field>
+        <field name="model_id" ref="model_workshop_order"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="workshop_order_line_rule_company" model="ir.rule">
+        <field name="name">Work order lines: multi-company</field>
+        <field name="model_id" ref="model_workshop_order_line"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>

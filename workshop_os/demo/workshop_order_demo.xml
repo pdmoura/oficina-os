@@ -33,8 +33,8 @@
         <field name="name">Camila Rocha</field>
         <field name="login">escritorio</field>
         <field name="password">escritorio</field>
-        <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_manager')])]"/>
-        <field name="action_id" ref="workshop_os.action_workshop_dashboard"/>
+        <field name="group_ids" eval="[(6, 0, [ref('workshop_os.workshop_os_group_manager')])]"/>
+        <field name="action_id" ref="workshop_os.workshop_order_action_dashboard"/>
         <field name="lang">pt_BR</field>
         <field name="tz">America/Sao_Paulo</field>
     </record>
@@ -62,8 +62,8 @@
         <field name="name">Rafael Souza</field>
         <field name="login">mecanico</field>
         <field name="password">mecanico</field>
-        <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_user')])]"/>
-        <field name="action_id" ref="workshop_os.action_mechanic_app"/>
+        <field name="group_ids" eval="[(6, 0, [ref('workshop_os.workshop_os_group_user')])]"/>
+        <field name="action_id" ref="workshop_os.workshop_order_action_mechanic_app"/>
         <field name="lang">pt_BR</field>
         <field name="tz">America/Sao_Paulo</field>
     </record>

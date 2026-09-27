@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="workshop_stage_view_list" model="ir.ui.view">
-        <field name="name">workshop.stage.list</field>
+        <field name="name">workshop.stage.view.list</field>
         <field name="model">workshop.stage</field>
         <field name="arch" type="xml">
             <list editable="bottom">
@@ -16,7 +16,7 @@
         </field>
     </record>
     <record id="workshop_stage_view_kanban" model="ir.ui.view">
-        <field name="name">workshop.stage.kanban</field>
+        <field name="name">workshop.stage.view.kanban</field>
         <field name="model">workshop.stage</field>
         <field name="arch" type="xml">
             <kanban class="o_workshop_kanban" default_order="sequence">
@@ -41,7 +41,7 @@
         </field>
     </record>
     <record id="workshop_stage_view_form" model="ir.ui.view">
-        <field name="name">workshop.stage.form</field>
+        <field name="name">workshop.stage.view.form</field>
         <field name="model">workshop.stage</field>
         <field name="arch" type="xml">
             <form>
@@ -62,41 +62,9 @@
             </form>
         </field>
     </record>
-    <record id="action_workshop_stage" model="ir.actions.act_window">
+    <record id="workshop_stage_action" model="ir.actions.act_window">
         <field name="name">Stages</field>
         <field name="res_model">workshop.stage</field>
         <field name="view_mode">list,kanban,form</field>
-    </record>
-
-    <record id="workshop_location_view_list" model="ir.ui.view">
-        <field name="name">workshop.location.list</field>
-        <field name="model">workshop.location</field>
-        <field name="arch" type="xml">
-            <list editable="bottom">
-                <field name="sequence" widget="handle"/>
-                <field name="name"/>
-            </list>
-        </field>
-    </record>
-    <record id="action_workshop_location" model="ir.actions.act_window">
-        <field name="name">Locations</field>
-        <field name="res_model">workshop.location</field>
-        <field name="view_mode">list</field>
-    </record>
-
-    <record id="workshop_sector_view_list" model="ir.ui.view">
-        <field name="name">workshop.sector.list</field>
-        <field name="model">workshop.sector</field>
-        <field name="arch" type="xml">
-            <list editable="bottom">
-                <field name="sequence" widget="handle"/>
-                <field name="name"/>
-            </list>
-        </field>
-    </record>
-    <record id="action_workshop_sector" model="ir.actions.act_window">
-        <field name="name">Sectors</field>
-        <field name="res_model">workshop.sector</field>
-        <field name="view_mode">list</field>
     </record>
 </odoo>

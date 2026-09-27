@@ -2,8 +2,8 @@ from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
-class NfseCancel(models.TransientModel):
-    _name = "nfse.cancel"
+class NfseDocumentCancel(models.TransientModel):
+    _name = "nfse.document.cancel"
     _description = "Cancel an NFS-e"
 
     document_id = fields.Many2one("nfse.document", required=True, ondelete="cascade")

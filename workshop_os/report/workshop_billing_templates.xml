@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="action_report_workshop_billing" model="ir.actions.report">
-        <field name="name">Monthly Report</field>
-        <field name="model">workshop.billing</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">workshop_os.report_workshop_billing</field>
-        <field name="report_file">workshop_os.report_workshop_billing</field>
-        <field name="print_report_name">'Fechamento - %s' % (object.name)</field>
-        <field name="paperformat_id" ref="paperformat_workshop"/>
-        <field name="binding_model_id" ref="model_workshop_billing"/>
-        <field name="binding_type">report</field>
-    </record>
-
     <template id="report_workshop_billing_document">
         <t t-call="web.basic_layout">
             <t t-set="company" t-value="b.company_id"/>

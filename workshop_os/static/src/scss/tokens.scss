@@ -1,51 +1,51 @@
 // Design tokens shared by the mechanic app, the office dashboard and the customer page.
-// The accent comes from the company settings (--wo-accent), so each workshop keeps its own brand.
-.o_workshop_app, .wo-public, .o_workshop_dashboard {
-    --wo-bg: #0f1115;
-    --wo-surface: #171a21;
-    --wo-surface-2: #1f232c;
-    --wo-surface-3: #282d38;
-    --wo-border: #2c313c;
-    --wo-text: #f4f5f7;
-    --wo-muted: #9aa3b2;
-    --wo-faint: #6b7483;
-    --wo-accent: #e8b21e;
-    --wo-accent-ink: #1a1400;
+// The accent comes from the company settings (--Workshop-accent), so each workshop keeps its own brand.
+.o_workshop_app, .o_workshop_page, .o_workshop_dashboard {
+    --Workshop-bg: #0f1115;
+    --Workshop-surface: #171a21;
+    --Workshop-surface-2: #1f232c;
+    --Workshop-surface-3: #282d38;
+    --Workshop-border: #2c313c;
+    --Workshop-text: #f4f5f7;
+    --Workshop-muted: #9aa3b2;
+    --Workshop-faint: #6b7483;
+    --Workshop-accent: #e8b21e;
+    --Workshop-accent-ink: #1a1400;
     // Accent used as text or icon colour; the light theme swaps in a darker shade that reads on white.
-    --wo-accent-text: var(--wo-accent);
-    --wo-success: #22c55e;
-    --wo-warning: #f59e0b;
-    --wo-danger: #ef4444;
-    --wo-info: #38bdf8;
-    --wo-radius: 16px;
-    --wo-radius-sm: 10px;
-    --wo-shadow: 0 10px 30px rgba(0, 0, 0, .35);
-    --wo-font: "Inter", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --wo-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    --Workshop-accent-text: var(--Workshop-accent);
+    --Workshop-success: #22c55e;
+    --Workshop-warning: #f59e0b;
+    --Workshop-danger: #ef4444;
+    --Workshop-info: #38bdf8;
+    --Workshop-radius: 16px;
+    --Workshop-radius-sm: 10px;
+    --Workshop-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    --Workshop-font: "Inter", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --Workshop-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
     color-scheme: dark;
 }
 
 // Light theme of the mechanic app and the dashboard, chosen by each user.
-.o_workshop_app.is-light, .o_workshop_dashboard.is-light {
-    --wo-bg: #f3f4f7;
-    --wo-surface: #ffffff;
-    --wo-surface-2: #f0f2f5;
-    --wo-surface-3: #e3e6eb;
-    --wo-border: #dce0e6;
-    --wo-text: #111827;
-    --wo-muted: #566072;
-    --wo-faint: #7d8696;
+.o_workshop_app.o_workshop_is_light, .o_workshop_dashboard.o_workshop_is_light {
+    --Workshop-bg: #f3f4f7;
+    --Workshop-surface: #ffffff;
+    --Workshop-surface-2: #f0f2f5;
+    --Workshop-surface-3: #e3e6eb;
+    --Workshop-border: #dce0e6;
+    --Workshop-text: #111827;
+    --Workshop-muted: #566072;
+    --Workshop-faint: #7d8696;
     // Status colours one step darker, so numbers and labels in them still read on white.
-    --wo-success: #15803d;
-    --wo-warning: #b45309;
-    --wo-danger: #dc2626;
-    --wo-info: #0369a1;
-    --wo-shadow: 0 10px 24px rgba(17, 24, 39, .1);
+    --Workshop-success: #15803d;
+    --Workshop-warning: #b45309;
+    --Workshop-danger: #dc2626;
+    --Workshop-info: #0369a1;
+    --Workshop-shadow: 0 10px 24px rgba(17, 24, 39, .1);
     color-scheme: light;
 }
 
 // Mercosur-style plate, used everywhere a plate is shown.
-.wo-plate {
+.o_workshop_plate {
     display: inline-flex;
     flex-direction: column;
     align-items: stretch;
@@ -59,20 +59,20 @@
     box-shadow: 0 1px 0 rgba(0, 0, 0, .08);
     vertical-align: middle;
 }
-.wo-plate__band {
+.o_workshop_plate__band {
     background: #1d4fa0;
     color: #fff;
-    font: 700 7px/1 var(--wo-font, sans-serif);
+    font: 700 7px/1 var(--Workshop-font, sans-serif);
     letter-spacing: .12em;
     text-align: center;
     padding: 2px 0;
 }
-.wo-plate__text {
-    font: 800 15px/1 var(--wo-mono, monospace);
+.o_workshop_plate__text {
+    font: 800 15px/1 var(--Workshop-mono, monospace);
     letter-spacing: .08em;
     text-align: center;
     padding: 3px 8px 4px;
 }
-.wo-plate--lg { min-width: 150px; border-width: 3px; border-radius: 9px; }
-.wo-plate--lg .wo-plate__band { font-size: 9px; padding: 3px 0; }
-.wo-plate--lg .wo-plate__text { font-size: 26px; padding: 5px 12px 7px; }
+.o_workshop_plate--lg { min-width: 150px; border-width: 3px; border-radius: 9px; }
+.o_workshop_plate--lg .o_workshop_plate__band { font-size: 9px; padding: 3px 0; }
+.o_workshop_plate--lg .o_workshop_plate__text { font-size: 26px; padding: 5px 12px 7px; }

@@ -44,7 +44,7 @@ export class MechanicApp extends Component {
                 this.state.menu = false;
                 return saveWorkshopTheme(this.state.theme);
             },
-            openOffice: () => this.action.doAction("workshop_os.action_workshop_dashboard"),
+            openOffice: () => this.action.doAction("workshop_os.workshop_order_action_dashboard"),
             logout: () => (window.location.href = "/web/session/logout"),
         };
     }

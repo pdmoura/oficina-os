@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="workshop_order_view_kanban" model="ir.ui.view">
-        <field name="name">workshop.order.kanban</field>
+        <field name="name">workshop.order.view.kanban</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
             <kanban default_group_by="stage_id" class="o_workshop_kanban" quick_create="false"
@@ -43,7 +43,7 @@
     </record>
 
     <record id="workshop_order_view_list" model="ir.ui.view">
-        <field name="name">workshop.order.list</field>
+        <field name="name">workshop.order.view.list</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
             <list decoration-danger="is_late" decoration-muted="state == 'cancel'">
@@ -70,15 +70,15 @@
     </record>
 
     <record id="workshop_order_view_form" model="ir.ui.view">
-        <field name="name">workshop.order.form</field>
+        <field name="name">workshop.order.view.form</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
             <form>
                 <header>
                     <button name="action_approve" type="object" string="Approve" class="btn-primary"
-                            invisible="state not in ('draft', 'rejected')" groups="workshop_os.group_workshop_manager"/>
+                            invisible="state not in ('draft', 'rejected')" groups="workshop_os.workshop_os_group_manager"/>
                     <button name="action_reject" type="object" string="Reject" invisible="state != 'draft'"
-                            groups="workshop_os.group_workshop_manager"/>
+                            groups="workshop_os.workshop_os_group_manager"/>
                     <button name="action_done" type="object" string="Mark ready" class="btn-primary" invisible="state != 'approved'"/>
                     <button name="action_deliver" type="object" string="Deliver" class="btn-primary" invisible="state != 'done'"/>
                     <button name="action_send_whatsapp" type="object" string="WhatsApp" icon="fa-whatsapp"
@@ -86,9 +86,9 @@
                     <button name="action_copy_public_url" type="object" string="Customer link" icon="fa-link"/>
                     <button name="%(action_report_workshop_order)d" type="action" string="Print" icon="fa-print"/>
                     <button name="action_reopen" type="object" string="Reopen" invisible="state not in ('done', 'delivered', 'cancel')"
-                            groups="workshop_os.group_workshop_manager"/>
+                            groups="workshop_os.workshop_os_group_manager"/>
                     <button name="action_cancel" type="object" string="Cancel" invisible="state in ('cancel', 'delivered')"
-                            groups="workshop_os.group_workshop_manager" confirm="Cancel this work order?"/>
+                            groups="workshop_os.workshop_os_group_manager" confirm="Cancel this work order?"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,approved,done,delivered"/>
                 </header>
                 <sheet>
@@ -207,7 +207,7 @@
     </record>
 
     <record id="workshop_order_view_search" model="ir.ui.view">
-        <field name="name">workshop.order.search</field>
+        <field name="name">workshop.order.view.search</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
             <search>
@@ -238,7 +238,7 @@
     </record>
 
     <record id="workshop_order_view_calendar" model="ir.ui.view">
-        <field name="name">workshop.order.calendar</field>
+        <field name="name">workshop.order.view.calendar</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
             <calendar date_start="date_promised" color="stage_id" mode="week" quick_create="0" event_open_popup="0">
@@ -250,7 +250,7 @@
     </record>
 
     <record id="workshop_order_view_pivot" model="ir.ui.view">
-        <field name="name">workshop.order.pivot</field>
+        <field name="name">workshop.order.view.pivot</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
             <pivot>
@@ -262,7 +262,7 @@
     </record>
 
     <record id="workshop_order_view_graph" model="ir.ui.view">
-        <field name="name">workshop.order.graph</field>
+        <field name="name">workshop.order.view.graph</field>
         <field name="model">workshop.order</field>
         <field name="arch" type="xml">
             <graph type="bar">
@@ -272,7 +272,7 @@
         </field>
     </record>
 
-    <record id="action_workshop_order" model="ir.actions.act_window">
+    <record id="workshop_order_action" model="ir.actions.act_window">
         <field name="name">Work Orders</field>
         <field name="res_model">workshop.order</field>
         <field name="view_mode">kanban,list,form,calendar,pivot,graph</field>
@@ -284,7 +284,7 @@
     </record>
 
     <record id="workshop_order_line_view_pivot" model="ir.ui.view">
-        <field name="name">workshop.order.line.pivot</field>
+        <field name="name">workshop.order.line.view.pivot</field>
         <field name="model">workshop.order.line</field>
         <field name="arch" type="xml">
             <pivot>
@@ -296,7 +296,7 @@
         </field>
     </record>
     <record id="workshop_order_line_view_search" model="ir.ui.view">
-        <field name="name">workshop.order.line.search</field>
+        <field name="name">workshop.order.line.view.search</field>
         <field name="model">workshop.order.line</field>
         <field name="arch" type="xml">
             <search>
@@ -308,10 +308,33 @@
             </search>
         </field>
     </record>
-    <record id="action_workshop_order_line_analysis" model="ir.actions.act_window">
+    <record id="workshop_order_line_action_analysis" model="ir.actions.act_window">
         <field name="name">Services Analysis</field>
         <field name="res_model">workshop.order.line</field>
         <field name="view_mode">pivot,graph,list</field>
         <field name="context">{'search_default_approved': 1}</field>
+    </record>
+
+    <!-- Full-screen app for mechanics: no Odoo navbar, built for one hand on a phone. -->
+    <record id="workshop_order_action_mechanic_app" model="ir.actions.client">
+        <field name="name">Mechanic App</field>
+        <field name="tag">workshop_os.mechanic_app</field>
+        <field name="path">mechanic-app</field>
+        <field name="target">fullscreen</field>
+    </record>
+
+    <!-- Office cockpit: the yard at a glance. -->
+    <record id="workshop_order_action_dashboard" model="ir.actions.client">
+        <field name="name">Yard</field>
+        <field name="tag">workshop_os.dashboard</field>
+        <field name="path">workshop-dashboard</field>
+    </record>
+
+    <!-- The app's own entry, and the first screen after login: each role lands where it works. -->
+    <record id="workshop_order_action_home" model="ir.actions.server">
+        <field name="name">Workshop</field>
+        <field name="model_id" ref="model_workshop_order"/>
+        <field name="state">code</field>
+        <field name="code">action = model._workshop_home_action()</field>
     </record>
 </odoo>

@@ -43,7 +43,7 @@ fi
 # "prefer" uses TLS when the server offers it (managed providers) and still works with a local PostgreSQL.
 : "${DB_SSLMODE:=prefer}"
 : "${PORT:=8069}"
-: "${MODULES:=workshop_os,workshop_os_nfse}"
+: "${MODULES:=workshop_os,l10n_br_nfse_nacional,workshop_os_nfse}"
 : "${LOAD_DEMO:=false}"
 
 CONF=/tmp/odoo.conf

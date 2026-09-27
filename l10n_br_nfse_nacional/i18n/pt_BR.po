@@ -322,7 +322,7 @@ msgid "Approximate state taxes (%)"
 msgstr "Tributos estaduais aproximados (%)"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Approximate taxes (Law 12.741)"
 msgstr "Tributos aproximados (Lei 12.741)"
 
@@ -337,7 +337,7 @@ msgid "Assisted (Emissor Nacional website)"
 msgstr "Assistida (site do Emissor Nacional)"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid ""
 "Assisted needs nothing but a gov.br login. Direct sends the note by itself "
 "and needs the company's A1 certificate"
@@ -358,7 +358,7 @@ msgstr ""
 "enviada direto ao sistema nacional."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_cancel__reason
+#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_document_cancel__reason
 msgid "At least 15 characters, as the national system requires."
 msgstr "No mínimo 15 caracteres, como exige o sistema nacional."
 
@@ -368,7 +368,7 @@ msgid "Attachment Count"
 msgstr "Qtd. de anexos"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
 msgid "Back"
 msgstr "Voltar"
 
@@ -402,18 +402,18 @@ msgstr "CNPJ/CPF"
 #. module: l10n_br_nfse_nacional
 #. odoo-python
 #: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
 msgid "Cancel NFS-e"
 msgstr "Cancelar NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model,name:l10n_br_nfse_nacional.model_nfse_cancel
+#: model:ir.model,name:l10n_br_nfse_nacional.model_nfse_document_cancel
 msgid "Cancel an NFS-e"
 msgstr "Cancelamento de NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
 msgid ""
 "Cancel the note on the Emissor Nacional first; this only records the "
 "cancellation here."
@@ -435,7 +435,7 @@ msgid "City IBGE code"
 msgstr "Código IBGE do município"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "City and municipal registration"
 msgstr "Município e inscrição municipal"
 
@@ -450,7 +450,7 @@ msgid "Company"
 msgstr "Empresa"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Company registration"
 msgstr "Cadastro da empresa"
 
@@ -481,14 +481,14 @@ msgid "Cooperative act"
 msgstr "Ato cooperado (cooperativa)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__create_uid
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__create_uid
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__create_uid
 msgid "Created by"
 msgstr "Criado por"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__create_date
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__create_date
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__create_date
 msgid "Created on"
 msgstr "Criado em"
 
@@ -566,7 +566,7 @@ msgid ""
 msgstr "Data do serviço; define o período de apuração e não pode ser futura."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Default service"
 msgstr "Serviço padrão"
 
@@ -599,8 +599,8 @@ msgstr ""
 "A emissão direta exige o certificado A1 da empresa (configurações da NFS-e)."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__display_name
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__display_name
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__display_name
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__display_name
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_partner__display_name
@@ -614,7 +614,7 @@ msgid "District (bairro)"
 msgstr "Bairro"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__document_id
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__document_id
 msgid "Document"
 msgstr "Nota"
 
@@ -640,7 +640,7 @@ msgid "Draft NFS-e"
 msgstr "NFS-e em rascunho"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Emission"
 msgstr "Emissão"
 
@@ -651,7 +651,7 @@ msgstr "Emissor Nacional"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__environment
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Environment"
 msgstr "Ambiente"
 
@@ -666,18 +666,18 @@ msgid "Estimate"
 msgstr "Estimativa"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Every note carries the estimated share of taxes in the price"
 msgstr "Toda nota traz o percentual aproximado de tributos no preço"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/wizard/nfse_cancel.py:0
+#: code:addons/l10n_br_nfse_nacional/wizard/nfse_document_cancel.py:0
 msgid "Explain the cancellation in at least 15 characters."
 msgstr "Explique o cancelamento com pelo menos 15 caracteres."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__reason
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__reason
 msgid "Explanation"
 msgstr "Justificativa"
 
@@ -697,7 +697,7 @@ msgid "Federal taxes through the Simples, ISSQN apart"
 msgstr "Tributos federais pelo Simples, ISSQN à parte"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_partner_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.view_partner_form
 msgid "Fill from CEP"
 msgstr "Preencher pelo CEP"
 
@@ -722,7 +722,7 @@ msgid "Followers (Partners)"
 msgstr "Seguidores (parceiros)"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "From the company CEP"
 msgstr "Pelo CEP da empresa"
 
@@ -738,7 +738,7 @@ msgid "Has Message"
 msgstr "Tem mensagem"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "How notes are issued"
 msgstr "Como as notas são emitidas"
 
@@ -753,8 +753,8 @@ msgstr ""
 "na API nacional."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__id
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__id
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__id
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__id
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__id
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_partner__id
@@ -835,29 +835,29 @@ msgid "Issued on"
 msgstr "Emitida em"
 
 #. module: l10n_br_nfse_nacional
-#: model:res.groups,name:l10n_br_nfse_nacional.group_nfse_user
+#: model:res.groups,name:l10n_br_nfse_nacional.l10n_br_nfse_nacional_group_user
 msgid "Issuer"
 msgstr "Emissor"
 
 #. module: l10n_br_nfse_nacional
-#: model:res.groups,comment:l10n_br_nfse_nacional.group_nfse_user
+#: model:res.groups,comment:l10n_br_nfse_nacional.l10n_br_nfse_nacional_group_user
 msgid "Issues and cancels service invoices (NFS-e)."
 msgstr "Emite e cancela notas fiscais de serviço (NFS-e)."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_cancel__reason_code__1
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document_cancel__reason_code__1
 msgid "Issuing error"
 msgstr "Erro na emissão"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__write_uid
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__write_uid
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__write_uid
 msgid "Last Updated by"
 msgstr "Última atualização por"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__write_date
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__write_date
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__write_date
 msgid "Last Updated on"
 msgstr "Última atualização em"
 
@@ -878,7 +878,7 @@ msgid "MEI"
 msgstr "MEI"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "MEI notes may leave the estimate out."
 msgstr "Para MEI, a estimativa de tributos é opcional."
 
@@ -898,8 +898,8 @@ msgid "Missing before issuing"
 msgstr "Pendências para emitir"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__mode
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__mode
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__mode
 msgid "Mode"
 msgstr "Modo de emissão"
 
@@ -936,11 +936,11 @@ msgid "NBS code"
 msgstr "Código NBS"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.actions.act_window,name:l10n_br_nfse_nacional.action_nfse_document
-#: model:ir.ui.menu,name:l10n_br_nfse_nacional.menu_nfse_root
+#: model:ir.actions.act_window,name:l10n_br_nfse_nacional.nfse_document_action
+#: model:ir.ui.menu,name:l10n_br_nfse_nacional.l10n_br_nfse_nacional_menu_root
 #: model:res.groups.privilege,name:l10n_br_nfse_nacional.res_groups_privilege_nfse
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_partner_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.view_partner_form
 msgid "NFS-e"
 msgstr "NFS-e"
 
@@ -1025,7 +1025,7 @@ msgid "Nfse Xml Name"
 msgstr "Nome do XML da NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.actions.act_window,help:l10n_br_nfse_nacional.action_nfse_document
+#: model_terms:ir.actions.act_window,help:l10n_br_nfse_nacional.nfse_document_action
 msgid "No service invoice yet"
 msgstr "Nenhuma nota fiscal de serviço ainda"
 
@@ -1054,7 +1054,7 @@ msgstr ""
 "Notas já enviadas ao sistema nacional não podem ser excluídas; cancele-as."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.actions.act_window,help:l10n_br_nfse_nacional.action_nfse_document
+#: model_terms:ir.actions.act_window,help:l10n_br_nfse_nacional.nfse_document_action
 msgid ""
 "Notes are usually created from a monthly closing or a work order. You can "
 "also create one by hand."
@@ -1097,13 +1097,11 @@ msgstr "Abrir Emissor Nacional"
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
 msgid ""
 "Open the Emissor Nacional, start a new NFS-e and copy each value below.\n"
-"                                When the note is issued, paste its access key here and register it."
-msgstr ""
-"Abra o Emissor Nacional, inicie uma nova NFS-e e copie cada valor abaixo.\n"
-"                                Quando a nota for emitida, cole a chave de acesso aqui e registre a nota."
+"                                    When the note is issued, paste its access key here and register it."
+msgstr "Abra o Emissor Nacional, inicie uma nova NFS-e e copie cada valor abaixo.\n                                    Quando a nota for emitida, cole a chave de acesso aqui e registre a nota."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_cancel__reason_code__9
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document_cancel__reason_code__9
 msgid "Other"
 msgstr "Outros"
 
@@ -1116,7 +1114,7 @@ msgstr ""
 "Cole a chave de acesso de 50 dígitos da nota emitida no Emissor Nacional."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Pre-filled on every new note; each note can still change them"
 msgstr "Vêm preenchidos em cada nova nota, que ainda pode alterá-los"
 
@@ -1148,7 +1146,7 @@ msgid "Public consultation"
 msgstr "Consulta pública"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_cancel__reason_code
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__reason_code
 msgid "Reason"
 msgstr "Motivo"
 
@@ -1198,7 +1196,7 @@ msgid "Service code (as typed)"
 msgstr "Código do serviço (formatado)"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Service codes"
 msgstr "Códigos do serviço"
 
@@ -1213,12 +1211,12 @@ msgid "Service invoice (NFS-e)"
 msgstr "Nota fiscal de serviço (NFS-e)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.ui.menu,name:l10n_br_nfse_nacional.menu_nfse_documents
+#: model:ir.ui.menu,name:l10n_br_nfse_nacional.nfse_document_menu
 msgid "Service invoices"
 msgstr "Notas fiscais de serviço"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_cancel__reason_code__2
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document_cancel__reason_code__2
 msgid "Service not provided"
 msgstr "Serviço não prestado"
 
@@ -1235,8 +1233,8 @@ msgstr ""
 "Informe a alíquota aproximada do Simples Nacional (configurações da NFS-e)."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.actions.act_window,name:l10n_br_nfse_nacional.action_nfse_settings
-#: model:ir.ui.menu,name:l10n_br_nfse_nacional.menu_nfse_settings
+#: model:ir.actions.act_window,name:l10n_br_nfse_nacional.res_config_settings_action
+#: model:ir.ui.menu,name:l10n_br_nfse_nacional.res_config_settings_menu
 msgid "Settings"
 msgstr "Configurações"
 
@@ -1299,7 +1297,7 @@ msgid "Tax ID"
 msgstr "CNPJ/CPF"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Tax regime"
 msgstr "Regime tributário"
 
@@ -1339,7 +1337,7 @@ msgid "The CEP service did not answer; fill the address by hand."
 msgstr "O serviço de CEP não respondeu; preencha o endereço manualmente."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid ""
 "The CNPJ comes from the company's Tax ID and the IBGE code from its CEP"
 msgstr "O CNPJ vem do cadastro da empresa e o código IBGE, do CEP dela"
@@ -1365,7 +1363,7 @@ msgstr ""
 "%s"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
 msgid ""
 "The cancellation event is signed and sent to the national system right away."
 msgstr ""
@@ -1495,7 +1493,7 @@ msgid "Type the 8-digit CEP first."
 msgstr "Digite primeiro o CEP com 8 dígitos."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Use the test environment until the first notes come out right"
 msgstr "Use o ambiente de testes até as primeiras notas saírem corretas"
 
@@ -1543,7 +1541,7 @@ msgid "district"
 msgstr "bairro"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
 msgid "e.g. Amount typed wrong, a new note replaces this one"
 msgstr "ex.: Valor digitado errado, uma nova nota substitui esta"
 

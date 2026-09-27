@@ -33,7 +33,7 @@ class ResPartner(models.Model):
 
     def action_view_nfse_documents(self):
         self.ensure_one()
-        action = self.env["ir.actions.act_window"]._for_xml_id("l10n_br_nfse_nacional.action_nfse_document")
+        action = self.env["ir.actions.act_window"]._for_xml_id("l10n_br_nfse_nacional.nfse_document_action")
         action["domain"] = [("partner_id", "child_of", self.commercial_partner_id.id)]
         action["context"] = {"default_partner_id": self.commercial_partner_id.id}
         return action

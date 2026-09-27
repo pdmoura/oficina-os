@@ -31,8 +31,8 @@ export function brandStyle(company, theme) {
     if (!company) {
         return "";
     }
-    const style = `--wo-accent: ${company.accent}; --wo-accent-ink: ${company.accent_ink};`;
-    return theme === "light" ? `${style} --wo-accent-text: ${company.accent_text};` : style;
+    const style = `--Workshop-accent: ${company.accent}; --Workshop-accent-ink: ${company.accent_ink};`;
+    return theme === "light" ? `${style} --Workshop-accent-text: ${company.accent_text};` : style;
 }
 
 /** 'abc-1d23' -> 'ABC1D23' */

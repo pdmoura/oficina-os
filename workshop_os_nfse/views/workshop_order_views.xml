@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="workshop_order_view_form" model="ir.ui.view">
+        <field name="name">workshop.order.view.form.inherit.workshop_os_nfse</field>
+        <field name="model">workshop.order</field>
+        <field name="inherit_id" ref="workshop_os.workshop_order_view_form"/>
+        <field name="arch" type="xml">
+            <button name="action_send_whatsapp" position="before">
+                <button name="action_create_nfse" type="object" string="Issue NFS-e"
+                        invisible="state not in ('done', 'delivered') or billing_id or nfse_state == 'done'"
+                        groups="workshop_os.workshop_os_group_manager"/>
+            </button>
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <div class="oe_button_box" name="button_box" groups="workshop_os.workshop_os_group_manager">
+                    <button name="action_view_nfse" type="object" class="oe_stat_button" icon="fa-file-text-o"
+                            invisible="not nfse_count">
+                        <field name="nfse_count" widget="statinfo" string="NFS-e"/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

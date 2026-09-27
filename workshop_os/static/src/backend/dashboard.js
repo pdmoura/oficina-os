@@ -68,11 +68,11 @@ export class WorkshopDashboard extends Component {
     }
 
     openKanban() {
-        return this.action.doAction("workshop_os.action_workshop_order");
+        return this.action.doAction("workshop_os.workshop_order_action");
     }
 
     openApp() {
-        return this.action.doAction("workshop_os.action_mechanic_app");
+        return this.action.doAction("workshop_os.workshop_order_action_mechanic_app");
     }
 
     toggleTheme() {

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Bare document for the customer pages. Odoo does not translate templates that start with a doctype,
+         so the texts live in the page templates that call this one. -->
+    <template id="public_layout" name="Workshop: customer page layout">&lt;!DOCTYPE html&gt;
+        <html t-att-lang="html_lang">
+            <head>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+                <meta name="theme-color" content="#0F1115"/>
+                <meta name="robots" content="noindex"/>
+                <title t-out="'%s · %s' % (order.name, company.name)"/>
+                <t t-call-assets="workshop_os.assets_public" t-js="false"/>
+                <style t-out="':root { --Workshop-accent: %s; }' % accent"/>
+            </head>
+            <body class="o_workshop_page">
+                <t t-out="0"/>
+                <t t-call-assets="workshop_os.assets_public" t-css="false"/>
+            </body>
+        </html>
+    </template>
+
+    <!-- Public page the customer opens from WhatsApp: follow the job, see photos, approve with a signature. -->
+    <template id="public_order_page" name="Work order: customer page">
+        <t t-call="workshop_os.public_layout">
+            <header class="o_workshop_page_hero">
+                <div t-attf-class="o_workshop_page_hero__brand #{'o_workshop_page_hero__brand--full' if company.workshop_logo_dark else ''}">
+                    <img t-if="company.logo or company.workshop_logo_dark" t-att-src="'/workshop_os/logo/%s/dark' % company.id" alt=""
+                         t-attf-class="o_workshop_page_hero__logo #{'o_workshop_page_hero__logo--full' if company.workshop_logo_dark else ''}"/>
+                    <div>
+                        <div class="o_workshop_page_hero__company" t-out="company.name"/>
+                        <div class="o_workshop_page_hero__sub" t-out="order.name"/>
+                    </div>
+                </div>
+                <div class="o_workshop_plate o_workshop_plate--lg"><span class="o_workshop_plate__band">BRASIL</span><span class="o_workshop_plate__text" t-out="order.plate"/></div>
+                <div class="o_workshop_page_hero__vehicle" t-out="' '.join(filter(None, [order.vehicle_id.brand, order.vehicle_id.model, order.vehicle_id.year]))"/>
+            </header>
+
+            <main class="o_workshop_page_main">
+                <section class="o_workshop_page_card">
+                    <div class="o_workshop_page_card__label">Status</div>
+                    <div class="o_workshop_page_status">
+                        <span class="o_workshop_page_dot" t-attf-style="background: {{ order.stage_id.color or '#64748B' }}"/>
+                        <strong t-out="order.stage_id.name"/>
+                        <span class="o_workshop_page_badge" t-attf-class="o_workshop_page_badge o_workshop_page_badge--{{ order.state }}"
+                              t-out="dict(order._fields['state']._description_selection(order.env)).get(order.state)"/>
+                    </div>
+                    <ol class="o_workshop_page_steps">
+                        <t t-set="reached" t-value="True"/>
+                        <li t-foreach="stages" t-as="stage" t-attf-class="{{ 'o_workshop_is_current' if stage == order.stage_id else '' }}">
+                            <span t-out="stage.name"/>
+                        </li>
+                    </ol>
+                    <div class="o_workshop_page_meta">
+                        <div><span>Arrived</span><strong t-field="order.date_in" t-options='{"widget": "datetime", "format": "dd/MM HH:mm"}'/></div>
+                        <div t-if="order.date_promised"><span>Promised</span><strong t-field="order.date_promised" t-options='{"widget": "datetime", "format": "dd/MM HH:mm"}'/></div>
+                        <div t-if="order.odometer"><span>Odometer</span><strong t-out="'{:,} km'.format(order.odometer).replace(',', '.')"/></div>
+                    </div>
+                </section>
+
+                <section class="o_workshop_page_card" t-if="order.complaint or order.diagnosis">
+                    <div class="o_workshop_page_card__label">What we found</div>
+                    <p t-if="order.complaint" class="o_workshop_page_muted" t-out="order.complaint"/>
+                    <p t-if="order.diagnosis" t-out="order.diagnosis"/>
+                </section>
+
+                <section class="o_workshop_page_card" t-if="photos">
+                    <div class="o_workshop_page_card__label">Photos</div>
+                    <div class="o_workshop_page_gallery">
+                        <a t-foreach="photos" t-as="photo" t-att-href="photo.url" target="_blank" rel="noopener">
+                            <img t-att-src="photo.thumb_url" loading="lazy" alt="Photo of the vehicle"/>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="o_workshop_page_card" t-if="lines">
+                    <div class="o_workshop_page_card__label">Services</div>
+                    <ul class="o_workshop_page_lines" id="o_workshop_page_lines">
+                        <li t-foreach="lines" t-as="line" t-attf-class="o_workshop_page_line o_workshop_page_line--{{ line.approval }}">
+                            <label>
+                                <input t-if="order.state == 'draft'" type="checkbox" checked="checked" class="o_workshop_page_line__check"
+                                       t-att-value="line.id" t-att-data-amount="line.subtotal"/>
+                                <span class="o_workshop_page_line__name" t-out="line.name"/>
+                                <span class="o_workshop_page_line__qty" t-if="line.quantity != 1" t-out="'× %g' % line.quantity"/>
+                                <span class="o_workshop_page_line__amount" t-field="line.subtotal"/>
+                            </label>
+                        </li>
+                    </ul>
+                    <div class="o_workshop_page_total"><span>Total</span><strong id="o_workshop_page_total" t-field="order.amount_total"/></div>
+                </section>
+
+                <section class="o_workshop_page_card" t-if="order.state != 'draft' and order.approved_by">
+                    <div class="o_workshop_page_card__label">Answer</div>
+                    <p>
+                        <t t-if="order.state == 'rejected'">Rejected by</t><t t-else="">Approved by</t>
+                        <strong t-out="order.approved_by"/>
+                    </p>
+                    <p class="o_workshop_page_muted" t-field="order.approved_on" t-options='{"widget": "datetime", "format": "dd/MM/yyyy HH:mm"}'/>
+                </section>
+
+                <p class="o_workshop_page_foot">
+                    <t t-out="company.name"/><t t-if="company.phone"> · <a t-att-href="'tel:%s' % company.phone" t-out="company.phone"/></t>
+                </p>
+            </main>
+
+            <div t-if="order.state == 'draft' and lines" class="o_workshop_page_actionbar" id="o_workshop_page_actionbar"
+                 t-att-data-token="order.access_token" t-att-data-currency="order.currency_id.name">
+                <div class="o_workshop_page_actionbar__total"><span>To approve</span><strong id="o_workshop_page_approve_total" t-field="order.amount_total"/></div>
+                <button type="button" class="o_workshop_page_btn o_workshop_page_btn--ghost" data-wo-open="reject">Reject</button>
+                <button type="button" class="o_workshop_page_btn" data-wo-open="approve">Approve</button>
+            </div>
+
+            <dialog class="o_workshop_page_dialog" id="o_workshop_page_dialog">
+                <form method="dialog" id="o_workshop_page_form">
+                    <h2 id="o_workshop_page_dialog_title">Approve the services</h2>
+                    <div id="o_workshop_page_t_approve" hidden="hidden">Approve the services</div>
+                    <div id="o_workshop_page_t_reject" hidden="hidden">Reject the quote</div>
+                    <p class="o_workshop_page_muted o_workshop_page_terms" t-out="company.workshop_terms_text"/>
+                    <label class="o_workshop_page_field">Your name
+                        <input type="text" id="o_workshop_page_name" required="required" maxlength="120" autocomplete="name"/>
+                    </label>
+                    <div class="o_workshop_page_sign" id="o_workshop_page_sign_block">
+                        <div class="o_workshop_page_sign__head"><span>Signature (optional)</span><button type="button" class="o_workshop_page_link" id="o_workshop_page_sign_clear">Clear</button></div>
+                        <canvas id="o_workshop_page_sign" class="o_workshop_page_sign__canvas" width="600" height="200"/>
+                    </div>
+                    <p class="o_workshop_page_error" id="o_workshop_page_error" hidden="hidden"/>
+                    <div class="o_workshop_page_dialog__actions">
+                        <button type="button" class="o_workshop_page_btn o_workshop_page_btn--ghost" id="o_workshop_page_cancel">Back</button>
+                        <button type="submit" class="o_workshop_page_btn" id="o_workshop_page_submit">Confirm</button>
+                    </div>
+                </form>
+            </dialog>
+        </t>
+    </template>
+</odoo>

@@ -76,6 +76,16 @@ msgid "<br/><span class=\"muted\">Workshop</span>"
 msgstr "<br/><span class=\"muted\">Oficina</span>"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_kanban
+msgid "<i class=\"fa fa-clock-o\" title=\"Labour hours\"/>"
+msgstr "<i class=\"fa fa-clock-o\" title=\"Horas de mão de obra\"/>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_kanban
+msgid "<i class=\"fa fa-wrench me-1\" title=\"Work orders\"/>"
+msgstr "<i class=\"fa fa-wrench me-1\" title=\"Ordens de serviço\"/>"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "<span class=\"label\">Diagnosis</span>"
 msgstr "<span class=\"label\">Diagnóstico</span>"
@@ -106,8 +116,8 @@ msgstr ""
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
-msgid "<span class=\"wo-plate__band\">BRASIL</span>"
-msgstr "<span class=\"wo-plate__band\">BRASIL</span>"
+msgid "<span class=\"o_workshop_plate__band\">BRASIL</span>"
+msgstr "<span class=\"o_workshop_plate__band\">BRASIL</span>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
@@ -222,7 +232,7 @@ msgid "Add service"
 msgstr "Adicionar serviço"
 
 #. module: workshop_os
-#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_service
+#: model_terms:ir.actions.act_window,help:workshop_os.workshop_service_action
 msgid "Add the services you sell"
 msgstr "Cadastre os serviços que você vende"
 
@@ -299,7 +309,7 @@ msgstr "Assinatura da aprovação"
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_terms_text
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_terms_text
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Approval terms"
 msgstr "Termos de aprovação"
 
@@ -347,7 +357,7 @@ msgid "Approved online by %(name)s: %(count)s of %(total)s items."
 msgstr "Aprovada on-line por %(name)s: %(count)s de %(total)s itens."
 
 #. module: workshop_os
-#: model:res.groups,comment:workshop_os.group_workshop_manager
+#: model:res.groups,comment:workshop_os.workshop_os_group_manager
 msgid "Approves orders, manages prices, settings and the monthly closing."
 msgstr "Aprova OS, gerencia preços, configurações e o fechamento mensal."
 
@@ -443,7 +453,7 @@ msgid "Background colour"
 msgstr "Cor de fundo"
 
 #. module: workshop_os
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_billing_root
+#: model:ir.ui.menu,name:workshop_os.workshop_os_menu_billing
 msgid "Billing"
 msgstr "Faturamento"
 
@@ -466,7 +476,7 @@ msgstr "Box 3"
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__brand
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_search
 msgid "Brand"
 msgstr "Marca"
@@ -549,8 +559,8 @@ msgid "Checklist Template Item"
 msgstr "Item do modelo de checklist"
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_checklist_template
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_checklists
+#: model:ir.actions.act_window,name:workshop_os.workshop_checklist_template_action
+#: model:ir.ui.menu,name:workshop_os.workshop_checklist_template_menu
 msgid "Checklists"
 msgstr "Checklists"
 
@@ -566,7 +576,7 @@ msgid "Clear"
 msgstr "Limpar"
 
 #. module: workshop_os
-#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_billing
+#: model_terms:ir.actions.act_window,help:workshop_os.workshop_billing_action
 msgid "Close the month for a fleet customer"
 msgstr "Feche o mês de um cliente de frota"
 
@@ -616,7 +626,7 @@ msgid "Color"
 msgstr "Cor"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Colours and logo"
 msgstr "Cores e logo"
 
@@ -640,7 +650,7 @@ msgid "Config Settings"
 msgstr "Configurações"
 
 #. module: workshop_os
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_config
+#: model:ir.ui.menu,name:workshop_os.workshop_os_menu_config
 msgid "Configuration"
 msgstr "Configuração"
 
@@ -740,9 +750,9 @@ msgid "Customer link"
 msgstr "Link do cliente"
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_customers
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_customers
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_partners
+#: model:ir.actions.act_window,name:workshop_os.res_partner_action_workshop_customer
+#: model:ir.ui.menu,name:workshop_os.res_partner_menu_workshop_customer
+#: model:ir.ui.menu,name:workshop_os.workshop_os_menu_customers
 msgid "Customers"
 msgstr "Clientes"
 
@@ -781,7 +791,7 @@ msgid "Database"
 msgstr "Banco de dados"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid ""
 "Database works everywhere. Cloudinary keeps the database small and serves "
 "images faster"
@@ -1069,7 +1079,7 @@ msgid "Fuel"
 msgstr "Combustível"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid ""
 "Full logo for the customer page and the office dashboard. Documents and the "
 "login page use the company logo"
@@ -1153,6 +1163,7 @@ msgid "History"
 msgstr "Histórico"
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__elapsed_hours
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_list
 msgid "Hours"
 msgstr "Horas"
@@ -1235,6 +1246,12 @@ msgstr "Inspeção"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__internal_notes
 msgid "Internal Notes"
 msgstr "Observações internas"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/controllers/workshop_os.py:0
+msgid "Invalid signature."
+msgstr "Assinatura inválida."
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_billing__state__invoiced
@@ -1390,8 +1407,8 @@ msgid "Location"
 msgstr "Localização"
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_location
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_locations
+#: model:ir.actions.act_window,name:workshop_os.workshop_location_action
+#: model:ir.ui.menu,name:workshop_os.workshop_location_menu
 msgid "Locations"
 msgstr "Localizações"
 
@@ -1404,7 +1421,7 @@ msgstr "Cartão do login"
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_dark
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_logo_dark
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Logo for dark backgrounds"
 msgstr "Logo para fundo escuro"
 
@@ -1433,14 +1450,14 @@ msgstr "Marcar como pronta"
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__user_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__user_id
-#: model:res.groups,name:workshop_os.group_workshop_user
+#: model:res.groups,name:workshop_os.workshop_os_group_user
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
 msgid "Mechanic"
 msgstr "Mecânico"
 
 #. module: workshop_os
 #: model:ir.actions.client,name:workshop_os.action_mechanic_app
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_app
+#: model:ir.ui.menu,name:workshop_os.workshop_order_menu_mechanic_app
 msgid "Mechanic App"
 msgstr "App do mecânico"
 
@@ -1451,7 +1468,7 @@ msgid "Mechanic app"
 msgstr "App do mecânico"
 
 #. module: workshop_os
-#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_order
+#: model_terms:ir.actions.act_window,help:workshop_os.workshop_order_action
 msgid ""
 "Mechanics open orders from the phone app by typing the plate; the office "
 "follows the yard here."
@@ -1492,9 +1509,9 @@ msgid "Month"
 msgstr "Mês"
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_billing
+#: model:ir.actions.act_window,name:workshop_os.workshop_billing_action
 #: model:ir.model,name:workshop_os.model_workshop_billing
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_billing
+#: model:ir.ui.menu,name:workshop_os.workshop_billing_menu
 msgid "Monthly Closing"
 msgstr "Fechamento mensal"
 
@@ -1598,7 +1615,7 @@ msgstr "Nenhuma OS concluída neste mês ainda."
 
 #. module: workshop_os
 #. odoo-python
-#: code:addons/workshop_os/models/res_config_settings.py:0
+#: code:addons/workshop_os/models/workshop_order.py:0
 msgid "No image received."
 msgstr "Nenhuma imagem recebida."
 
@@ -1609,7 +1626,7 @@ msgid "No open orders here. Tap + to receive a vehicle."
 msgstr "Nenhuma OS aberta aqui. Toque em + para receber um veículo."
 
 #. module: workshop_os
-#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_order
+#: model_terms:ir.actions.act_window,help:workshop_os.workshop_order_action
 msgid "No open work orders"
 msgstr "Nenhuma OS aberta"
 
@@ -1725,7 +1742,7 @@ msgid "Odometer (km)"
 msgstr "Hodômetro (km)"
 
 #. module: workshop_os
-#: model:res.groups,name:workshop_os.group_workshop_manager
+#: model:res.groups,name:workshop_os.workshop_os_group_manager
 msgid "Office"
 msgstr "Escritório"
 
@@ -1755,8 +1772,14 @@ msgstr "Só para a equipe"
 #. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
-msgid "Only the office can approve an order."
-msgstr "Somente o escritório pode aprovar uma OS."
+msgid "Only the office can approve or refuse services."
+msgstr "Só o escritório pode aprovar ou recusar serviços."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Only the office can approve, refuse, cancel or reopen a work order."
+msgstr "Só o escritório pode aprovar, recusar, cancelar ou reabrir uma OS."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1789,7 +1812,7 @@ msgid "Open work order"
 msgstr "Abrir OS"
 
 #. module: workshop_os
-#: model:res.groups,comment:workshop_os.group_workshop_user
+#: model:res.groups,comment:workshop_os.workshop_os_group_user
 msgid ""
 "Opens and runs work orders, takes photos and fills checklists. Cannot "
 "approve or bill."
@@ -1798,7 +1821,7 @@ msgstr ""
 "faturar."
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid ""
 "Optional square image (512 px). Without it, the icon is made from the symbol"
 msgstr ""
@@ -1882,7 +1905,7 @@ msgid "Period"
 msgstr "Período"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Phone app icon"
 msgstr "Ícone do app no celular"
 
@@ -1919,13 +1942,19 @@ msgstr "Armazenamento de fotos"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__photo_ids
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Photos"
 msgstr "Fotos"
 
 #. module: workshop_os
-#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_billing
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Photos must be stored in Odoo or on Cloudinary."
+msgstr "As fotos precisam estar guardadas no Odoo ou no Cloudinary."
+
+#. module: workshop_os
+#: model_terms:ir.actions.act_window,help:workshop_os.workshop_billing_action
 msgid ""
 "Pick the customer and the period, load the finished orders, print the report"
 " and issue the NFS-e."
@@ -1968,7 +1997,7 @@ msgid "Price"
 msgstr "Preço"
 
 #. module: workshop_os
-#: model_terms:ir.actions.act_window,help:workshop_os.action_workshop_service
+#: model_terms:ir.actions.act_window,help:workshop_os.workshop_service_action
 msgid ""
 "Price and labour hours are copied to the work order. Starred services become one-tap buttons in the\n"
 "                mechanic app."
@@ -1987,7 +2016,7 @@ msgid "Print report"
 msgstr "Imprimir relatório"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Printed on every work order"
 msgstr "Impresso em todas as OS"
 
@@ -2177,8 +2206,8 @@ msgid "Sector"
 msgstr "Setor"
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_sector
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_sectors
+#: model:ir.actions.act_window,name:workshop_os.workshop_sector_action
+#: model:ir.ui.menu,name:workshop_os.workshop_sector_menu
 msgid "Sectors"
 msgstr "Setores"
 
@@ -2222,17 +2251,17 @@ msgstr "Serviço adicionado"
 #. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_service
+#: model:ir.actions.act_window,name:workshop_os.workshop_service_action
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__line_ids
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_services
+#: model:ir.ui.menu,name:workshop_os.workshop_service_menu
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Services"
 msgstr "Serviços"
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_order_line_analysis
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_analysis
+#: model:ir.actions.act_window,name:workshop_os.workshop_order_line_action_analysis
+#: model:ir.ui.menu,name:workshop_os.workshop_order_line_menu_analysis
 msgid "Services Analysis"
 msgstr "Análise de serviços"
 
@@ -2258,8 +2287,8 @@ msgid "Set when photos are stored in the database."
 msgstr "Preenchido quando as fotos ficam no banco de dados."
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_settings
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_settings
+#: model:ir.actions.act_window,name:workshop_os.res_config_settings_action
+#: model:ir.ui.menu,name:workshop_os.res_config_settings_menu
 msgid "Settings"
 msgstr "Configurações"
 
@@ -2337,8 +2366,8 @@ msgstr "Histórico de situações"
 #. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_stage
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_stages
+#: model:ir.actions.act_window,name:workshop_os.workshop_stage_action
+#: model:ir.ui.menu,name:workshop_os.workshop_stage_menu
 msgid "Stages"
 msgstr "Situações"
 
@@ -2375,14 +2404,14 @@ msgstr "Subtotal"
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_mark
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_logo_mark
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Symbol"
 msgstr "Símbolo"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_mark_light
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_logo_mark_light
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Symbol for light backgrounds"
 msgstr "Símbolo para fundo claro"
 
@@ -2400,7 +2429,7 @@ msgid "Template"
 msgstr "Modelo"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Test connection"
 msgstr "Testar conexão"
 
@@ -2410,12 +2439,12 @@ msgid "Teste / conferência"
 msgstr "Teste / conferência"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Texts"
 msgstr "Textos"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid ""
 "The accent colours buttons and highlights across the system, the mechanic "
 "app, the customer pages and the login; the background colour paints the top "
@@ -2426,7 +2455,7 @@ msgstr ""
 "superior e a tela de login"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "The customer accepts these terms on the approval page"
 msgstr "O cliente aceita estes termos na página de aprovação"
 
@@ -2446,13 +2475,19 @@ msgstr ""
 "ícone no celular quando não há um ícone do app definido."
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "The logo without text, for the mechanic app header and the phone icon"
 msgstr ""
 "O logo sem texto, para o cabeçalho do app do mecânico e o ícone no celular"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "The photo file belongs to another record."
+msgstr "O arquivo da foto pertence a outro registro."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid ""
 "The symbol shown by the light theme of the mechanic app and the dashboard"
 msgstr "O símbolo mostrado pelo tema claro do app do mecânico e do painel"
@@ -2516,6 +2551,11 @@ msgid "Time in the current stage"
 msgstr "Tempo na situação atual"
 
 #. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order_stage_log__elapsed_hours
+msgid "Time in the stage, counting up to now for the current one."
+msgstr "Tempo na situação, contando até agora na situação atual."
+
+#. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order_stage_log__is_waiting
 #: model:ir.model.fields,help:workshop_os.field_workshop_stage__is_waiting
 msgid ""
@@ -2524,6 +2564,11 @@ msgid ""
 msgstr ""
 "O tempo nesta situação não conta como tempo de trabalho (aguardando peças, "
 "aprovação...)."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order_stage_log__duration_hours
+msgid "Time spent in the stage, set when the order leaves it (for reports)."
+msgstr "Tempo gasto na situação, registrado quando a OS sai dela (para relatórios)."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
@@ -2596,12 +2641,6 @@ msgid "Unknown action."
 msgstr "Ação desconhecida."
 
 #. module: workshop_os
-#. odoo-python
-#: code:addons/workshop_os/models/workshop_order.py:0
-msgid "Unsupported search on late orders."
-msgstr "Busca não suportada em OS atrasadas."
-
-#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/screens.js:0
 msgid "Updated"
@@ -2670,11 +2709,11 @@ msgid "Vehicle model"
 msgstr "Modelo"
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_vehicle
+#: model:ir.actions.act_window,name:workshop_os.workshop_vehicle_action
 #: model:ir.model.fields,field_description:workshop_os.field_res_partner__workshop_vehicle_ids
 #: model:ir.model.fields,field_description:workshop_os.field_res_users__workshop_vehicle_ids
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_vehicles
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_partner_view_form_workshop
+#: model:ir.ui.menu,name:workshop_os.workshop_vehicle_menu
+#: model_terms:ir.ui.view,arch_db:workshop_os.view_partner_form
 msgid "Vehicles"
 msgstr "Veículos"
 
@@ -2690,7 +2729,7 @@ msgid "Waiting stage"
 msgstr "Situação de espera"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Warranty"
 msgstr "Garantia"
 
@@ -2732,7 +2771,7 @@ msgid "WhatsApp"
 msgstr "WhatsApp"
 
 #. module: workshop_os
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Where photos are stored"
 msgstr "Onde as fotos ficam salvas"
 
@@ -2768,8 +2807,8 @@ msgid "Work Order Stage History"
 msgstr "Histórico de situações da OS"
 
 #. module: workshop_os
-#: model:ir.actions.act_window,name:workshop_os.action_workshop_order
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_orders
+#: model:ir.actions.act_window,name:workshop_os.workshop_order_action
+#: model:ir.ui.menu,name:workshop_os.workshop_order_menu
 msgid "Work Orders"
 msgstr "Ordens de serviço"
 
@@ -2788,18 +2827,18 @@ msgstr "Ordem de serviço %(name)s, placa %(plate)s:"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__order_ids
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__order_ids
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_partner_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.view_partner_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
 msgid "Work orders"
 msgstr "Ordens de serviço"
 
 #. module: workshop_os
-#: model:ir.actions.server,name:workshop_os.action_workshop_home
+#: model:ir.actions.server,name:workshop_os.workshop_order_action_home
 #: model:ir.module.category,name:workshop_os.module_category_workshop
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_root
+#: model:ir.ui.menu,name:workshop_os.workshop_os_menu_root
 #: model:res.groups.privilege,name:workshop_os.res_groups_privilege_workshop
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
-#: model_terms:ir.ui.view,arch_db:workshop_os.res_partner_view_form_workshop
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:workshop_os.view_partner_form
 msgid "Workshop"
 msgstr "Oficina"
 
@@ -2845,7 +2884,7 @@ msgstr "Tema da oficina"
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 #: model:ir.actions.client,name:workshop_os.action_workshop_dashboard
-#: model:ir.ui.menu,name:workshop_os.menu_workshop_dashboard
+#: model:ir.ui.menu,name:workshop_os.workshop_order_menu_dashboard
 msgid "Yard"
 msgstr "Painel"
 

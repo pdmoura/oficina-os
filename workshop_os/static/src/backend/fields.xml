@@ -2,9 +2,9 @@
 <templates xml:space="preserve">
 
     <t t-name="workshop_os.PlateField">
-        <span t-if="value" class="wo-plate" t-att-class="props.size === 'lg' ? 'wo-plate--lg' : ''">
-            <span class="wo-plate__band">BRASIL</span>
-            <span class="wo-plate__text" t-esc="value"/>
+        <span t-if="value" class="o_workshop_plate" t-att-class="props.size === 'lg' ? 'o_workshop_plate--lg' : ''">
+            <span class="o_workshop_plate__band">BRASIL</span>
+            <span class="o_workshop_plate__text" t-esc="value"/>
         </span>
     </t>
 

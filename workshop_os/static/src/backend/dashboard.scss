@@ -1,96 +1,96 @@
 .o_workshop_dashboard {
     height: 100%;
     overflow-y: auto;
-    background: var(--wo-bg);
-    color: var(--wo-text);
-    font-family: var(--wo-font);
+    background: var(--Workshop-bg);
+    color: var(--Workshop-text);
+    font-family: var(--Workshop-font);
 
-    .wd-wrap { max-width: 1280px; margin: 0 auto; padding: 24px; }
-    .wd-muted { color: var(--wo-muted); }
-    .wd-head {
+    .o_workshop_dash_wrap { max-width: 1280px; margin: 0 auto; padding: 24px; }
+    .o_workshop_dash_muted { color: var(--Workshop-muted); }
+    .o_workshop_dash_head {
         display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
-        h1 { margin: 0; font-size: 30px; font-weight: 800; color: var(--wo-text); }
+        h1 { margin: 0; font-size: 30px; font-weight: 800; color: var(--Workshop-text); }
     }
-    .wd-head__brand { display: flex; align-items: center; gap: 18px; }
-    .wd-logo { height: 72px; width: auto; max-width: 180px; object-fit: contain; }
-    .wd-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--wo-muted); }
-    .wd-head__actions { display: flex; gap: 8px; }
-    .wd-btn {
+    .o_workshop_dash_head__brand { display: flex; align-items: center; gap: 18px; }
+    .o_workshop_dash_logo { height: 72px; width: auto; max-width: 180px; object-fit: contain; }
+    .o_workshop_dash_eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--Workshop-muted); }
+    .o_workshop_dash_head__actions { display: flex; gap: 8px; }
+    .o_workshop_dash_btn {
         display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border-radius: 12px; border: 0;
-        background: var(--wo-accent); color: var(--wo-accent-ink); font-weight: 700;
+        background: var(--Workshop-accent); color: var(--Workshop-accent-ink); font-weight: 700;
     }
-    .wd-btn--ghost { background: var(--wo-surface-2); color: var(--wo-text); border: 1px solid var(--wo-border); }
-    .wd-btn--icon { width: 42px; padding: 0; justify-content: center; font-size: 17px; }
+    .o_workshop_dash_btn--ghost { background: var(--Workshop-surface-2); color: var(--Workshop-text); border: 1px solid var(--Workshop-border); }
+    .o_workshop_dash_btn--icon { width: 42px; padding: 0; justify-content: center; font-size: 17px; }
 
-    .wd-kpis { display: grid; grid-template-columns: repeat(4, 1fr) repeat(2, 1.5fr); gap: 12px; margin-bottom: 14px; }
-    .wd-kpi {
-        text-align: left; padding: 16px; border-radius: 18px; border: 1px solid var(--wo-border); background: var(--wo-surface);
-        color: var(--wo-text); display: flex; flex-direction: column; gap: 4px;
-        span { font-size: 13px; color: var(--wo-muted); }
+    .o_workshop_dash_kpis { display: grid; grid-template-columns: repeat(4, 1fr) repeat(2, 1.5fr); gap: 12px; margin-bottom: 14px; }
+    .o_workshop_dash_kpi {
+        text-align: left; padding: 16px; border-radius: 18px; border: 1px solid var(--Workshop-border); background: var(--Workshop-surface);
+        color: var(--Workshop-text); display: flex; flex-direction: column; gap: 4px;
+        span { font-size: 13px; color: var(--Workshop-muted); }
         strong { font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; }
-        small { color: var(--wo-faint); }
-        &.is-danger strong { color: var(--wo-danger); }
-        &.is-warning strong { color: var(--wo-warning); }
-        &.is-info strong { color: var(--wo-info); }
+        small { color: var(--Workshop-faint); }
+        &.o_workshop_is_danger strong { color: var(--Workshop-danger); }
+        &.o_workshop_is_warning strong { color: var(--Workshop-warning); }
+        &.o_workshop_is_info strong { color: var(--Workshop-info); }
     }
-    button.wd-kpi:hover { border-color: var(--wo-accent); }
-    .wd-kpi--wide strong { font-size: 26px; }
+    button.o_workshop_dash_kpi:hover { border-color: var(--Workshop-accent); }
+    .o_workshop_dash_kpi--wide strong { font-size: 26px; }
 
-    .wd-stages { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 18px; padding-bottom: 4px; }
-    .wd-stage {
+    .o_workshop_dash_stages { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 18px; padding-bottom: 4px; }
+    .o_workshop_dash_stage {
         flex: 1 0 150px; display: flex; justify-content: space-between; align-items: center; gap: 10px;
-        padding: 14px 16px; border-radius: 16px; background: var(--wo-surface); color: var(--wo-text);
-        border: 1px solid var(--wo-border); border-top: 4px solid var(--stage);
+        padding: 14px 16px; border-radius: 16px; background: var(--Workshop-surface); color: var(--Workshop-text);
+        border: 1px solid var(--Workshop-border); border-top: 4px solid var(--WorkshopStage-color);
         span { font-weight: 600; text-align: left; }
         strong { font-size: 24px; }
-        &:hover { background: var(--wo-surface-2); }
+        &:hover { background: var(--Workshop-surface-2); }
     }
 
-    .wd-grid { display: grid; grid-template-columns: 1.2fr 1.2fr 1fr; gap: 14px; }
-    .wd-panel {
-        background: var(--wo-surface); border: 1px solid var(--wo-border); border-radius: 20px; padding: 18px;
-        h2 { font-size: 15px; font-weight: 800; color: var(--wo-text); margin: 0 0 12px; i { color: var(--wo-accent-text); margin-right: 6px; } }
+    .o_workshop_dash_grid { display: grid; grid-template-columns: 1.2fr 1.2fr 1fr; gap: 14px; }
+    .o_workshop_dash_panel {
+        background: var(--Workshop-surface); border: 1px solid var(--Workshop-border); border-radius: 20px; padding: 18px;
+        h2 { font-size: 15px; font-weight: 800; color: var(--Workshop-text); margin: 0 0 12px; i { color: var(--Workshop-accent-text); margin-right: 6px; } }
     }
-    .wd-row {
+    .o_workshop_dash_row {
         width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px; margin-bottom: 6px;
-        border-radius: 14px; border: 1px solid transparent; background: var(--wo-surface-2); color: var(--wo-text); text-align: left;
-        &:hover { border-color: var(--wo-border); }
+        border-radius: 14px; border: 1px solid transparent; background: var(--Workshop-surface-2); color: var(--Workshop-text); text-align: left;
+        &:hover { border-color: var(--Workshop-border); }
     }
-    .wd-row__main { flex: 1; min-width: 0; display: flex; flex-direction: column;
+    .o_workshop_dash_row__main { flex: 1; min-width: 0; display: flex; flex-direction: column;
         strong, small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        small { color: var(--wo-muted); }
+        small { color: var(--Workshop-muted); }
     }
-    .wd-tag { font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 999px; background: color-mix(in srgb, var(--stage) 22%, transparent); }
-    .wd-bar { margin-bottom: 12px; }
-    .wd-bar__label { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; margin-bottom: 6px; }
-    .wd-bar__track { height: 8px; border-radius: 999px; background: var(--wo-surface-3); overflow: hidden; }
-    .wd-bar__fill { height: 100%; border-radius: 999px; background: var(--wo-accent); }
+    .o_workshop_dash_tag { font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 999px; background: color-mix(in srgb, var(--WorkshopStage-color) 22%, transparent); }
+    .o_workshop_dash_bar { margin-bottom: 12px; }
+    .o_workshop_dash_bar__label { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; margin-bottom: 6px; }
+    .o_workshop_dash_bar__track { height: 8px; border-radius: 999px; background: var(--Workshop-surface-3); overflow: hidden; }
+    .o_workshop_dash_bar__fill { height: 100%; border-radius: 999px; background: var(--Workshop-accent); }
 
     @media (max-width: 1100px) {
-        .wd-kpis { grid-template-columns: repeat(2, 1fr); }
-        .wd-grid { grid-template-columns: 1fr; }
+        .o_workshop_dash_kpis { grid-template-columns: repeat(2, 1fr); }
+        .o_workshop_dash_grid { grid-template-columns: 1fr; }
     }
 
     // Phone: everything within the screen width, stages as a grid instead of a row that runs off the edge.
     @media (max-width: 640px) {
-        .wd-wrap { padding: 16px 12px 32px; }
-        .wd-head { align-items: stretch; }
-        .wd-head__brand { gap: 12px; min-width: 0; }
-        .wd-head h1 { font-size: 24px; }
-        .wd-logo { height: 52px; max-width: 120px; }
-        .wd-head__actions { width: 100%; .wd-btn:not(.wd-btn--icon) { flex: 1; justify-content: center; } }
-        .wd-kpis { gap: 10px; }
-        .wd-kpi { padding: 14px; strong { font-size: 26px; } }
-        .wd-kpi--wide strong { font-size: 21px; }
-        .wd-stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
-        .wd-stage { padding: 12px 14px; span { min-width: 0; overflow-wrap: anywhere; } strong { font-size: 20px; } }
-        .wd-panel { padding: 14px 12px; }
+        .o_workshop_dash_wrap { padding: 16px 12px 32px; }
+        .o_workshop_dash_head { align-items: stretch; }
+        .o_workshop_dash_head__brand { gap: 12px; min-width: 0; }
+        .o_workshop_dash_head h1 { font-size: 24px; }
+        .o_workshop_dash_logo { height: 52px; max-width: 120px; }
+        .o_workshop_dash_head__actions { width: 100%; .o_workshop_dash_btn:not(.o_workshop_dash_btn--icon) { flex: 1; justify-content: center; } }
+        .o_workshop_dash_kpis { gap: 10px; }
+        .o_workshop_dash_kpi { padding: 14px; strong { font-size: 26px; } }
+        .o_workshop_dash_kpi--wide strong { font-size: 21px; }
+        .o_workshop_dash_stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; }
+        .o_workshop_dash_stage { padding: 12px 14px; span { min-width: 0; overflow-wrap: anywhere; } strong { font-size: 20px; } }
+        .o_workshop_dash_panel { padding: 14px 12px; }
         // Plate on the left over two lines; name on the first, stage/time or amount on the second.
-        .wd-row {
+        .o_workshop_dash_row {
             display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 12px; row-gap: 6px;
-            .wo-plate { grid-row: span 2; }
+            .o_workshop_plate { grid-row: span 2; }
         }
-        .wd-row__main { grid-column: 2 / -1; }
-        .wd-tag { justify-self: start; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .o_workshop_dash_row__main { grid-column: 2 / -1; }
+        .o_workshop_dash_tag { justify-self: start; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     }
 }

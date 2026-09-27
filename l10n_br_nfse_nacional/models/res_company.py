@@ -1,5 +1,3 @@
-import re
-
 from odoo import fields, models
 
 SIMPLES_OPTIONS = [
@@ -22,9 +20,6 @@ SPECIAL_REGIME = [
     ("6", "Society of professionals"),
 ]
 
-
-def only_digits(value):
-    return re.sub(r"\D", "", value or "")
 
 
 class ResCompany(models.Model):

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- iPhones take the home-screen icon from this link, not from the manifest. -->
-    <template id="webclient_bootstrap_app_icon" inherit_id="web.webclient_bootstrap">
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
         <xpath expr="//link[@rel='apple-touch-icon']" position="attributes">
             <attribute name="href">/workshop_os/app-icon/180</attribute>
         </xpath>
     </template>
 
     <!-- Browser tab: the shop's icon and name instead of Odoo's (the web client then prefixes the page name). -->
-    <template id="layout_tab_brand" inherit_id="web.layout">
+    <template id="layout" inherit_id="web.layout">
         <xpath expr="//title" position="attributes">
             <attribute name="t-esc">title or (request and request.db and request.env.company.sudo()._workshop_app_name()) or 'Odoo'</attribute>
         </xpath>
@@ -19,7 +19,7 @@
     </template>
 
     <!-- Login, sign-up and password reset in the shop's colours. -->
-    <template id="login_layout_brand" inherit_id="web.login_layout">
+    <template id="login_layout" inherit_id="web.login_layout">
         <xpath expr="//div[hasclass('container')]" position="before">
             <style t-if="request.db" t-out="request.env.company.sudo()._workshop_login_css()"/>
         </xpath>

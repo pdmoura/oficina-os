@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="workshop_billing_view_form" model="ir.ui.view">
+        <field name="name">workshop.billing.view.form.inherit.workshop_os_nfse</field>
+        <field name="model">workshop.billing</field>
+        <field name="inherit_id" ref="workshop_os.workshop_billing_view_form"/>
+        <field name="arch" type="xml">
+            <button name="action_mark_paid" position="before">
+                <button name="action_create_nfse" type="object" string="Issue NFS-e" class="btn-primary"
+                        invisible="state not in ('confirmed', 'invoiced') or nfse_state == 'done'"/>
+            </button>
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_nfse" type="object" class="oe_stat_button" icon="fa-file-text-o"
+                            invisible="not nfse_count">
+                        <field name="nfse_count" widget="statinfo" string="NFS-e"/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="workshop_billing_view_list" model="ir.ui.view">
+        <field name="name">workshop.billing.view.list.inherit.workshop_os_nfse</field>
+        <field name="model">workshop.billing</field>
+        <field name="inherit_id" ref="workshop_os.workshop_billing_view_list"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="nfse_state" widget="badge" optional="show"
+                       decoration-success="nfse_state == 'done'" decoration-warning="nfse_state == 'draft'"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -12,7 +12,7 @@ class WorkshopManifest(WebManifest):
         manifest.update({
             "name": name,
             "short_name": name[:12],
-            "start_url": "/odoo/action-workshop_os.action_mechanic_app",
+            "start_url": "/odoo/mechanic-app",
             "background_color": "#0F1115",
             "theme_color": "#0F1115",
             "icons": [

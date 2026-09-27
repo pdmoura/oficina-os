@@ -2,87 +2,87 @@
 <templates xml:space="preserve">
 
     <t t-name="workshop_os.Dashboard">
-        <div class="o_workshop_dashboard" t-att-class="{ 'is-light': state.theme === 'light' }" t-att-style="accentStyle">
+        <div class="o_workshop_dashboard" t-att-class="{ 'o_workshop_is_light': state.theme === 'light' }" t-att-style="accentStyle">
             <t t-set="d" t-value="state.data"/>
-            <div class="wd-wrap" t-if="d">
-                <header class="wd-head">
-                    <div class="wd-head__brand">
-                        <img t-if="logo" t-att-src="logo" class="wd-logo" alt=""/>
+            <div class="o_workshop_dash_wrap" t-if="d">
+                <header class="o_workshop_dash_head">
+                    <div class="o_workshop_dash_head__brand">
+                        <img t-if="logo" t-att-src="logo" class="o_workshop_dash_logo" alt=""/>
                         <div>
-                            <span class="wd-eyebrow" t-esc="d.company.name"/>
+                            <span class="o_workshop_dash_eyebrow" t-esc="d.company.name"/>
                             <h1>Yard</h1>
                         </div>
                     </div>
-                    <div class="wd-head__actions">
-                        <button class="wd-btn wd-btn--ghost wd-btn--icon" t-on-click="toggleTheme"
+                    <div class="o_workshop_dash_head__actions">
+                        <button class="o_workshop_dash_btn o_workshop_dash_btn--ghost o_workshop_dash_btn--icon" t-on-click="toggleTheme"
                                 t-att-aria-label="state.theme === 'light' ? darkLabel : lightLabel"
                                 t-att-title="state.theme === 'light' ? darkLabel : lightLabel">
                             <i t-att-class="state.theme === 'light' ? 'fa fa-moon-o' : 'fa fa-sun-o'"/>
                         </button>
-                        <button class="wd-btn wd-btn--ghost" t-on-click="openApp"><i class="fa fa-mobile"/> Mechanic app</button>
-                        <button class="wd-btn" t-on-click="openKanban"><i class="fa fa-th-large"/> All orders</button>
+                        <button class="o_workshop_dash_btn o_workshop_dash_btn--ghost" t-on-click="openApp"><i class="fa fa-mobile"/> Mechanic app</button>
+                        <button class="o_workshop_dash_btn" t-on-click="openKanban"><i class="fa fa-th-large"/> All orders</button>
                     </div>
                 </header>
 
-                <section class="wd-kpis">
-                    <button class="wd-kpi" t-on-click="() => openKpi('open')">
+                <section class="o_workshop_dash_kpis">
+                    <button class="o_workshop_dash_kpi" t-on-click="() => openKpi('open')">
                         <span>In the yard</span><strong t-esc="d.kpis.open"/>
                     </button>
-                    <button class="wd-kpi" t-att-class="d.kpis.late ? 'is-danger' : ''" t-on-click="() => openKpi('late')">
+                    <button class="o_workshop_dash_kpi" t-att-class="d.kpis.late ? 'o_workshop_is_danger' : ''" t-on-click="() => openKpi('late')">
                         <span>Late</span><strong t-esc="d.kpis.late"/>
                     </button>
-                    <button class="wd-kpi" t-att-class="d.kpis.to_approve ? 'is-warning' : ''" t-on-click="() => openKpi('to_approve')">
+                    <button class="o_workshop_dash_kpi" t-att-class="d.kpis.to_approve ? 'o_workshop_is_warning' : ''" t-on-click="() => openKpi('to_approve')">
                         <span>Awaiting approval</span><strong t-esc="d.kpis.to_approve"/>
                     </button>
-                    <button class="wd-kpi is-info" t-on-click="() => openKpi('ready')">
+                    <button class="o_workshop_dash_kpi o_workshop_is_info" t-on-click="() => openKpi('ready')">
                         <span>Ready for pickup</span><strong t-esc="d.kpis.ready"/>
                     </button>
-                    <div class="wd-kpi wd-kpi--wide">
+                    <div class="o_workshop_dash_kpi o_workshop_dash_kpi--wide">
                         <span>Finished this month</span>
                         <strong t-esc="d.kpis.revenue_month"/>
                         <small><t t-esc="d.kpis.done_month"/> orders · <t t-esc="d.kpis.avg_hours"/> h average in the yard</small>
                     </div>
-                    <div class="wd-kpi wd-kpi--wide">
+                    <div class="o_workshop_dash_kpi o_workshop_dash_kpi--wide">
                         <span>Finished, not billed yet</span>
                         <strong t-esc="d.kpis.to_bill"/>
                         <small>Goes into the next monthly closing</small>
                     </div>
                 </section>
 
-                <section class="wd-stages">
-                    <button t-foreach="d.stages" t-as="stage" t-key="stage.id" class="wd-stage" t-attf-style="--stage: {{ stage.color }}"
+                <section class="o_workshop_dash_stages">
+                    <button t-foreach="d.stages" t-as="stage" t-key="stage.id" class="o_workshop_dash_stage" t-attf-style="--WorkshopStage-color: {{ stage.color }}"
                             t-on-click="() => openStage(stage)">
                         <span t-esc="stage.name"/>
                         <strong t-esc="stage.count"/>
                     </button>
                 </section>
 
-                <div class="wd-grid">
-                    <section class="wd-panel">
+                <div class="o_workshop_dash_grid">
+                    <section class="o_workshop_dash_panel">
                         <h2><i class="fa fa-clock-o"/> Late</h2>
-                        <p t-if="!d.late.length" class="wd-muted">Nothing late. Nice.</p>
-                        <button t-foreach="d.late" t-as="o" t-key="o.id" class="wd-row" t-on-click="() => openOrder(o.id)">
-                            <span class="wo-plate"><span class="wo-plate__band">BRASIL</span><span class="wo-plate__text" t-esc="plate(o.plate)"/></span>
-                            <span class="wd-row__main"><strong t-esc="o.vehicle"/><small t-esc="o.partner"/></span>
-                            <span class="wd-tag" t-attf-style="--stage: {{ o.stage_color }}" t-esc="o.stage"/>
-                            <small class="wd-muted" t-esc="elapsed(o.stage_since)"/>
+                        <p t-if="!d.late.length" class="o_workshop_dash_muted">Nothing late. Nice.</p>
+                        <button t-foreach="d.late" t-as="o" t-key="o.id" class="o_workshop_dash_row" t-on-click="() => openOrder(o.id)">
+                            <span class="o_workshop_plate"><span class="o_workshop_plate__band">BRASIL</span><span class="o_workshop_plate__text" t-esc="plate(o.plate)"/></span>
+                            <span class="o_workshop_dash_row__main"><strong t-esc="o.vehicle"/><small t-esc="o.partner"/></span>
+                            <span class="o_workshop_dash_tag" t-attf-style="--WorkshopStage-color: {{ o.stage_color }}" t-esc="o.stage"/>
+                            <small class="o_workshop_dash_muted" t-esc="elapsed(o.stage_since)"/>
                         </button>
                     </section>
-                    <section class="wd-panel">
+                    <section class="o_workshop_dash_panel">
                         <h2><i class="fa fa-check-circle"/> Ready for pickup</h2>
-                        <p t-if="!d.ready.length" class="wd-muted">No vehicle waiting for the customer.</p>
-                        <button t-foreach="d.ready" t-as="o" t-key="o.id" class="wd-row" t-on-click="() => openOrder(o.id)">
-                            <span class="wo-plate"><span class="wo-plate__band">BRASIL</span><span class="wo-plate__text" t-esc="plate(o.plate)"/></span>
-                            <span class="wd-row__main"><strong t-esc="o.vehicle"/><small t-esc="o.partner"/></span>
+                        <p t-if="!d.ready.length" class="o_workshop_dash_muted">No vehicle waiting for the customer.</p>
+                        <button t-foreach="d.ready" t-as="o" t-key="o.id" class="o_workshop_dash_row" t-on-click="() => openOrder(o.id)">
+                            <span class="o_workshop_plate"><span class="o_workshop_plate__band">BRASIL</span><span class="o_workshop_plate__text" t-esc="plate(o.plate)"/></span>
+                            <span class="o_workshop_dash_row__main"><strong t-esc="o.vehicle"/><small t-esc="o.partner"/></span>
                             <strong t-esc="o.amount_fmt"/>
                         </button>
                     </section>
-                    <section class="wd-panel">
+                    <section class="o_workshop_dash_panel">
                         <h2><i class="fa fa-building-o"/> Customers this month</h2>
-                        <p t-if="!d.top_customers.length" class="wd-muted">No finished orders this month yet.</p>
-                        <div t-foreach="d.top_customers" t-as="c" t-key="c_index" class="wd-bar">
-                            <div class="wd-bar__label"><span t-esc="c.name"/><strong t-esc="c.amount"/></div>
-                            <div class="wd-bar__track"><div class="wd-bar__fill" t-attf-style="width: {{ c.share }}%"/></div>
+                        <p t-if="!d.top_customers.length" class="o_workshop_dash_muted">No finished orders this month yet.</p>
+                        <div t-foreach="d.top_customers" t-as="c" t-key="c_index" class="o_workshop_dash_bar">
+                            <div class="o_workshop_dash_bar__label"><span t-esc="c.name"/><strong t-esc="c.amount"/></div>
+                            <div class="o_workshop_dash_bar__track"><div class="o_workshop_dash_bar__fill" t-attf-style="width: {{ c.share }}%"/></div>
                         </div>
                     </section>
                 </div>

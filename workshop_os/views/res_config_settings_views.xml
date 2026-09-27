@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="res_config_settings_view_form_workshop" model="ir.ui.view">
-        <field name="name">res.config.settings.form.workshop</field>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.workshop_os</field>
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
-                <app string="Workshop" name="workshop_os" groups="workshop_os.group_workshop_manager">
+                <app string="Workshop" name="workshop_os" groups="workshop_os.workshop_os_group_manager">
                     <block title="Brand" name="workshop_brand">
                         <setting string="Colours and logo" help="The accent colours buttons and highlights across the system, the mechanic app, the customer pages and the login; the background colour paints the top bar and the login page">
                             <div class="content-group">
@@ -76,7 +76,7 @@
         </field>
     </record>
 
-    <record id="action_workshop_settings" model="ir.actions.act_window">
+    <record id="res_config_settings_action" model="ir.actions.act_window">
         <field name="name">Settings</field>
         <field name="res_model">res.config.settings</field>
         <field name="view_mode">form</field>

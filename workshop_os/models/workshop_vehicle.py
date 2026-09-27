@@ -103,7 +103,7 @@ class WorkshopVehicle(models.Model):
 
     def action_view_orders(self):
         self.ensure_one()
-        action = self.env["ir.actions.act_window"]._for_xml_id("workshop_os.action_workshop_order")
+        action = self.env["ir.actions.act_window"]._for_xml_id("workshop_os.workshop_order_action")
         action["domain"] = [("vehicle_id", "=", self.id)]
         action["context"] = {"default_vehicle_id": self.id, "default_partner_id": self.partner_id.id}
         return action

@@ -71,5 +71,5 @@ class TestWorkshopNfse(WorkshopCase):
             draft.action_create_nfse()
 
     def test_mechanic_has_no_access_to_notes(self):
-        self.assertFalse(self.mechanic.has_group("l10n_br_nfse_nacional.group_nfse_user"))
-        self.assertTrue(self.office.has_group("l10n_br_nfse_nacional.group_nfse_user"))
+        self.assertFalse(self.mechanic.has_group("l10n_br_nfse_nacional.l10n_br_nfse_nacional_group_user"))
+        self.assertTrue(self.office.has_group("l10n_br_nfse_nacional.l10n_br_nfse_nacional_group_user"))

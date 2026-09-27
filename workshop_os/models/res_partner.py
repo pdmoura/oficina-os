@@ -23,14 +23,14 @@ class ResPartner(models.Model):
 
     def action_workshop_orders(self):
         self.ensure_one()
-        action = self.env["ir.actions.act_window"]._for_xml_id("workshop_os.action_workshop_order")
+        action = self.env["ir.actions.act_window"]._for_xml_id("workshop_os.workshop_order_action")
         action["domain"] = [("partner_id", "child_of", self.commercial_partner_id.id)]
         action["context"] = {"default_partner_id": self.id}
         return action
 
     def action_workshop_vehicles(self):
         self.ensure_one()
-        action = self.env["ir.actions.act_window"]._for_xml_id("workshop_os.action_workshop_vehicle")
+        action = self.env["ir.actions.act_window"]._for_xml_id("workshop_os.workshop_vehicle_action")
         action["domain"] = [("partner_id", "child_of", self.commercial_partner_id.id)]
         action["context"] = {"default_partner_id": self.id}
         return action

@@ -47,7 +47,7 @@ class WorkshopOrder(models.Model):
     sector_id = fields.Many2one("workshop.sector", "Sector")
     # all_group_ids: group_ids only holds the groups set by hand, so office users (Mechanic implied) would be missing.
     user_id = fields.Many2one("res.users", "Mechanic", tracking=True, default=lambda self: self.env.user,
-                              domain=lambda self: [("all_group_ids", "in", self.env.ref("workshop_os.group_workshop_user").id),
+                              domain=lambda self: [("all_group_ids", "in", self.env.ref("workshop_os.workshop_os_group_user").id),
                                                    ("share", "=", False)])
     priority = fields.Selection([("0", "Normal"), ("1", "Urgent")], default="0")
     state = fields.Selection([
@@ -255,7 +255,7 @@ class WorkshopOrder(models.Model):
     # ------------------------------------------------------------------
     def _check_office(self, message=None):
         """Approving, refusing, cancelling and reopening belong to the office, whoever calls the method and how."""
-        if not self.env.su and not self.env.user.has_group("workshop_os.group_workshop_manager"):
+        if not self.env.su and not self.env.user.has_group("workshop_os.workshop_os_group_manager"):
             raise AccessError(message or _("Only the office can approve, refuse, cancel or reopen a work order."))
 
     def _log_stage_change(self):
@@ -314,8 +314,8 @@ class WorkshopOrder(models.Model):
     @api.model
     def _workshop_home_action(self):
         """Where the Workshop app opens: the office on the yard dashboard, mechanics straight in their app."""
-        office = self.env.user.has_group("workshop_os.group_workshop_manager")
-        xmlid = "workshop_os.action_workshop_dashboard" if office else "workshop_os.action_mechanic_app"
+        office = self.env.user.has_group("workshop_os.workshop_os_group_manager")
+        xmlid = "workshop_os.workshop_order_action_dashboard" if office else "workshop_os.workshop_order_action_mechanic_app"
         return self.env["ir.actions.actions"]._for_xml_id(xmlid)
 
     # ------------------------------------------------------------------
@@ -333,7 +333,7 @@ class WorkshopOrder(models.Model):
         return {
             "stages": [{"id": s.id, "name": s.name, "color": s.color, "waiting": s.is_waiting} for s in stages],
             "orders": [o._app_card() for o in orders],
-            "user": {"name": self.env.user.name, "is_manager": self.env.user.has_group("workshop_os.group_workshop_manager")},
+            "user": {"name": self.env.user.name, "is_manager": self.env.user.has_group("workshop_os.workshop_os_group_manager")},
             "company": self.env.company._workshop_brand(),
             "counts": {
                 "open": len(orders),
@@ -500,7 +500,7 @@ class WorkshopOrder(models.Model):
     def _app_state_actions(self):
         """Buttons the app shows for the current status, respecting the user's role."""
         self.ensure_one()
-        manager = self.env.user.has_group("workshop_os.group_workshop_manager")
+        manager = self.env.user.has_group("workshop_os.workshop_os_group_manager")
         actions = []
         if self.state in ("draft", "rejected") and manager:
             actions.append({"action": "action_approve", "label": _("Approve"), "style": "primary"})

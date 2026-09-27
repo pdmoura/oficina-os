@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- First app in the list, so a login without a personal home action opens here, not in Discuss. -->
+    <menuitem id="workshop_os_menu_root" name="Workshop" web_icon="workshop_os,static/description/icon.png"
+              groups="workshop_os_group_user" sequence="1" action="workshop_order_action_home"/>
+
+    <menuitem id="workshop_order_menu_dashboard" name="Yard" parent="workshop_os_menu_root" action="workshop_order_action_dashboard"
+              sequence="1"/>
+    <menuitem id="workshop_order_menu" name="Work Orders" parent="workshop_os_menu_root" action="workshop_order_action"
+              sequence="2"/>
+    <menuitem id="workshop_order_menu_mechanic_app" name="Mechanic App" parent="workshop_os_menu_root" action="workshop_order_action_mechanic_app"
+              sequence="3"/>
+
+    <menuitem id="workshop_os_menu_customers" name="Customers" parent="workshop_os_menu_root" sequence="10"/>
+    <menuitem id="workshop_vehicle_menu" name="Vehicles" parent="workshop_os_menu_customers" action="workshop_vehicle_action"
+              sequence="1"/>
+    <menuitem id="res_partner_menu_workshop_customer" name="Customers" parent="workshop_os_menu_customers"
+              action="res_partner_action_workshop_customer" sequence="2"/>
+
+    <menuitem id="workshop_os_menu_billing" name="Billing" parent="workshop_os_menu_root" sequence="20"
+              groups="workshop_os_group_manager"/>
+    <menuitem id="workshop_billing_menu" name="Monthly Closing" parent="workshop_os_menu_billing"
+              action="workshop_billing_action" sequence="1"/>
+    <menuitem id="workshop_order_line_menu_analysis" name="Services Analysis" parent="workshop_os_menu_billing"
+              action="workshop_order_line_action_analysis" sequence="10"/>
+
+    <menuitem id="workshop_os_menu_config" name="Configuration" parent="workshop_os_menu_root" sequence="90"
+              groups="workshop_os_group_manager"/>
+    <menuitem id="res_config_settings_menu" name="Settings" parent="workshop_os_menu_config" action="res_config_settings_action"
+              sequence="1" groups="base.group_system"/>
+    <menuitem id="workshop_service_menu" name="Services" parent="workshop_os_menu_config" action="workshop_service_action"
+              sequence="2"/>
+    <menuitem id="workshop_checklist_template_menu" name="Checklists" parent="workshop_os_menu_config"
+              action="workshop_checklist_template_action" sequence="3"/>
+    <menuitem id="workshop_stage_menu" name="Stages" parent="workshop_os_menu_config" action="workshop_stage_action" sequence="4"/>
+    <menuitem id="workshop_location_menu" name="Locations" parent="workshop_os_menu_config" action="workshop_location_action"
+              sequence="5"/>
+    <menuitem id="workshop_sector_menu" name="Sectors" parent="workshop_os_menu_config" action="workshop_sector_action"
+              sequence="6"/>
+</odoo>
