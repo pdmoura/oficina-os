@@ -1,4 +1,5 @@
-# Render Blueprint: one free web service running the Docker image; the database is on Supabase.
+# Render Blueprint: one free web service running the Docker image, on any PostgreSQL 13+ (Supabase, Neon...).
+# Set DB_* below, or add DATABASE_URL instead of them (see README, section Database).
 # Secrets are marked sync: false, so Render asks for them when the Blueprint is created.
 services:
   - type: web

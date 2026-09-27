@@ -28,6 +28,16 @@
         <field name="lang">pt_BR</field>
         <field name="tz">America/Sao_Paulo</field>
     </record>
+    <!-- Office login for public demos, so the administrator's credentials never have to be shared. -->
+    <record id="demo_user_office" model="res.users">
+        <field name="name">Camila Rocha</field>
+        <field name="login">escritorio</field>
+        <field name="password">escritorio</field>
+        <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_manager')])]"/>
+        <field name="action_id" ref="workshop_os.action_workshop_dashboard"/>
+        <field name="lang">pt_BR</field>
+        <field name="tz">America/Sao_Paulo</field>
+    </record>
 
     <record id="demo_partner_fleet_a" model="res.partner">
         <field name="name">Transportadora Exemplo Ltda</field>
@@ -54,6 +64,16 @@
         <field name="password">mecanico</field>
         <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_user')])]"/>
         <field name="action_id" ref="workshop_os.action_mechanic_app"/>
+        <field name="lang">pt_BR</field>
+        <field name="tz">America/Sao_Paulo</field>
+    </record>
+    <!-- Office login for public demos, so the administrator's credentials never have to be shared. -->
+    <record id="demo_user_office" model="res.users">
+        <field name="name">Camila Rocha</field>
+        <field name="login">escritorio</field>
+        <field name="password">escritorio</field>
+        <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_manager')])]"/>
+        <field name="action_id" ref="workshop_os.action_workshop_dashboard"/>
         <field name="lang">pt_BR</field>
         <field name="tz">America/Sao_Paulo</field>
     </record>

@@ -84,7 +84,7 @@ docker compose run --rm odoo odoo -d oficina -i workshop_os,workshop_os_nfse --w
 docker compose up -d odoo
 ```
 
-Abra http://localhost:8070. Os logins da demonstração são `admin` / `admin` para o escritório e `mecanico` / `mecanico` para o mecânico, que já cai direto no app. Para ver o app do celular, use o modo de celular do navegador ou abra num celular na mesma rede.
+Abra http://localhost:8070. Os logins da demonstração são `admin` / `admin` para o administrador, `escritorio` / `escritorio` para o escritório e `mecanico` / `mecanico` para o mecânico, que já cai direto no app. Para ver o app do celular, use o modo de celular do navegador ou abra num celular na mesma rede.
 
 Rodar os testes:
 
@@ -97,24 +97,61 @@ Os 39 testes cobrem:
 - **Oficina:** regras de placa, aprovação, página do cliente, fechamento, relatórios, compilação dos estilos e os padrões brasileiros num banco novo.
 - **NFS-e:** a DPS contra o XSD oficial, as regras de cada regime, verificação da assinatura e adulteração, sucesso, rejeição e recuperação de E0014 com a API simulada, cancelamento, DANFSe e busca pelo CEP.
 
-## Publicar (Render + Supabase)
+## Publicar
 
 O [`Dockerfile`](Dockerfile) coloca os módulos na imagem oficial do Odoo 19. O [`deploy/entrypoint.sh`](deploy/entrypoint.sh) configura o Odoo pelas variáveis de ambiente:
 
-- **Primeira subida:** cria o banco, guarda todos os anexos no PostgreSQL (o disco do contêiner é descartado a cada deploy), instala os módulos em português e define o login e a senha do administrador.
+- **Primeira subida:**
+  - cria o banco;
+  - guarda todos os anexos no PostgreSQL, então um único dump leva tudo e perder o disco do contêiner não perde nada;
+  - instala os módulos em português, com dados de exemplo se pedido;
+  - define o login e a senha do administrador.
 - **Deploys seguintes:** atualiza os módulos só quando o código deles mudou.
+
+### Banco: qualquer PostgreSQL 13 ou mais novo
+
+O Odoo só roda em PostgreSQL, mas qualquer PostgreSQL serve: um que você mesmo hospeda ou um gerenciado (Supabase, Neon, Render Postgres, Railway, AWS RDS, DigitalOcean...). Passe a conexão como uma URL só ou como variáveis separadas:
 
 | Variável | Valor |
 |---|---|
-| `DB_HOST`, `DB_PORT`, `DB_USER` | **Session pooler** do Supabase (IPv4; aceita `LISTEN`, que o cron do Odoo usa). O usuário é `postgres.<project-ref>`. |
-| `DB_PASSWORD` | senha do banco |
-| `DB_NAME` | `odoo` (criado na primeira subida) |
-| `ODOO_ADMIN_EMAIL`, `ODOO_ADMIN_PASSWORD` | administrador criado na primeira subida |
-| `LOAD_DEMO` | `false` para uma oficina de verdade |
+| `DATABASE_URL` | `postgres://usuario:senha@host:5432/banco?sslmode=require`, do jeito que a maioria dos provedores entrega |
+| `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `DB_SSLMODE` | o mesmo, uma a uma; elas têm prioridade sobre a URL. `DB_NAME` tem `odoo` como padrão, e `DB_SSLMODE` tem `prefer` (TLS quando o servidor oferece). |
+| `ODOO_ADMIN_EMAIL`, `ODOO_ADMIN_PASSWORD` | administrador criado na primeira subida (10 caracteres ou mais) |
+| `LOAD_DEMO` | `true` para uma demonstração com dados de exemplo, `false` para uma oficina de verdade |
 
-Coloque o banco e o serviço web na **mesma região**, por exemplo Supabase East US (North Virginia) e Render Virginia. O Odoo faz muitas consultas por requisição, e uma ligação entre continentes deixaria todas as páginas lentas.
+O que o banco precisa permitir:
 
-No plano gratuito, o Odoo usa cerca de 230 MB dos 512 MB. O [`keepalive.yml`](.github/workflows/keepalive.yml) acorda o serviço no horário da oficina quando a variável `KEEPALIVE_URL` está definida no repositório.
+- **Um usuário que não seja o `postgres`.** O Odoo se recusa a rodar como superusuário.
+- **Permissão para criar o banco.** Senão, crie você mesmo, com esse usuário como dono, e informe o nome em `DB_NAME` ou na URL.
+- **Conectar no banco de manutenção `postgres`.** O agendador do Odoo escuta ali.
+- **Conexão direta ou em modo sessão, nunca um pooler em modo transação.** O agendador do Odoo precisa do `LISTEN`.
+  - Supabase: o session pooler, porta 5432.
+  - Neon: o endereço sem `-pooler`.
+  - PgBouncer: `pool_mode = session`.
+- **A mesma região do Odoo.** O Odoo faz muitas consultas por requisição, então um banco em outro continente deixa todas as páginas lentas.
+
+### No seu próprio servidor, com PostgreSQL junto
+
+O [`deploy/docker-compose.yml`](deploy/docker-compose.yml) roda o Odoo ao lado de um PostgreSQL 16 próprio em qualquer Linux com Docker, amd64 ou arm64:
+
+- limites de memória e CPU, para dividir a máquina sem atrapalhar;
+- backup compactado diário em `deploy/backups`;
+- o Odoo escuta só em `127.0.0.1`, para ser publicado pelo seu proxy reverso com HTTPS.
+
+```bash
+cp deploy/.env.example deploy/.env    # defina as senhas
+docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
+```
+
+Para usar um PostgreSQL que você já tem, tire o serviço `db` e defina `DATABASE_URL` no `deploy/.env`.
+
+### Render com um PostgreSQL gerenciado
+
+O [`render.yaml`](render.yaml) é um Blueprint para um serviço web gratuito no Render. Aponte-o para o seu banco com as variáveis acima. No plano gratuito, o Odoo usa cerca de 230 MB dos 512 MB.
+
+O [`keepalive.yml`](.github/workflows/keepalive.yml) acorda o serviço e o banco no horário da oficina quando a variável `KEEPALIVE_URL` está definida no repositório. Assim o serviço gratuito não dorme e um projeto gratuito do Supabase não pausa.
+
+Para dar um banco novo à demonstração pública, siga o [docs/demo-database.pt-BR.md](docs/demo-database.pt-BR.md): conta nova no provedor, projeto pausado ou recomeço do zero.
 
 ## Licença
 

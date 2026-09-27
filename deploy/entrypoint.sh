@@ -1,17 +1,47 @@
 #!/bin/bash
-# Starts Odoo from environment variables (Render + Supabase):
+# Starts Odoo from environment variables, on any PostgreSQL 13+ (managed or self-hosted):
 #   first boot  -> creates the tables, keeps every attachment in the database, installs the modules in pt_BR
 #   new release -> upgrades the modules when the addons fingerprint changed
 set -euo pipefail
 
-: "${DB_HOST:?set DB_HOST (Supabase session pooler host)}"
-: "${DB_USER:?set DB_USER (postgres.<project-ref> on the Supabase pooler)}"
-: "${DB_PASSWORD:?set DB_PASSWORD}"
+# Most providers hand out one URL (postgres://user:password@host:port/database?sslmode=require).
+# It fills the DB_* variables that are not set one by one.
+if [ -n "${DATABASE_URL:-}" ]; then
+    eval "$(python3 - <<'PY'
+import os
+import shlex
+from urllib.parse import parse_qs, unquote, urlsplit
+
+url = urlsplit(os.environ["DATABASE_URL"])
+values = {
+    "DB_HOST": url.hostname,
+    "DB_PORT": url.port,
+    "DB_USER": unquote(url.username or ""),
+    "DB_PASSWORD": unquote(url.password or ""),
+    "DB_NAME": url.path.lstrip("/"),
+    "DB_SSLMODE": (parse_qs(url.query).get("sslmode") or [""])[0],
+}
+for key, value in values.items():
+    if value and not os.environ.get(key):
+        print(f"export {key}={shlex.quote(str(value))}")
+PY
+)"
+fi
+
+: "${DB_HOST:?set DB_HOST, or DATABASE_URL}"
+: "${DB_USER:?set DB_USER, or DATABASE_URL}"
+: "${DB_PASSWORD:?set DB_PASSWORD, or DATABASE_URL}"
+if [ "$DB_USER" = "postgres" ]; then
+    echo "[deploy] Odoo refuses to run as the 'postgres' superuser: create a role for it, e.g." >&2
+    echo "         CREATE ROLE odoo LOGIN CREATEDB PASSWORD '...';" >&2
+    exit 1
+fi
 # The database manager is disabled (list_db = False); without a given master password, use a random one.
 : "${ADMIN_PASSWD:=$(head -c 48 /dev/urandom | base64 | tr -dc 'A-Za-z0-9')}"
 : "${DB_PORT:=5432}"
 : "${DB_NAME:=odoo}"
-: "${DB_SSLMODE:=require}"
+# "prefer" uses TLS when the server offers it (managed providers) and still works with a local PostgreSQL.
+: "${DB_SSLMODE:=prefer}"
 : "${PORT:=8069}"
 : "${MODULES:=workshop_os,workshop_os_nfse}"
 : "${LOAD_DEMO:=false}"
@@ -58,13 +88,15 @@ if [ "$installed" != "1" ]; then
         echo "[deploy] ODOO_ADMIN_PASSWORD must have at least 10 characters" >&2
         exit 1
     fi
-    echo "[deploy] first boot: installing base"
-    odoo -c "$CONF" -i base --load-language=pt_BR --stop-after-init --no-http
-    # Render's disk is wiped on every deploy: attachments (assets, photos, PDFs) must live in the database.
-    set_param ir_attachment.location db
-    echo "env['ir.attachment'].force_storage(); env.cr.commit()" | odoo shell -c "$CONF" --no-http >/dev/null
+    # Odoo decides on sample data when the database is created, so the flag goes on the base install too.
     demo=()
     if [ "$LOAD_DEMO" = "true" ]; then demo=(--with-demo); fi
+    echo "[deploy] first boot: installing base"
+    odoo -c "$CONF" -i base "${demo[@]}" --load-language=pt_BR --stop-after-init --no-http
+    # Attachments (assets, photos, PDFs) live in the database: containers may lose their disk on a redeploy,
+    # and one database dump then holds everything.
+    set_param ir_attachment.location db
+    echo "env['ir.attachment'].force_storage(); env.cr.commit()" | odoo shell -c "$CONF" --no-http >/dev/null
     echo "[deploy] installing ${MODULES}"
     odoo -c "$CONF" -i "$MODULES" "${demo[@]}" --stop-after-init --no-http
     # The credentials reach Python through the environment, never through a command line.

@@ -1,5 +1,8 @@
-# Render's free plan sleeps after 15 idle minutes. When the repository variable KEEPALIVE_URL is set
-# (e.g. https://oficina-os.onrender.com), this pings the health endpoint during working hours in Brazil.
+# Keeps the public demo responsive. Render's free plan sleeps after 15 idle minutes, and a free Supabase
+# project pauses after a week without database activity. When the repository variable KEEPALIVE_URL is set
+# (e.g. https://oficina-os.onrender.com), this calls the health check with db_server_status=1, which also
+# opens a database connection, every 10 minutes from 07:00 to 21:00 in Brazil, Monday to Saturday.
+# GitHub turns scheduled workflows off after 60 days without commits: re-enable it in the Actions tab.
 name: Keep alive
 
 on:
@@ -11,6 +14,7 @@ jobs:
   ping:
     if: ${{ vars.KEEPALIVE_URL != '' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 4
     steps:
-      - run: curl -fsS --max-time 90 --retry 2 "${{ vars.KEEPALIVE_URL }}/web/health"
+      - name: Wake the web service and touch the database
+        run: curl -fsS --max-time 120 --retry 2 --retry-delay 20 "${{ vars.KEEPALIVE_URL }}/web/health?db_server_status=1"

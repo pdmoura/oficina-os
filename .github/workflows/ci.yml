@@ -38,3 +38,32 @@ jobs:
       - uses: actions/checkout@v5
       - name: Build
         run: docker build -t oficina-os .
+
+  self-hosted:
+    name: Self-hosted stack (compose, own PostgreSQL, demo data)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Start Odoo with its own PostgreSQL
+        run: |
+          cat > deploy/.env <<ENV
+          ODOO_ADMIN_EMAIL=ci@example.com
+          ODOO_ADMIN_PASSWORD=ci-admin-$RANDOM$RANDOM
+          DB_PASSWORD=ci-db-$RANDOM$RANDOM
+          LOAD_DEMO=true
+          ENV
+          docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
+
+      - name: Wait for the first boot and log in as the demo office user
+        run: |
+          for i in $(seq 1 60); do
+            curl -fsS "http://127.0.0.1:8069/web/health?db_server_status=1" && break
+            sleep 5
+          done
+          curl -fsS -H "Content-Type: application/json"             -d '{"jsonrpc":"2.0","method":"call","params":{"db":"odoo","login":"escritorio","password":"escritorio"}}'             http://127.0.0.1:8069/web/session/authenticate | grep -q '"uid"'
+
+      - name: Logs
+        if: always()
+        run: docker compose -f deploy/docker-compose.yml --env-file deploy/.env logs odoo | tail -50

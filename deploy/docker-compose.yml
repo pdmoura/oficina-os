@@ -1,0 +1,82 @@
+# Self-hosted production: Odoo and its own PostgreSQL on one machine, isolated from anything else running there.
+#
+#   cp deploy/.env.example deploy/.env      # then edit the passwords
+#   docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
+#
+# Odoo listens on 127.0.0.1 only: publish it through the machine's reverse proxy (nginx, Caddy...) with HTTPS.
+# Using a PostgreSQL you already have instead? Drop the db service and set DATABASE_URL (or DB_*) in .env.
+name: oficina-os
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in deploy/.env}
+      POSTGRES_DB: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    mem_limit: ${DB_MEMORY:-1g}
+    cpus: ${DB_CPUS:-1.0}
+
+  odoo:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: oficina-os:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_USER: odoo
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME:-odoo}
+      DB_SSLMODE: disable
+      PORT: 8069
+      LOAD_DEMO: ${LOAD_DEMO:-false}
+      ODOO_ADMIN_EMAIL: ${ODOO_ADMIN_EMAIL:?set ODOO_ADMIN_EMAIL in deploy/.env}
+      ODOO_ADMIN_PASSWORD: ${ODOO_ADMIN_PASSWORD:?set ODOO_ADMIN_PASSWORD in deploy/.env}
+    ports:
+      - "127.0.0.1:${ODOO_PORT:-8069}:8069"
+    mem_limit: ${ODOO_MEMORY:-2g}
+    cpus: ${ODOO_CPUS:-1.5}
+
+  # One compressed dump a day, checked hourly so the first one comes soon after install;
+  # the last BACKUP_DAYS days are kept in deploy/backups.
+  backup:
+    image: postgres:16
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: odoo
+      PGPASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME:-odoo}
+      BACKUP_DAYS: ${BACKUP_DAYS:-14}
+    volumes:
+      - ./backups:/backups
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        while true; do
+          today="/backups/$$DB_NAME-$$(date +%F).dump"
+          if [ ! -f "$$today" ] && psql -tAc "select 1 from pg_database where datname = '$$DB_NAME'" | grep -q 1; then
+            pg_dump -Fc "$$DB_NAME" > "$$today.tmp" && mv "$$today.tmp" "$$today"
+            find /backups -name '*.dump' -mtime +"$$BACKUP_DAYS" -delete
+          fi
+          sleep 3600
+        done
+    mem_limit: 256m
+
+volumes:
+  pgdata:

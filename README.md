@@ -85,7 +85,7 @@ docker compose run --rm odoo odoo -d oficina -i workshop_os,workshop_os_nfse --w
 docker compose up -d odoo
 ```
 
-Open http://localhost:8070. The demo logins are `admin` / `admin` for the office and `mecanico` / `mecanico` for the mechanic, who lands straight in the app. To see the phone app, open it with the browser in phone emulation or on a phone on the same network.
+Open http://localhost:8070. The demo logins are `admin` / `admin` for the administrator, `escritorio` / `escritorio` for the office and `mecanico` / `mecanico` for the mechanic, who lands straight in the app. To see the phone app, open it with the browser in phone emulation or on a phone on the same network.
 
 Run the tests:
 
@@ -98,24 +98,61 @@ The 39 tests cover:
 - **Workshop:** plate rules, approval, customer page, billing, reports, style compilation, Brazilian defaults on a new database.
 - **NFS-e:** the DPS against the official XSD, each regime's rules, signature verification and tampering, mocked API success, rejection and E0014 recovery, cancellation, DANFSe, CEP lookup.
 
-## Deploy (Render + Supabase)
+## Deploy
 
 The [`Dockerfile`](Dockerfile) adds the modules to the official Odoo 19 image. [`deploy/entrypoint.sh`](deploy/entrypoint.sh) configures Odoo from environment variables:
 
-- **First boot:** creates the database, keeps every attachment in PostgreSQL (the container disk is ephemeral), installs the modules in pt-BR and sets the administrator's login and password.
+- **First boot:**
+  - creates the database;
+  - keeps every attachment in PostgreSQL, so one dump holds everything and a lost container disk loses nothing;
+  - installs the modules in pt-BR, with sample data if asked;
+  - sets the administrator's login and password.
 - **Later deploys:** upgrades the modules only when their code changed.
+
+### Database: any PostgreSQL 13 or newer
+
+Odoo runs on PostgreSQL only, but any PostgreSQL will do: one you host yourself, or a managed one (Supabase, Neon, Render Postgres, Railway, AWS RDS, DigitalOcean...). Give the connection either as one URL or as separate variables:
 
 | Variable | Value |
 |---|---|
-| `DB_HOST`, `DB_PORT`, `DB_USER` | Supabase **session pooler** (IPv4; `LISTEN` works, which Odoo's cron needs). User is `postgres.<project-ref>`. |
-| `DB_PASSWORD` | database password |
-| `DB_NAME` | `odoo` (created on first boot) |
-| `ODOO_ADMIN_EMAIL`, `ODOO_ADMIN_PASSWORD` | administrator created on first boot |
-| `LOAD_DEMO` | `false` for a real shop |
+| `DATABASE_URL` | `postgres://user:password@host:5432/database?sslmode=require`, as most providers hand it out |
+| `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `DB_SSLMODE` | the same, one by one; they win over the URL. `DB_NAME` defaults to `odoo`, and `DB_SSLMODE` to `prefer` (TLS when the server offers it). |
+| `ODOO_ADMIN_EMAIL`, `ODOO_ADMIN_PASSWORD` | administrator created on the first boot (10+ characters) |
+| `LOAD_DEMO` | `true` for a demo with sample data, `false` for a real shop |
 
-Put the database and the web service in the **same region**, e.g. Supabase East US (North Virginia) and Render Virginia. Odoo runs many queries per request, so a cross-continent link would make every page slow.
+What the database must allow:
 
-On the free plan, Odoo uses about 230 MB of the 512 MB. [`keepalive.yml`](.github/workflows/keepalive.yml) pings the service during shop hours when the repository variable `KEEPALIVE_URL` is set.
+- **A role other than `postgres`.** Odoo refuses to run as the superuser.
+- **Permission to create the database.** Otherwise create it yourself, owned by that role, and name it in `DB_NAME` or in the URL.
+- **Connecting to the `postgres` maintenance database.** Odoo's scheduler listens there.
+- **A direct or session-mode connection, not a transaction-mode pooler.** Odoo's scheduler needs `LISTEN`.
+  - Supabase: the session pooler, port 5432.
+  - Neon: the endpoint without `-pooler`.
+  - PgBouncer: `pool_mode = session`.
+- **The same region as Odoo.** Odoo runs many queries per request, so a database on another continent makes every page slow.
+
+### Self-hosted, with its own PostgreSQL
+
+[`deploy/docker-compose.yml`](deploy/docker-compose.yml) runs Odoo next to its own PostgreSQL 16 on any Linux machine with Docker, amd64 or arm64:
+
+- memory and CPU caps, so it shares the machine politely;
+- a daily compressed backup in `deploy/backups`;
+- Odoo listening on `127.0.0.1` only, to be published by your reverse proxy with HTTPS.
+
+```bash
+cp deploy/.env.example deploy/.env    # set the passwords
+docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
+```
+
+To use a PostgreSQL you already run, remove the `db` service and set `DATABASE_URL` in `deploy/.env`.
+
+### Render with a managed PostgreSQL
+
+[`render.yaml`](render.yaml) is a Blueprint for a free Render web service. Point it at your database with the variables above. On the free plan, Odoo uses about 230 MB of the 512 MB.
+
+[`keepalive.yml`](.github/workflows/keepalive.yml) pings the service and its database during shop hours when the repository variable `KEEPALIVE_URL` is set. That keeps a free service awake and a free Supabase project from pausing.
+
+To give the public demo a new database, follow [docs/demo-database.md](docs/demo-database.md): new provider account, paused project, or a clean start.
 
 ## License
 
