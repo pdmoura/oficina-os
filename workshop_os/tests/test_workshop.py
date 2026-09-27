@@ -237,3 +237,7 @@ class TestBrazilDefaults(WorkshopCase):
         self.assertEqual(blank.partner_id.tz, "America/Sao_Paulo")
         self.assertEqual(worker.tz, "America/Sao_Paulo")
         self.assertEqual(usa.currency_id, usd, "a company set elsewhere is left alone")
+
+    def test_self_signup_is_closed(self):
+        scope = self.env["ir.config_parameter"].sudo().get_param("auth_signup.invitation_scope")
+        self.assertEqual(scope, "b2b", "accounts are created by the office, not by visitors")

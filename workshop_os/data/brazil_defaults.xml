@@ -2,4 +2,10 @@
 <odoo>
     <!-- Every install and update: BRL, Brazil and São Paulo time where Odoo's defaults are still in place. -->
     <function model="res.company" name="_workshop_brazil_defaults"/>
+
+    <!-- auth_signup opens self sign-up (b2c) when installed: in a workshop the office creates the accounts.
+         noupdate, so an administrator who opens it again in the settings keeps that choice. -->
+    <data noupdate="1">
+        <function model="ir.config_parameter" name="set_param" eval="('auth_signup.invitation_scope', 'b2b')"/>
+    </data>
 </odoo>

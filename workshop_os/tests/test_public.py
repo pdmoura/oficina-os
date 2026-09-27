@@ -59,6 +59,21 @@ class TestPublicPage(HttpCase):
         self.assertEqual(self.url_open(f"/workshop_os/logo/{company.id}/dark").status_code, 200)
         self.assertEqual(self.url_open("/workshop_os/logo/999999/dark").status_code, 404)
 
+    def test_login_page_takes_the_shop_colours(self):
+        self.env.company.write({"workshop_login_background": "#002848", "workshop_accent_color": "#E8B21E"})
+        page = self.url_open("/web/login").text
+        self.assertIn("#002848", page)
+        self.assertIn("background: #E8B21E", page)
+        self.assertIn("color: #111827", page, "dark text on a gold button")
+        self.assertIn("/web/binary/company_logo", page)
+        pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+        self.env.company.write({"workshop_login_theme": "dark", "workshop_logo_dark": pixel})
+        dark = self.url_open("/web/login").text
+        self.assertIn(f"/workshop_os/logo/{self.env.company.id}/dark", dark, "the dark card shows the dark logo")
+        self.assertIn("background: #16181d", dark)
+        self.env.company.workshop_login_background = "red; } body { display: none"
+        self.assertNotIn("display: none", self.url_open("/web/login").text, "only #rrggbb reaches the CSS")
+
     def test_app_icon_follows_the_company(self):
         default = self.url_open("/workshop_os/app-icon/192", allow_redirects=False)
         self.assertEqual(default.status_code, 303)

@@ -2,9 +2,11 @@ import base64
 import hashlib
 import io
 import logging
+import re
 import time
 
 import requests
+from markupsafe import Markup
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -12,6 +14,19 @@ from odoo.tools.image import base64_to_image, image_process
 
 _logger = logging.getLogger(__name__)
 PARAM = "workshop_os."
+
+
+def _hex_color(value, default):
+    """Only a #rrggbb colour reaches the CSS, whatever was typed in the setting."""
+    return value if re.fullmatch(r"#[0-9a-fA-F]{6}", value or "") else default
+
+
+def _text_on(color):
+    """Dark or white text, whichever reads better on the given background (WCAG luminance)."""
+    channels = [int(color[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+    linear = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in channels]
+    luminance = 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+    return "#111827" if luminance > 0.36 else "#ffffff"
 
 
 class ResCompany(models.Model):
@@ -33,6 +48,12 @@ class ResCompany(models.Model):
     workshop_logo_dark = fields.Image("Logo for dark backgrounds", max_width=1024, max_height=1024,
                                       help="Full logo shown on the dark screens: customer page and office dashboard. "
                                            "The company logo stays on documents, login and light screens.")
+    workshop_login_background = fields.Char(
+        "Login background", default="#0F1115",
+        help="Colour behind the login card; the button takes the accent colour.")
+    workshop_login_theme = fields.Selection(
+        [("light", "Light card"), ("dark", "Dark card")], string="Login card", default="light", required=True,
+        help="Dark uses the logo for dark backgrounds; light uses the company logo.")
     workshop_logo_mark = fields.Image("Symbol", max_width=512, max_height=512,
                                       help="The logo without text, for small places: the mechanic app header "
                                            "and the phone icon when no app icon is set.")
@@ -48,6 +69,61 @@ class ResCompany(models.Model):
             "has_logo_dark": bool(self.workshop_logo_dark),
             "has_mark": bool(self.workshop_logo_mark or self.workshop_logo_dark),
         }
+
+    def _workshop_login_logo(self):
+        """The dark theme shows the logo made for dark backgrounds, when there is one."""
+        self.ensure_one()
+        if self.workshop_login_theme == "dark" and self.workshop_logo_dark:
+            return f"/workshop_os/logo/{self.id}/dark"
+        return False
+
+    def _workshop_login_css(self):
+        """Login, sign-up and password-reset pages in the shop's colours, light or dark."""
+        self.ensure_one()
+        background = _hex_color(self.workshop_login_background, "#0F1115")
+        accent = _hex_color(self.workshop_accent_color, "#E8B21E")
+        on_accent = _text_on(accent)
+        card = ".o_database_list"
+        rules = [
+            f"body.bg-100, #wrapwrap {{ background: radial-gradient(1100px 620px at 50% -12%, "
+            f"color-mix(in srgb, {background} 78%, #ffffff), {background} 58%, "
+            f"color-mix(in srgb, {background} 70%, #000000)) fixed !important; min-height: 100vh; }}",
+            f"{card}.card {{ border-radius: 18px; margin-top: 7vh; max-width: 360px !important; "
+            f"box-shadow: 0 28px 70px rgba(0, 0, 0, .38); }}",
+            f"{card} .btn-primary {{ background: {accent} !important; border-color: {accent} !important; "
+            f"color: {on_accent} !important; font-weight: 700; }}",
+            f"{card} .btn-primary:hover, {card} .btn-primary:focus {{ filter: brightness(.94); }}",
+            f"{card} .form-control:focus {{ border-color: {accent}; "
+            f"box-shadow: 0 0 0 .2rem color-mix(in srgb, {accent} 30%, transparent); }}",
+        ]
+        if self.workshop_login_theme == "dark":
+            rules += [
+                f"{card}.card {{ background: #16181d !important; color: #e5e7eb; "
+                f"border: 1px solid rgba(255, 255, 255, .07) !important; }}",
+                # Odoo paints the card body in translucent white on top of the card.
+                f"{card} .card-body {{ background: transparent !important; color: #e5e7eb; }}",
+                f"{card} .list-group-item {{ background: #0b0c0f !important; border-color: #2a2d35 !important; "
+                f"color: #e5e7eb !important; }}",
+                f"{card} .list-group-item-action:hover {{ background: #1c1f26 !important; }}",
+                f"{card} .border-top, {card} .border-bottom {{ border-color: rgba(255, 255, 255, .08) !important; }}",
+                f"{card} label, {card} .col-form-label {{ color: #d1d5db; font-size: .78rem; font-weight: 700; "
+                f"text-transform: uppercase; letter-spacing: .06em; }}",
+                f"{card} .form-control {{ background: #0b0c0f; border-color: #2a2d35; color: #f3f4f6; }}",
+                f"{card} .form-control::placeholder {{ color: #6b7280; }}",
+                f"{card} .form-control:focus {{ background: #0b0c0f; color: #f3f4f6; }}",
+                f"{card} .input-group .btn, {card} .btn-secondary, {card} .btn-light, {card} .btn.border "
+                f"{{ background: #0b0c0f !important; border-color: #2a2d35 !important; color: #e5e7eb !important; }}",
+                f"{card} .btn-primary {{ background: linear-gradient(180deg, {accent}, "
+                f"color-mix(in srgb, {accent} 78%, #000000)) !important; }}",
+                f"{card} a, {card} .btn-link {{ color: {accent} !important; }}",
+                f"{card} .text-muted, {card} small, {card} em {{ color: #9ca3af !important; }}",
+            ]
+        else:
+            rules += [
+                f"{card}.card {{ background: #ffffff !important; }}",
+                f"{card} a {{ color: color-mix(in srgb, {background} 85%, #000000); }}",
+            ]
+        return Markup(" ".join(rules))
 
     def _workshop_app_icon_png(self, size, rounded=True):
         """Phone icon: the uploaded one, or the symbol centred on the app's dark tile."""
@@ -104,6 +180,8 @@ class ResConfigSettings(models.TransientModel):
     workshop_app_icon = fields.Image(related="company_id.workshop_app_icon", readonly=False)
     workshop_logo_dark = fields.Image(related="company_id.workshop_logo_dark", readonly=False)
     workshop_logo_mark = fields.Image(related="company_id.workshop_logo_mark", readonly=False)
+    workshop_login_background = fields.Char(related="company_id.workshop_login_background", readonly=False)
+    workshop_login_theme = fields.Selection(related="company_id.workshop_login_theme", readonly=False)
     workshop_photo_storage = fields.Selection(
         [("database", "Database"), ("cloudinary", "Cloudinary")],
         string="Photo storage", config_parameter=PARAM + "photo_storage", default="database",

@@ -2301,8 +2301,12 @@ msgstr "Número que o próprio cliente usa para este veículo (prefixo, frota)."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
-msgid "Colour of the buttons and highlights in the mechanic app and on the customer pages"
-msgstr "Cor dos botões e destaques no app do mecânico e nas páginas do cliente"
+msgid ""
+"The accent colours buttons and highlights in the mechanic app, the customer "
+"pages and the login; the login background sits behind the login card"
+msgstr ""
+"A cor de destaque pinta botões e destaques no app do mecânico, nas páginas do "
+"cliente e no login; o fundo do login fica atrás do cartão de login"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_res_company__workshop_logo_mark
@@ -2760,3 +2764,37 @@ msgstr "· previsão"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "· rejected"
 msgstr "· recusado"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_login_background
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_login_background
+msgid "Login background"
+msgstr "Fundo do login"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_login_background
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_login_background
+msgid "Colour behind the login card; the button takes the accent colour."
+msgstr "Cor atrás do cartão de login; o botão usa a cor de destaque."
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_login_theme
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_login_theme
+msgid "Login card"
+msgstr "Cartão do login"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__res_company__workshop_login_theme__light
+msgid "Light card"
+msgstr "Claro"
+
+#. module: workshop_os
+#: model:ir.model.fields.selection,name:workshop_os.selection__res_company__workshop_login_theme__dark
+msgid "Dark card"
+msgstr "Escuro"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_login_theme
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_login_theme
+msgid "Dark uses the logo for dark backgrounds; light uses the company logo."
+msgstr "O escuro usa o logo para fundo escuro; o claro usa o logo da empresa."
