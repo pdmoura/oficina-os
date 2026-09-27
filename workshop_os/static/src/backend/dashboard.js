@@ -2,7 +2,7 @@ import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { Component, onWillStart, onWillUnmount, useState } from "@odoo/owl";
 
-import { displayPlate, elapsedSince } from "@workshop_os/app/utils";
+import { bindMethods, displayPlate, elapsedSince } from "@workshop_os/app/utils";
 
 /** Office cockpit: what is in the yard, what is late, what is ready and what the month brought in. */
 export class WorkshopDashboard extends Component {
@@ -10,6 +10,7 @@ export class WorkshopDashboard extends Component {
     static props = ["*"];
 
     setup() {
+        bindMethods(this);
         this.orm = useService("orm");
         this.action = useService("action");
         this.state = useState({ data: null });

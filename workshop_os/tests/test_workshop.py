@@ -1,6 +1,9 @@
+import re
 from datetime import timedelta
+from pathlib import Path
 
 from dateutil.relativedelta import relativedelta
+from lxml import etree
 
 from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -221,6 +224,27 @@ class TestAssets(WorkshopCase):
             bundle = self.env["ir.qweb"]._get_asset_bundle(name, js=False)
             bundle.preprocess_css()
             self.assertFalse(bundle.css_errors, name)
+
+    def test_arrow_handlers_have_bound_methods(self):
+        # OWL calls `() => openOrders(...)` without `this`; such components must run bindMethods(this) in setup.
+        static = Path(__file__).parents[1] / "static" / "src"
+        calls = re.compile(r"=>\s*(?!this\.)[A-Za-z_$][\w$]*\s*\(")
+        unbound = set()
+        for xml in static.rglob("*.xml"):
+            for template in etree.parse(str(xml)).iter("t"):
+                name = template.get("t-name")
+                if name and any(calls.search(value) for element in template.iter()
+                                for key, value in element.attrib.items() if key.startswith("t-on-")):
+                    unbound.add(name)
+        self.assertIn("workshop_os.Dashboard", unbound, "the check itself still finds arrow handlers")
+        for js in static.rglob("*.js"):
+            for component in re.split(r"\n(?=(?:export )?class )", js.read_text(encoding="utf-8")):
+                found = re.search(r'static template = "([^"]+)"', component)
+                if found and found.group(1) in unbound:
+                    unbound.discard(found.group(1))
+                    self.assertTrue("bindMethods(this)" in component,
+                                    f"{found.group(1)} has arrow handlers but its component never runs bindMethods(this)")
+        self.assertFalse(unbound, "templates with arrow handlers but no component found")
 
 
 @tagged("post_install", "-at_install")
