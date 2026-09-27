@@ -116,7 +116,9 @@ class ResCompany(models.Model):
                 f"{card} .btn-primary {{ background: linear-gradient(180deg, {accent}, "
                 f"color-mix(in srgb, {accent} 78%, #000000)) !important; }}",
                 f"{card} a, {card} .btn-link {{ color: {accent} !important; }}",
-                f"{card} .text-muted, {card} small, {card} em {{ color: #9ca3af !important; }}",
+                # Odoo's own .card-body .text-muted rule is very specific: the ID inside :is() outweighs it.
+                f":is(#wrapwrap, body) {card} .text-muted, :is(#wrapwrap, body) {card} small, "
+                f":is(#wrapwrap, body) {card} em {{ color: #9ca3af !important; }}",
             ]
         else:
             rules += [
