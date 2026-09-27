@@ -66,6 +66,33 @@ class WorkshopBrand(http.Controller):
             return request.make_response(png, [("Content-Type", "image/png"), ("Cache-Control", "public, max-age=3600")])
         return request.redirect(f"/workshop_os/static/img/app_icon_{512 if size > 192 else 192}.png")
 
+    @http.route("/workshop_os/favicon.ico", type="http", auth="public", sitemap=False, readonly=True)
+    def favicon(self, **kwargs):
+        """The workshop's own browser icon; without one, the app icon made from its symbol."""
+        company = request.env.company.sudo()
+        if not company.workshop_favicon:
+            return request.redirect("/workshop_os/app-icon/64")
+        return request.make_response(company._workshop_favicon_ico(),
+                                     [("Content-Type", "image/x-icon"), ("Cache-Control", "public, max-age=86400")])
+
+    @http.route("/workshop_os/icon/<int:size>", type="http", auth="public", sitemap=False, readonly=True)
+    def browser_icon(self, size, **kwargs):
+        """PNG sizes of the browser icon (tab and phone shortcuts)."""
+        size = min(max(size, 16), 256)
+        png = request.env.company.sudo()._workshop_favicon_png(size)
+        if png is None:
+            return request.redirect(f"/workshop_os/app-icon/{size}")
+        return request.make_response(png, [("Content-Type", "image/png"), ("Cache-Control", "public, max-age=86400")])
+
+    @http.route("/workshop_os/og-image/<int:company_id>", type="http", auth="public", sitemap=False, readonly=True)
+    def og_image(self, company_id, **kwargs):
+        """Picture of shared links: public, because link previews are fetched without a session."""
+        company = request.env["res.company"].sudo().browse(company_id).exists()
+        if not company.workshop_og_image:
+            raise request.not_found()
+        stream = request.env["ir.binary"]._get_image_stream_from(company, "workshop_og_image")
+        return stream.get_response(max_age=86400)
+
     @http.route("/workshop_os/logo/<int:company_id>/<string:variant>", type="http", auth="public",
                 sitemap=False, readonly=True)
     def company_logo(self, company_id, variant, **kwargs):

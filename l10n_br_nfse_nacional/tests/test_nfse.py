@@ -13,7 +13,7 @@ from lxml import etree
 from odoo.exceptions import UserError
 from odoo.tests import TransactionCase, tagged
 
-from ..models import nfse_document
+from ..models import l10n_br_nfse_nacional_document
 from ..tools import nfse_xml
 
 N = {"n": nfse_xml.NS}
@@ -85,7 +85,7 @@ class TestNfse(TransactionCase):
         })
 
     def _note(self, **values):
-        return self.env["nfse.document"].create({
+        return self.env["l10n_br_nfse_nacional.document"].create({
             "partner_id": self.customer.id, "amount": 1500, "mode": "api", "environment": "2",
             "description": "Revisão do alternador — troca de escovas\nTeste de carga 😀",
             **values,
@@ -157,7 +157,7 @@ class TestNfse(TransactionCase):
                 if m == method and fragment in url:
                     return answer(json) if callable(answer) else answer
             return FakeResponse(404, {})
-        return patch.object(nfse_document.requests, "request", side_effect=request)
+        return patch.object(l10n_br_nfse_nacional_document.requests, "request", side_effect=request)
 
     def test_issue_through_the_api(self):
         self.company.nfse_certificate_id = self.certificate

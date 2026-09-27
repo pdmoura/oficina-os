@@ -1,6 +1,6 @@
 {
     "name": "Workshop Orders: NFS-e",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "category": "Services",
     "summary": "Issue the NFS-e of a monthly closing or a work order",
     "author": "Pedro Alves",
@@ -11,7 +11,7 @@
         "security/workshop_os_nfse_groups.xml",
         "views/workshop_billing_views.xml",
         "views/workshop_order_views.xml",
-        "views/nfse_document_views.xml",
+        "views/l10n_br_nfse_nacional_document_views.xml",
         "views/workshop_os_nfse_menus.xml",
     ],
     "auto_install": True,

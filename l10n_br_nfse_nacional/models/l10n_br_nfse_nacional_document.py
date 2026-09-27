@@ -30,8 +30,8 @@ BRASILIA = ZoneInfo("America/Sao_Paulo")
 APP_VERSION = "OdooWorkshop-1.0"
 
 
-class NfseDocument(models.Model):
-    _name = "nfse.document"
+class L10nBrNfseNacionalDocument(models.Model):
+    _name = "l10n_br_nfse_nacional.document"
     _description = "Service invoice (NFS-e)"
     _inherit = ["mail.thread"]
     _order = "id desc"
@@ -177,7 +177,7 @@ class NfseDocument(models.Model):
     def action_open_cancel(self):
         self.ensure_one()
         return {
-            "type": "ir.actions.act_window", "res_model": "nfse.document.cancel", "view_mode": "form", "target": "new",
+            "type": "ir.actions.act_window", "res_model": "l10n_br_nfse_nacional.document.cancel", "view_mode": "form", "target": "new",
             "name": _("Cancel NFS-e"), "context": {"default_document_id": self.id},
         }
 

@@ -16,6 +16,8 @@ class ResConfigSettings(models.TransientModel):
     workshop_logo_dark = fields.Image(related="company_id.workshop_logo_dark", readonly=False)
     workshop_logo_mark = fields.Image(related="company_id.workshop_logo_mark", readonly=False)
     workshop_logo_mark_light = fields.Image(related="company_id.workshop_logo_mark_light", readonly=False)
+    workshop_favicon = fields.Binary(related="company_id.workshop_favicon", readonly=False)
+    workshop_og_image = fields.Image(related="company_id.workshop_og_image", readonly=False)
     workshop_login_background = fields.Char(related="company_id.workshop_login_background", readonly=False)
     workshop_login_theme = fields.Selection(related="company_id.workshop_login_theme", readonly=False)
     workshop_photo_storage = fields.Selection(

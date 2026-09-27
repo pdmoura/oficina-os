@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="nfse_document_view_form" model="ir.ui.view">
-        <field name="name">nfse.document.view.form.inherit.workshop_os_nfse</field>
-        <field name="model">nfse.document</field>
-        <field name="inherit_id" ref="l10n_br_nfse_nacional.nfse_document_view_form"/>
+    <record id="l10n_br_nfse_nacional_document_view_form" model="ir.ui.view">
+        <field name="name">l10n_br_nfse_nacional.document.view.form.inherit.workshop_os_nfse</field>
+        <field name="model">l10n_br_nfse_nacional.document</field>
+        <field name="inherit_id" ref="l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form"/>
         <field name="arch" type="xml">
             <field name="origin" position="after">
                 <field name="workshop_billing_id" invisible="not workshop_billing_id" readonly="1"/>

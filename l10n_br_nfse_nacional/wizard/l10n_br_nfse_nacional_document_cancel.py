@@ -2,11 +2,11 @@ from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
-class NfseDocumentCancel(models.TransientModel):
-    _name = "nfse.document.cancel"
+class L10nBrNfseNacionalDocumentCancel(models.TransientModel):
+    _name = "l10n_br_nfse_nacional.document.cancel"
     _description = "Cancel an NFS-e"
 
-    document_id = fields.Many2one("nfse.document", required=True, ondelete="cascade")
+    document_id = fields.Many2one("l10n_br_nfse_nacional.document", required=True, ondelete="cascade")
     mode = fields.Selection(related="document_id.mode")
     reason_code = fields.Selection(
         [("1", "Issuing error"), ("2", "Service not provided"), ("9", "Other")],

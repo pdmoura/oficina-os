@@ -56,14 +56,20 @@ msgid "%s is not a valid plate. Use ABC1234 or ABC1D23."
 msgstr "%s não é uma placa válida. Use ABC1234 ou ABC1D23."
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_company.py:0
+msgid "%s | Work order system"
+msgstr "%s | Sistema de ordens de serviço"
+
+#. module: workshop_os
 #: model:ir.actions.report,print_report_name:workshop_os.action_report_workshop_order
 msgid "'%s - %s' % (object.name, object.plate or '')"
 msgstr ""
 
 #. module: workshop_os
 #: model:ir.actions.report,print_report_name:workshop_os.action_report_workshop_billing
-msgid "'Fechamento - %s' % (object.name)"
-msgstr ""
+msgid "'Monthly closing - %s' % (object.name)"
+msgstr "'Fechamento - %s' % (object.name)"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
@@ -220,6 +226,11 @@ msgid "Activity Type Icon"
 msgstr "Ícone do tipo de atividade"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_44
+msgid "AdBlue (Arla 32): level and hoses"
+msgstr "Arla 32: nível e mangueiras"
+
+#. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "Add at least one service to %s before marking it ready."
@@ -237,14 +248,16 @@ msgid "Add the services you sell"
 msgstr "Cadastre os serviços que você vende"
 
 #. module: workshop_os
-#: model:workshop.stage,description:workshop_os.stage_office
-msgid "Aguardando orçamento ou aprovação"
-msgstr "Aguardando orçamento ou aprovação"
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_30
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_31
+#: model:workshop.sector,name:workshop_os.sector_ac
+msgid "Air conditioning"
+msgstr "Ar condicionado"
 
 #. module: workshop_os
-#: model:workshop.stage,name:workshop_os.stage_parts
-msgid "Aguardando peças"
-msgstr "Aguardando peças"
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_30
+msgid "Air conditioning cooling"
+msgstr "Ar condicionado gelando"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -253,10 +266,25 @@ msgid "All"
 msgstr "Todas"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_exit_item_01
+msgid "All approved items done"
+msgstr "Todos os itens aprovados executados"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_exit_item_10
+msgid "All lights tested"
+msgstr "Todas as luzes testadas"
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 msgid "All orders"
 msgstr "Todas as OS"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_19
+msgid "Alternator charging"
+msgstr "Carga do alternador"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
@@ -357,19 +385,14 @@ msgid "Approved online by %(name)s: %(count)s of %(total)s items."
 msgstr "Aprovada on-line por %(name)s: %(count)s de %(total)s itens."
 
 #. module: workshop_os
-#: model:res.groups,comment:workshop_os.workshop_os_group_manager
-msgid "Approves orders, manages prices, settings and the monthly closing."
-msgstr "Aprova OS, gerencia preços, configurações e o fechamento mensal."
-
-#. module: workshop_os
 #: model:workshop.stage,description:workshop_os.stage_queue
-msgid "Aprovado, esperando mecânico"
+msgid "Approved, waiting for a mechanic"
 msgstr "Aprovado, esperando mecânico"
 
 #. module: workshop_os
-#: model:workshop.sector,name:workshop_os.sector_ac
-msgid "Ar condicionado"
-msgstr "Ar condicionado"
+#: model:res.groups,comment:workshop_os.workshop_os_group_manager
+msgid "Approves orders, manages prices, settings and the monthly closing."
+msgstr "Aprova OS, gerencia preços, configurações e o fechamento mensal."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_search
@@ -397,6 +420,11 @@ msgstr "Entrada"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__tow
 msgid "Arrived towed"
 msgstr "Chegou de guincho"
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_customer
+msgid "At the customer's"
+msgstr "No cliente"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__attachment_id
@@ -453,24 +481,39 @@ msgid "Background colour"
 msgstr "Cor de fundo"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_18
+msgid "Batteries: mounting and terminals"
+msgstr "Baterias: fixação e terminais"
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_bay_1
+msgid "Bay 1"
+msgstr "Box 1"
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_bay_2
+msgid "Bay 2"
+msgstr "Box 2"
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_bay_3
+msgid "Bay 3"
+msgstr "Box 3"
+
+#. module: workshop_os
 #: model:ir.ui.menu,name:workshop_os.workshop_os_menu_billing
 msgid "Billing"
 msgstr "Faturamento"
 
 #. module: workshop_os
-#: model:workshop.location,name:workshop_os.location_bay_1
-msgid "Box 1"
-msgstr "Box 1"
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_42
+msgid "Body damage (take photos)"
+msgstr "Avarias na lataria (fotografar)"
 
 #. module: workshop_os
-#: model:workshop.location,name:workshop_os.location_bay_2
-msgid "Box 2"
-msgstr "Box 2"
-
-#. module: workshop_os
-#: model:workshop.location,name:workshop_os.location_bay_3
-msgid "Box 3"
-msgstr "Box 3"
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_14
+msgid "Brake lights"
+msgstr "Luz de freio"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -491,6 +534,13 @@ msgid "Brought by"
 msgstr "Motorista"
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_favicon
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_favicon
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid "Browser icon"
+msgstr "Ícone do navegador"
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__bus
 msgid "Bus"
 msgstr "Ônibus"
@@ -506,6 +556,13 @@ msgstr ""
 "cliente."
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_company.py:0
+msgid ""
+"By approving, I authorise the listed services and their payment as agreed."
+msgstr "Ao aprovar, autorizo a execução dos serviços listados e o pagamento conforme combinado."
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
 msgid "By service"
 msgstr "Por serviço"
@@ -514,6 +571,24 @@ msgstr "Por serviço"
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "CNPJ/CPF"
 msgstr "CNPJ/CPF"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_01
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_02
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_03
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_04
+msgid "Cab"
+msgstr "Cabine"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_exit_item_20
+msgid "Cab clean"
+msgstr "Cabine limpa"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_31
+msgid "Cab ventilation"
+msgstr "Ventilação da cabine"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
@@ -786,6 +861,16 @@ msgid "Dark uses the logo for dark backgrounds; light uses the company logo."
 msgstr "O escuro usa o logo para fundo escuro; o claro usa o logo da empresa."
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_01
+msgid "Dashboard with no warning lights"
+msgstr "Painel sem luzes de alerta"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_exit_item_11
+msgid "Dashboard without warnings"
+msgstr "Painel sem alertas"
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__res_config_settings__workshop_photo_storage__database
 msgid "Database"
 msgstr "Banco de dados"
@@ -837,6 +922,8 @@ msgstr "Entregue em"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__exit
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_photo__kind__exit
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_exit_item_20
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_exit_item_21
 msgid "Delivery"
 msgstr "Saída"
 
@@ -856,11 +943,6 @@ msgstr "Diagnóstico"
 #: model:workshop.sector,name:workshop_os.sector_diesel
 msgid "Diesel"
 msgstr "Diesel"
-
-#. module: workshop_os
-#: model:workshop.sector,name:workshop_os.sector_steering
-msgid "Direção hidráulica"
-msgstr "Direção hidráulica"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -892,11 +974,6 @@ msgid "Display Name"
 msgstr "Nome exibido"
 
 #. module: workshop_os
-#: model:workshop.sector,name:workshop_os.sector_misc
-msgid "Diversos"
-msgstr "Diversos"
-
-#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Do the arrival checklist"
@@ -919,6 +996,11 @@ msgid "Driver or employee of the customer who brought the vehicle."
 msgstr "Motorista ou funcionário do cliente que trouxe o veículo."
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_04
+msgid "Driver's belongings checked"
+msgstr "Pertences do motorista conferidos"
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__duration_hours
 msgid "Duration Hours"
 msgstr "Duração (horas)"
@@ -934,35 +1016,31 @@ msgid "Electric"
 msgstr "Elétrico"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_10
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_11
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_12
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_13
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_14
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_15
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_16
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_17
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_18
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_19
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_20
 #: model:workshop.sector,name:workshop_os.sector_electric
-msgid "Elétrica"
+msgid "Electrical"
 msgstr "Elétrica"
 
 #. module: workshop_os
-#: model:workshop.stage,name:workshop_os.stage_working
-msgid "Em serviço"
-msgstr "Em serviço"
-
-#. module: workshop_os
-#: model:workshop.location,name:workshop_os.location_road
-msgid "Em teste na rua"
-msgstr "Em teste na rua"
+#: model:workshop.sector,name:workshop_os.sector_injection
+msgid "Electronic fuel injection"
+msgstr "Injeção eletrônica"
 
 #. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "Empty plate"
 msgstr "Placa vazia"
-
-#. module: workshop_os
-#: model:workshop.checklist.template,name:workshop_os.checklist_truck_entry
-msgid "Entrada do caminhão"
-msgstr "Entrada do caminhão"
-
-#. module: workshop_os
-#: model:workshop.stage,name:workshop_os.stage_office
-msgid "Escritório"
-msgstr "Escritório"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_service__hours
@@ -973,6 +1051,15 @@ msgstr "Tempo estimado, em horas (1.5 = 1h30)."
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__ethanol
 msgid "Ethanol"
 msgstr "Etanol"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_40
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_41
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_42
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_43
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_44
+msgid "Exterior"
+msgstr "Externo"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__favorite
@@ -1045,6 +1132,11 @@ msgid "Folder"
 msgstr "Pasta"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+msgid "Follow the service and approve the quote online."
+msgstr "Acompanhe o serviço e aprove o orçamento online."
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_follower_ids
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__message_follower_ids
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__message_follower_ids
@@ -1077,6 +1169,11 @@ msgstr "De"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__fuel
 msgid "Fuel"
 msgstr "Combustível"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_03
+msgid "Fuel level noted"
+msgstr "Nível de combustível anotado"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
@@ -1157,10 +1254,20 @@ msgid "Hex colour used on the kanban column and the mechanic app."
 msgstr "Cor hexadecimal usada na coluna do kanban e no app do mecânico."
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_11
+msgid "High beams"
+msgstr "Farol alto"
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "History"
 msgstr "Histórico"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_16
+msgid "Horn"
+msgstr "Buzina"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__elapsed_hours
@@ -1207,6 +1314,15 @@ msgid "Icon"
 msgstr "Ícone"
 
 #. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_favicon
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_favicon
+msgid ""
+"Icon of the browser tab and of phone shortcuts, as .ico or .png. An .ico may"
+" hold several sizes: each one is used as it is wherever that size is asked "
+"for."
+msgstr "Ícone da aba do navegador e dos atalhos no celular, em .ico ou .png. Um .ico pode ter vários tamanhos: cada um é usado como está onde aquele tamanho for pedido."
+
+#. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_exception_icon
 msgid "Icon to indicate an exception activity."
 msgstr "Ícone para indicar uma atividade excepcional."
@@ -1226,16 +1342,16 @@ msgid "If checked, some messages have a delivery error."
 msgstr "Se marcado, algumas mensagens têm erro de entrega."
 
 #. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_working
+msgid "In progress"
+msgstr "Em serviço"
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/backend/dashboard.js:0
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 msgid "In the yard"
 msgstr "Na oficina"
-
-#. module: workshop_os
-#: model:workshop.sector,name:workshop_os.sector_injection
-msgid "Injeção eletrônica"
-msgstr "Injeção eletrônica"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__inspection
@@ -1388,6 +1504,13 @@ msgid "Light vehicle"
 msgstr "Veículo leve"
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_og_image
+#: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_og_image
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid "Link preview image"
+msgstr "Imagem de pré-visualização de links"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
 msgid "Load orders of the period"
 msgstr "Carregar OS do período"
@@ -1430,6 +1553,11 @@ msgstr "Logo para fundo escuro"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Looking up…"
 msgstr "Consultando…"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_10
+msgid "Low beams (left and right)"
+msgstr "Farol baixo (esquerdo e direito)"
 
 #. module: workshop_os
 #. odoo-python
@@ -1497,6 +1625,11 @@ msgid "Messages"
 msgstr "Mensagens"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_41
+msgid "Mirrors"
+msgstr "Retrovisores"
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__model
@@ -1544,11 +1677,6 @@ msgstr "Minhas OS"
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_checklist__result__na
 msgid "N/A"
 msgstr "N/A"
-
-#. module: workshop_os
-#: model:workshop.stage,name:workshop_os.stage_queue
-msgid "Na fila"
-msgstr "Na fila"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__name
@@ -1601,11 +1729,6 @@ msgstr "Tipo da próxima atividade"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "No checklist on this order yet."
 msgstr "Esta OS ainda não tem checklist."
-
-#. module: workshop_os
-#: model:workshop.location,name:workshop_os.location_customer
-msgid "No cliente"
-msgstr "No cliente"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1742,7 +1865,13 @@ msgid "Odometer (km)"
 msgstr "Hodômetro (km)"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_exit_item_21
+msgid "Odometer at delivery noted"
+msgstr "Km de saída anotado"
+
+#. module: workshop_os
 #: model:res.groups,name:workshop_os.workshop_os_group_manager
+#: model:workshop.stage,name:workshop_os.stage_office
 msgid "Office"
 msgstr "Escritório"
 
@@ -1751,6 +1880,11 @@ msgstr "Escritório"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Office view"
 msgstr "Visão do escritório"
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_stopped
+msgid "On hold"
+msgstr "Serviço parado"
 
 #. module: workshop_os
 #. odoo-python
@@ -1881,6 +2015,7 @@ msgstr "OS: %s"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__other
+#: model:workshop.sector,name:workshop_os.sector_misc
 msgid "Other"
 msgstr "Outro"
 
@@ -1963,6 +2098,13 @@ msgstr ""
 "relatório e emita a NFS-e."
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid ""
+"Picture shown when a link to the system or to a work order is shared, e.g. "
+"on WhatsApp (1200×630)"
+msgstr "Imagem exibida quando um link do sistema ou de uma OS é compartilhado, por exemplo no WhatsApp (1200×630)"
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/backend/fields.js:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__plate
@@ -1984,6 +2126,11 @@ msgstr "Placa, OS ou cliente"
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "Please type your name."
 msgstr "Digite seu nome."
+
+#. module: workshop_os
+#: model:workshop.sector,name:workshop_os.sector_steering
+msgid "Power steering"
+msgstr "Direção hidráulica"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_partner__workshop_auto_approve
@@ -2038,6 +2185,12 @@ msgid "Problem and diagnosis"
 msgstr "Problema e diagnóstico"
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_company.py:0
+msgid "Professional work order system of %s."
+msgstr "Sistema profissional de ordens de serviço da %s."
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__state
 msgid "Progress"
 msgstr "Andamento"
@@ -2053,11 +2206,6 @@ msgid "Public"
 msgstr "ID público"
 
 #. module: workshop_os
-#: model:workshop.location,name:workshop_os.location_yard
-msgid "Pátio"
-msgstr "Pátio"
-
-#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "Qty"
@@ -2067,6 +2215,11 @@ msgstr "Qtd."
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__quantity
 msgid "Quantity"
 msgstr "Quantidade"
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_queue
+msgid "Queued"
+msgstr "Na fila"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2144,6 +2297,11 @@ msgid "Reopen"
 msgstr "Reabrir"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_exit_item_02
+msgid "Replaced parts set aside for the customer"
+msgstr "Peças substituídas separadas para o cliente"
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__complaint
 msgid "Reported problem"
 msgstr "Problema relatado"
@@ -2164,20 +2322,30 @@ msgid "Return of a previous job (reserviço)."
 msgstr "Retorno de um serviço anterior (reserviço)."
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_15
+msgid "Reversing light and alarm"
+msgstr "Luz e alarme de ré"
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__rework
 msgid "Rework"
 msgstr "Retrabalho"
+
+#. module: workshop_os
+#: model:workshop.location,name:workshop_os.location_road
+msgid "Road test"
+msgstr "Em teste na rua"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_exit_item_12
+msgid "Road test done"
+msgstr "Teste de rodagem feito"
 
 #. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/backend/form_status_indicator.xml:0
 msgid "Save"
 msgstr "Salvar"
-
-#. module: workshop_os
-#: model:workshop.checklist.template,name:workshop_os.checklist_truck_exit
-msgid "Saída do caminhão"
-msgstr "Saída do caminhão"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2236,6 +2404,8 @@ msgstr "Sequência"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__service_id
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_exit_item_01
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_exit_item_02
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
@@ -2272,14 +2442,12 @@ msgid "Services on %(count)s work orders, %(start)s to %(end)s:"
 msgstr "Serviços em %(count)s OS, de %(start)s a %(end)s:"
 
 #. module: workshop_os
-#: model:workshop.stage,name:workshop_os.stage_stopped
-msgid "Serviço parado"
-msgstr "Serviço parado"
-
-#. module: workshop_os
-#: model:workshop.sector,name:workshop_os.sector_third
-msgid "Serviços de terceiros"
-msgstr "Serviços de terceiros"
+#. odoo-python
+#: code:addons/workshop_os/models/res_company.py:0
+msgid ""
+"Services under a 90-day warranty, as set by the Brazilian Consumer "
+"Protection Code."
+msgstr "Serviços com garantia de 90 dias, conforme o Código de Defesa do Consumidor."
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order_photo__attachment_id
@@ -2325,6 +2493,14 @@ msgstr "Aparece na lista de clientes do app do mecânico."
 #: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_terms_text
 msgid "Shown to the customer on the approval page."
 msgstr "Exibido ao cliente na página de aprovação."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_res_company__workshop_og_image
+#: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_og_image
+msgid ""
+"Shown when a link to the system or to a work order is shared (WhatsApp, "
+"e-mail...). 1200×630 fits best."
+msgstr "Exibida quando um link do sistema ou de uma OS é compartilhado (WhatsApp, e-mail...). O tamanho ideal é 1200×630."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2416,6 +2592,23 @@ msgid "Symbol for light backgrounds"
 msgstr "Símbolo para fundo claro"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid ""
+"Tab icon and phone shortcuts (.ico or .png). An .ico with several sizes "
+"keeps each size exactly as drawn"
+msgstr "Ícone da aba e dos atalhos no celular (.ico ou .png). Um .ico com vários tamanhos mantém cada tamanho exatamente como foi desenhado"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_02
+msgid "Tachograph working"
+msgstr "Tacógrafo funcionando"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_12
+msgid "Tail lights"
+msgstr "Lanternas traseiras"
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid ""
@@ -2429,13 +2622,20 @@ msgid "Template"
 msgstr "Modelo"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_exit_item_10
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_exit_item_11
+#: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_exit_item_12
+msgid "Test"
+msgstr "Teste"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Test connection"
 msgstr "Testar conexão"
 
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_test
-msgid "Teste / conferência"
+msgid "Testing / check"
 msgstr "Teste / conferência"
 
 #. module: workshop_os
@@ -2453,6 +2653,12 @@ msgstr ""
 "A cor de destaque pinta botões e destaques em todo o sistema, no app do "
 "mecânico, nas páginas do cliente e no login; a cor de fundo pinta a barra "
 "superior e a tela de login"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_company.py:0
+msgid "The browser icon must be an .ico or .png image."
+msgstr "O ícone do navegador precisa ser uma imagem .ico ou .png."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
@@ -2509,6 +2715,11 @@ msgstr "A barra superior do sistema e o fundo da tela de login."
 #: model:ir.model.fields,help:workshop_os.field_res_users_settings__workshop_theme
 msgid "Theme of the mechanic app and the yard dashboard, chosen by each user."
 msgstr "Tema do app do mecânico e do painel, escolhido por cada usuário."
+
+#. module: workshop_os
+#: model:workshop.sector,name:workshop_os.sector_third
+msgid "Third-party services"
+msgstr "Serviços de terceiros"
 
 #. module: workshop_os
 #. odoo-python
@@ -2568,7 +2779,8 @@ msgstr ""
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order_stage_log__duration_hours
 msgid "Time spent in the stage, set when the order leaves it (for reports)."
-msgstr "Tempo gasto na situação, registrado quando a OS sai dela (para relatórios)."
+msgstr ""
+"Tempo gasto na situação, registrado quando a OS sai dela (para relatórios)."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
@@ -2604,14 +2816,30 @@ msgid "Total"
 msgstr "Total"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_20
+msgid "Trailer electrical socket"
+msgstr "Tomada elétrica do semirreboque"
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__truck
 msgid "Truck"
 msgstr "Caminhão"
 
 #. module: workshop_os
+#: model:workshop.checklist.template,name:workshop_os.checklist_truck_entry
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_checklist_template_view_form
 msgid "Truck arrival"
 msgstr "Entrada do caminhão"
+
+#. module: workshop_os
+#: model:workshop.checklist.template,name:workshop_os.checklist_truck_exit
+msgid "Truck delivery"
+msgstr "Saída do caminhão"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_13
+msgid "Turn signals and hazard lights"
+msgstr "Setas e pisca-alerta"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_exception_decoration
@@ -2718,6 +2946,17 @@ msgid "Vehicles"
 msgstr "Veículos"
 
 #. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_43
+msgid "Visible leaks"
+msgstr "Vazamentos aparentes"
+
+#. module: workshop_os
+#: model:workshop.stage,description:workshop_os.stage_office
+msgid "Waiting for a quote or approval"
+msgstr "Aguardando orçamento ou aprovação"
+
+#. module: workshop_os
+#: model:workshop.stage,name:workshop_os.stage_parts
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_form
 msgid "Waiting for parts"
 msgstr "Aguardando peças"
@@ -2774,6 +3013,16 @@ msgstr "WhatsApp"
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Where photos are stored"
 msgstr "Onde as fotos ficam salvas"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_40
+msgid "Windscreen without cracks"
+msgstr "Para-brisa sem trincas"
+
+#. module: workshop_os
+#: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_17
+msgid "Wipers and washers"
+msgstr "Limpador e esguicho"
 
 #. module: workshop_os
 #: model:ir.actions.report,name:workshop_os.action_report_workshop_order
@@ -2885,6 +3134,7 @@ msgstr "Tema da oficina"
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 #: model:ir.actions.client,name:workshop_os.action_workshop_dashboard
 #: model:ir.ui.menu,name:workshop_os.workshop_order_menu_dashboard
+#: model:workshop.location,name:workshop_os.location_yard
 msgid "Yard"
 msgstr "Painel"
 

@@ -10,6 +10,11 @@
                 <meta name="theme-color" content="#0F1115"/>
                 <meta name="robots" content="noindex"/>
                 <title t-out="'%s · %s' % (order.name, company.name)"/>
+                <link rel="icon" t-att-href="company.sudo()._workshop_favicon_url()"/>
+                <t t-call="workshop_os.browser_icons"/>
+                <t t-call="workshop_os.share_meta">
+                    <t t-set="share_title" t-value="'%s · %s' % (order.name, company.name)"/>
+                </t>
                 <t t-call-assets="workshop_os.assets_public" t-js="false"/>
                 <style t-out="':root { --Workshop-accent: %s; }' % accent"/>
             </head>
@@ -23,6 +28,7 @@
     <!-- Public page the customer opens from WhatsApp: follow the job, see photos, approve with a signature. -->
     <template id="public_order_page" name="Work order: customer page">
         <t t-call="workshop_os.public_layout">
+            <t t-set="share_description">Follow the service and approve the quote online.</t>
             <header class="o_workshop_page_hero">
                 <div t-attf-class="o_workshop_page_hero__brand #{'o_workshop_page_hero__brand--full' if company.workshop_logo_dark else ''}">
                     <img t-if="company.logo or company.workshop_logo_dark" t-att-src="'/workshop_os/logo/%s/dark' % company.id" alt=""

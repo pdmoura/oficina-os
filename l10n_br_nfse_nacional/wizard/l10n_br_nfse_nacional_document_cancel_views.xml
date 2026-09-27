@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="nfse_document_cancel_view_form" model="ir.ui.view">
-        <field name="name">nfse.document.cancel.view.form</field>
-        <field name="model">nfse.document.cancel</field>
+    <record id="l10n_br_nfse_nacional_document_cancel_view_form" model="ir.ui.view">
+        <field name="name">l10n_br_nfse_nacional.document.cancel.view.form</field>
+        <field name="model">l10n_br_nfse_nacional.document.cancel</field>
         <field name="arch" type="xml">
             <form>
                 <p invisible="mode != 'assisted'" class="text-muted">

@@ -23,11 +23,11 @@ class NfseSourceMixin(models.AbstractModel):
     def action_create_nfse(self):
         self.ensure_one()
         live = self.nfse_document_ids.filtered(lambda d: d.state != "cancel")
-        document = live[:1] or self.env["nfse.document"].create(self._nfse_values())
+        document = live[:1] or self.env["l10n_br_nfse_nacional.document"].create(self._nfse_values())
         return document.get_formview_action()
 
     def action_view_nfse(self):
         self.ensure_one()
-        action = self.env["ir.actions.act_window"]._for_xml_id("l10n_br_nfse_nacional.nfse_document_action")
+        action = self.env["ir.actions.act_window"]._for_xml_id("l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_action")
         action["domain"] = [("id", "in", self.nfse_document_ids.ids)]
         return action

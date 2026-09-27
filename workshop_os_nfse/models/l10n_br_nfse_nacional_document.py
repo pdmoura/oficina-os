@@ -1,8 +1,8 @@
 from odoo import fields, models
 
 
-class NfseDocument(models.Model):
-    _inherit = "nfse.document"
+class L10nBrNfseNacionalDocument(models.Model):
+    _inherit = "l10n_br_nfse_nacional.document"
 
     workshop_billing_id = fields.Many2one("workshop.billing", string="Monthly closing", index="btree_not_null",
                                           ondelete="set null", copy=False)

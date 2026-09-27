@@ -8,7 +8,7 @@ class WorkshopBilling(models.Model):
     _name = "workshop.billing"
     _inherit = ["workshop.billing", "workshop.nfse.source"]
 
-    nfse_document_ids = fields.One2many("nfse.document", "workshop_billing_id", string="Service invoices")
+    nfse_document_ids = fields.One2many("l10n_br_nfse_nacional.document", "workshop_billing_id", string="Service invoices")
     nfse_count = fields.Integer(compute="_compute_nfse_state")
     nfse_state = fields.Selection(NFSE_STATES, string="NFS-e", compute="_compute_nfse_state")
 

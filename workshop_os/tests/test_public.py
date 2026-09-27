@@ -1,9 +1,11 @@
+import base64
 import io
 import json
 
 from PIL import Image
 
 from odoo import Command
+from odoo.exceptions import ValidationError
 from odoo.tests import HttpCase, tagged
 
 
@@ -80,6 +82,39 @@ class TestPublicPage(HttpCase):
         self.authenticate("admin", "admin")
         info = self.make_jsonrpc_request("/web/session/get_session_info", {})
         self.assertEqual(info["workshop_app_name"], "SV Test", "the web client puts it after the page name")
+
+    def test_browser_icon_keeps_each_size_as_drawn(self):
+        # An .ico with a 16px and a 57px frame of different colours: each size is served from its own frame.
+        small, large = Image.new("RGBA", (16, 16), (255, 0, 0, 255)), Image.new("RGBA", (57, 57), (0, 0, 255, 255))
+        data = io.BytesIO()
+        large.save(data, format="ICO", sizes=[(16, 16), (57, 57)], append_images=[small])
+        self.env.company.workshop_favicon = base64.b64encode(data.getvalue())
+        page = self.url_open("/web/login").text
+        self.assertIn('sizes="57x57" href="/workshop_os/icon/57?v=', page)
+        self.assertNotIn("/workshop_os/app-icon/64", page)
+        favicon = self.url_open("/workshop_os/favicon.ico")
+        self.assertEqual((favicon.headers["Content-Type"], favicon.content), ("image/x-icon", data.getvalue()))
+        for size, colour in ((57, (0, 0, 255, 255)), (16, (255, 0, 0, 255)), (40, (0, 0, 255, 255))):
+            icon = Image.open(io.BytesIO(self.url_open(f"/workshop_os/icon/{size}").content))
+            self.assertEqual((icon.size, icon.convert("RGBA").getpixel((5, 5))), ((size, size), colour), size)
+        with self.assertRaises(ValidationError):
+            self.env.company.workshop_favicon = base64.b64encode(b"not an image")
+
+    def test_shared_links_show_the_shop(self):
+        company = self.env.company
+        company.workshop_og_image = base64.b64encode(self._png((1200, 630)))
+        page = self.url_open("/web/login").text
+        self.assertIn(f'property="og:image" content="{company.get_base_url()}/workshop_os/og-image/{company.id}?v=', page)
+        self.assertIn(f'property="og:site_name" content="{company.name}"', page)
+        self.assertEqual(self.url_open(f"/workshop_os/og-image/{company.id}").status_code, 200)
+        order_page = self.url_open(f"/os/{self.order.access_token}").text
+        self.assertIn(f'property="og:title" content="{self.order.name} · {company.name}"', order_page)
+        self.assertIn("og:description", order_page)
+
+    def _png(self, size):
+        output = io.BytesIO()
+        Image.new("RGB", size, (232, 178, 30)).save(output, "PNG")
+        return output.getvalue()
 
     def test_login_page_takes_the_shop_colours(self):
         self.env.company.write({"workshop_login_background": "#002848", "workshop_accent_color": "#E8B21E"})

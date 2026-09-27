@@ -23,7 +23,7 @@ class ResPartner(models.Model):
     nfse_document_count = fields.Integer(compute="_compute_nfse_document_count")
 
     def _compute_nfse_document_count(self):
-        data = self.env["nfse.document"]._read_group(
+        data = self.env["l10n_br_nfse_nacional.document"]._read_group(
             [("partner_id", "child_of", self.commercial_partner_id.ids)], ["partner_id"], ["__count"])
         counts = {}
         for partner, count in data:
@@ -33,7 +33,7 @@ class ResPartner(models.Model):
 
     def action_view_nfse_documents(self):
         self.ensure_one()
-        action = self.env["ir.actions.act_window"]._for_xml_id("l10n_br_nfse_nacional.nfse_document_action")
+        action = self.env["ir.actions.act_window"]._for_xml_id("l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_action")
         action["domain"] = [("partner_id", "child_of", self.commercial_partner_id.id)]
         action["context"] = {"default_partner_id": self.commercial_partner_id.id}
         return action

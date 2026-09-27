@@ -348,3 +348,12 @@ class TestBrazilDefaults(WorkshopCase):
     def test_self_signup_is_closed(self):
         scope = self.env["ir.config_parameter"].sudo().get_param("auth_signup.invitation_scope")
         self.assertEqual(scope, "b2b", "accounts are created by the office, not by visitors")
+
+    def test_starting_data_is_written_in_english(self):
+        # English sources, translated by pt_BR.po like any Odoo data; each checklist item has an xml id to carry it.
+        self.assertEqual(self.env.ref("workshop_os.stage_office").with_context(lang="en_US").name, "Office")
+        template = self.env.ref("workshop_os.checklist_truck_entry")
+        self.assertIn(self.env.ref("workshop_os.checklist_truck_entry_item_10"), template.item_ids)
+        self.assertEqual(len(template.item_ids), 22)
+        company = self.env["res.company"].with_context(lang="en_US").create({"name": "New Shop"})
+        self.assertIn("90-day warranty", company.workshop_warranty_text)

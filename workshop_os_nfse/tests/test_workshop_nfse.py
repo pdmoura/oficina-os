@@ -41,7 +41,7 @@ class TestWorkshopNfse(WorkshopCase):
             billing.action_create_nfse()
         billing.action_confirm()
         action = billing.with_user(self.office).action_create_nfse()
-        note = self.env["nfse.document"].browse(action["res_id"])
+        note = self.env["l10n_br_nfse_nacional.document"].browse(action["res_id"])
         self.assertEqual(note.partner_id, self.fleet)
         self.assertEqual(note.amount, 600)
         self.assertEqual(note.date_competence, billing.date_to)
@@ -58,7 +58,7 @@ class TestWorkshopNfse(WorkshopCase):
 
     def test_single_order_note(self):
         order = self._done_order("CCC3C33")
-        note = self.env["nfse.document"].browse(order.action_create_nfse()["res_id"])
+        note = self.env["l10n_br_nfse_nacional.document"].browse(order.action_create_nfse()["res_id"])
         self.assertEqual(note.amount, 300)
         self.assertIn(order.name, note.description)
         self.assertIn("Battery", note.description)

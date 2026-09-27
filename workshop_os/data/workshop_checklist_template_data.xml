@@ -2,49 +2,45 @@
 <!-- Arrival and delivery checklists for trucks, focused on electrical and air-conditioning work. -->
 <odoo noupdate="1">
     <record id="checklist_truck_entry" model="workshop.checklist.template">
-        <field name="name">Entrada do caminhão</field>
+        <field name="name">Truck arrival</field>
         <field name="kind">entry</field>
         <field name="vehicle_type">truck</field>
         <field name="sequence">1</field>
-        <field name="item_ids" eval="[
-            (0, 0, {'sequence': 1, 'section': 'Cabine', 'name': 'Painel sem luzes de alerta'}),
-            (0, 0, {'sequence': 2, 'section': 'Cabine', 'name': 'Tacógrafo funcionando'}),
-            (0, 0, {'sequence': 3, 'section': 'Cabine', 'name': 'Nível de combustível anotado'}),
-            (0, 0, {'sequence': 4, 'section': 'Cabine', 'name': 'Pertences do motorista conferidos'}),
-            (0, 0, {'sequence': 10, 'section': 'Elétrica', 'name': 'Farol baixo (esquerdo e direito)'}),
-            (0, 0, {'sequence': 11, 'section': 'Elétrica', 'name': 'Farol alto'}),
-            (0, 0, {'sequence': 12, 'section': 'Elétrica', 'name': 'Lanternas traseiras'}),
-            (0, 0, {'sequence': 13, 'section': 'Elétrica', 'name': 'Setas e pisca-alerta'}),
-            (0, 0, {'sequence': 14, 'section': 'Elétrica', 'name': 'Luz de freio'}),
-            (0, 0, {'sequence': 15, 'section': 'Elétrica', 'name': 'Luz e alarme de ré'}),
-            (0, 0, {'sequence': 16, 'section': 'Elétrica', 'name': 'Buzina'}),
-            (0, 0, {'sequence': 17, 'section': 'Elétrica', 'name': 'Limpador e esguicho'}),
-            (0, 0, {'sequence': 18, 'section': 'Elétrica', 'name': 'Baterias: fixação e terminais'}),
-            (0, 0, {'sequence': 19, 'section': 'Elétrica', 'name': 'Carga do alternador'}),
-            (0, 0, {'sequence': 20, 'section': 'Elétrica', 'name': 'Tomada elétrica do semirreboque'}),
-            (0, 0, {'sequence': 30, 'section': 'Ar condicionado', 'name': 'Ar condicionado gelando'}),
-            (0, 0, {'sequence': 31, 'section': 'Ar condicionado', 'name': 'Ventilação da cabine'}),
-            (0, 0, {'sequence': 40, 'section': 'Externo', 'name': 'Para-brisa sem trincas'}),
-            (0, 0, {'sequence': 41, 'section': 'Externo', 'name': 'Retrovisores'}),
-            (0, 0, {'sequence': 42, 'section': 'Externo', 'name': 'Avarias na lataria (fotografar)'}),
-            (0, 0, {'sequence': 43, 'section': 'Externo', 'name': 'Vazamentos aparentes'}),
-            (0, 0, {'sequence': 44, 'section': 'Externo', 'name': 'Arla 32: nível e mangueiras'}),
-        ]"/>
     </record>
+    <record id="checklist_truck_entry_item_01" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">1</field><field name="section">Cab</field><field name="name">Dashboard with no warning lights</field></record>
+    <record id="checklist_truck_entry_item_02" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">2</field><field name="section">Cab</field><field name="name">Tachograph working</field></record>
+    <record id="checklist_truck_entry_item_03" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">3</field><field name="section">Cab</field><field name="name">Fuel level noted</field></record>
+    <record id="checklist_truck_entry_item_04" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">4</field><field name="section">Cab</field><field name="name">Driver's belongings checked</field></record>
+    <record id="checklist_truck_entry_item_10" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">10</field><field name="section">Electrical</field><field name="name">Low beams (left and right)</field></record>
+    <record id="checklist_truck_entry_item_11" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">11</field><field name="section">Electrical</field><field name="name">High beams</field></record>
+    <record id="checklist_truck_entry_item_12" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">12</field><field name="section">Electrical</field><field name="name">Tail lights</field></record>
+    <record id="checklist_truck_entry_item_13" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">13</field><field name="section">Electrical</field><field name="name">Turn signals and hazard lights</field></record>
+    <record id="checklist_truck_entry_item_14" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">14</field><field name="section">Electrical</field><field name="name">Brake lights</field></record>
+    <record id="checklist_truck_entry_item_15" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">15</field><field name="section">Electrical</field><field name="name">Reversing light and alarm</field></record>
+    <record id="checklist_truck_entry_item_16" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">16</field><field name="section">Electrical</field><field name="name">Horn</field></record>
+    <record id="checklist_truck_entry_item_17" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">17</field><field name="section">Electrical</field><field name="name">Wipers and washers</field></record>
+    <record id="checklist_truck_entry_item_18" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">18</field><field name="section">Electrical</field><field name="name">Batteries: mounting and terminals</field></record>
+    <record id="checklist_truck_entry_item_19" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">19</field><field name="section">Electrical</field><field name="name">Alternator charging</field></record>
+    <record id="checklist_truck_entry_item_20" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">20</field><field name="section">Electrical</field><field name="name">Trailer electrical socket</field></record>
+    <record id="checklist_truck_entry_item_30" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">30</field><field name="section">Air conditioning</field><field name="name">Air conditioning cooling</field></record>
+    <record id="checklist_truck_entry_item_31" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">31</field><field name="section">Air conditioning</field><field name="name">Cab ventilation</field></record>
+    <record id="checklist_truck_entry_item_40" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">40</field><field name="section">Exterior</field><field name="name">Windscreen without cracks</field></record>
+    <record id="checklist_truck_entry_item_41" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">41</field><field name="section">Exterior</field><field name="name">Mirrors</field></record>
+    <record id="checklist_truck_entry_item_42" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">42</field><field name="section">Exterior</field><field name="name">Body damage (take photos)</field></record>
+    <record id="checklist_truck_entry_item_43" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">43</field><field name="section">Exterior</field><field name="name">Visible leaks</field></record>
+    <record id="checklist_truck_entry_item_44" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_entry"/><field name="sequence">44</field><field name="section">Exterior</field><field name="name">AdBlue (Arla 32): level and hoses</field></record>
 
     <record id="checklist_truck_exit" model="workshop.checklist.template">
-        <field name="name">Saída do caminhão</field>
+        <field name="name">Truck delivery</field>
         <field name="kind">exit</field>
         <field name="vehicle_type">truck</field>
         <field name="sequence">2</field>
-        <field name="item_ids" eval="[
-            (0, 0, {'sequence': 1, 'section': 'Serviço', 'name': 'Todos os itens aprovados executados'}),
-            (0, 0, {'sequence': 2, 'section': 'Serviço', 'name': 'Peças substituídas separadas para o cliente'}),
-            (0, 0, {'sequence': 10, 'section': 'Teste', 'name': 'Todas as luzes testadas'}),
-            (0, 0, {'sequence': 11, 'section': 'Teste', 'name': 'Painel sem alertas'}),
-            (0, 0, {'sequence': 12, 'section': 'Teste', 'name': 'Teste de rodagem feito'}),
-            (0, 0, {'sequence': 20, 'section': 'Entrega', 'name': 'Cabine limpa'}),
-            (0, 0, {'sequence': 21, 'section': 'Entrega', 'name': 'Km de saída anotado'}),
-        ]"/>
     </record>
+    <record id="checklist_truck_exit_item_01" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_exit"/><field name="sequence">1</field><field name="section">Service</field><field name="name">All approved items done</field></record>
+    <record id="checklist_truck_exit_item_02" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_exit"/><field name="sequence">2</field><field name="section">Service</field><field name="name">Replaced parts set aside for the customer</field></record>
+    <record id="checklist_truck_exit_item_10" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_exit"/><field name="sequence">10</field><field name="section">Test</field><field name="name">All lights tested</field></record>
+    <record id="checklist_truck_exit_item_11" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_exit"/><field name="sequence">11</field><field name="section">Test</field><field name="name">Dashboard without warnings</field></record>
+    <record id="checklist_truck_exit_item_12" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_exit"/><field name="sequence">12</field><field name="section">Test</field><field name="name">Road test done</field></record>
+    <record id="checklist_truck_exit_item_20" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_exit"/><field name="sequence">20</field><field name="section">Delivery</field><field name="name">Cab clean</field></record>
+    <record id="checklist_truck_exit_item_21" model="workshop.checklist.template.item"><field name="template_id" ref="checklist_truck_exit"/><field name="sequence">21</field><field name="section">Delivery</field><field name="name">Odometer at delivery noted</field></record>
 </odoo>

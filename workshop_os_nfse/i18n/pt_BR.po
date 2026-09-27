@@ -23,7 +23,7 @@ msgid "Confirm the monthly closing before issuing its NFS-e."
 msgstr "Confirme o fechamento mensal antes de emitir a NFS-e."
 
 #. module: workshop_os_nfse
-#: model:ir.model.fields,field_description:workshop_os_nfse.field_nfse_document__display_name
+#: model:ir.model.fields,field_description:workshop_os_nfse.field_l10n_br_nfse_nacional_document__display_name
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_billing__display_name
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_nfse_source__display_name
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_order__display_name
@@ -31,7 +31,7 @@ msgid "Display Name"
 msgstr "Nome exibido"
 
 #. module: workshop_os_nfse
-#: model:ir.model.fields,field_description:workshop_os_nfse.field_nfse_document__id
+#: model:ir.model.fields,field_description:workshop_os_nfse.field_l10n_br_nfse_nacional_document__id
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_billing__id
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_nfse_source__id
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_order__id
@@ -56,14 +56,14 @@ msgid "Monthly Closing"
 msgstr "Fechamento mensal"
 
 #. module: workshop_os_nfse
-#: model:ir.model.fields,field_description:workshop_os_nfse.field_nfse_document__workshop_billing_id
+#: model:ir.model.fields,field_description:workshop_os_nfse.field_l10n_br_nfse_nacional_document__workshop_billing_id
 msgid "Monthly closing"
 msgstr "Fechamento mensal"
 
 #. module: workshop_os_nfse
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_billing__nfse_state
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_order__nfse_state
-#: model:ir.ui.menu,name:workshop_os_nfse.nfse_document_menu_workshop
+#: model:ir.ui.menu,name:workshop_os_nfse.l10n_br_nfse_nacional_document_menu_workshop
 #: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_billing_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_order_view_form
 msgid "NFS-e"
@@ -93,7 +93,7 @@ msgid "Record that can be invoiced with an NFS-e"
 msgstr "Registro que pode ser faturado com NFS-e"
 
 #. module: workshop_os_nfse
-#: model:ir.model,name:workshop_os_nfse.model_nfse_document
+#: model:ir.model,name:workshop_os_nfse.model_l10n_br_nfse_nacional_document
 msgid "Service invoice (NFS-e)"
 msgstr "Nota fiscal de serviço (NFS-e)"
 
@@ -127,6 +127,6 @@ msgid "Work Order"
 msgstr "Ordem de serviço"
 
 #. module: workshop_os_nfse
-#: model:ir.model.fields,field_description:workshop_os_nfse.field_nfse_document__workshop_order_id
+#: model:ir.model.fields,field_description:workshop_os_nfse.field_l10n_br_nfse_nacional_document__workshop_order_id
 msgid "Work order"
 msgstr "Ordem de serviço"

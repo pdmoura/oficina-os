@@ -22,7 +22,7 @@ msgid "'DANFSe-%s' % (object.nfse_number or object.id)"
 msgstr ""
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "50 digits"
 msgstr "50 dígitos"
 
@@ -248,12 +248,12 @@ msgid "<span class=\"t\">Valor líquido da NFS-e</span>"
 msgstr "<span class=\"t\">Valor líquido da NFS-e</span>"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "<strong>Before issuing:</strong>"
 msgstr "<strong>Antes de emitir:</strong>"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "<strong>Rejected by the national system:</strong>"
 msgstr "<strong>Rejeitada pelo sistema nacional:</strong>"
 
@@ -273,17 +273,17 @@ msgid "A1 certificate"
 msgstr "Certificado A1"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__access_key
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__access_key
 msgid "Access key"
 msgstr "Chave de acesso"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_needaction
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_needaction
 msgid "Action Needed"
 msgstr "Requer ação"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__assist_amount
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__assist_amount
 msgid "Amount (as typed)"
 msgstr "Valor (formatado)"
 
@@ -327,7 +327,7 @@ msgid "Approximate taxes (Law 12.741)"
 msgstr "Tributos aproximados (Lei 12.741)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document__mode__assisted
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document__mode__assisted
 msgid "Assisted"
 msgstr "Assistida"
 
@@ -358,22 +358,22 @@ msgstr ""
 "enviada direto ao sistema nacional."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_document_cancel__reason
+#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__reason
 msgid "At least 15 characters, as the national system requires."
 msgstr "No mínimo 15 caracteres, como exige o sistema nacional."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_attachment_count
 msgid "Attachment Count"
 msgstr "Qtd. de anexos"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_cancel_view_form
 msgid "Back"
 msgstr "Voltar"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Back to draft"
 msgstr "Voltar para rascunho"
 
@@ -384,7 +384,7 @@ msgstr "CANCELADA"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "CEP"
 msgstr "CEP"
 
@@ -395,25 +395,25 @@ msgid "CEP %s was not found."
 msgstr "CEP %s não encontrado."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "CNPJ/CPF"
 msgstr "CNPJ/CPF"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Cancel NFS-e"
 msgstr "Cancelar NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model,name:l10n_br_nfse_nacional.model_nfse_document_cancel
+#: model:ir.model,name:l10n_br_nfse_nacional.model_l10n_br_nfse_nacional_document_cancel
 msgid "Cancel an NFS-e"
 msgstr "Cancelamento de NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_cancel_view_form
 msgid ""
 "Cancel the note on the Emissor Nacional first; this only records the "
 "cancellation here."
@@ -422,7 +422,7 @@ msgstr ""
 "registrado."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document__state__cancel
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document__state__cancel
 msgid "Cancelled"
 msgstr "Cancelada"
 
@@ -445,7 +445,7 @@ msgid "Companies"
 msgstr "Empresas"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__company_id
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__company_id
 msgid "Company"
 msgstr "Empresa"
 
@@ -455,13 +455,13 @@ msgid "Company registration"
 msgstr "Cadastro da empresa"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__date_competence
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__date_competence
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_search
 msgid "Competence"
 msgstr "Competência"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__assist_competence
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__assist_competence
 msgid "Competence (dd/mm/yyyy)"
 msgstr "Competência (dd/mm/aaaa)"
 
@@ -481,42 +481,42 @@ msgid "Cooperative act"
 msgstr "Ato cooperado (cooperativa)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__create_uid
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__create_uid
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__create_uid
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__create_uid
 msgid "Created by"
 msgstr "Criado por"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__create_date
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__create_date
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__create_date
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__create_date
 msgid "Created on"
 msgstr "Criado em"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__currency_id
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__currency_id
 msgid "Currency"
 msgstr "Moeda"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__partner_id
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__partner_id
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_search
 msgid "Customer"
 msgstr "Cliente"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__assist_partner_document
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__assist_partner_document
 msgid "Customer CNPJ/CPF"
 msgstr "CNPJ/CPF do cliente"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__assist_partner_name
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__assist_partner_name
 msgid "Customer name"
 msgstr "Nome do cliente"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.actions.report,name:l10n_br_nfse_nacional.action_report_danfse
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "DANFSe"
 msgstr "DANFSe"
 
@@ -527,27 +527,27 @@ msgstr "DANFSe v2.0"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "DPS %(series)s-%(number)s"
 msgstr "DPS %(series)s-%(number)s"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__dps_xml
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__dps_xml
 msgid "DPS (signed XML)"
 msgstr "DPS (XML assinado)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__dps_key
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__dps_key
 msgid "DPS id"
 msgstr "ID da DPS"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__dps_number
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__dps_number
 msgid "DPS number"
 msgstr "Número da DPS"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__dps_series
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__dps_series
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__nfse_series
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__nfse_series
 msgid "DPS series"
@@ -555,12 +555,12 @@ msgstr "Série da DPS"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "DPS series %(series)s (%(company)s)"
 msgstr "Série da DPS %(series)s (%(company)s)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_document__date_competence
+#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__date_competence
 msgid ""
 "Date of the service; it defines the tax period and cannot be in the future."
 msgstr "Data do serviço; define o período de apuração e não pode ser futura."
@@ -572,12 +572,12 @@ msgstr "Serviço padrão"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "Describe the service."
 msgstr "Descreva o serviço."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Description"
 msgstr "Descrição"
 
@@ -587,20 +587,20 @@ msgid "Direct (API with A1 certificate)"
 msgstr "Direta (API com certificado A1)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document__mode__api
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document__mode__api
 msgid "Direct (API)"
 msgstr "Direta (API)"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "Direct emission needs the company's A1 certificate (NFS-e settings)."
 msgstr ""
 "A emissão direta exige o certificado A1 da empresa (configurações da NFS-e)."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__display_name
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__display_name
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__display_name
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__display_name
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__display_name
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_partner__display_name
@@ -614,7 +614,7 @@ msgid "District (bairro)"
 msgstr "Bairro"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__document_id
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__document_id
 msgid "Document"
 msgstr "Nota"
 
@@ -624,18 +624,18 @@ msgid "Documento Auxiliar da NFS-e"
 msgstr "Documento Auxiliar da NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__dps_xml_name
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__dps_xml_name
 msgid "Dps Xml Name"
 msgstr "Nome do XML da DPS"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document__state__draft
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document__state__draft
 msgid "Draft"
 msgstr "Rascunho"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "Draft NFS-e"
 msgstr "NFS-e em rascunho"
 
@@ -645,18 +645,18 @@ msgid "Emission"
 msgstr "Emissão"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Emissor Nacional"
 msgstr "Emissor Nacional"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__environment
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__environment
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
 msgid "Environment"
 msgstr "Ambiente"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__error_message
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__error_message
 msgid "Error"
 msgstr "Erro"
 
@@ -672,12 +672,12 @@ msgstr "Toda nota traz o percentual aproximado de tributos no preço"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/wizard/nfse_document_cancel.py:0
+#: code:addons/l10n_br_nfse_nacional/wizard/l10n_br_nfse_nacional_document_cancel.py:0
 msgid "Explain the cancellation in at least 15 characters."
 msgstr "Explique o cancelamento com pelo menos 15 caracteres."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__reason
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__reason
 msgid "Explanation"
 msgstr "Justificativa"
 
@@ -712,12 +712,12 @@ msgstr ""
 "Contribuintes (CNC); caso contrário, a nota é rejeitada (E0120)."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_follower_ids
 msgid "Followers"
 msgstr "Seguidores"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Seguidores (parceiros)"
 
@@ -728,12 +728,12 @@ msgstr "Pelo CEP da empresa"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "HTTP %s without details."
 msgstr "HTTP %s sem detalhes."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__has_message
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__has_message
 msgid "Has Message"
 msgstr "Tem mensagem"
 
@@ -753,8 +753,8 @@ msgstr ""
 "na API nacional."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__id
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__id
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__id
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__id
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__id
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__id
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_partner__id
@@ -762,39 +762,39 @@ msgid "ID"
 msgstr "ID"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_list
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_list
 msgid "ISS"
 msgstr "ISS"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__iss_amount
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__iss_amount
 msgid "ISS (estimate)"
 msgstr "ISS (estimado)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__iss_rate
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__iss_rate
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__nfse_iss_rate
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__nfse_iss_rate
 msgid "ISS rate (%)"
 msgstr "Alíquota do ISS (%)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__assist_iss_rate
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__assist_iss_rate
 msgid "ISS rate (as typed)"
 msgstr "Alíquota do ISS (formatada)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__iss_withheld
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__iss_withheld
 msgid "ISS withheld by the customer"
 msgstr "ISS retido pelo tomador"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_document__message_needaction
+#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_needaction
 msgid "If checked, new messages require your attention."
 msgstr "Se marcado, novas mensagens precisam da sua atenção."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_document__message_has_error
+#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_has_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Se marcado, algumas mensagens têm erro de entrega."
 
@@ -809,28 +809,28 @@ msgid "Intermediário da operação não identificado na NFS-e"
 msgstr "Intermediário da operação não identificado na NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_is_follower
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_is_follower
 msgid "Is Follower"
 msgstr "É seguidor"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Issue NFS-e"
 msgstr "Emitir NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document__state__done
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document__state__done
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_search
 msgid "Issued"
 msgstr "Emitida"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Issued note"
 msgstr "Nota emitida"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__issued_on
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__issued_on
 msgid "Issued on"
 msgstr "Emitida em"
 
@@ -845,19 +845,19 @@ msgid "Issues and cancels service invoices (NFS-e)."
 msgstr "Emite e cancela notas fiscais de serviço (NFS-e)."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document_cancel__reason_code__1
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document_cancel__reason_code__1
 msgid "Issuing error"
 msgstr "Erro na emissão"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__write_uid
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__write_uid
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__write_uid
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__write_uid
 msgid "Last Updated by"
 msgstr "Última atualização por"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__write_date
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__write_date
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__write_date
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__write_date
 msgid "Last Updated on"
 msgstr "Última atualização em"
 
@@ -883,28 +883,28 @@ msgid "MEI notes may leave the estimate out."
 msgstr "Para MEI, a estimativa de tributos é opcional."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_has_error
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_has_error
 msgid "Message Delivery error"
 msgstr "Erro na entrega da mensagem"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_ids
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_ids
 msgid "Messages"
 msgstr "Mensagens"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__issues
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__issues
 msgid "Missing before issuing"
 msgstr "Pendências para emitir"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__mode
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__mode
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__mode
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__mode
 msgid "Mode"
 msgstr "Modo de emissão"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_search
 msgid "Month"
 msgstr "Mês"
 
@@ -922,21 +922,21 @@ msgid "Municipal registration (IM)"
 msgstr "Inscrição municipal (IM)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__municipal_service_code
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__municipal_service_code
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__nfse_municipal_service_code
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__nfse_municipal_service_code
 msgid "Municipal service code"
 msgstr "Código de tributação municipal"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__nbs_code
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__nbs_code
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__nfse_service_nbs
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__nfse_service_nbs
 msgid "NBS code"
 msgstr "Código NBS"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.actions.act_window,name:l10n_br_nfse_nacional.nfse_document_action
+#: model:ir.actions.act_window,name:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_action
 #: model:ir.ui.menu,name:l10n_br_nfse_nacional.l10n_br_nfse_nacional_menu_root
 #: model:res.groups.privilege,name:l10n_br_nfse_nacional.res_groups_privilege_nfse
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form
@@ -946,18 +946,18 @@ msgstr "NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "NFS-e %s"
 msgstr "NFS-e %s"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "NFS-e %s authorised."
 msgstr "NFS-e %s autorizada."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__nfse_xml
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__nfse_xml
 msgid "NFS-e (XML)"
 msgstr "NFS-e (XML)"
 
@@ -968,7 +968,7 @@ msgstr "NFS-e SEM VALIDADE JURÍDICA"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "NFS-e cancelled: %s"
 msgstr "NFS-e cancelada: %s"
 
@@ -986,28 +986,28 @@ msgstr "Ambiente da NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "NFS-e issued on the Emissor Nacional and registered."
 msgstr "NFS-e emitida no Emissor Nacional e registrada."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__nfse_number
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__nfse_number
 msgid "NFS-e number"
 msgstr "Número da NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "NFS-e rejected"
 msgstr "NFS-e rejeitada"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__name
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__name
 msgid "Name"
 msgstr "Nome"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__service_code
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__service_code
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__nfse_service_code
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__nfse_service_code
 msgid "National service code"
@@ -1020,12 +1020,12 @@ msgid "Nfse Document Count"
 msgstr "Qtd. de NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__nfse_xml_name
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__nfse_xml_name
 msgid "Nfse Xml Name"
 msgstr "Nome do XML da NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.actions.act_window,help:l10n_br_nfse_nacional.nfse_document_action
+#: model_terms:ir.actions.act_window,help:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_action
 msgid "No service invoice yet"
 msgstr "Nenhuma nota fiscal de serviço ainda"
 
@@ -1046,7 +1046,7 @@ msgstr "Notário ou registrador"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "Notes already sent to the national system cannot be deleted; cancel them "
 "instead."
@@ -1054,7 +1054,7 @@ msgstr ""
 "Notas já enviadas ao sistema nacional não podem ser excluídas; cancele-as."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.actions.act_window,help:l10n_br_nfse_nacional.nfse_document_action
+#: model_terms:ir.actions.act_window,help:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_action
 msgid ""
 "Notes are usually created from a monthly closing or a work order. You can "
 "also create one by hand."
@@ -1063,51 +1063,53 @@ msgstr ""
 " Você também pode criar uma manualmente."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Número de ações"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_has_error_counter
 msgid "Number of errors"
 msgstr "Número de erros"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_document__message_needaction_counter
+#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_needaction_counter
 msgid "Number of messages requiring action"
 msgstr "Número de mensagens que exigem ação"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_document__message_has_error_counter
+#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "Número de mensagens com erro de entrega"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "Only issued notes can be cancelled."
 msgstr "Só é possível cancelar notas emitidas."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Open Emissor Nacional"
 msgstr "Abrir Emissor Nacional"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid ""
 "Open the Emissor Nacional, start a new NFS-e and copy each value below.\n"
 "                                    When the note is issued, paste its access key here and register it."
-msgstr "Abra o Emissor Nacional, inicie uma nova NFS-e e copie cada valor abaixo.\n                                    Quando a nota for emitida, cole a chave de acesso aqui e registre a nota."
+msgstr ""
+"Abra o Emissor Nacional, inicie uma nova NFS-e e copie cada valor abaixo.\n"
+"                                    Quando a nota for emitida, cole a chave de acesso aqui e registre a nota."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document_cancel__reason_code__9
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document_cancel__reason_code__9
 msgid "Other"
 msgstr "Outros"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "Paste the 50-digit access key of the note issued on the Emissor Nacional."
 msgstr ""
@@ -1134,35 +1136,35 @@ msgstr ""
 " nacional aplica a alíquota do município."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document__environment__1
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document__environment__1
 #: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__res_company__nfse_environment__1
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_search
 msgid "Production"
 msgstr "Produção"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Public consultation"
 msgstr "Consulta pública"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document_cancel__reason_code
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document_cancel__reason_code
 msgid "Reason"
 msgstr "Motivo"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Register issued note"
 msgstr "Registrar nota emitida"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document__state__error
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document__state__error
 msgid "Rejected"
 msgstr "Rejeitada"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "Rejected:\n"
 "%s"
@@ -1176,22 +1178,22 @@ msgid "Self-employed professional"
 msgstr "Profissional autônomo"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Service"
 msgstr "Serviço"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__amount
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__amount
 msgid "Service amount"
 msgstr "Valor do serviço"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Service and amounts"
 msgstr "Serviço e valores"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__assist_service_code
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__assist_service_code
 msgid "Service code (as typed)"
 msgstr "Código do serviço (formatado)"
 
@@ -1201,22 +1203,22 @@ msgid "Service codes"
 msgstr "Códigos do serviço"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__description
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__description
 msgid "Service description"
 msgstr "Descrição do serviço"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model,name:l10n_br_nfse_nacional.model_nfse_document
+#: model:ir.model,name:l10n_br_nfse_nacional.model_l10n_br_nfse_nacional_document
 msgid "Service invoice (NFS-e)"
 msgstr "Nota fiscal de serviço (NFS-e)"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.ui.menu,name:l10n_br_nfse_nacional.nfse_document_menu
+#: model:ir.ui.menu,name:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_menu
 msgid "Service invoices"
 msgstr "Notas fiscais de serviço"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document_cancel__reason_code__2
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document_cancel__reason_code__2
 msgid "Service not provided"
 msgstr "Serviço não prestado"
 
@@ -1227,7 +1229,7 @@ msgstr "Serviço prestado"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "Set the approximate Simples Nacional rate (NFS-e settings)."
 msgstr ""
 "Informe a alíquota aproximada do Simples Nacional (configurações da NFS-e)."
@@ -1239,7 +1241,7 @@ msgid "Settings"
 msgstr "Configurações"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid ""
 "Shown on the note issued by the Emissor Nacional; paste it and register the "
 "note."
@@ -1265,7 +1267,7 @@ msgid "Society of professionals"
 msgstr "Sociedade de profissionais"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__origin
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__origin
 msgid "Source"
 msgstr "Origem"
 
@@ -1276,12 +1278,12 @@ msgid "Special tax regime"
 msgstr "Regime especial de tributação"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__state
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__state
 msgid "State"
 msgstr "Situação"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_search
 msgid "Status"
 msgstr "Situação"
 
@@ -1292,7 +1294,7 @@ msgid "Street number"
 msgstr "Número"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__partner_vat
+#: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__partner_vat
 msgid "Tax ID"
 msgstr "CNPJ/CPF"
 
@@ -1302,13 +1304,13 @@ msgid "Tax regime"
 msgstr "Regime tributário"
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__nfse_document__environment__2
+#: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__l10n_br_nfse_nacional_document__environment__2
 #: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__res_company__nfse_environment__2
 msgid "Test (produção restrita)"
 msgstr "Testes (produção restrita)"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid ""
 "Test environment (produção restrita): notes issued here have no legal value."
 msgstr ""
@@ -1317,7 +1319,7 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "The A1 certificate has no private key; upload the .pfx file with its "
 "password."
@@ -1326,7 +1328,7 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The A1 certificate is expired or could not be read."
 msgstr "O certificado A1 está vencido ou não pôde ser lido."
 
@@ -1344,7 +1346,7 @@ msgstr "O CNPJ vem do cadastro da empresa e o código IBGE, do CEP dela"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "The DANFSe is printed from the authorised note; notes issued on the Emissor "
 "Nacional are downloaded there."
@@ -1354,7 +1356,7 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "The cancellation does not match the national layout:\n"
 "%s"
@@ -1363,7 +1365,7 @@ msgstr ""
 "%s"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_cancel_view_form
 msgid ""
 "The cancellation event is signed and sent to the national system right away."
 msgstr ""
@@ -1372,7 +1374,7 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "The cancellation was refused:\n"
 "%s"
@@ -1382,13 +1384,13 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The company's CNPJ (Tax ID) is missing or incomplete."
 msgstr "O CNPJ da empresa não foi informado ou está incompleto."
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The company's city IBGE code must have 7 digits (NFS-e settings)."
 msgstr ""
 "O código IBGE do município da empresa deve ter 7 dígitos (configurações da "
@@ -1396,37 +1398,37 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The competence date cannot be in the future."
 msgstr "A data de competência não pode ser futura."
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The customer cannot be the company itself."
 msgstr "O cliente não pode ser a própria empresa."
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The customer needs a CNPJ or CPF."
 msgstr "O cliente precisa de CNPJ ou CPF."
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The customer's address is incomplete: %s."
 msgstr "O endereço do cliente está incompleto: %s."
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The description is longer than %s characters."
 msgstr "A descrição tem mais de %s caracteres."
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "The national NFS-e system did not answer (%s). Try again: the note is "
 "checked before being sent a second time."
@@ -1436,13 +1438,13 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The national service code must have 6 digits (e.g. 140101)."
 msgstr "O código de tributação nacional deve ter 6 dígitos (ex.: 140101)."
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "The note does not match the national layout:\n"
 "%s"
@@ -1452,12 +1454,12 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "The service amount must be positive."
 msgstr "O valor do serviço deve ser maior que zero."
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_search
 msgid "To issue"
 msgstr "A emitir"
 
@@ -1472,7 +1474,7 @@ msgid "Tomador / adquirente da operação não identificado na NFS-e"
 msgstr "Tomador / adquirente da operação não identificado na NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_list
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_list
 msgid "Total"
 msgstr "Total"
 
@@ -1503,18 +1505,18 @@ msgid "Valor total da NFS-e"
 msgstr "Valor total da NFS-e"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "What was done, as it should read on the note"
 msgstr "O que foi feito, como deve aparecer na nota"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "With the ISS withheld, the ISS rate must be between 1.8% and 5%."
 msgstr "Com ISS retido, a alíquota do ISS deve ficar entre 1,8% e 5%."
 
 #. module: l10n_br_nfse_nacional
-#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_nfse_document__partner_vat
+#: model:ir.model.fields,help:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__partner_vat
 msgid "You can use '/' to indicate that the customer has no Tax ID."
 msgstr "Você pode usar '/' para indicar que o cliente não tem CNPJ/CPF."
 
@@ -1530,23 +1532,23 @@ msgstr ""
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "city IBGE code"
 msgstr "código IBGE do município"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "district"
 msgstr "bairro"
 
 #. module: l10n_br_nfse_nacional
-#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_cancel_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_cancel_view_form
 msgid "e.g. Amount typed wrong, a new note replaces this one"
 msgstr "ex.: Valor digitado errado, uma nova nota substitui esta"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
-#: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
+#: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid "street"
 msgstr "rua"

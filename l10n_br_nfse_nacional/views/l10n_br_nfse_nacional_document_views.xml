@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="nfse_document_view_form" model="ir.ui.view">
-        <field name="name">nfse.document.view.form</field>
-        <field name="model">nfse.document</field>
+    <record id="l10n_br_nfse_nacional_document_view_form" model="ir.ui.view">
+        <field name="name">l10n_br_nfse_nacional.document.view.form</field>
+        <field name="model">l10n_br_nfse_nacional.document</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -117,9 +117,9 @@
         </field>
     </record>
 
-    <record id="nfse_document_view_list" model="ir.ui.view">
-        <field name="name">nfse.document.view.list</field>
-        <field name="model">nfse.document</field>
+    <record id="l10n_br_nfse_nacional_document_view_list" model="ir.ui.view">
+        <field name="name">l10n_br_nfse_nacional.document.view.list</field>
+        <field name="model">l10n_br_nfse_nacional.document</field>
         <field name="arch" type="xml">
             <list decoration-muted="state == 'cancel'" decoration-danger="state == 'error'" decoration-info="state == 'draft'">
                 <field name="name"/>
@@ -136,9 +136,9 @@
         </field>
     </record>
 
-    <record id="nfse_document_view_search" model="ir.ui.view">
-        <field name="name">nfse.document.view.search</field>
-        <field name="model">nfse.document</field>
+    <record id="l10n_br_nfse_nacional_document_view_search" model="ir.ui.view">
+        <field name="name">l10n_br_nfse_nacional.document.view.search</field>
+        <field name="model">l10n_br_nfse_nacional.document</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
@@ -159,9 +159,9 @@
         </field>
     </record>
 
-    <record id="nfse_document_action" model="ir.actions.act_window">
+    <record id="l10n_br_nfse_nacional_document_action" model="ir.actions.act_window">
         <field name="name">NFS-e</field>
-        <field name="res_model">nfse.document</field>
+        <field name="res_model">l10n_br_nfse_nacional.document</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No service invoice yet</p>

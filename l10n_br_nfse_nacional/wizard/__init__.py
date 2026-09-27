@@ -1,1 +1,1 @@
-from . import nfse_document_cancel
+from . import l10n_br_nfse_nacional_document_cancel

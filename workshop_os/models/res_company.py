@@ -3,11 +3,13 @@ import io
 import re
 
 from markupsafe import Markup
+from PIL import Image
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 from odoo.tools.image import base64_to_image, image_process
 
-# Attachment the backend asset bundles read the brand colours from (see data/backend_theme.xml).
+# Attachment the backend asset bundles read the brand colours from (see data/ir_asset_data.xml).
 BACKEND_THEME_URL = "/_custom/workshop_os/brand_variables.scss"
 
 
@@ -52,14 +54,10 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     workshop_warranty_text = fields.Text(
-        "Warranty text", translate=True,
-        default="Serviços com garantia de 90 dias, conforme o Código de Defesa do Consumidor.",
-    )
+        "Warranty text", translate=True, default=lambda self: self._workshop_default_warranty_text())
     workshop_terms_text = fields.Text(
-        "Approval terms", translate=True,
-        help="Shown to the customer on the approval page.",
-        default="Ao aprovar, autorizo a execução dos serviços listados e o pagamento conforme combinado.",
-    )
+        "Approval terms", translate=True, help="Shown to the customer on the approval page.",
+        default=lambda self: self._workshop_default_terms_text())
     workshop_accent_color = fields.Char("Accent colour", default="#E8B21E",
                                         help="Buttons and highlights across the system, the mechanic app and the "
                                              "customer pages.")
@@ -80,6 +78,23 @@ class ResCompany(models.Model):
     workshop_logo_mark_light = fields.Image(
         "Symbol for light backgrounds", max_width=512, max_height=512,
         help="The symbol shown in the light theme of the mechanic app and the dashboard.")
+    workshop_favicon = fields.Binary(
+        "Browser icon", attachment=True,
+        help="Icon of the browser tab and of phone shortcuts, as .ico or .png. An .ico may hold several sizes: "
+             "each one is used as it is wherever that size is asked for.")
+    workshop_og_image = fields.Image(
+        "Link preview image", max_width=1200, max_height=1200,
+        help="Shown when a link to the system or to a work order is shared (WhatsApp, e-mail...). 1200×630 fits best.")
+
+    @api.constrains("workshop_favicon")
+    def _check_workshop_favicon(self):
+        for company in self.filtered("workshop_favicon"):
+            try:
+                image_format = Image.open(io.BytesIO(base64.b64decode(company.workshop_favicon))).format
+            except (OSError, ValueError, Image.DecompressionBombError):
+                image_format = None
+            if image_format not in ("ICO", "PNG"):
+                raise ValidationError(self.env._("The browser icon must be an .ico or .png image."))
 
     def write(self, vals):
         result = super().write(vals)
@@ -91,6 +106,58 @@ class ResCompany(models.Model):
         """Name of the installed app and of the browser tab: the configured web app name, or the company's."""
         self.ensure_one()
         return self.env["ir.config_parameter"].sudo().get_param("web.web_app_name") or self.name or "Oficina"
+
+    def _workshop_icon_version(self):
+        """Changes whenever the company is saved, so browsers fetch the icons again after a new upload."""
+        self.ensure_one()
+        return int(self.write_date.timestamp()) if self.write_date else 0
+
+    def _workshop_favicon_url(self):
+        """Tab icon: the shop's own browser icon, or the app icon made from its symbol."""
+        self.ensure_one()
+        if self.workshop_favicon:
+            return f"/workshop_os/favicon.ico?v={self._workshop_icon_version()}"
+        return "/workshop_os/app-icon/64"
+
+    def _workshop_favicon_png(self, size):
+        """The browser icon as a PNG of `size`: the .ico's own frame of that size when it has one, else resized."""
+        self.ensure_one()
+        if not self.workshop_favicon:
+            return None
+        image = Image.open(io.BytesIO(base64.b64decode(self.workshop_favicon)))
+        if image.format == "ICO":
+            sizes = image.ico.sizes()
+            image = image.ico.getimage((size, size) if (size, size) in sizes else max(sizes))
+        image = image.convert("RGBA")
+        if image.size != (size, size):
+            image = image.resize((size, size), Image.LANCZOS)
+        output = io.BytesIO()
+        image.save(output, "PNG", optimize=True)
+        return output.getvalue()
+
+    def _workshop_favicon_ico(self):
+        """The browser icon as an .ico: the uploaded file itself, or the uploaded PNG in the usual tab sizes."""
+        self.ensure_one()
+        data = base64.b64decode(self.workshop_favicon)
+        image = Image.open(io.BytesIO(data))
+        if image.format == "ICO":
+            return data
+        output = io.BytesIO()
+        image.convert("RGBA").save(output, "ICO", sizes=[(16, 16), (32, 32), (48, 48)])
+        return output.getvalue()
+
+    def _workshop_share_meta(self, title=None, description=None):
+        """What a shared link shows (WhatsApp, e-mail...), in the workshop's own language."""
+        self.ensure_one()
+        company = self.with_context(lang=self.partner_id.lang or self.env.lang)
+        return {
+            "site_name": self.name,
+            "title": title or company.env._("%s | Work order system", self.name),
+            "description": description or company.env._("Professional work order system of %s.", self.name),
+            "locale": company.env.lang or "en_US",
+            "image": self.workshop_og_image and (
+                f"{self.get_base_url()}/workshop_os/og-image/{self.id}?v={self._workshop_icon_version()}"),
+        }
 
     def _workshop_brand(self):
         """Branding the app screens need, each image falling back to the next best one."""
@@ -268,3 +335,21 @@ class ResCompany(models.Model):
         users = self.env["res.users"].sudo().with_context(active_test=False).search(
             [("tz", "=", False), ("company_id", "in", companies.ids)])
         (companies.partner_id.filtered(lambda p: not p.tz) | users.partner_id).write({"tz": "America/Sao_Paulo"})
+        # The default texts are written in English when the column is created: add every installed language's
+        # translation while the text is still the untouched default.
+        languages = [code for code, _name in self.env["res.lang"].get_installed() if code != "en_US"]
+        for field_name, default in (("workshop_warranty_text", "_workshop_default_warranty_text"),
+                                    ("workshop_terms_text", "_workshop_default_terms_text")):
+            english = getattr(self.with_context(lang="en_US"), default)()
+            for company in self.sudo().with_context(lang="en_US").search([]):
+                if company[field_name] == english:
+                    company.update_field_translations(field_name, {
+                        lang: getattr(company.with_context(lang=lang), default)() for lang in languages
+                        if company.with_context(lang=lang)[field_name] == english
+                    })
+
+    def _workshop_default_warranty_text(self):
+        return self.env._("Services under a 90-day warranty, as set by the Brazilian Consumer Protection Code.")
+
+    def _workshop_default_terms_text(self):
+        return self.env._("By approving, I authorise the listed services and their payment as agreed.")

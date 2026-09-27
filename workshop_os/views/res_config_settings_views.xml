@@ -33,6 +33,12 @@
                         <setting string="Symbol for light backgrounds" help="The symbol shown by the light theme of the mechanic app and the dashboard">
                             <field name="workshop_logo_mark_light" widget="image" class="w-25" options="{'size': [96, 96]}"/>
                         </setting>
+                        <setting string="Browser icon" help="Tab icon and phone shortcuts (.ico or .png). An .ico with several sizes keeps each size exactly as drawn">
+                            <field name="workshop_favicon" widget="image" class="w-25" options="{'size': [48, 48]}"/>
+                        </setting>
+                        <setting string="Link preview image" help="Picture shown when a link to the system or to a work order is shared, e.g. on WhatsApp (1200×630)">
+                            <field name="workshop_og_image" widget="image" class="w-50" options="{'size': [240, 126]}"/>
+                        </setting>
                         <setting string="Phone app icon" help="Optional square image (512 px). Without it, the icon is made from the symbol">
                             <field name="workshop_app_icon" widget="image" class="w-25" options="{'size': [96, 96]}"/>
                         </setting>

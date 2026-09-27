@@ -1,6 +1,6 @@
 {
     "name": "NFS-e Nacional (Brasil)",
-    "version": "19.0.1.1.0",
+    "version": "19.0.1.2.0",
     "category": "Accounting/Localizations",
     "summary": "Service invoices (NFS-e) through Brazil's national system: assisted or direct API emission",
     "description": """
@@ -22,13 +22,13 @@ Issue NFS-e through the Sistema Nacional NFS-e (www.nfse.gov.br).
     "data": [
         "security/l10n_br_nfse_nacional_groups.xml",
         "security/ir.model.access.csv",
-        "security/nfse_document_security.xml",
-        "report/nfse_document_reports.xml",
-        "report/nfse_document_templates.xml",
-        "views/nfse_document_views.xml",
+        "security/l10n_br_nfse_nacional_document_security.xml",
+        "report/l10n_br_nfse_nacional_document_reports.xml",
+        "report/l10n_br_nfse_nacional_document_templates.xml",
+        "views/l10n_br_nfse_nacional_document_views.xml",
         "views/res_config_settings_views.xml",
         "views/res_partner_views.xml",
-        "wizard/nfse_document_cancel_views.xml",
+        "wizard/l10n_br_nfse_nacional_document_cancel_views.xml",
         "views/l10n_br_nfse_nacional_menus.xml",
     ],
     "installable": True,

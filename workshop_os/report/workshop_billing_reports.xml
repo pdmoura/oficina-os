@@ -6,7 +6,7 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">workshop_os.report_workshop_billing</field>
         <field name="report_file">workshop_os.report_workshop_billing</field>
-        <field name="print_report_name">'Fechamento - %s' % (object.name)</field>
+        <field name="print_report_name">'Monthly closing - %s' % (object.name)</field>
         <field name="paperformat_id" ref="paperformat_workshop"/>
         <field name="binding_model_id" ref="model_workshop_billing"/>
         <field name="binding_type">report</field>

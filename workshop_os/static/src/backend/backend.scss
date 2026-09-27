@@ -19,6 +19,22 @@
 }
 // Breadcrumb, settings cog and save buttons with room between them.
 .o_control_panel_breadcrumbs { column-gap: .5rem !important; }
+// The settings cog is a real button, as tall as "New", instead of a bare 14px icon.
+.o_control_panel .o_cp_action_menus .btn:has(> .fa-cog) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.35rem;
+    min-height: 2.15rem;
+    padding: .3rem .5rem !important;
+    border: 0 !important;
+    border-radius: $border-radius;
+    background-color: $o-gray-200;
+    color: $o-gray-800;
+    font-size: 1.2rem;
+    line-height: 1;
+    &:hover, &:focus-visible, &.show { background-color: $o-gray-300; color: $o-gray-900; }
+}
 .o_form_status_indicator_buttons {
     gap: .4rem;
     .btn { display: inline-flex; align-items: center; gap: .4rem; }

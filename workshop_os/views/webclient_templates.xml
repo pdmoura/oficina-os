@@ -7,15 +7,57 @@
         </xpath>
     </template>
 
-    <!-- Browser tab: the shop's icon and name instead of Odoo's (the web client then prefixes the page name). -->
+    <!-- Browser tab: the shop's icon and name instead of Odoo's (the web client then prefixes the page name);
+         shared links show the shop's picture and description. -->
     <template id="layout" inherit_id="web.layout">
         <xpath expr="//title" position="attributes">
             <attribute name="t-esc">title or (request and request.db and request.env.company.sudo()._workshop_app_name()) or 'Odoo'</attribute>
         </xpath>
-        <xpath expr="//link[@rel='shortcut icon']" position="attributes">
-            <attribute name="type">image/png</attribute>
-            <attribute name="t-att-href">x_icon or ('/workshop_os/app-icon/64' if request and request.db else '/web/static/img/favicon.ico')</attribute>
+        <xpath expr="//title" position="after">
+            <t t-call="workshop_os.share_meta"/>
         </xpath>
+        <!-- The link itself stays: other views of web.layout insert after the head's last link. -->
+        <xpath expr="//link[@rel='shortcut icon']" position="attributes">
+            <attribute name="type"/>
+            <attribute name="t-att-href">x_icon or (request and request.db and request.env.company.sudo()._workshop_favicon_url()) or '/web/static/img/favicon.ico'</attribute>
+        </xpath>
+        <xpath expr="//link[@rel='shortcut icon']" position="after">
+            <t t-call="workshop_os.browser_icons"/>
+        </xpath>
+    </template>
+
+    <!-- The other sizes of the shop's browser icon: the tab's PNG and the phone shortcuts. -->
+    <template id="browser_icons" name="Workshop: browser icons">
+        <t t-set="icon_company" t-value="not x_icon and request and request.db and request.env.company.sudo()"/>
+        <t t-if="icon_company and icon_company.workshop_favicon">
+            <t t-set="icon_version" t-value="icon_company._workshop_icon_version()"/>
+            <link rel="icon" type="image/png" sizes="32x32" t-attf-href="/workshop_os/icon/32?v={{ icon_version }}"/>
+            <t t-foreach="(57, 60, 70, 72, 76, 96)" t-as="icon_size">
+                <link rel="apple-touch-icon" t-attf-sizes="{{ icon_size }}x{{ icon_size }}"
+                      t-attf-href="/workshop_os/icon/{{ icon_size }}?v={{ icon_version }}"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- Link previews (OpenGraph / Twitter): the caller may set share_title and share_description. -->
+    <template id="share_meta" name="Workshop: link preview">
+        <t t-set="share_company" t-value="request and request.db and request.env.company.sudo()"/>
+        <t t-if="share_company">
+            <t t-set="share" t-value="share_company._workshop_share_meta(share_title, share_description)"/>
+            <meta property="og:type" content="website"/>
+            <meta property="og:locale" t-att-content="share['locale']"/>
+            <meta property="og:site_name" t-att-content="share['site_name']"/>
+            <meta property="og:title" t-att-content="share['title']"/>
+            <meta property="og:description" t-att-content="share['description']"/>
+            <meta name="twitter:title" t-att-content="share['title']"/>
+            <meta name="twitter:description" t-att-content="share['description']"/>
+            <t t-if="share['image']">
+                <meta property="og:image" t-att-content="share['image']"/>
+                <meta property="og:image:alt" t-att-content="share['site_name']"/>
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:image" t-att-content="share['image']"/>
+            </t>
+        </t>
     </template>
 
     <!-- Login, sign-up and password reset in the shop's colours. -->
