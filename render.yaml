@@ -20,8 +20,6 @@ services:
         sync: false
       - key: DB_NAME
         value: odoo
-      - key: ADMIN_PASSWD
-        generateValue: true
       - key: ODOO_ADMIN_EMAIL
         sync: false
       - key: ODOO_ADMIN_PASSWORD

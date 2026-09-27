@@ -41,87 +41,87 @@ msgstr ""
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Alíquota aplicada</span>"
-msgstr ""
+msgstr "<span class=\"t\">Alíquota aplicada</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Base de cálculo do ISSQN</span>"
-msgstr ""
+msgstr "<span class=\"t\">Base de cálculo do ISSQN</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">CEP</span>"
-msgstr ""
+msgstr "<span class=\"t\">CEP</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">CNPJ / CPF / NIF</span>"
-msgstr ""
+msgstr "<span class=\"t\">CNPJ / CPF / NIF</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Chave de acesso da NFS-e</span>"
-msgstr ""
+msgstr "<span class=\"t\">Chave de acesso da NFS-e</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Competência</span>"
-msgstr ""
+msgstr "<span class=\"t\">Competência</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Contribuição previdenciária retida</span>"
-msgstr ""
+msgstr "<span class=\"t\">Contribuição previdenciária retida</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Contribuições sociais retidas</span>"
-msgstr ""
+msgstr "<span class=\"t\">Contribuições sociais retidas</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Código IBGE / UF</span>"
-msgstr ""
+msgstr "<span class=\"t\">Código IBGE / UF</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Código IBGE</span>"
-msgstr ""
+msgstr "<span class=\"t\">Código IBGE</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Código da NBS</span>"
-msgstr ""
+msgstr "<span class=\"t\">Código da NBS</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Código de tributação municipal</span>"
-msgstr ""
+msgstr "<span class=\"t\">Código de tributação municipal</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Código de tributação nacional</span>"
-msgstr ""
+msgstr "<span class=\"t\">Código de tributação nacional</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Data e hora da emissão da DPS</span>"
-msgstr ""
+msgstr "<span class=\"t\">Data e hora da emissão da DPS</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Data e hora da emissão da NFS-e</span>"
-msgstr ""
+msgstr "<span class=\"t\">Data e hora da emissão da NFS-e</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Desconto condicionado</span>"
-msgstr ""
+msgstr "<span class=\"t\">Desconto condicionado</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Desconto incondicionado</span>"
-msgstr ""
+msgstr "<span class=\"t\">Desconto incondicionado</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
@@ -129,121 +129,123 @@ msgid ""
 "<span class=\"t\">Descrição do código de tributação nacional / "
 "municipal</span>"
 msgstr ""
+"<span class=\"t\">Descrição do código de tributação nacional / "
+"municipal</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Descrição do serviço</span>"
-msgstr ""
+msgstr "<span class=\"t\">Descrição do serviço</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">E-mail</span>"
-msgstr ""
+msgstr "<span class=\"t\">E-mail</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Emitente da NFS-e</span>"
-msgstr ""
+msgstr "<span class=\"t\">Emitente da NFS-e</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Endereço</span>"
-msgstr ""
+msgstr "<span class=\"t\">Endereço</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">IRRF</span>"
-msgstr ""
+msgstr "<span class=\"t\">IRRF</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">ISSQN apurado</span>"
-msgstr ""
+msgstr "<span class=\"t\">ISSQN apurado</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Inscrição municipal</span>"
-msgstr ""
+msgstr "<span class=\"t\">Inscrição municipal</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Local da prestação</span>"
-msgstr ""
+msgstr "<span class=\"t\">Local da prestação</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Município de incidência</span>"
-msgstr ""
+msgstr "<span class=\"t\">Município de incidência</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Nome / Nome empresarial</span>"
-msgstr ""
+msgstr "<span class=\"t\">Nome / Nome empresarial</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Número da DPS</span>"
-msgstr ""
+msgstr "<span class=\"t\">Número da DPS</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Número da NFS-e</span>"
-msgstr ""
+msgstr "<span class=\"t\">Número da NFS-e</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Regime de apuração tributária pelo SN</span>"
-msgstr ""
+msgstr "<span class=\"t\">Regime de apuração tributária pelo SN</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Regime especial de tributação</span>"
-msgstr ""
+msgstr "<span class=\"t\">Regime especial de tributação</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Retenção do ISSQN</span>"
-msgstr ""
+msgstr "<span class=\"t\">Retenção do ISSQN</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Simples Nacional na data de competência</span>"
-msgstr ""
+msgstr "<span class=\"t\">Simples Nacional na data de competência</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Situação</span>"
-msgstr ""
+msgstr "<span class=\"t\">Situação</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Série da DPS</span>"
-msgstr ""
+msgstr "<span class=\"t\">Série da DPS</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Telefone</span>"
-msgstr ""
+msgstr "<span class=\"t\">Telefone</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Tipo de tributação do ISSQN</span>"
-msgstr ""
+msgstr "<span class=\"t\">Tipo de tributação do ISSQN</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Total das retenções</span>"
-msgstr ""
+msgstr "<span class=\"t\">Total das retenções</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Valor do serviço</span>"
-msgstr ""
+msgstr "<span class=\"t\">Valor do serviço</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "<span class=\"t\">Valor líquido da NFS-e</span>"
-msgstr ""
+msgstr "<span class=\"t\">Valor líquido da NFS-e</span>"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
@@ -261,6 +263,8 @@ msgid ""
 "A autenticidade desta NFS-e pode ser verificada pela leitura deste\n"
 "                            código QR ou pela consulta da chave de acesso no portal nacional da NFS-e"
 msgstr ""
+"A autenticidade desta NFS-e pode ser verificada pela leitura deste\n"
+"                            código QR ou pela consulta da chave de acesso no portal nacional da NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__nfse_certificate_id
@@ -376,13 +380,13 @@ msgstr "Voltar para rascunho"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "CANCELADA"
-msgstr ""
+msgstr "CANCELADA"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
 #: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
 msgid "CEP"
-msgstr ""
+msgstr "CEP"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
@@ -393,7 +397,7 @@ msgstr "CEP %s não encontrado."
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
 msgid "CNPJ/CPF"
-msgstr ""
+msgstr "CNPJ/CPF"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
@@ -514,18 +518,18 @@ msgstr "Nome do cliente"
 #: model:ir.actions.report,name:l10n_br_nfse_nacional.action_report_danfse
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
 msgid "DANFSe"
-msgstr ""
+msgstr "DANFSe"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "DANFSe v2.0"
-msgstr ""
+msgstr "DANFSe v2.0"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
 #: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
 msgid "DPS %(series)s-%(number)s"
-msgstr ""
+msgstr "DPS %(series)s-%(number)s"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__dps_xml
@@ -617,7 +621,7 @@ msgstr "Nota"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Documento Auxiliar da NFS-e"
-msgstr ""
+msgstr "Documento Auxiliar da NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__dps_xml_name
@@ -643,7 +647,7 @@ msgstr "Emissão"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form
 msgid "Emissor Nacional"
-msgstr ""
+msgstr "Emissor Nacional"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__environment
@@ -755,12 +759,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__id
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_partner__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_list
 msgid "ISS"
-msgstr ""
+msgstr "ISS"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__iss_amount
@@ -797,12 +801,12 @@ msgstr "Se marcado, algumas mensagens têm erro de entrega."
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Informações complementares"
-msgstr ""
+msgstr "Informações complementares"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Intermediário da operação não identificado na NFS-e"
-msgstr ""
+msgstr "Intermediário da operação não identificado na NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__message_is_follower
@@ -866,12 +870,12 @@ msgstr "Deixe em branco para endereços sem número (S/N)."
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__res_company__nfse_simples__3
 msgid "ME/EPP"
-msgstr ""
+msgstr "ME/EPP"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields.selection,name:l10n_br_nfse_nacional.selection__res_company__nfse_simples__2
 msgid "MEI"
-msgstr ""
+msgstr "MEI"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
@@ -938,13 +942,13 @@ msgstr "Código NBS"
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form_nfse
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_partner_view_form_nfse
 msgid "NFS-e"
-msgstr ""
+msgstr "NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
 #: code:addons/l10n_br_nfse_nacional/models/nfse_document.py:0
 msgid "NFS-e %s"
-msgstr ""
+msgstr "NFS-e %s"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
@@ -955,12 +959,12 @@ msgstr "NFS-e %s autorizada."
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_nfse_document__nfse_xml
 msgid "NFS-e (XML)"
-msgstr ""
+msgstr "NFS-e (XML)"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "NFS-e SEM VALIDADE JURÍDICA"
-msgstr ""
+msgstr "NFS-e SEM VALIDADE JURÍDICA"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
@@ -1119,7 +1123,7 @@ msgstr "Vêm preenchidos em cada nova nota, que ainda pode alterá-los"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Prestador / Fornecedor"
-msgstr ""
+msgstr "Prestador / Fornecedor"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,help:l10n_br_nfse_nacional.field_res_company__nfse_iss_rate
@@ -1221,7 +1225,7 @@ msgstr "Serviço não prestado"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Serviço prestado"
-msgstr ""
+msgstr "Serviço prestado"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
@@ -1249,7 +1253,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__nfse_simples
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_config_settings__nfse_simples
 msgid "Simples Nacional"
-msgstr ""
+msgstr "Simples Nacional"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_company__nfse_simples_regime
@@ -1281,7 +1285,7 @@ msgstr "Status"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_search
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_res_partner__nfse_street_number
@@ -1462,27 +1466,27 @@ msgstr "A emitir"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Tomador / Adquirente da operação"
-msgstr ""
+msgstr "Tomador / Adquirente da operação"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Tomador / adquirente da operação não identificado na NFS-e"
-msgstr ""
+msgstr "Tomador / adquirente da operação não identificado na NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_list
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Tributação federal (exceto CBS)"
-msgstr ""
+msgstr "Tributação federal (exceto CBS)"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Tributação municipal (ISSQN)"
-msgstr ""
+msgstr "Tributação municipal (ISSQN)"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
@@ -1498,7 +1502,7 @@ msgstr "Use o ambiente de testes até as primeiras notas saírem corretas"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.report_danfse_document
 msgid "Valor total da NFS-e"
-msgstr ""
+msgstr "Valor total da NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.nfse_document_view_form

@@ -36,7 +36,7 @@ msgstr "Nome exibido"
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_nfse_source__id
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_order__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: workshop_os_nfse
 #: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_billing_view_form_nfse
@@ -67,7 +67,7 @@ msgstr "Fechamento mensal"
 #: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_billing_view_form_nfse
 #: model_terms:ir.ui.view,arch_db:workshop_os_nfse.workshop_order_view_form_nfse
 msgid "NFS-e"
-msgstr ""
+msgstr "NFS-e"
 
 #. module: workshop_os_nfse
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_workshop_billing__nfse_count

@@ -7,7 +7,8 @@ set -euo pipefail
 : "${DB_HOST:?set DB_HOST (Supabase session pooler host)}"
 : "${DB_USER:?set DB_USER (postgres.<project-ref> on the Supabase pooler)}"
 : "${DB_PASSWORD:?set DB_PASSWORD}"
-: "${ADMIN_PASSWD:?set ADMIN_PASSWD (master password of the database manager)}"
+# The database manager is disabled (list_db = False); without a given master password, use a random one.
+: "${ADMIN_PASSWD:=$(head -c 48 /dev/urandom | base64 | tr -dc 'A-Za-z0-9')}"
 : "${DB_PORT:=5432}"
 : "${DB_NAME:=odoo}"
 : "${DB_SSLMODE:=require}"

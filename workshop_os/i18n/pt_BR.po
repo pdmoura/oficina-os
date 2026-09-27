@@ -21,21 +21,21 @@ msgstr ""
 #: code:addons/workshop_os/static/src/app/utils.js:0
 #: code:addons/workshop_os/static/src/backend/fields.js:0
 msgid "%(d)sd %(h)sh"
-msgstr ""
+msgstr "%(d)sd %(h)sh"
 
 #. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/utils.js:0
 #: code:addons/workshop_os/static/src/backend/fields.js:0
 msgid "%(h)sh %(m)smin"
-msgstr ""
+msgstr "%(h)sh %(m)smin"
 
 #. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/utils.js:0
 #: code:addons/workshop_os/static/src/backend/fields.js:0
 msgid "%(m)s min"
-msgstr ""
+msgstr "%(m)s min"
 
 #. module: workshop_os
 #. odoo-python
@@ -93,12 +93,12 @@ msgstr "<span class=\"label\">Total do período</span><br/>"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "<span class=\"label\">Total</span><br/>"
-msgstr ""
+msgstr "<span class=\"label\">Total</span><br/>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "<span class=\"wo-plate__band\">BRASIL</span>"
-msgstr ""
+msgstr "<span class=\"wo-plate__band\">BRASIL</span>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
@@ -128,7 +128,7 @@ msgstr "<span>A aprovar</span>"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "<span>Total</span>"
-msgstr ""
+msgstr "<span>Total</span>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
@@ -140,7 +140,7 @@ msgstr "<span>até</span>"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_form
 msgid "ABC1D23"
-msgstr ""
+msgstr "ABC1D23"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_cloudinary_api_key
@@ -220,12 +220,12 @@ msgstr "Cadastre os serviços que você vende"
 #. module: workshop_os
 #: model:workshop.stage,description:workshop_os.stage_office
 msgid "Aguardando orçamento ou aprovação"
-msgstr ""
+msgstr "Aguardando orçamento ou aprovação"
 
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_parts
 msgid "Aguardando peças"
-msgstr ""
+msgstr "Aguardando peças"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -345,12 +345,12 @@ msgstr "Aprova OS, gerencia preços, configurações e o fechamento mensal."
 #. module: workshop_os
 #: model:workshop.stage,description:workshop_os.stage_queue
 msgid "Aprovado, esperando mecânico"
-msgstr ""
+msgstr "Aprovado, esperando mecânico"
 
 #. module: workshop_os
 #: model:workshop.sector,name:workshop_os.sector_ac
 msgid "Ar condicionado"
-msgstr ""
+msgstr "Ar condicionado"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_search
@@ -412,7 +412,7 @@ msgstr "Aguardando aprovação"
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 #: code:addons/workshop_os/static/src/backend/fields.xml:0
 msgid "BRASIL"
-msgstr ""
+msgstr "BRASIL"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -434,17 +434,17 @@ msgstr "Faturamento"
 #. module: workshop_os
 #: model:workshop.location,name:workshop_os.location_bay_1
 msgid "Box 1"
-msgstr ""
+msgstr "Box 1"
 
 #. module: workshop_os
 #: model:workshop.location,name:workshop_os.location_bay_2
 msgid "Box 2"
-msgstr ""
+msgstr "Box 2"
 
 #. module: workshop_os
 #: model:workshop.location,name:workshop_os.location_bay_3
 msgid "Box 3"
-msgstr ""
+msgstr "Box 3"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -477,7 +477,7 @@ msgstr "Por serviço"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "CNPJ/CPF"
-msgstr ""
+msgstr "CNPJ/CPF"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
@@ -505,7 +505,7 @@ msgstr "Legenda"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__checklist_line_ids
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Checklist"
-msgstr ""
+msgstr "Checklist"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__checklist_progress
@@ -526,7 +526,7 @@ msgstr "Item do modelo de checklist"
 #: model:ir.actions.act_window,name:workshop_os.action_workshop_checklist_template
 #: model:ir.ui.menu,name:workshop_os.menu_workshop_checklists
 msgid "Checklists"
-msgstr ""
+msgstr "Checklists"
 
 #. module: workshop_os
 #. odoo-python
@@ -547,12 +547,12 @@ msgstr "Feche o mês de um cliente de frota"
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_cloudinary_cloud_name
 msgid "Cloud name"
-msgstr ""
+msgstr "Cloud name"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__res_config_settings__workshop_photo_storage__cloudinary
 msgid "Cloudinary"
-msgstr ""
+msgstr "Cloudinary"
 
 #. module: workshop_os
 #. odoo-python
@@ -796,12 +796,12 @@ msgstr "Diagnóstico"
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__diesel
 #: model:workshop.sector,name:workshop_os.sector_diesel
 msgid "Diesel"
-msgstr ""
+msgstr "Diesel"
 
 #. module: workshop_os
 #: model:workshop.sector,name:workshop_os.sector_steering
 msgid "Direção hidráulica"
-msgstr ""
+msgstr "Direção hidráulica"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__display_name
@@ -826,7 +826,7 @@ msgstr "Nome exibido"
 #. module: workshop_os
 #: model:workshop.sector,name:workshop_os.sector_misc
 msgid "Diversos"
-msgstr ""
+msgstr "Diversos"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -868,17 +868,17 @@ msgstr "Elétrico"
 #. module: workshop_os
 #: model:workshop.sector,name:workshop_os.sector_electric
 msgid "Elétrica"
-msgstr ""
+msgstr "Elétrica"
 
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_working
 msgid "Em serviço"
-msgstr ""
+msgstr "Em serviço"
 
 #. module: workshop_os
 #: model:workshop.location,name:workshop_os.location_road
 msgid "Em teste na rua"
-msgstr ""
+msgstr "Em teste na rua"
 
 #. module: workshop_os
 #. odoo-python
@@ -889,12 +889,12 @@ msgstr "Placa vazia"
 #. module: workshop_os
 #: model:workshop.checklist.template,name:workshop_os.checklist_truck_entry
 msgid "Entrada do caminhão"
-msgstr ""
+msgstr "Entrada do caminhão"
 
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_office
 msgid "Escritório"
-msgstr ""
+msgstr "Escritório"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_service__hours
@@ -959,7 +959,7 @@ msgstr ""
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__flex
 msgid "Flex"
-msgstr ""
+msgstr "Flex"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__fold
@@ -1123,7 +1123,7 @@ msgstr "Quantas vezes este serviço foi usado em OS."
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_stage__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__activity_exception_icon
@@ -1158,7 +1158,7 @@ msgstr "Na oficina"
 #. module: workshop_os
 #: model:workshop.sector,name:workshop_os.sector_injection
 msgid "Injeção eletrônica"
-msgstr ""
+msgstr "Injeção eletrônica"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__inspection
@@ -1373,7 +1373,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Menu"
-msgstr ""
+msgstr "Menu"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__message_has_error
@@ -1436,12 +1436,12 @@ msgstr "Minhas OS"
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_checklist__result__na
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_queue
 msgid "Na fila"
-msgstr ""
+msgstr "Na fila"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__name
@@ -1498,7 +1498,7 @@ msgstr "Esta OS ainda não tem checklist."
 #. module: workshop_os
 #: model:workshop.location,name:workshop_os.location_customer
 msgid "No cliente"
-msgstr ""
+msgstr "No cliente"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1538,7 +1538,7 @@ msgstr "Nenhum veículo aguardando retirada."
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__priority__0
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1613,7 +1613,7 @@ msgstr "Número de mensagens com erro de entrega"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_checklist__result__ok
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1924,7 +1924,7 @@ msgstr "ID público"
 #. module: workshop_os
 #: model:workshop.location,name:workshop_os.location_yard
 msgid "Pátio"
-msgstr ""
+msgstr "Pátio"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
@@ -1941,7 +1941,7 @@ msgstr "Quantidade"
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "R 450"
-msgstr ""
+msgstr "R 450"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order__state__done
@@ -2039,13 +2039,13 @@ msgstr "Retrabalho"
 #. module: workshop_os
 #: model:workshop.checklist.template,name:workshop_os.checklist_truck_exit
 msgid "Saída do caminhão"
-msgstr ""
+msgstr "Saída do caminhão"
 
 #. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Scania"
-msgstr ""
+msgstr "Scania"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2136,12 +2136,12 @@ msgstr "Serviços em %(count)s OS, de %(start)s a %(end)s:"
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_stopped
 msgid "Serviço parado"
-msgstr ""
+msgstr "Serviço parado"
 
 #. module: workshop_os
 #: model:workshop.sector,name:workshop_os.sector_third
 msgid "Serviços de terceiros"
-msgstr ""
+msgstr "Serviços de terceiros"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order_photo__attachment_id
@@ -2234,7 +2234,7 @@ msgstr "Status"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_state
@@ -2252,7 +2252,7 @@ msgstr ""
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__subtotal
 msgid "Subtotal"
-msgstr ""
+msgstr "Subtotal"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_mark
@@ -2282,7 +2282,7 @@ msgstr "Testar conexão"
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_test
 msgid "Teste / conferência"
-msgstr ""
+msgstr "Teste / conferência"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
@@ -2301,12 +2301,8 @@ msgstr "Número que o próprio cliente usa para este veículo (prefixo, frota)."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
-msgid ""
-"The logo comes from the company; the accent colour marks buttons and "
-"highlights in the app and on customer pages"
-msgstr ""
-"O logotipo vem da empresa; a cor de destaque marca botões e destaques no app"
-" e nas páginas do cliente"
+msgid "Colour of the buttons and highlights in the mechanic app and on the customer pages"
+msgstr "Cor dos botões e destaques no app do mecânico e nas páginas do cliente"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_res_company__workshop_logo_mark
@@ -2405,7 +2401,7 @@ msgstr "A faturar"
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_list
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_list
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__truck
@@ -2566,7 +2562,7 @@ msgstr "O que encontramos"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "WhatsApp"
-msgstr ""
+msgstr "WhatsApp"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form_workshop
@@ -2699,7 +2695,7 @@ msgstr "ex.: farol esquerdo sem luz alta"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "h"
-msgstr ""
+msgstr "h"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2712,7 +2708,7 @@ msgstr "h em média na oficina"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "km"
-msgstr ""
+msgstr "km"
 
 #. module: workshop_os
 #. odoo-javascript
