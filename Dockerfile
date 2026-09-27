@@ -7,7 +7,7 @@ USER root
 COPY workshop_os /opt/oficina/addons/workshop_os
 COPY l10n_br_nfse_nacional /opt/oficina/addons/l10n_br_nfse_nacional
 COPY workshop_os_nfse /opt/oficina/addons/workshop_os_nfse
-COPY deploy/entrypoint.sh /deploy/entrypoint.sh
+COPY deploy/entrypoint.sh deploy/placeholder.py /deploy/
 # Fingerprint of the addons: the entrypoint upgrades the modules only when it changes.
 RUN chmod 755 /deploy/entrypoint.sh \
     && cd /opt/oficina/addons \

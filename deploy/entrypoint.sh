@@ -75,6 +75,10 @@ set_param() {
          values ('$1', '$2', 1, 1, now(), now()) on conflict (key) do update set value = excluded.value, write_date = now()"
 }
 
+# While installing or upgrading, a small page holds the port (see placeholder.py).
+preparing() { python3 /deploy/placeholder.py "$PORT" & PLACEHOLDER=$!; }
+ready() { kill "$PLACEHOLDER" 2>/dev/null || true; wait "$PLACEHOLDER" 2>/dev/null || true; }
+
 wait-for-psql.py --db_host "$DB_HOST" --db_port "$DB_PORT" --db_user "$DB_USER" --db_password "$DB_PASSWORD" --timeout=60
 
 fingerprint=$(cat /deploy/addons.sha)
@@ -91,6 +95,7 @@ if [ "$installed" != "1" ]; then
     # Odoo decides on sample data when the database is created, so the flag goes on the base install too.
     demo=()
     if [ "$LOAD_DEMO" = "true" ]; then demo=(--with-demo); fi
+    preparing
     echo "[deploy] first boot: installing base"
     odoo -c "$CONF" -i base "${demo[@]}" --load-language=pt_BR --stop-after-init --no-http
     # Attachments (assets, photos, PDFs) live in the database: containers may lose their disk on a redeploy,
@@ -107,10 +112,13 @@ env.ref("base.user_admin").write({"login": email, "email": email, "password": os
 env.cr.commit()
 PY
     set_param deploy.addons_fingerprint "$fingerprint"
+    ready
 elif [ "$(sql "select value from ir_config_parameter where key = 'deploy.addons_fingerprint'")" != "$fingerprint" ]; then
+    preparing
     echo "[deploy] new release: upgrading ${MODULES}"
     odoo -c "$CONF" -u "$MODULES" --stop-after-init --no-http
     set_param deploy.addons_fingerprint "$fingerprint"
+    ready
 fi
 
 exec odoo -c "$CONF"
