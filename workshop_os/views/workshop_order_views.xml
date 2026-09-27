@@ -185,7 +185,7 @@
                                     <field name="stage_id" widget="badge"/>
                                     <field name="date_start"/>
                                     <field name="date_end"/>
-                                    <field name="duration_hours" widget="float_time" sum="Total"/>
+                                    <field name="elapsed_hours" widget="float_time" sum="Total"/>
                                     <field name="is_waiting"/>
                                     <field name="user_id" widget="many2one_avatar_user"/>
                                 </list>

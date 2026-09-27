@@ -50,7 +50,7 @@ class WorkshopBilling(models.Model):
             "company_id": self.company_id.id,
             "partner_id": self.partner_id.commercial_partner_id.id,
             "amount": self.amount_total,
-            "description": self.service_description(),
+            "description": self._service_description(),
             "date_competence": self.date_to,
             "origin": self.name,
             "workshop_billing_id": self.id,

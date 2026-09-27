@@ -5,13 +5,13 @@ from pathlib import Path
 from dateutil.relativedelta import relativedelta
 from lxml import etree
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import new_test_user, tagged
 from odoo.tools import mute_logger
 from odoo.tools.translate import code_translations
 
-from ..models.res_config_settings import BACKEND_THEME_URL, _contrast, _readable_on_white
+from ..models.res_company import BACKEND_THEME_URL, _contrast, _readable_on_white
 from ..models.workshop_vehicle import format_plate, normalize_plate
 from .common import WorkshopCase
 
@@ -66,7 +66,12 @@ class TestOrderFlow(WorkshopCase):
         self.assertEqual(again, {"id": order.id, "existing": True}, "one open order per vehicle")
 
     def test_contract_fleets_start_approved(self):
-        order = self._order(self._vehicle("OTR5E07", self.contract_fleet))
+        vehicle = self._vehicle("OTR5E07", self.contract_fleet)
+        # Done by a mechanic: the contract approves, not the mechanic's rights.
+        order = self.env["workshop.order"].with_user(self.mechanic).create({
+            "partner_id": vehicle.partner_id.id, "vehicle_id": vehicle.id,
+            "line_ids": [Command.create(self.env["workshop.order.line"]._vals_from_service(self.service_a))],
+        })
         self.assertEqual(order.state, "approved")
         order.app_add_services([self.service_b.id])
         self.assertTrue(all(line.approval == "approved" for line in order.line_ids.filtered(lambda l: l.service_id == self.service_b)))
@@ -109,12 +114,44 @@ class TestOrderFlow(WorkshopCase):
 
     def test_mechanic_cannot_approve(self):
         order = self._order()
-        with self.assertRaises(UserError):
+        with self.assertRaises(AccessError):
             order.with_user(self.mechanic).app_action("action_approve")
         order.with_user(self.office).app_action("action_approve")
         self.assertEqual(order.state, "approved")
         with self.assertRaises(AccessError):
             self.env["workshop.billing"].with_user(self.mechanic).search([])
+
+    def test_office_decisions_hold_over_rpc(self):
+        # Any public method can be called over RPC: the office-only steps are checked on the server, not by the buttons.
+        order = self._order().with_user(self.mechanic)
+        for call in (order.action_approve, order.action_reject, order.action_cancel, order.action_reopen,
+                     lambda: order.write({"state": "approved"}),
+                     lambda: order.write({"approved_by": "Customer"}),
+                     lambda: order.line_ids.write({"approval": "approved"}),
+                     lambda: self.env["workshop.order"].with_user(self.mechanic).create({
+                         "partner_id": self.fleet.id, "vehicle_id": self._vehicle("QWE7F21").id, "state": "approved"})):
+            with self.assertRaises(AccessError):
+                call()
+        self.assertFalse(hasattr(order, "customer_decide"), "the customer's answer is not an RPC method")
+        order.sudo().line_ids.approval = "approved"
+        with self.assertRaises(AccessError):
+            order.app_remove_line(order.line_ids.id)
+
+    def test_office_users_can_be_the_mechanic(self):
+        # Office implies Mechanic; Odoo 19 keeps implied groups out of group_ids.
+        domain = self.env["workshop.order"]._fields["user_id"].domain(self.env["workshop.order"])
+        users = self.env["res.users"].search(domain)
+        self.assertIn(self.office, users)
+        self.assertIn(self.mechanic, users)
+
+    def test_photos_only_from_odoo_or_cloudinary(self):
+        order = self._order()
+        Photo = self.env["workshop.order.photo"].with_user(self.mechanic)
+        with self.assertRaises(ValidationError):
+            Photo.create({"order_id": order.id, "url": "javascript:alert(1)"})
+        with self.assertRaises(ValidationError):
+            Photo.create({"order_id": order.id, "url": "https://tracker.example.com/pixel.png"})
+        Photo.create({"order_id": order.id, "url": "https://res.cloudinary.com/demo/image/upload/oficina/a.jpg"})
 
     def test_checklist_and_photos(self):
         order = self._order()
@@ -157,18 +194,18 @@ class TestCustomerApproval(WorkshopCase):
         order = self._order(services=self.service_a | self.service_b)
         keep = order.line_ids.filtered(lambda l: l.service_id == self.service_a)
         pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
-        order.customer_decide(True, "Ana Frota", signature=pixel, line_ids=keep.ids)
+        order._customer_decide(True, "Ana Frota", signature=pixel, line_ids=keep.ids)
         self.assertEqual(order.state, "approved")
         self.assertEqual(keep.approval, "approved")
         self.assertEqual((order.line_ids - keep).approval, "rejected")
         self.assertEqual(order.amount_total, 180, "rejected items leave the total")
         self.assertEqual(order.approved_by, "Ana Frota")
         with self.assertRaises(UserError):
-            order.customer_decide(True, "Again")
+            order._customer_decide(True, "Again")
 
     def test_rejection(self):
         order = self._order()
-        order.customer_decide(False, "Ana")
+        order._customer_decide(False, "Ana")
         self.assertEqual(order.state, "rejected")
 
 
@@ -193,8 +230,8 @@ class TestBilling(WorkshopCase):
         billing.action_load_orders()
         self.assertEqual(billing.order_ids, orders)
         self.assertEqual(billing.amount_total, 600)
-        self.assertEqual(billing.service_summary()[0], ("Headlight", 2.0, 360.0))
-        self.assertIn("Headlight", billing.service_description())
+        self.assertEqual(billing._service_summary()[0], ("Headlight", 2.0, 360.0))
+        self.assertIn("Headlight", billing._service_description())
         billing.action_confirm()
         with self.assertRaises(UserError):
             billing.unlink()

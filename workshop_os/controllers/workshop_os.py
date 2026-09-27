@@ -1,11 +1,13 @@
 import re
 
+from PIL import Image
+
 from odoo import http
 from odoo.exceptions import UserError
 from odoo.http import request
 from odoo.tools.image import base64_to_image
 
-from odoo.addons.web.controllers.webmanifest import WebManifest
+from odoo.addons.workshop_os.models.res_company import _hex_color
 
 
 class WorkshopPublic(http.Controller):
@@ -28,7 +30,7 @@ class WorkshopPublic(http.Controller):
             "stages": stages,
             "lines": order.line_ids,
             "photos": order.photo_ids.filtered("show_to_customer"),
-            "accent": order.company_id.workshop_accent_color or "#E8B21E",
+            "accent": _hex_color(order.company_id.workshop_accent_color, "#E8B21E"),
             "html_lang": (lang or "pt_BR").replace("_", "-"),
         })
 
@@ -41,14 +43,14 @@ class WorkshopPublic(http.Controller):
         if signature:
             match = re.match(r"^data:image/png;base64,([A-Za-z0-9+/=]+)$", signature)
             if not match or len(match.group(1)) > 700_000:
-                raise UserError("Invalid signature.")
+                raise UserError(request.env._("Invalid signature."))
             signature_b64 = match.group(1)
             try:
                 base64_to_image(signature_b64)
-            except Exception as error:
-                raise UserError("Invalid signature.") from error
+            except (UserError, ValueError, Image.DecompressionBombError) as error:
+                raise UserError(request.env._("Invalid signature.")) from error
         ids = [int(i) for i in line_ids] if line_ids is not None else None
-        order.customer_decide(bool(approve), name, signature=signature_b64, line_ids=ids)
+        order._customer_decide(bool(approve), name, signature=signature_b64, line_ids=ids)
         return {"state": order.state}
 
 
@@ -62,8 +64,7 @@ class WorkshopBrand(http.Controller):
         png = request.env.company.sudo()._workshop_app_icon_png(size, rounded=size != 180)
         if png:
             return request.make_response(png, [("Content-Type", "image/png"), ("Cache-Control", "public, max-age=3600")])
-        return request.redirect(f"/workshop_os/static/img/app-icon-{512 if size > 192 else 192}.png")
-
+        return request.redirect(f"/workshop_os/static/img/app_icon_{512 if size > 192 else 192}.png")
 
     @http.route("/workshop_os/logo/<int:company_id>/<string:variant>", type="http", auth="public",
                 sitemap=False, readonly=True)
@@ -87,23 +88,3 @@ class WorkshopBrand(http.Controller):
         size = 256 if variant.startswith("mark") else 640
         stream = request.env["ir.binary"]._get_image_stream_from(company, field, width=size, height=size)
         return stream.get_response(max_age=3600)
-
-
-class WorkshopManifest(WebManifest):
-    """Installable app named and coloured after the workshop, opening straight on the mechanic app."""
-
-    def _get_webmanifest(self):
-        manifest = super()._get_webmanifest()
-        name = request.env.company.sudo()._workshop_app_name()
-        manifest.update({
-            "name": name,
-            "short_name": name[:12],
-            "start_url": "/odoo/action-workshop_os.action_mechanic_app",
-            "background_color": "#0F1115",
-            "theme_color": "#0F1115",
-            "icons": [
-                {"src": "/workshop_os/app-icon/192", "sizes": "192x192", "type": "image/png"},
-                {"src": "/workshop_os/app-icon/512", "sizes": "512x512", "type": "image/png"},
-            ],
-        })
-        return manifest

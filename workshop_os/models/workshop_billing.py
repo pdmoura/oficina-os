@@ -32,7 +32,7 @@ class WorkshopBilling(models.Model):
     company_id = fields.Many2one("res.company", default=lambda self: self.env.company, required=True)
     currency_id = fields.Many2one(related="company_id.currency_id")
 
-    @api.depends("partner_id", "date_from", "date_to")
+    @api.depends("partner_id.commercial_partner_id.name", "date_to")
     def _compute_name(self):
         for billing in self:
             period = billing.date_to.strftime("%m/%Y") if billing.date_to else ""
@@ -45,15 +45,11 @@ class WorkshopBilling(models.Model):
             billing.order_count = len(orders)
             billing.amount_total = sum(orders.mapped("amount_total"))
 
-    def _candidate_domain(self):
-        self.ensure_one()
-        return [
-            ("partner_id", "child_of", self.partner_id.commercial_partner_id.id),
-            ("state", "in", ("done", "delivered")),
-            ("billing_id", "=", False),
-            ("date_done", ">=", fields.Datetime.to_datetime(self.date_from)),
-            ("date_done", "<", fields.Datetime.to_datetime(self.date_to + relativedelta(days=1))),
-        ]
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_confirmed(self):
+        # The orders are released by the database (billing_id is set to null).
+        if self.filtered(lambda b: b.state != "draft"):
+            raise UserError(_("Only draft closings can be deleted."))
 
     def action_load_orders(self):
         for billing in self:
@@ -78,13 +74,17 @@ class WorkshopBilling(models.Model):
         self.write({"state": "paid"})
         return True
 
-    def unlink(self):
-        if self.filtered(lambda b: b.state not in ("draft",)):
-            raise UserError(_("Only draft closings can be deleted."))
-        self.order_ids.billing_id = False
-        return super().unlink()
+    def _candidate_domain(self):
+        self.ensure_one()
+        return [
+            ("partner_id", "child_of", self.partner_id.commercial_partner_id.id),
+            ("state", "in", ("done", "delivered")),
+            ("billing_id", "=", False),
+            ("date_done", ">=", fields.Datetime.to_datetime(self.date_from)),
+            ("date_done", "<", fields.Datetime.to_datetime(self.date_to + relativedelta(days=1))),
+        ]
 
-    def service_summary(self):
+    def _service_summary(self):
         """Lines grouped by service for the report: [(name, quantity, amount)], largest amount first."""
         self.ensure_one()
         totals = defaultdict(lambda: [0.0, 0.0])
@@ -93,13 +93,13 @@ class WorkshopBilling(models.Model):
             totals[line.name][1] += line.subtotal
         return sorted(((name, q, a) for name, (q, a) in totals.items()), key=lambda row: -row[2])
 
-    def service_description(self):
+    def _service_description(self):
         """Plain text used as the service description of the NFS-e."""
         self.ensure_one()
         lines = [_("Services on %(count)s work orders, %(start)s to %(end)s:",
                    count=len(self.order_ids), start=self.date_from.strftime("%d/%m/%Y"),
                    end=self.date_to.strftime("%d/%m/%Y"))]
-        for name, qty, amount in self.service_summary():
+        for name, qty, amount in self._service_summary():
             lines.append(f"- {name}: {qty:g} x = R$ {amount:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
         lines.append(_("Orders: %s", ", ".join(self.order_ids.sorted("name").mapped("name"))))
         return "\n".join(lines)

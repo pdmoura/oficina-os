@@ -10,7 +10,7 @@
     <record id="base.main_company" model="res.company">
         <field name="name">Elétrica Diesel Demonstração</field>
         <field name="currency_id" ref="base.BRL"/>
-        <field name="logo" type="base64" file="workshop_os/static/img/app-icon-512.png"/>
+        <field name="logo" type="base64" file="workshop_os/static/img/app_icon_512.png"/>
         <field name="phone">+55 61 3000-0000</field>
         <field name="email">contato@eletricadiesel.example.com</field>
         <field name="street">SIA Trecho 3, Lote 1250</field>
@@ -64,16 +64,6 @@
         <field name="password">mecanico</field>
         <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_user')])]"/>
         <field name="action_id" ref="workshop_os.action_mechanic_app"/>
-        <field name="lang">pt_BR</field>
-        <field name="tz">America/Sao_Paulo</field>
-    </record>
-    <!-- Office login for public demos, so the administrator's credentials never have to be shared. -->
-    <record id="demo_user_office" model="res.users">
-        <field name="name">Camila Rocha</field>
-        <field name="login">escritorio</field>
-        <field name="password">escritorio</field>
-        <field name="group_ids" eval="[(6, 0, [ref('workshop_os.group_workshop_manager')])]"/>
-        <field name="action_id" ref="workshop_os.action_workshop_dashboard"/>
         <field name="lang">pt_BR</field>
         <field name="tz">America/Sao_Paulo</field>
     </record>

@@ -83,6 +83,12 @@ class WorkshopVehicle(models.Model):
             vehicle.open_order_id = open_orders.filtered(lambda o: o.vehicle_id == vehicle)[:1]
             vehicle.last_visit = last.get(vehicle)
 
+    @api.constrains("plate")
+    def _check_plate(self):
+        for vehicle in self:
+            if not PLATE_RE.match(vehicle.plate or ""):
+                raise ValidationError(_("%s is not a valid plate. Use ABC1234 or ABC1D23.", vehicle.plate))
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -95,11 +101,12 @@ class WorkshopVehicle(models.Model):
             vals["plate"] = normalize_plate(vals["plate"])
         return super().write(vals)
 
-    @api.constrains("plate")
-    def _check_plate(self):
-        for vehicle in self:
-            if not PLATE_RE.match(vehicle.plate or ""):
-                raise ValidationError(_("%s is not a valid plate. Use ABC1234 or ABC1D23.", vehicle.plate))
+    def action_view_orders(self):
+        self.ensure_one()
+        action = self.env["ir.actions.act_window"]._for_xml_id("workshop_os.action_workshop_order")
+        action["domain"] = [("vehicle_id", "=", self.id)]
+        action["context"] = {"default_vehicle_id": self.id, "default_partner_id": self.partner_id.id}
+        return action
 
     @api.model
     def find_by_plate(self, plate):
@@ -125,10 +132,3 @@ class WorkshopVehicle(models.Model):
             "open_order_name": open_order.name or "",
             "order_count": vehicle.order_count,
         }
-
-    def action_view_orders(self):
-        self.ensure_one()
-        action = self.env["ir.actions.act_window"]._for_xml_id("workshop_os.action_workshop_order")
-        action["domain"] = [("vehicle_id", "=", self.id)]
-        action["context"] = {"default_vehicle_id": self.id, "default_partner_id": self.partner_id.id}
-        return action

@@ -1,14 +1,26 @@
+import hashlib
+import logging
 import secrets
+import time
 from datetime import timedelta
 from urllib.parse import quote
 
+import requests
+
 from odoo import Command, _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.fields import Domain
 from odoo.tools import consteq, format_amount
 
+from .res_config_settings import PARAM
 from .workshop_vehicle import PLATE_RE, format_plate, normalize_plate
 
+_logger = logging.getLogger(__name__)
+
 OPEN_STATES = ("draft", "approved", "done")
+# Only the office sets these (the customer's own answer comes through the public link, as superuser).
+OFFICE_STATES = ("approved", "rejected", "cancel")
+OFFICE_FIELDS = {"approved_by", "approved_on", "approval_signature", "billing_id"}
 
 
 class WorkshopOrder(models.Model):
@@ -17,10 +29,12 @@ class WorkshopOrder(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "priority desc, date_in desc, id desc"
     _rec_names_search = ["name", "vehicle_id.plate", "partner_id.name", "vehicle_id.fleet_number"]
+    _check_company_auto = True
 
     name = fields.Char("Number", readonly=True, copy=False, default="/", index=True)
     partner_id = fields.Many2one("res.partner", "Customer", required=True, index=True, tracking=True)
     vehicle_id = fields.Many2one("workshop.vehicle", "Vehicle", required=True, index=True, tracking=True,
+                                 check_company=True,
                                  domain="['|', ('partner_id', '=', False), ('partner_id', '=', partner_id)]")
     plate = fields.Char(related="vehicle_id.plate_display", string="Plate")
     vehicle_desc = fields.Char("Vehicle model", compute="_compute_vehicle_desc")
@@ -31,8 +45,10 @@ class WorkshopOrder(models.Model):
     stage_color = fields.Char(related="stage_id.color")
     location_id = fields.Many2one("workshop.location", "Location", tracking=True)
     sector_id = fields.Many2one("workshop.sector", "Sector")
+    # all_group_ids: group_ids only holds the groups set by hand, so office users (Mechanic implied) would be missing.
     user_id = fields.Many2one("res.users", "Mechanic", tracking=True, default=lambda self: self.env.user,
-                              domain=lambda self: [("group_ids", "in", self.env.ref("workshop_os.group_workshop_user").id)])
+                              domain=lambda self: [("all_group_ids", "in", self.env.ref("workshop_os.group_workshop_user").id),
+                                                   ("share", "=", False)])
     priority = fields.Selection([("0", "Normal"), ("1", "Urgent")], default="0")
     state = fields.Selection([
         ("draft", "Awaiting approval"),
@@ -73,7 +89,8 @@ class WorkshopOrder(models.Model):
     approved_by = fields.Char("Approved by", readonly=True, copy=False)
     approved_on = fields.Datetime(readonly=True, copy=False)
     approval_signature = fields.Image(readonly=True, copy=False, max_width=1024, max_height=512)
-    billing_id = fields.Many2one("workshop.billing", "Monthly closing", readonly=True, copy=False, index=True)
+    billing_id = fields.Many2one("workshop.billing", "Monthly closing", readonly=True, copy=False, index=True,
+                                 check_company=True)
 
     # ------------------------------------------------------------------
     # Computes
@@ -108,10 +125,12 @@ class WorkshopOrder(models.Model):
             order.is_late = bool(order.date_promised and order.date_promised < now and order.state in OPEN_STATES)
 
     def _search_is_late(self, operator, value):
-        if operator not in ("=", "!=") or not isinstance(value, bool):
-            raise UserError(_("Unsupported search on late orders."))
-        late = [("date_promised", "<", fields.Datetime.now()), ("state", "in", OPEN_STATES)]
-        return late if (operator == "=") == value else ["!", "&", *late]
+        if operator != "in":
+            return NotImplemented
+        late = Domain("date_promised", "<", fields.Datetime.now()) & Domain("state", "in", OPEN_STATES)
+        if True in value and False in value:
+            return Domain.TRUE
+        return late if True in value else ~late
 
     @api.depends("stage_log_ids.date_start")
     def _compute_stage_since(self):
@@ -124,11 +143,24 @@ class WorkshopOrder(models.Model):
         return stages.search([], order=stages._order)
 
     # ------------------------------------------------------------------
+    # Constraints
+    # ------------------------------------------------------------------
+    @api.constrains("vehicle_id", "partner_id")
+    def _check_vehicle_owner(self):
+        for order in self:
+            owner = order.vehicle_id.partner_id
+            if owner and owner.commercial_partner_id != order.partner_id.commercial_partner_id:
+                raise ValidationError(_("Vehicle %(plate)s belongs to %(owner)s, not to %(partner)s.",
+                                        plate=order.plate, owner=owner.display_name, partner=order.partner_id.display_name))
+
+    # ------------------------------------------------------------------
     # CRUD
     # ------------------------------------------------------------------
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
+            if vals.get("state") in OFFICE_STATES or OFFICE_FIELDS & vals.keys():
+                self._check_office()
             if vals.get("name", "/") == "/":
                 vals["name"] = self.env["ir.sequence"].next_by_code("workshop.order") or "/"
             if vals.get("partner_id") and not vals.get("state"):
@@ -143,6 +175,8 @@ class WorkshopOrder(models.Model):
         return orders
 
     def write(self, vals):
+        if vals.get("state") in OFFICE_STATES or OFFICE_FIELDS & vals.keys():
+            self._check_office()
         stage_changed = "stage_id" in vals
         res = super().write(vals)
         if stage_changed:
@@ -153,36 +187,18 @@ class WorkshopOrder(models.Model):
                 order.vehicle_id.odometer = order.odometer
         return res
 
-    def _log_stage_change(self):
-        self.ensure_one()
-        now = fields.Datetime.now()
-        open_logs = self.stage_log_ids.filtered(lambda l: not l.date_end)
-        if open_logs and open_logs[:1].stage_id == self.stage_id:
-            return
-        open_logs.write({"date_end": now})
-        if self.stage_id:
-            self.env["workshop.order.stage.log"].create({
-                "order_id": self.id, "stage_id": self.stage_id.id, "date_start": now, "user_id": self.env.user.id,
-            })
-
-    @api.constrains("vehicle_id", "partner_id")
-    def _check_vehicle_owner(self):
-        for order in self:
-            owner = order.vehicle_id.partner_id
-            if owner and owner.commercial_partner_id != order.partner_id.commercial_partner_id:
-                raise ValidationError(_("Vehicle %(plate)s belongs to %(owner)s, not to %(partner)s.",
-                                        plate=order.plate, owner=owner.display_name, partner=order.partner_id.display_name))
-
     # ------------------------------------------------------------------
-    # Workflow
+    # Actions
     # ------------------------------------------------------------------
     def action_approve(self):
+        self._check_office()
         for order in self.filtered(lambda o: o.state in ("draft", "rejected")):
             order.line_ids.filtered(lambda l: l.approval == "pending").approval = "approved"
             order.write({"state": "approved", "approved_by": self.env.user.name, "approved_on": fields.Datetime.now()})
         return True
 
     def action_reject(self):
+        self._check_office()
         self.filtered(lambda o: o.state == "draft").write({"state": "rejected"})
         return True
 
@@ -203,20 +219,57 @@ class WorkshopOrder(models.Model):
         return True
 
     def action_cancel(self):
+        self._check_office()
         if self.filtered("billing_id"):
             raise UserError(_("Orders already included in a monthly closing cannot be cancelled."))
         self.write({"state": "cancel"})
         return True
 
     def action_reopen(self):
+        self._check_office()
         if self.filtered("billing_id"):
             raise UserError(_("Orders already included in a monthly closing cannot be reopened."))
         self.write({"state": "approved", "date_done": False, "date_delivered": False})
         return True
 
+    def action_copy_public_url(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {"type": "info", "sticky": True, "title": _("Customer link"), "message": self.get_public_url()},
+        }
+
+    def action_send_whatsapp(self):
+        self.ensure_one()
+        phone = "".join(ch for ch in (self.partner_id.phone or "") if ch.isdigit())
+        if phone and not phone.startswith("55"):
+            phone = "55" + phone
+        text = _("Hello! Work order %(name)s for %(plate)s: %(url)s", name=self.name, plate=self.plate,
+                 url=self.get_public_url())
+        return {"type": "ir.actions.act_url", "target": "new",
+                "url": f"https://wa.me/{phone}?text={quote(text)}" if phone else f"https://wa.me/?text={quote(text)}"}
+
     # ------------------------------------------------------------------
-    # Customer link (approval and tracking)
+    # Business methods
     # ------------------------------------------------------------------
+    def _check_office(self, message=None):
+        """Approving, refusing, cancelling and reopening belong to the office, whoever calls the method and how."""
+        if not self.env.su and not self.env.user.has_group("workshop_os.group_workshop_manager"):
+            raise AccessError(message or _("Only the office can approve, refuse, cancel or reopen a work order."))
+
+    def _log_stage_change(self):
+        self.ensure_one()
+        now = fields.Datetime.now()
+        open_logs = self.stage_log_ids.filtered(lambda l: not l.date_end)
+        if open_logs and open_logs[:1].stage_id == self.stage_id:
+            return
+        open_logs.write({"date_end": now})
+        if self.stage_id:
+            self.env["workshop.order.stage.log"].create({
+                "order_id": self.id, "stage_id": self.stage_id.id, "date_start": now, "user_id": self.env.user.id,
+            })
+
     def get_public_url(self):
         self.ensure_one()
         return f"{self.get_base_url()}/os/{self.access_token}"
@@ -229,8 +282,11 @@ class WorkshopOrder(models.Model):
         order = self.sudo().search([("access_token", "=", token)], limit=1)
         return order if order and consteq(order.access_token, token) else self.browse()
 
-    def customer_decide(self, approve, name, signature=None, line_ids=None):
-        """Approval or rejection sent from the public page (already token-checked, runs as sudo)."""
+    def _customer_decide(self, approve, name, signature=None, line_ids=None):
+        """Approval or rejection sent from the public page (already token-checked, runs as sudo).
+
+        Private: over RPC anyone logged in could otherwise answer in the customer's name.
+        """
         self.ensure_one()
         if self.state != "draft":
             raise UserError(_("This order was already answered."))
@@ -255,26 +311,15 @@ class WorkshopOrder(models.Model):
         self.message_post(body=body, message_type="notification")
         return True
 
-    def action_copy_public_url(self):
-        self.ensure_one()
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {"type": "info", "sticky": True, "title": _("Customer link"), "message": self.get_public_url()},
-        }
-
-    def action_send_whatsapp(self):
-        self.ensure_one()
-        phone = "".join(ch for ch in (self.partner_id.phone or "") if ch.isdigit())
-        if phone and not phone.startswith("55"):
-            phone = "55" + phone
-        text = _("Hello! Work order %(name)s for %(plate)s: %(url)s", name=self.name, plate=self.plate,
-                 url=self.get_public_url())
-        return {"type": "ir.actions.act_url", "target": "new",
-                "url": f"https://wa.me/{phone}?text={quote(text)}" if phone else f"https://wa.me/?text={quote(text)}"}
+    @api.model
+    def _workshop_home_action(self):
+        """Where the Workshop app opens: the office on the yard dashboard, mechanics straight in their app."""
+        office = self.env.user.has_group("workshop_os.group_workshop_manager")
+        xmlid = "workshop_os.action_workshop_dashboard" if office else "workshop_os.action_mechanic_app"
+        return self.env["ir.actions.actions"]._for_xml_id(xmlid)
 
     # ------------------------------------------------------------------
-    # Mechanic app API: one call per screen, because every round trip to the database costs latency
+    # Mechanic app and dashboard API: one call per screen, because every round trip to the database costs latency
     # ------------------------------------------------------------------
     @api.model
     def app_home(self, search=""):
@@ -296,13 +341,6 @@ class WorkshopOrder(models.Model):
                 "waiting": len(orders.filtered(lambda o: o.state == "draft")),
             },
         }
-
-    @api.model
-    def _workshop_home_action(self):
-        """Where the Workshop app opens: the office on the yard dashboard, mechanics straight in their app."""
-        office = self.env.user.has_group("workshop_os.group_workshop_manager")
-        xmlid = "workshop_os.action_workshop_dashboard" if office else "workshop_os.action_mechanic_app"
-        return self.env["ir.actions.actions"]._for_xml_id(xmlid)
 
     @api.model
     def dashboard_data(self):
@@ -452,7 +490,7 @@ class WorkshopOrder(models.Model):
             "checklist": [{"id": c.id, "section": c.section or "", "name": c.name, "result": c.result or "",
                            "note": c.note or ""} for c in self.checklist_line_ids],
             "timeline": [{"stage": log.stage_id.name, "color": log.stage_id.color, "start": fields.Datetime.to_string(log.date_start),
-                          "hours": round(log.duration_hours, 2), "user": log.user_id.name}
+                          "hours": round(log.elapsed_hours, 2), "user": log.user_id.name}
                          for log in self.stage_log_ids.sorted("date_start")],
             "stages": [{"id": s.id, "name": s.name, "color": s.color} for s in self.env["workshop.stage"].search([])],
             "locations": [{"id": l.id, "name": l.name} for l in self.env["workshop.location"].search([])],
@@ -494,18 +532,13 @@ class WorkshopOrder(models.Model):
 
     def app_remove_line(self, line_id):
         self.ensure_one()
-        line = self.line_ids.filtered(lambda l: l.id == line_id)
-        if line and line.approval == "approved" and not self.env.user.has_group("workshop_os.group_workshop_manager"):
-            raise UserError(_("Approved items can only be removed by the office."))
-        line.unlink()
+        self.line_ids.filtered(lambda l: l.id == line_id).unlink()
         return self.app_read()
 
     def app_action(self, action):
         self.ensure_one()
         if action not in ("action_done", "action_deliver", "action_approve"):
             raise UserError(_("Unknown action."))
-        if action == "action_approve" and not self.env.user.has_group("workshop_os.group_workshop_manager"):
-            raise UserError(_("Only the office can approve an order."))
         getattr(self, action)()
         return self.app_read()
 
@@ -534,9 +567,11 @@ class WorkshopOrderLine(models.Model):
     _description = "Work Order Service"
     _order = "order_id, sequence, id"
 
+    _check_company_auto = True
+
     order_id = fields.Many2one("workshop.order", required=True, ondelete="cascade", index=True)
     sequence = fields.Integer(default=10)
-    service_id = fields.Many2one("workshop.service", "Service")
+    service_id = fields.Many2one("workshop.service", "Service", check_company=True)
     name = fields.Char("Description", required=True)
     sector_id = fields.Many2one("workshop.sector", "Sector")
     user_id = fields.Many2one("res.users", "Mechanic", default=lambda self: self.env.user)
@@ -563,6 +598,30 @@ class WorkshopOrderLine(models.Model):
                 if key != "service_id":
                     self[key] = value
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        if any(vals.get("approval", "pending") != "pending" for vals in vals_list):
+            self.env["workshop.order"]._check_office(_("Only the office can approve or refuse services."))
+        lines = super().create(vals_list)
+        for line in lines:
+            if line.order_id.state == "approved" and line.order_id.partner_id.commercial_partner_id.workshop_auto_approve:
+                # The contract approves the fleet's services in advance: the system approves, not the mechanic.
+                line.sudo().approval = "approved"
+            if line.service_id:
+                # Mechanics cannot edit services; the usage counter is bookkeeping, not their edit.
+                line.service_id.sudo().usage_count += 1
+        return lines
+
+    def write(self, vals):
+        if "approval" in vals:
+            self.env["workshop.order"]._check_office(_("Only the office can approve or refuse services."))
+        return super().write(vals)
+
+    @api.ondelete(at_uninstall=False)
+    def _unlink_except_approved(self):
+        if self.filtered(lambda l: l.approval == "approved"):
+            self.env["workshop.order"]._check_office(_("Approved items can only be removed by the office."))
+
     @api.model
     def _vals_from_service(self, service):
         return {
@@ -572,16 +631,6 @@ class WorkshopOrderLine(models.Model):
             "hours": service.hours,
             "sector_id": service.sector_id.id,
         }
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        lines = super().create(vals_list)
-        for line in lines:
-            if line.order_id.state == "approved" and line.order_id.partner_id.commercial_partner_id.workshop_auto_approve:
-                line.approval = "approved"
-            if line.service_id:
-                line.service_id.sudo().usage_count += 1
-        return lines
 
 
 class WorkshopOrderPhoto(models.Model):
@@ -598,6 +647,113 @@ class WorkshopOrderPhoto(models.Model):
     kind = fields.Selection([("entry", "Arrival"), ("work", "During the job"), ("exit", "Delivery")], default="entry")
     show_to_customer = fields.Boolean(default=True)
 
+    @api.constrains("url", "thumb_url", "attachment_id")
+    def _check_image_source(self):
+        """The app sends these values: only images kept by Odoo or on Cloudinary reach the order and the customer page."""
+        for photo in self:
+            for address in filter(None, (photo.url, photo.thumb_url)):
+                if not address.startswith(("/web/image/", "https://res.cloudinary.com/")):
+                    raise ValidationError(_("Photos must be stored in Odoo or on Cloudinary."))
+            attachment = photo.attachment_id.sudo()
+            if attachment and (attachment.res_model, attachment.res_id) != ("workshop.order", photo.order_id.id):
+                raise ValidationError(_("The photo file belongs to another record."))
+
+    def unlink(self):
+        config = self._cloudinary_config()
+        for photo in self.filtered(lambda p: config and p.public_id and p.public_id.startswith(config["folder"] + "/")):
+            params = {"public_id": photo.public_id, "timestamp": int(time.time())}
+            try:
+                requests.post(
+                    f"https://api.cloudinary.com/v1_1/{config['cloud_name']}/image/destroy",
+                    data={**params, "api_key": config["api_key"],
+                          "signature": self._cloudinary_sign(params, config["api_secret"])},
+                    timeout=10,
+                )
+            except requests.RequestException:
+                _logger.warning("Could not delete %s from Cloudinary", photo.public_id)
+        self.attachment_id.unlink()
+        return super().unlink()
+
+    @api.model
+    def _cloudinary_config(self):
+        get = self.env["ir.config_parameter"].sudo().get_param
+        if get(PARAM + "photo_storage") != "cloudinary":
+            return {}
+        config = {
+            "cloud_name": get(PARAM + "cloudinary_cloud_name"),
+            "api_key": get(PARAM + "cloudinary_api_key"),
+            "api_secret": get(PARAM + "cloudinary_api_secret"),
+            "folder": get(PARAM + "cloudinary_folder") or "oficina",
+        }
+        return config if all(config.values()) else {}
+
+    @staticmethod
+    def _cloudinary_sign(params, secret):
+        payload = "&".join(f"{k}={params[k]}" for k in sorted(params) if params[k] not in (None, ""))
+        return hashlib.sha1((payload + secret).encode()).hexdigest()
+
+    @api.model
+    def upload_ticket(self):
+        """What the app needs to send a photo: a signed Cloudinary upload, or 'database' for direct upload to Odoo.
+
+        The API secret never leaves the server; the browser only gets a short-lived signature.
+        """
+        config = self._cloudinary_config()
+        if not config:
+            return {"storage": "database"}
+        params = {"folder": config["folder"], "timestamp": int(time.time())}
+        return {
+            "storage": "cloudinary",
+            "url": f"https://api.cloudinary.com/v1_1/{config['cloud_name']}/image/upload",
+            "api_key": config["api_key"],
+            "signature": self._cloudinary_sign(params, config["api_secret"]),
+            **params,
+        }
+
+    @api.model
+    def add_photo(self, order_id, values):
+        """Register a photo taken in the app. values: Cloudinary result (secure_url, public_id) or {data, name}."""
+        order = self.env["workshop.order"].browse(order_id)
+        order.check_access("write")
+        vals = {"order_id": order.id, "kind": values.get("kind") or "entry", "caption": values.get("caption") or False}
+        if values.get("secure_url"):
+            url = values["secure_url"]
+            folder = self._cloudinary_config().get("folder")
+            public_id = values.get("public_id") or ""
+            # Only ids in the shop's own folder: deleting the photo later destroys that id, signed with the secret.
+            vals.update(url=url, public_id=public_id if folder and public_id.startswith(folder + "/") else False,
+                        thumb_url=url.replace("/upload/", "/upload/c_fill,w_360,h_360,q_auto,f_auto/"))
+        elif values.get("data"):
+            attachment = self.env["ir.attachment"].create({
+                "name": values.get("name") or f"{order.name}.jpg",
+                "datas": values["data"],
+                "res_model": "workshop.order",
+                "res_id": order.id,
+                "mimetype": "image/jpeg",
+            })
+            attachment.generate_access_token()
+            vals.update(attachment_id=attachment.id,
+                        url=f"/web/image/{attachment.id}?access_token={attachment.access_token}",
+                        thumb_url=f"/web/image/{attachment.id}/360x360?access_token={attachment.access_token}")
+        else:
+            raise UserError(_("No image received."))
+        self.create(vals)
+        return order.app_read()
+
+
+class WorkshopOrderChecklist(models.Model):
+    _name = "workshop.order.checklist"
+    _description = "Work Order Checklist Answer"
+    _order = "order_id, sequence, id"
+
+    order_id = fields.Many2one("workshop.order", required=True, ondelete="cascade", index=True)
+    template_id = fields.Many2one("workshop.checklist.template")
+    sequence = fields.Integer(default=10)
+    section = fields.Char()
+    name = fields.Char(required=True)
+    result = fields.Selection([("ok", "OK"), ("attention", "Attention"), ("fail", "Problem"), ("na", "N/A")])
+    note = fields.Char()
+
 
 class WorkshopOrderStageLog(models.Model):
     _name = "workshop.order.stage.log"
@@ -609,12 +765,22 @@ class WorkshopOrderStageLog(models.Model):
     user_id = fields.Many2one("res.users")
     date_start = fields.Datetime(required=True)
     date_end = fields.Datetime()
-    duration_hours = fields.Float(compute="_compute_duration", store=True)
+    duration_hours = fields.Float(compute="_compute_duration", store=True,
+                                  help="Time spent in the stage, set when the order leaves it (for reports).")
+    elapsed_hours = fields.Float("Hours", compute="_compute_elapsed_hours",
+                                 help="Time in the stage, counting up to now for the current one.")
     is_waiting = fields.Boolean(related="stage_id.is_waiting", store=True)
 
     @api.depends("date_start", "date_end")
     def _compute_duration(self):
+        for log in self:
+            log.duration_hours = log._hours_until(log.date_end) if log.date_end else 0.0
+
+    def _compute_elapsed_hours(self):
         now = fields.Datetime.now()
         for log in self:
-            end = log.date_end or now
-            log.duration_hours = max((end - log.date_start) / timedelta(hours=1), 0.0) if log.date_start else 0.0
+            log.elapsed_hours = log._hours_until(log.date_end or now)
+
+    def _hours_until(self, end):
+        self.ensure_one()
+        return max((end - self.date_start) / timedelta(hours=1), 0.0) if self.date_start else 0.0

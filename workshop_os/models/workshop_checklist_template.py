@@ -1,6 +1,4 @@
-from odoo import fields, models
-
-RESULTS = [("ok", "OK"), ("attention", "Attention"), ("fail", "Problem"), ("na", "N/A")]
+from odoo import api, fields, models
 
 
 class WorkshopChecklistTemplate(models.Model):
@@ -18,6 +16,7 @@ class WorkshopChecklistTemplate(models.Model):
     item_count = fields.Integer(compute="_compute_item_count")
     active = fields.Boolean(default=True)
 
+    @api.depends("item_ids")
     def _compute_item_count(self):
         for template in self:
             template.item_count = len(template.item_ids)
@@ -32,17 +31,3 @@ class WorkshopChecklistTemplateItem(models.Model):
     sequence = fields.Integer(default=10)
     section = fields.Char(translate=True)
     name = fields.Char(required=True, translate=True)
-
-
-class WorkshopOrderChecklist(models.Model):
-    _name = "workshop.order.checklist"
-    _description = "Work Order Checklist Answer"
-    _order = "order_id, sequence, id"
-
-    order_id = fields.Many2one("workshop.order", required=True, ondelete="cascade", index=True)
-    template_id = fields.Many2one("workshop.checklist.template")
-    sequence = fields.Integer(default=10)
-    section = fields.Char()
-    name = fields.Char(required=True)
-    result = fields.Selection(RESULTS)
-    note = fields.Char()

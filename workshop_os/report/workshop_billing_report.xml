@@ -31,7 +31,7 @@
                         <tr><th>Service</th><th style="text-align: right;">Qty</th><th style="text-align: right;">Amount</th></tr>
                     </thead>
                     <tbody>
-                        <tr t-foreach="b.service_summary()" t-as="row">
+                        <tr t-foreach="b._service_summary()" t-as="row">
                             <td t-out="row[0]"/>
                             <td style="text-align: right;" t-out="'%g' % row[1]"/>
                             <td style="text-align: right;"><span t-out="row[2]" t-options='{"widget": "monetary", "display_currency": b.currency_id}'/></td>

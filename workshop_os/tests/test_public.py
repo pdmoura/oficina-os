@@ -99,7 +99,7 @@ class TestPublicPage(HttpCase):
     def test_app_icon_follows_the_company(self):
         default = self.url_open("/workshop_os/app-icon/192", allow_redirects=False)
         self.assertEqual(default.status_code, 303)
-        self.assertIn("/workshop_os/static/img/app-icon-192.png", default.headers["Location"])
+        self.assertIn("/workshop_os/static/img/app_icon_192.png", default.headers["Location"])
         pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
         self.env.company.workshop_app_icon = pixel
         custom = self.url_open("/workshop_os/app-icon/192")
