@@ -58,11 +58,14 @@ jobs:
 
       - name: Wait for the first boot and log in as the demo office user
         run: |
-          for i in $(seq 1 60); do
-            curl -fsS "http://127.0.0.1:8069/web/health?db_server_status=1" && break
+          # The entrypoint's "preparing" page also passes /web/health; only Odoo reports the database.
+          for i in $(seq 1 90); do
+            curl -fsS "http://127.0.0.1:8069/web/health?db_server_status=1" | grep -q '"db_server_status": true' && break
             sleep 5
           done
-          curl -fsS -H "Content-Type: application/json"             -d '{"jsonrpc":"2.0","method":"call","params":{"db":"odoo","login":"escritorio","password":"escritorio"}}'             http://127.0.0.1:8069/web/session/authenticate | grep -q '"uid"'
+          curl -fsS -H "Content-Type: application/json" \
+            -d '{"jsonrpc":"2.0","method":"call","params":{"db":"odoo","login":"escritorio","password":"escritorio"}}' \
+            http://127.0.0.1:8069/web/session/authenticate | grep -q '"uid"'
 
       - name: Logs
         if: always()

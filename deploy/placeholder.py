@@ -48,6 +48,19 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def do_HEAD(self):
         self._answer(with_body=False)
 
+    def do_POST(self):
+        # A login or RPC sent meanwhile gets "try again later", not "not implemented".
+        length = int(self.headers.get("Content-Length") or 0)
+        if length:
+            self.rfile.read(min(length, 1_000_000))
+        body = b'{"error": "preparing", "retry_after": 20}'
+        self.send_response(503)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Retry-After", "20")
+        self.end_headers()
+        self.wfile.write(body)
+
     def log_message(self, *args):
         pass
 
