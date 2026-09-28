@@ -87,6 +87,13 @@ msgid "<i class=\"fa fa-clock-o\" title=\"Labour hours\"/>"
 msgstr "<i class=\"fa fa-clock-o\" title=\"Horas de mão de obra\"/>"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-external-link me-1\" title=\"Opens in a new tab\"/>Open "
+"Cloudinary"
+msgstr "<i class=\"fa fa-external-link me-1\" title=\"Abre em uma nova aba\"/>Abrir o Cloudinary"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_kanban
 msgid "<i class=\"fa fa-wrench me-1\" title=\"Work orders\"/>"
 msgstr "<i class=\"fa fa-wrench me-1\" title=\"Ordens de serviço\"/>"
@@ -427,6 +434,11 @@ msgid "At the customer's"
 msgstr "No cliente"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid "At the top of the page, next to \"Cloud name\"."
+msgstr "No topo da página, ao lado de \"Cloud name\"."
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__attachment_id
 msgid "Attachment"
 msgstr "Anexo"
@@ -613,6 +625,12 @@ msgid "Caption"
 msgstr "Legenda"
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid "Check the values on Cloudinary's API Keys page."
+msgstr "Confira os valores na página API Keys do Cloudinary."
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__checklist_line_ids
@@ -670,8 +688,10 @@ msgstr "Cloudinary"
 #. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/res_config_settings.py:0
-msgid "Cloudinary connected."
-msgstr "Cloudinary conectado."
+msgid ""
+"Cloudinary connected: a test photo went into the “%s” folder and was "
+"deleted."
+msgstr "Cloudinary conectado: uma foto de teste foi enviada para a pasta “%s” e apagada em seguida."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -687,8 +707,8 @@ msgstr "ID público no Cloudinary, usado para excluir a imagem."
 #. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/res_config_settings.py:0
-msgid "Cloudinary refused the credentials (HTTP %s)."
-msgstr "O Cloudinary recusou as credenciais (HTTP %s)."
+msgid "Cloudinary refused the request (%(reason)s). %(hint)s"
+msgstr "O Cloudinary recusou o pedido (%(reason)s). %(hint)s"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__code
@@ -780,6 +800,11 @@ msgstr "Não foi possível acessar o Cloudinary: %s"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__create_uid
 msgid "Created by"
 msgstr "Criado por"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid "Created by Cloudinary with the first photo: nothing to create there."
+msgstr "O Cloudinary cria a pasta com a primeira foto: não é preciso criar nada lá."
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__create_date
@@ -1345,6 +1370,13 @@ msgstr "Se marcado, novas mensagens precisam da sua atenção."
 #: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__message_has_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Se marcado, algumas mensagens têm erro de entrega."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid ""
+"In Cloudinary, go to Settings (the gear) → API Keys: that page shows the "
+"three values below."
+msgstr "No Cloudinary, entre em Settings (a engrenagem) → API Keys: essa página mostra os três valores abaixo."
 
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_working
@@ -2664,6 +2696,38 @@ msgstr "Textos"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid ""
+"The \"API Secret\" on the same line in Cloudinary, hidden behind dots: click"
+" the eye there to show it and copy it whole. It stays on this server; phones"
+" only get a one-time signature for each photo."
+msgstr "O \"API Secret\" da mesma linha no Cloudinary, escondido por pontinhos: clique no olho de lá para mostrar e copie inteiro. Ele fica só neste servidor; os celulares recebem apenas uma assinatura de uso único para cada foto."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid ""
+"The API key was not found: use the number in the “API Key” column, not the "
+"key's name."
+msgstr "A chave de API não foi encontrada: use o número da coluna “API Key”, não o nome da chave."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid ""
+"The API secret does not match the API key: show it with the eye icon and "
+"copy it whole."
+msgstr "O segredo da API não corresponde à chave: mostre-o pelo ícone do olho e copie inteiro."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid ""
+"The Cloudinary API key is the number in the “API Key” column (e.g. "
+"123456789012345), not the key's name."
+msgstr "A chave de API do Cloudinary é o número da coluna “API Key” (ex.: 123456789012345), não o nome da chave."
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid ""
 "The accent colours buttons and highlights across the system, the mechanic "
 "app, the customer pages and the login; the background colour paints the top "
 "bar and the login page"
@@ -2677,6 +2741,14 @@ msgstr ""
 #: code:addons/workshop_os/models/res_company.py:0
 msgid "The browser icon must be an .ico or .png image."
 msgstr "O ícone do navegador precisa ser uma imagem .ico ou .png."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid ""
+"The cloud name does not match these keys: copy it from the top of the API "
+"Keys page."
+msgstr "O cloud name não corresponde a estas chaves: copie-o do topo da página API Keys."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
@@ -2703,6 +2775,11 @@ msgstr ""
 msgid "The logo without text, for the mechanic app header and the phone icon"
 msgstr ""
 "O logo sem texto, para o cabeçalho do app do mecânico e o ícone no celular"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid "The number in the \"API Key\" column, not the key's name (such as \"Root\")."
+msgstr "O número da coluna \"API Key\", não o nome da chave (como \"Root\")."
 
 #. module: workshop_os
 #. odoo-python
@@ -3165,6 +3242,16 @@ msgstr "Ano"
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "Your name"
 msgstr "Seu nome"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid "e.g. 123456789012345"
+msgstr "ex.: 123456789012345"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
+msgid "e.g. dq5xyz1ab"
+msgstr "ex.: dq5xyz1ab"
 
 #. module: workshop_os
 #. odoo-javascript

@@ -56,24 +56,30 @@
                                  help="Database works everywhere. Cloudinary keeps the database small and serves images faster">
                             <field name="workshop_photo_storage" widget="radio"/>
                             <div class="content-group" invisible="workshop_photo_storage != 'cloudinary'">
+                                <div class="text-muted mt8">In Cloudinary, go to Settings (the gear) → API Keys: that page shows the three values below.</div>
+                                <a href="https://console.cloudinary.com/" target="_blank" rel="noopener" class="d-inline-block mt4"><i class="fa fa-external-link me-1" title="Opens in a new tab"/>Open Cloudinary</a>
                                 <div class="row mt8">
                                     <label for="workshop_cloudinary_cloud_name" class="col-lg-4 o_light_label"/>
-                                    <field name="workshop_cloudinary_cloud_name"/>
+                                    <field name="workshop_cloudinary_cloud_name" class="col-lg-8" placeholder="e.g. dq5xyz1ab"/>
+                                    <div class="col-lg-8 offset-lg-4 text-muted small">At the top of the page, next to "Cloud name".</div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt8">
                                     <label for="workshop_cloudinary_api_key" class="col-lg-4 o_light_label"/>
-                                    <field name="workshop_cloudinary_api_key"/>
+                                    <field name="workshop_cloudinary_api_key" class="col-lg-8" placeholder="e.g. 123456789012345"/>
+                                    <div class="col-lg-8 offset-lg-4 text-muted small">The number in the "API Key" column, not the key's name (such as "Root").</div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt8">
                                     <label for="workshop_cloudinary_api_secret" class="col-lg-4 o_light_label"/>
-                                    <field name="workshop_cloudinary_api_secret" password="True"/>
+                                    <field name="workshop_cloudinary_api_secret" class="col-lg-8" password="True"/>
+                                    <div class="col-lg-8 offset-lg-4 text-muted small">The "API Secret" on the same line in Cloudinary, hidden behind dots: click the eye there to show it and copy it whole. It stays on this server; phones only get a one-time signature for each photo.</div>
                                 </div>
-                                <div class="row">
+                                <div class="row mt8">
                                     <label for="workshop_cloudinary_folder" class="col-lg-4 o_light_label"/>
-                                    <field name="workshop_cloudinary_folder"/>
+                                    <field name="workshop_cloudinary_folder" class="col-lg-8"/>
+                                    <div class="col-lg-8 offset-lg-4 text-muted small">Created by Cloudinary with the first photo: nothing to create there.</div>
                                 </div>
                                 <button name="action_workshop_test_cloudinary" type="object" string="Test connection"
-                                        class="btn-link" icon="oi-arrow-right"/>
+                                        class="btn-link mt8" icon="oi-arrow-right"/>
                             </div>
                         </setting>
                     </block>

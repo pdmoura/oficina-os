@@ -1,6 +1,6 @@
 {
     "name": "Workshop Orders",
-    "version": "19.0.1.4.1",
+    "version": "19.0.1.4.2",
     "category": "Services/Workshop",
     "summary": "Work orders for fleet workshops: plate-first mobile app for mechanics, kanban, checklists, photos, "
                "customer approval by link and monthly billing per fleet",

@@ -46,9 +46,10 @@ class TestPublicPage(HttpCase):
         self.assertIn("error", response.json())
         self.assertEqual(self.order.state, "draft")
 
-    def test_manifest_opens_the_mechanic_app(self):
+    def test_installed_app_opens_each_role_on_its_screen(self):
+        # Odoo's home routes by role (see test_login_opens_the_workshop_by_role): mechanic app or dashboard.
         manifest = self.url_open("/web/manifest.webmanifest").json()
-        self.assertEqual(manifest["start_url"], "/odoo/mechanic-app")
+        self.assertEqual(manifest["start_url"], "/odoo")
         self.assertEqual(manifest["icons"][0]["src"], "/workshop_os/app-icon/192")
 
     def test_company_logo_is_public(self):

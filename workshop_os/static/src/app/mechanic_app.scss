@@ -177,10 +177,18 @@
         &:active { background: var(--Workshop-surface-2); }
     }
     .o_workshop_app_card__row { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; }
-    .o_workshop_app_card__row .o_workshop_app_pill { flex: 0 0 auto; }
+    // "Late" sits under the plate, so the vehicle and customer keep the rest of the width.
+    .o_workshop_app_card__plate {
+        display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 0 0 auto;
+        .o_workshop_app_pill { font-size: 11px; padding: 3px 8px; white-space: nowrap; }
+    }
     .o_workshop_app_card__main { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-    .o_workshop_app_card__main strong { font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .o_workshop_app_card__main span { font-size: 13px; color: var(--Workshop-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    // Long vehicle and customer names take a second line rather than being cut to "Mercedes-Be…".
+    .o_workshop_app_card__main strong, .o_workshop_app_card__main span {
+        display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; overflow-wrap: anywhere;
+    }
+    .o_workshop_app_card__main strong { font-size: 16px; line-height: 1.25; }
+    .o_workshop_app_card__main span { font-size: 13px; line-height: 1.3; color: var(--Workshop-muted); }
     .o_workshop_app_card__foot { display: flex; align-items: center; gap: 6px 12px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; min-width: 0; }
     .o_workshop_app_card__id { margin-left: auto; color: var(--Workshop-faint); font-size: 12px; }
     .o_workshop_app_stage { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }

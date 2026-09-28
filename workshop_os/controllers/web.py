@@ -4,7 +4,10 @@ from odoo.addons.web.controllers.webmanifest import WebManifest
 
 
 class WorkshopManifest(WebManifest):
-    """Installable app named and coloured after the workshop, opening straight on the mechanic app."""
+    """Installable app named and coloured after the workshop.
+
+    It starts on Odoo's home, which opens the mechanic app for mechanics and the dashboard for the office.
+    """
 
     def _get_webmanifest(self):
         manifest = super()._get_webmanifest()
@@ -12,7 +15,6 @@ class WorkshopManifest(WebManifest):
         manifest.update({
             "name": name,
             "short_name": name[:12],
-            "start_url": "/odoo/mechanic-app",
             "background_color": "#0F1115",
             "theme_color": "#0F1115",
             "icons": [

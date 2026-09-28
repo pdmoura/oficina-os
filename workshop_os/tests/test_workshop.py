@@ -1,6 +1,7 @@
 import re
 from datetime import timedelta
 from pathlib import Path
+from unittest.mock import Mock, patch
 
 from dateutil.relativedelta import relativedelta
 from lxml import etree
@@ -192,6 +193,44 @@ class TestOrderFlow(WorkshopCase):
         self.assertEqual(signature, "bfd09f95f331f558cbd1320e67aa8d488770583e")
         ticket = self.env["workshop.order.photo"].upload_ticket()
         self.assertEqual(ticket, {"storage": "database"}, "no Cloudinary settings: photos go to the database")
+
+    def _cloudinary_settings(self, **values):
+        return self.env["res.config.settings"].create({
+            "workshop_photo_storage": "cloudinary", "workshop_cloudinary_cloud_name": "sv-demo",
+            "workshop_cloudinary_api_key": "123456789012345", "workshop_cloudinary_api_secret": "abcd",
+            "workshop_cloudinary_folder": "oficina", **values,
+        })
+
+    def test_cloudinary_settings_catch_common_mistakes(self):
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self._cloudinary_settings(workshop_cloudinary_api_key="Root")
+        self._cloudinary_settings(workshop_cloudinary_api_key=" 123456789012345\n", workshop_cloudinary_folder="/oficinas/").execute()
+        config = self.env["workshop.order.photo"]._cloudinary_config()
+        self.assertEqual((config["api_key"], config["folder"]), ("123456789012345", "oficinas"))
+
+    def test_cloudinary_test_sends_a_photo_and_deletes_it(self):
+        calls = []
+
+        def cloudinary(method, url, **kwargs):
+            calls.append((url.split("/v1_1/sv-demo/")[1], kwargs))
+            return Mock(ok=True, json=Mock(return_value={"public_id": "oficina/connection-test"} if "upload" in url else {}))
+
+        with patch("odoo.addons.workshop_os.models.res_config_settings.requests.request", side_effect=cloudinary):
+            result = self._cloudinary_settings().action_workshop_test_cloudinary()
+        self.assertEqual(result["params"]["type"], "success")
+        self.assertEqual([path for path, _kwargs in calls], ["usage", "image/upload", "image/destroy"])
+        upload = calls[1][1]["data"]
+        signed = {key: upload[key] for key in ("folder", "public_id", "timestamp")}
+        self.assertEqual(upload["folder"], "oficina")
+        self.assertEqual(upload["signature"], self.env["workshop.order.photo"]._cloudinary_sign(signed, "abcd"))
+        self.assertEqual(calls[2][1]["data"]["public_id"], "oficina/connection-test")
+
+    def test_cloudinary_refusals_say_which_value_is_wrong(self):
+        refusal = Mock(ok=False, status_code=401, json=Mock(return_value={"error": {"message": "unknown api_key"}}))
+        settings = self._cloudinary_settings()
+        with patch("odoo.addons.workshop_os.models.res_config_settings.requests.request", return_value=refusal):
+            with self.assertRaisesRegex(UserError, "not the key's name"):
+                settings.action_workshop_test_cloudinary()
 
 
 @tagged("post_install", "-at_install")

@@ -680,10 +680,10 @@ class WorkshopOrderPhoto(models.Model):
         if get(PARAM + "photo_storage") != "cloudinary":
             return {}
         config = {
-            "cloud_name": get(PARAM + "cloudinary_cloud_name"),
-            "api_key": get(PARAM + "cloudinary_api_key"),
-            "api_secret": get(PARAM + "cloudinary_api_secret"),
-            "folder": get(PARAM + "cloudinary_folder") or "oficina",
+            "cloud_name": (get(PARAM + "cloudinary_cloud_name") or "").strip(),
+            "api_key": (get(PARAM + "cloudinary_api_key") or "").strip(),
+            "api_secret": (get(PARAM + "cloudinary_api_secret") or "").strip(),
+            "folder": (get(PARAM + "cloudinary_folder") or "").strip().strip("/") or "oficina",
         }
         return config if all(config.values()) else {}
 

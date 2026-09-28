@@ -113,12 +113,14 @@
                 <button t-foreach="orders" t-as="order" t-key="order.id" class="o_workshop_app_card"
                         t-attf-style="--WorkshopStage-color: {{ order.stage_color }}" t-on-click="() => props.app.openOrder(order.id)">
                     <div class="o_workshop_app_card__row">
-                        <Plate plate="order.plate"/>
+                        <div class="o_workshop_app_card__plate">
+                            <Plate plate="order.plate"/>
+                            <span t-if="order.is_late" class="o_workshop_app_pill o_workshop_is_danger"><i class="fa fa-clock-o"/> Late</span>
+                        </div>
                         <div class="o_workshop_app_card__main">
                             <strong t-esc="order.vehicle or order.name"/>
                             <span t-esc="order.partner"/>
                         </div>
-                        <span t-if="order.is_late" class="o_workshop_app_pill o_workshop_is_danger"><i class="fa fa-clock-o"/> Late</span>
                     </div>
                     <div class="o_workshop_app_card__foot">
                         <span class="o_workshop_app_stage"><span class="o_workshop_app_dot" t-attf-style="background: {{ order.stage_color }}"/><t t-esc="order.stage"/></span>
