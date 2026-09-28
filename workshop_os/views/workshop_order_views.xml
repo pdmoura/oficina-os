@@ -195,6 +195,29 @@
                                            decoration-warning="result == 'attention'" decoration-danger="result == 'fail'"/>
                                     <field name="note"/>
                                 </list>
+                                <kanban class="o_workshop_line_kanban" create="false">
+                                    <templates>
+                                        <t t-name="card">
+                                            <div class="d-flex justify-content-between align-items-start gap-2">
+                                                <div class="min-w-0">
+                                                    <field name="section" class="d-block small text-muted"/>
+                                                    <field name="name" class="fw-bold"/>
+                                                </div>
+                                                <field name="result" widget="badge" decoration-success="result == 'ok'"
+                                                       decoration-warning="result == 'attention'" decoration-danger="result == 'fail'"/>
+                                            </div>
+                                            <field name="note" class="mt-1 text-muted" invisible="not note"/>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                                <form>
+                                    <group>
+                                        <field name="section"/>
+                                        <field name="name"/>
+                                        <field name="result" widget="radio"/>
+                                        <field name="note"/>
+                                    </group>
+                                </form>
                             </field>
                         </page>
                         <page string="Photos" name="photos">
@@ -226,6 +249,25 @@
                                     <field name="is_waiting"/>
                                     <field name="user_id" widget="many2one_avatar_user"/>
                                 </list>
+                                <kanban class="o_workshop_line_kanban">
+                                    <templates>
+                                        <t t-name="card">
+                                            <div class="d-flex justify-content-between align-items-center gap-2">
+                                                <field name="stage_id" widget="badge"/>
+                                                <field name="elapsed_hours" widget="float_time" class="fw-bold"/>
+                                            </div>
+                                            <div class="d-flex flex-wrap align-items-center gap-1 mt-1 text-muted">
+                                                <field name="date_start"/>
+                                                <span invisible="not date_end">→</span>
+                                                <field name="date_end" invisible="not date_end"/>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2 mt-1 text-muted">
+                                                <field name="user_id" widget="many2one_avatar_user"/>
+                                                <span class="badge text-bg-light" invisible="not is_waiting">Waiting</span>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
                             </field>
                         </page>
                         <page string="Approval" name="approval">

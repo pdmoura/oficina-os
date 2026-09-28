@@ -18,6 +18,32 @@
         </field>
     </record>
 
+    <record id="workshop_billing_view_kanban" model="ir.ui.view">
+        <field name="name">workshop.billing.view.kanban</field>
+        <field name="model">workshop.billing</field>
+        <field name="arch" type="xml">
+            <kanban class="o_workshop_kanban">
+                <field name="currency_id"/>
+                <templates>
+                    <t t-name="card" class="o_workshop_card">
+                        <div class="d-flex justify-content-between align-items-start gap-2">
+                            <field name="name" class="fw-bold"/>
+                            <field name="state" widget="badge" decoration-info="state == 'confirmed'"
+                                   decoration-primary="state == 'invoiced'" decoration-success="state == 'paid'"/>
+                        </div>
+                        <div class="d-flex flex-wrap align-items-center gap-1 small text-muted">
+                            <field name="date_from" widget="date"/><span>–</span><field name="date_to" widget="date"/>
+                            <span class="ms-2"><field name="order_count"/> OS</span>
+                        </div>
+                        <footer class="pt-1">
+                            <field name="amount_total" widget="monetary" class="ms-auto fw-bold"/>
+                        </footer>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id="workshop_billing_view_form" model="ir.ui.view">
         <field name="name">workshop.billing.view.form</field>
         <field name="model">workshop.billing</field>
@@ -62,6 +88,24 @@
                                     <field name="amount_total" sum="Total"/>
                                     <field name="currency_id" column_invisible="True"/>
                                 </list>
+                                <kanban class="o_workshop_line_kanban">
+                                    <field name="currency_id"/>
+                                    <templates>
+                                        <t t-name="card">
+                                            <div class="d-flex justify-content-between align-items-center gap-2">
+                                                <field name="name" class="fw-bold"/>
+                                                <field name="amount_total" widget="monetary" class="fw-bold"/>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2 mt-1">
+                                                <field name="plate" widget="workshop_plate"/>
+                                                <div class="min-w-0 text-muted">
+                                                    <field name="vehicle_id" class="d-block text-truncate"/>
+                                                    <field name="date_done" widget="date"/>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
                             </field>
                         </page>
                         <page string="Notes" name="notes">
@@ -77,7 +121,7 @@
     <record id="workshop_billing_action" model="ir.actions.act_window">
         <field name="name">Monthly Closing</field>
         <field name="res_model">workshop.billing</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Close the month for a fleet customer</p>
             <p>Pick the customer and the period, load the finished orders, print the report and issue the NFS-e.</p>

@@ -91,12 +91,21 @@ msgstr "<i class=\"fa fa-clock-o\" title=\"Horas de mão de obra\"/>"
 msgid ""
 "<i class=\"fa fa-external-link me-1\" title=\"Opens in a new tab\"/>Open "
 "Cloudinary"
-msgstr "<i class=\"fa fa-external-link me-1\" title=\"Abre em uma nova aba\"/>Abrir o Cloudinary"
+msgstr ""
+"<i class=\"fa fa-external-link me-1\" title=\"Abre em uma nova aba\"/>Abrir "
+"o Cloudinary"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_kanban
 msgid "<i class=\"fa fa-wrench me-1\" title=\"Work orders\"/>"
 msgstr "<i class=\"fa fa-wrench me-1\" title=\"Ordens de serviço\"/>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid ""
+"<span class=\"badge text-bg-light\" invisible=\"not "
+"is_waiting\">Waiting</span>"
+msgstr "<span class=\"badge text-bg-light\" invisible=\"not is_waiting\">Aguardando</span>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
@@ -133,6 +142,11 @@ msgid "<span class=\"o_workshop_plate__band\">BRASIL</span>"
 msgstr "<span class=\"o_workshop_plate__band\">BRASIL</span>"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid "<span invisible=\"not date_end\">→</span>"
+msgstr ""
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "<span>Arrived</span>"
 msgstr "<span>Entrada</span>"
@@ -166,6 +180,11 @@ msgstr "<span>Total</span>"
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
 msgid "<span>to</span>"
 msgstr "<span>até</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_kanban
+msgid "<span>–</span>"
+msgstr ""
 
 #. module: workshop_os
 #. odoo-javascript
@@ -691,7 +710,9 @@ msgstr "Cloudinary"
 msgid ""
 "Cloudinary connected: a test photo went into the “%s” folder and was "
 "deleted."
-msgstr "Cloudinary conectado: uma foto de teste foi enviada para a pasta “%s” e apagada em seguida."
+msgstr ""
+"Cloudinary conectado: uma foto de teste foi enviada para a pasta “%s” e "
+"apagada em seguida."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -804,7 +825,8 @@ msgstr "Criado por"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
 msgid "Created by Cloudinary with the first photo: nothing to create there."
-msgstr "O Cloudinary cria a pasta com a primeira foto: não é preciso criar nada lá."
+msgstr ""
+"O Cloudinary cria a pasta com a primeira foto: não é preciso criar nada lá."
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__create_date
@@ -1376,7 +1398,9 @@ msgstr "Se marcado, algumas mensagens têm erro de entrega."
 msgid ""
 "In Cloudinary, go to Settings (the gear) → API Keys: that page shows the "
 "three values below."
-msgstr "No Cloudinary, entre em Settings (a engrenagem) → API Keys: essa página mostra os três valores abaixo."
+msgstr ""
+"No Cloudinary, entre em Settings (a engrenagem) → API Keys: essa página "
+"mostra os três valores abaixo."
 
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_working
@@ -1889,6 +1913,7 @@ msgid "OK"
 msgstr "OK"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_kanban
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_kanban
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_vehicle_view_kanban
 msgid "OS"
@@ -2405,6 +2430,8 @@ msgid "Search services"
 msgstr "Buscar serviços"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/notebook.xml:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__section
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__section
 msgid "Section"
@@ -2699,7 +2726,11 @@ msgid ""
 "The \"API Secret\" on the same line in Cloudinary, hidden behind dots: click"
 " the eye there to show it and copy it whole. It stays on this server; phones"
 " only get a one-time signature for each photo."
-msgstr "O \"API Secret\" da mesma linha no Cloudinary, escondido por pontinhos: clique no olho de lá para mostrar e copie inteiro. Ele fica só neste servidor; os celulares recebem apenas uma assinatura de uso único para cada foto."
+msgstr ""
+"O \"API Secret\" da mesma linha no Cloudinary, escondido por pontinhos: "
+"clique no olho de lá para mostrar e copie inteiro. Ele fica só neste "
+"servidor; os celulares recebem apenas uma assinatura de uso único para cada "
+"foto."
 
 #. module: workshop_os
 #. odoo-python
@@ -2707,7 +2738,9 @@ msgstr "O \"API Secret\" da mesma linha no Cloudinary, escondido por pontinhos: 
 msgid ""
 "The API key was not found: use the number in the “API Key” column, not the "
 "key's name."
-msgstr "A chave de API não foi encontrada: use o número da coluna “API Key”, não o nome da chave."
+msgstr ""
+"A chave de API não foi encontrada: use o número da coluna “API Key”, não o "
+"nome da chave."
 
 #. module: workshop_os
 #. odoo-python
@@ -2715,7 +2748,9 @@ msgstr "A chave de API não foi encontrada: use o número da coluna “API Key�
 msgid ""
 "The API secret does not match the API key: show it with the eye icon and "
 "copy it whole."
-msgstr "O segredo da API não corresponde à chave: mostre-o pelo ícone do olho e copie inteiro."
+msgstr ""
+"O segredo da API não corresponde à chave: mostre-o pelo ícone do olho e "
+"copie inteiro."
 
 #. module: workshop_os
 #. odoo-python
@@ -2723,7 +2758,9 @@ msgstr "O segredo da API não corresponde à chave: mostre-o pelo ícone do olho
 msgid ""
 "The Cloudinary API key is the number in the “API Key” column (e.g. "
 "123456789012345), not the key's name."
-msgstr "A chave de API do Cloudinary é o número da coluna “API Key” (ex.: 123456789012345), não o nome da chave."
+msgstr ""
+"A chave de API do Cloudinary é o número da coluna “API Key” (ex.: "
+"123456789012345), não o nome da chave."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
@@ -2748,7 +2785,9 @@ msgstr "O ícone do navegador precisa ser uma imagem .ico ou .png."
 msgid ""
 "The cloud name does not match these keys: copy it from the top of the API "
 "Keys page."
-msgstr "O cloud name não corresponde a estas chaves: copie-o do topo da página API Keys."
+msgstr ""
+"O cloud name não corresponde a estas chaves: copie-o do topo da página API "
+"Keys."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form

@@ -30,6 +30,21 @@
                             <field name="section"/>
                             <field name="name"/>
                         </list>
+                        <kanban class="o_workshop_line_kanban">
+                            <templates>
+                                <t t-name="card">
+                                    <field name="section" class="d-block small text-muted"/>
+                                    <field name="name" class="fw-bold"/>
+                                </t>
+                            </templates>
+                        </kanban>
+                        <form>
+                            <group>
+                                <field name="section"/>
+                                <field name="name"/>
+                                <field name="sequence"/>
+                            </group>
+                        </form>
                     </field>
                 </sheet>
             </form>

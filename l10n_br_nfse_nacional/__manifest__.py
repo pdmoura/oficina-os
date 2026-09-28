@@ -1,6 +1,6 @@
 {
     "name": "NFS-e Nacional (Brasil)",
-    "version": "19.0.1.2.1",
+    "version": "19.0.1.2.2",
     "category": "Accounting/Localizations",
     "summary": "Service invoices (NFS-e) through Brazil's national system: assisted or direct API emission",
     "description": """

@@ -1,5 +1,7 @@
 import re
+from copy import deepcopy
 from datetime import timedelta
+from functools import partial
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -9,7 +11,7 @@ from lxml import etree
 from odoo import Command, fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import new_test_user, tagged
-from odoo.tools import mute_logger
+from odoo.tools import file_path, mute_logger
 from odoo.tools.translate import code_translations
 
 from ..models.res_company import BACKEND_THEME_URL, _contrast, _readable_on_white
@@ -369,6 +371,26 @@ class TestAssets(WorkshopCase):
                     self.assertTrue("bindMethods(this)" in component,
                                     f"{found.group(1)} has arrow handlers but its component never runs bindMethods(this)")
         self.assertFalse(unbound, "templates with arrow handlers but no component found")
+
+    def test_template_extensions_find_their_place(self):
+        # An xpath that matches nothing in Odoo's template breaks every screen using it (tabs anchored on a class
+        # Odoo only sets through t-attf-class did that to every form with a notebook).
+        odoo_templates = {}
+        for xml in Path(file_path("web/static/src")).rglob("*.xml"):
+            for template in etree.parse(str(xml)).iterfind(".//t[@t-name]"):
+                odoo_templates[template.get("t-name")] = template
+        to_xpath = partial(re.sub, r"hasclass\('([^']+)'\)", r"contains(concat(' ', normalize-space(@class), ' '), ' \1 ')")
+        checked = 0
+        for xml in (Path(__file__).parents[1] / "static" / "src").rglob("*.xml"):
+            for extension in etree.parse(str(xml)).iterfind(".//t[@t-inherit-mode='extension']"):
+                parent = odoo_templates.get(extension.get("t-inherit"))
+                if parent is None:
+                    continue
+                for xpath in extension.iterfind("xpath"):
+                    checked += 1
+                    self.assertTrue(deepcopy(parent).xpath(to_xpath(xpath.get("expr"))),
+                                    f"{xml.name}: {xpath.get('expr')} matches nothing in {extension.get('t-inherit')}")
+        self.assertGreaterEqual(checked, 5, "the notebook and the save/discard buttons are checked")
 
 
 @tagged("post_install", "-at_install")

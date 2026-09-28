@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- On a phone, a row of tabs runs off the screen ("Services | Problem and diagnosis | Chec…") and hides the
+         last ones: with more than two, a drop-down lists every section instead. -->
+    <t t-inherit="web.Notebook" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_notebook_headers')]/ul" position="before">
+            <t t-set="workshop_sections" t-value="navItems.filter((navItem) => navItem[1].isVisible)"/>
+            <select t-if="props.orientation === 'horizontal' and workshop_sections.length > 2"
+                    class="o_workshop_notebook_select form-select" aria-label="Section"
+                    t-on-change="(ev) => this.activatePage(ev.target.value)">
+                <option t-foreach="workshop_sections" t-as="navItem" t-key="navItem[0]" t-att-value="navItem[0]"
+                        t-att-selected="navItem[0] === state.currentPage" t-att-disabled="navItem[1].isDisabled"
+                        t-esc="navItem[1].title"/>
+            </select>
+        </xpath>
+    </t>
+
+</templates>

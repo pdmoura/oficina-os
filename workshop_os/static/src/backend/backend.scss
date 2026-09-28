@@ -76,6 +76,17 @@
     }
     .o_form_view:has(.o_form_status_indicator_buttons:not(.invisible)) .o_content { padding-bottom: 5.5rem; }
 }
+// Form sections: tabs on a computer, a drop-down on a phone (see notebook.xml).
+.o_workshop_notebook_select { display: none; }
+@include media-breakpoint-down(md) {
+    .o_notebook_headers:has(> .o_workshop_notebook_select) {
+        > .nav-tabs { display: none !important; }
+        > .o_workshop_notebook_select {
+            display: block; width: 100%; min-height: 48px; margin-bottom: .75rem;
+            font-size: 1rem; font-weight: 600; border-radius: $border-radius-lg;
+        }
+    }
+}
 .o_workshop_photo { aspect-ratio: 1; object-fit: cover; }
 .o_workshop_elapsed { white-space: nowrap; }
 .o_field_workshop_plate { display: inline-flex; }
