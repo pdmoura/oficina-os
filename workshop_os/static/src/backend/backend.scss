@@ -17,8 +17,30 @@
 @include media-breakpoint-down(md) {
     .o_workshop_order_title { flex-wrap: wrap; padding-right: 72px; row-gap: 8px !important; }
 }
-// Breadcrumb, settings cog and save buttons with room between them.
+// Title bar: "New", the page or record name, the settings cog and save/discard side by side on one centre line.
 .o_control_panel_breadcrumbs { column-gap: .5rem !important; }
+@include media-breakpoint-up(md) {
+    // A record under its list takes two lines (list above, record below); the cog stands beside both lines
+    // instead of making the second one taller, so the pair is no taller than the buttons around it.
+    .o_control_panel .o_breadcrumb:has(> .breadcrumb) {
+        display: grid !important;
+        grid-template-columns: minmax(0, auto) auto;
+        align-items: center;
+        align-self: center !important;
+        column-gap: .5rem;
+        row-gap: .15rem;
+        > .breadcrumb { grid-area: 1 / 1; min-width: 0; margin: 0; }
+        > :last-child { display: contents !important; }
+        .o_last_breadcrumb_item { grid-area: 2 / 1; }
+        .o_control_panel_breadcrumbs_actions { grid-area: 1 / 2 / 3 / 3; }
+    }
+    .o_control_panel_breadcrumbs .o_form_status_indicator { align-self: center !important; }
+}
+// On a form the record's name gets the room it needs before the empty pager and the stat buttons do; it is only
+// cut short when nothing else can give way (Odoo splits the width evenly, which left "N" for "New").
+@include media-breakpoint-up(lg) {
+    .o_control_panel .o_control_panel_main > .o_control_panel_breadcrumbs:has(.o_form_status_indicator) { flex: 1 1 auto; }
+}
 // The settings cog is a real button, as tall as "New", instead of a bare 14px icon.
 .o_control_panel .o_cp_action_menus .btn:has(> .fa-cog) {
     display: inline-flex;

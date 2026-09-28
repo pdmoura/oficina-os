@@ -31,7 +31,7 @@ class WorkshopOrder(models.Model):
     _rec_names_search = ["name", "vehicle_id.plate", "partner_id.name", "vehicle_id.fleet_number"]
     _check_company_auto = True
 
-    name = fields.Char("Number", readonly=True, copy=False, default="/", index=True)
+    name = fields.Char("Number", readonly=True, copy=False, index=True, default=lambda self: self.env._("New"))
     partner_id = fields.Many2one("res.partner", "Customer", required=True, index=True, tracking=True)
     vehicle_id = fields.Many2one("workshop.vehicle", "Vehicle", required=True, index=True, tracking=True,
                                  check_company=True,
@@ -161,8 +161,8 @@ class WorkshopOrder(models.Model):
         for vals in vals_list:
             if vals.get("state") in OFFICE_STATES or OFFICE_FIELDS & vals.keys():
                 self._check_office()
-            if vals.get("name", "/") == "/":
-                vals["name"] = self.env["ir.sequence"].next_by_code("workshop.order") or "/"
+            if vals.get("name") in (None, False, "", "/", self.env._("New")):
+                vals["name"] = self.env["ir.sequence"].next_by_code("workshop.order") or self.env._("New")
             if vals.get("partner_id") and not vals.get("state"):
                 partner = self.env["res.partner"].browse(vals["partner_id"])
                 if partner.commercial_partner_id.workshop_auto_approve:

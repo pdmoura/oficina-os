@@ -560,7 +560,9 @@ msgstr ""
 #: code:addons/workshop_os/models/res_company.py:0
 msgid ""
 "By approving, I authorise the listed services and their payment as agreed."
-msgstr "Ao aprovar, autorizo a execução dos serviços listados e o pagamento conforme combinado."
+msgstr ""
+"Ao aprovar, autorizo a execução dos serviços listados e o pagamento conforme"
+" combinado."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
@@ -1320,7 +1322,10 @@ msgid ""
 "Icon of the browser tab and of phone shortcuts, as .ico or .png. An .ico may"
 " hold several sizes: each one is used as it is wherever that size is asked "
 "for."
-msgstr "Ícone da aba do navegador e dos atalhos no celular, em .ico ou .png. Um .ico pode ter vários tamanhos: cada um é usado como está onde aquele tamanho for pedido."
+msgstr ""
+"Ícone da aba do navegador e dos atalhos no celular, em .ico ou .png. Um .ico"
+" pode ter vários tamanhos: cada um é usado como está onde aquele tamanho for"
+" pedido."
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order__activity_exception_icon
@@ -1690,6 +1695,12 @@ msgstr "N/A"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__name
 msgid "Name"
 msgstr "Nome"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "New"
+msgstr "Novo"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2102,7 +2113,9 @@ msgstr ""
 msgid ""
 "Picture shown when a link to the system or to a work order is shared, e.g. "
 "on WhatsApp (1200×630)"
-msgstr "Imagem exibida quando um link do sistema ou de uma OS é compartilhado, por exemplo no WhatsApp (1200×630)"
+msgstr ""
+"Imagem exibida quando um link do sistema ou de uma OS é compartilhado, por "
+"exemplo no WhatsApp (1200×630)"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2447,7 +2460,8 @@ msgstr "Serviços em %(count)s OS, de %(start)s a %(end)s:"
 msgid ""
 "Services under a 90-day warranty, as set by the Brazilian Consumer "
 "Protection Code."
-msgstr "Serviços com garantia de 90 dias, conforme o Código de Defesa do Consumidor."
+msgstr ""
+"Serviços com garantia de 90 dias, conforme o Código de Defesa do Consumidor."
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order_photo__attachment_id
@@ -2500,7 +2514,9 @@ msgstr "Exibido ao cliente na página de aprovação."
 msgid ""
 "Shown when a link to the system or to a work order is shared (WhatsApp, "
 "e-mail...). 1200×630 fits best."
-msgstr "Exibida quando um link do sistema ou de uma OS é compartilhado (WhatsApp, e-mail...). O tamanho ideal é 1200×630."
+msgstr ""
+"Exibida quando um link do sistema ou de uma OS é compartilhado (WhatsApp, "
+"e-mail...). O tamanho ideal é 1200×630."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2596,7 +2612,9 @@ msgstr "Símbolo para fundo claro"
 msgid ""
 "Tab icon and phone shortcuts (.ico or .png). An .ico with several sizes "
 "keeps each size exactly as drawn"
-msgstr "Ícone da aba e dos atalhos no celular (.ico ou .png). Um .ico com vários tamanhos mantém cada tamanho exatamente como foi desenhado"
+msgstr ""
+"Ícone da aba e dos atalhos no celular (.ico ou .png). Um .ico com vários "
+"tamanhos mantém cada tamanho exatamente como foi desenhado"
 
 #. module: workshop_os
 #: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_02

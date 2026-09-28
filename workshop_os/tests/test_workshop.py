@@ -144,6 +144,20 @@ class TestOrderFlow(WorkshopCase):
         self.assertIn(self.office, users)
         self.assertIn(self.mechanic, users)
 
+    def test_office_registers_customers(self):
+        # Customers are contacts: creating them takes Odoo's "Contact Creation" group, which Office brings along.
+        customer = self.env["res.partner"].with_user(self.office).create({"name": "Frota Sul", "workshop_customer": True})
+        self.assertTrue(customer.workshop_customer)
+        with self.assertRaises(AccessError):
+            self.env["res.partner"].with_user(self.mechanic).create({"name": "Frota Oeste"})
+
+    def test_orders_read_new_until_numbered(self):
+        # The form and its breadcrumb show "New" before saving, never the "/" placeholder.
+        self.assertEqual(self.env["workshop.order"].new({}).display_name, "New")
+        order = self._order()
+        self.assertNotIn(order.name, ("/", "New"))
+        self.assertNotIn(order.copy().name, ("/", "New", order.name))
+
     def test_photos_only_from_odoo_or_cloudinary(self):
         order = self._order()
         Photo = self.env["workshop.order.photo"].with_user(self.mechanic)

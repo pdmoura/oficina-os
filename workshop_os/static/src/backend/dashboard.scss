@@ -8,11 +8,11 @@
     .o_workshop_dash_wrap { max-width: 1280px; margin: 0 auto; padding: 24px; }
     .o_workshop_dash_muted { color: var(--Workshop-muted); }
     .o_workshop_dash_head {
-        display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
+        display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;
         h1 { margin: 0; font-size: 30px; font-weight: 800; color: var(--Workshop-text); }
     }
-    .o_workshop_dash_head__brand { display: flex; align-items: center; gap: 18px; }
-    .o_workshop_dash_logo { height: 72px; width: auto; max-width: 180px; object-fit: contain; }
+    .o_workshop_dash_head__brand { display: flex; align-items: center; gap: 22px; }
+    .o_workshop_dash_logo { height: 112px; width: auto; max-width: 280px; object-fit: contain; }
     .o_workshop_dash_eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--Workshop-muted); }
     .o_workshop_dash_head__actions { display: flex; gap: 8px; }
     .o_workshop_dash_btn {
@@ -77,8 +77,14 @@
         .o_workshop_dash_head { align-items: stretch; }
         .o_workshop_dash_head__brand { gap: 12px; min-width: 0; }
         .o_workshop_dash_head h1 { font-size: 24px; }
-        .o_workshop_dash_logo { height: 52px; max-width: 120px; }
-        .o_workshop_dash_head__actions { width: 100%; .o_workshop_dash_btn:not(.o_workshop_dash_btn--icon) { flex: 1; justify-content: center; } }
+        .o_workshop_dash_logo { height: 72px; max-width: 170px; }
+        .o_workshop_dash_head__actions {
+            width: 100%;
+            // Each label on one line: the buttons share the row by the length of their labels.
+            .o_workshop_dash_btn:not(.o_workshop_dash_btn--icon) {
+                flex: 1 1 auto; justify-content: center; gap: 6px; padding: 0 12px; font-size: 14px; white-space: nowrap;
+            }
+        }
         .o_workshop_dash_kpis { gap: 10px; }
         .o_workshop_dash_kpi { padding: 14px; strong { font-size: 26px; } }
         .o_workshop_dash_kpi--wide strong { font-size: 21px; }
