@@ -242,7 +242,8 @@ class TestCustomerApproval(WorkshopCase):
         order = self._order()
         Order = self.env["workshop.order"]
         self.assertEqual(Order._get_by_token(order.access_token), order)
-        self.assertFalse(Order._get_by_token(order.access_token[:-1] + "x"))
+        wrong_end = "y" if order.access_token.endswith("x") else "x"  # tokens are random: one in 64 ends with "x"
+        self.assertFalse(Order._get_by_token(order.access_token[:-1] + wrong_end))
         self.assertFalse(Order._get_by_token("short"))
 
     def test_customer_link_comes_with_the_order(self):
