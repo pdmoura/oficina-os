@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="workshop_os.CustomerLinkButton">
+        <button type="button" class="btn btn-secondary" t-on-click="copy">
+            <i class="fa fa-link me-1" aria-hidden="true"/>Customer link
+        </button>
+    </t>
+
+</templates>

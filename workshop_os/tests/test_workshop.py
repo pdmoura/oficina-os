@@ -245,6 +245,12 @@ class TestCustomerApproval(WorkshopCase):
         self.assertFalse(Order._get_by_token(order.access_token[:-1] + "x"))
         self.assertFalse(Order._get_by_token("short"))
 
+    def test_customer_link_comes_with_the_order(self):
+        # The form copies the link on the tap itself, without asking the server: it reads it from the order.
+        order = self._order().with_user(self.mechanic)
+        self.assertEqual(order.public_url, order.get_public_url())
+        self.assertTrue(order.public_url.endswith(f"/os/{order.access_token}"))
+
     def test_partial_approval_with_signature(self):
         order = self._order(services=self.service_a | self.service_b)
         keep = order.line_ids.filtered(lambda l: l.service_id == self.service_a)

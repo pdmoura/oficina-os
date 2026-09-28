@@ -76,14 +76,26 @@
     }
     .o_form_view:has(.o_form_status_indicator_buttons:not(.invisible)) .o_content { padding-bottom: 5.5rem; }
 }
+// Phone: the action buttons and "⋮" keep the first line (see status_bar_buttons.xml); the stage goes under them.
+@include media-breakpoint-down(md) {
+    .o_form_view .o_form_statusbar:has(> .o_statusbar_buttons > *) {
+        flex-wrap: wrap; row-gap: .5rem;
+        > .o_statusbar_buttons { flex: 1 0 100%; }
+    }
+}
 // Form sections: tabs on a computer, a drop-down on a phone (see notebook.xml).
 .o_workshop_notebook_select { display: none; }
 @include media-breakpoint-down(md) {
     .o_notebook_headers:has(> .o_workshop_notebook_select) {
         > .nav-tabs { display: none !important; }
+        // Tinted in the brand colour with a strong border, so it reads as something to tap, not as a title.
         > .o_workshop_notebook_select {
             display: block; width: 100%; min-height: 48px; margin-bottom: .75rem;
-            font-size: 1rem; font-weight: 600; border-radius: $border-radius-lg;
+            font-size: 1rem; font-weight: 700; color: $o-gray-900;
+            background-color: mix($o-brand-primary, $white, 22%);
+            border: 2px solid $o-brand-primary; border-radius: $border-radius-lg;
+            box-shadow: 0 2px 6px rgba($black, .08);
+            &:focus { border-color: $primary; box-shadow: 0 0 0 .2rem rgba($o-brand-primary, .35); }
         }
     }
 }

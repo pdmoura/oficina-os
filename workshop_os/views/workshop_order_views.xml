@@ -77,18 +77,20 @@
                 <header>
                     <button name="action_approve" type="object" string="Approve" class="btn-primary"
                             invisible="state not in ('draft', 'rejected')" groups="workshop_os.workshop_os_group_manager"/>
-                    <button name="action_reject" type="object" string="Reject" invisible="state != 'draft'"
-                            groups="workshop_os.workshop_os_group_manager"/>
+                    <button name="action_reject" type="object" string="Reject" class="btn-outline-danger"
+                            invisible="state != 'draft'" groups="workshop_os.workshop_os_group_manager"/>
                     <button name="action_done" type="object" string="Mark ready" class="btn-primary" invisible="state != 'approved'"/>
                     <button name="action_deliver" type="object" string="Deliver" class="btn-primary" invisible="state != 'done'"/>
                     <button name="action_send_whatsapp" type="object" string="WhatsApp" icon="fa-whatsapp"
                             invisible="state in ('cancel', 'delivered')"/>
-                    <button name="action_copy_public_url" type="object" string="Customer link" icon="fa-link"/>
+                    <!-- Copies the link on the tap itself: iPhones refuse to copy once a server call has run. -->
+                    <widget name="workshop_customer_link" invisible="not id"/>
                     <button name="%(action_report_workshop_order)d" type="action" string="Print" icon="fa-print"/>
                     <button name="action_reopen" type="object" string="Reopen" invisible="state not in ('done', 'delivered', 'cancel')"
                             groups="workshop_os.workshop_os_group_manager"/>
-                    <button name="action_cancel" type="object" string="Cancel" invisible="state in ('cancel', 'delivered')"
-                            groups="workshop_os.workshop_os_group_manager" confirm="Cancel this work order?"/>
+                    <button name="action_cancel" type="object" string="Cancel" class="btn-outline-danger"
+                            invisible="state in ('cancel', 'delivered')" groups="workshop_os.workshop_os_group_manager"
+                            confirm="Cancel this work order?"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,approved,done,delivered"/>
                 </header>
                 <sheet>

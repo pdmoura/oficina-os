@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- On a phone Odoo keeps one button and folds the others into "⋮", so refusing an order took two taps while
+         approving took one: the first two buttons stay in view (Approve and Reject, Mark ready and the next). -->
+    <t t-inherit="web.StatusBarButtons" t-inherit-mode="extension">
+        <xpath expr="//t[@t-set='firstSlot']" position="replace">
+            <t t-set="firstSlots" t-value="visibleSlotNames.slice(0, 2)"/>
+        </xpath>
+        <xpath expr="//t[@t-set='otherSlots']" position="attributes">
+            <attribute name="t-value">visibleSlotNames.slice(2)</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='firstSlot']" position="replace">
+            <t t-foreach="firstSlots" t-as="slot" t-key="slot">
+                <t t-slot="{{ slot }}"/>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

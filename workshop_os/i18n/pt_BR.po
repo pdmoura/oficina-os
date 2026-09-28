@@ -105,7 +105,9 @@ msgstr "<i class=\"fa fa-wrench me-1\" title=\"Ordens de serviço\"/>"
 msgid ""
 "<span class=\"badge text-bg-light\" invisible=\"not "
 "is_waiting\">Waiting</span>"
-msgstr "<span class=\"badge text-bg-light\" invisible=\"not is_waiting\">Aguardando</span>"
+msgstr ""
+"<span class=\"badge text-bg-light\" invisible=\"not "
+"is_waiting\">Aguardando</span>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
@@ -867,11 +869,18 @@ msgid "Customer"
 msgstr "Cliente"
 
 #. module: workshop_os
-#. odoo-python
-#: code:addons/workshop_os/models/workshop_order.py:0
-#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/customer_link.js:0
+#: code:addons/workshop_os/static/src/backend/customer_link.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__public_url
 msgid "Customer link"
 msgstr "Link do cliente"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/backend/customer_link.js:0
+msgid "Customer link copied"
+msgstr "Link do cliente copiado"
 
 #. module: workshop_os
 #: model:ir.actions.act_window,name:workshop_os.res_partner_action_workshop_customer

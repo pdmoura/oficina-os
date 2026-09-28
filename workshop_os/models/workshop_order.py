@@ -86,6 +86,7 @@ class WorkshopOrder(models.Model):
     warranty_text = fields.Text(default=lambda self: self.env.company.workshop_warranty_text)
 
     access_token = fields.Char(copy=False, default=lambda self: secrets.token_urlsafe(24), readonly=True)
+    public_url = fields.Char("Customer link", compute="_compute_public_url")
     approved_by = fields.Char("Approved by", readonly=True, copy=False)
     approved_on = fields.Datetime(readonly=True, copy=False)
     approval_signature = fields.Image(readonly=True, copy=False, max_width=1024, max_height=512)
@@ -109,6 +110,11 @@ class WorkshopOrder(models.Model):
             vehicle = order.vehicle_id
             desc = " ".join(filter(None, [vehicle.brand, vehicle.model]))
             order.vehicle_desc = f"{desc} · #{vehicle.fleet_number}" if vehicle.fleet_number else desc
+
+    @api.depends("access_token")
+    def _compute_public_url(self):
+        for order in self:
+            order.public_url = order.get_public_url()
 
     @api.depends("photo_ids", "checklist_line_ids.result")
     def _compute_counts(self):
@@ -234,14 +240,6 @@ class WorkshopOrder(models.Model):
             raise UserError(_("Orders already included in a monthly closing cannot be reopened."))
         self.write({"state": "approved", "date_done": False, "date_delivered": False})
         return True
-
-    def action_copy_public_url(self):
-        self.ensure_one()
-        return {
-            "type": "ir.actions.client",
-            "tag": "display_notification",
-            "params": {"type": "info", "sticky": True, "title": _("Customer link"), "message": self.get_public_url()},
-        }
 
     def action_send_whatsapp(self):
         self.ensure_one()
