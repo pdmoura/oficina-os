@@ -43,6 +43,7 @@ export class WorkshopDashboard extends Component {
             res_model: "workshop.order",
             views: [[false, "kanban"], [false, "list"], [false, "form"]],
             domain,
+            context: { workshop_used_stages_only: true },
         });
     }
 

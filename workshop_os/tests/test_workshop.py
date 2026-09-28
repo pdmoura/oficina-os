@@ -306,6 +306,12 @@ class TestBilling(WorkshopCase):
         self.assertGreaterEqual(data["kpis"]["late"], 1)
         self.assertTrue(data["stages"])
 
+    def test_dashboard_lists_skip_empty_stages(self):
+        # Opening "In service" from the dashboard shows that column, not an empty "Office" column in front of it.
+        Order, used = self.env["workshop.order"], self.stage_work
+        self.assertEqual(Order.with_context(workshop_used_stages_only=True)._read_group_stage_ids(used, []), used)
+        self.assertIn(self.stage_office, Order._read_group_stage_ids(used, []), "the order board keeps every column")
+
 
 @tagged("post_install", "-at_install")
 class TestAssets(WorkshopCase):

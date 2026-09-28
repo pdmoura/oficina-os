@@ -140,6 +140,9 @@ class WorkshopOrder(models.Model):
 
     @api.model
     def _read_group_stage_ids(self, stages, domain):
+        # Lists opened from a dashboard card show the stages that have orders, not empty columns in front of them.
+        if self.env.context.get("workshop_used_stages_only"):
+            return stages
         return stages.search([], order=stages._order)
 
     # ------------------------------------------------------------------
