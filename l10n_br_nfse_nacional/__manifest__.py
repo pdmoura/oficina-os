@@ -1,6 +1,6 @@
 {
     "name": "NFS-e Nacional (Brasil)",
-    "version": "19.0.1.2.3",
+    "version": "19.0.1.3.0",
     "category": "Accounting/Localizations",
     "summary": "Service invoices (NFS-e) through Brazil's national system: assisted or direct API emission",
     "description": """
@@ -17,7 +17,8 @@ Issue NFS-e through the Sistema Nacional NFS-e (www.nfse.gov.br).
     "author": "Pedro Alves",
     "website": "https://github.com/pdmoura",
     "license": "OPL-1",
-    "depends": ["base", "mail", "certificate"],
+    # partner_autocomplete: so that _get_view runs after its own and can take its widget off the CNPJ field.
+    "depends": ["base", "mail", "certificate", "partner_autocomplete"],
     "external_dependencies": {"python": ["cryptography", "lxml", "qrcode", "requests"]},
     "data": [
         "security/l10n_br_nfse_nacional_groups.xml",

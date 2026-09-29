@@ -210,7 +210,7 @@ function appSteps({ action }) {
         { target: ".o_workshop_app_fab", open: toHome, title: _t("Receive a truck"),
           body: _t("Start here when a truck arrives: type the plate, and a known truck brings its customer and odometer.") },
         { target: ".o_workshop_app_tabs", open: toOrder, optional: true, title: _t("Inside an order"),
-          body: _t("Change the stage and the bay with one tap. Below: services, photos by moment, the checklist and the history.") },
+          body: _t("Change the stage and the bay with one tap. Below: services, photos by moment, the checklist and the history. The pencil at the top corrects the order, or deletes one opened by mistake.") },
         { target: ".o_workshop_app_footer--actions", open: toOrder, optional: true, title: _t("The next step"),
           body: _t("When the job is done, mark it here; the office sees it right away. Marked it by mistake? Reopen it here too.") },
         { target: ".o_workshop_app_top .o_workshop_app_icon_btn", open: toHome, title: _t("The menu"),

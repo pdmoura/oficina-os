@@ -1,6 +1,6 @@
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
-import { Component, onMounted, onWillStart, onWillUnmount, useRef, useState } from "@odoo/owl";
+import { Component, onMounted, onWillStart, onWillUnmount, useEffect, useRef, useState } from "@odoo/owl";
 
 import {
     bindMethods, displayPlate, elapsedSince, isValidPlate, normalizePlate, shareLink, shortDate, uploadPhoto,
@@ -212,13 +212,40 @@ export class SearchSelect extends Component {
 }
 
 /* ---------------------------------------------------------------------------------------------------------------
+ * Customer of an order, when opening it or correcting it: the one picked, a new one being typed in (created with the
+ * order), or the search to find one.
+ * ------------------------------------------------------------------------------------------------------------- */
+export class CustomerField extends Component {
+    static template = "workshop_os.AppCustomerField";
+    static components = { SearchSelect };
+    static props = {
+        partner: { optional: true }, // { id, name, detail } or null
+        newPartner: { optional: true }, // { name, phone, is_company } or null
+        readonly: { type: Boolean, optional: true },
+        onPick: Function,
+        onNew: Function,
+        onChangeNew: Function,
+        onClear: Function,
+    };
+
+    setup() {
+        bindMethods(this);
+        this.orm = useService("orm");
+    }
+
+    search(query) {
+        return this.orm.call("workshop.order", "app_partners", [query]);
+    }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------
  * New order: plate first, everything else pre-filled from the vehicle when it is known.
  * ------------------------------------------------------------------------------------------------------------- */
 const DRAFT_KEY = "workshop_os.new_order_draft";
 
 export class NewOrderScreen extends Component {
     static template = "workshop_os.AppNewOrder";
-    static components = { Plate, SearchSelect };
+    static components = { Plate, SearchSelect, CustomerField };
     static props = { app: Object };
 
     setup() {
@@ -347,10 +374,6 @@ export class NewOrderScreen extends Component {
         return this.state.values.service_ids.map((id) => this.state.serviceItems[id]).filter(Boolean);
     }
 
-    searchPartners(query) {
-        return this.orm.call("workshop.order", "app_partners", [query]);
-    }
-
     pickPartner(item) {
         this.state.partner = item;
         Object.assign(this.state.values, { partner_id: item.id, new_partner: null });
@@ -421,7 +444,7 @@ export class NewOrderScreen extends Component {
  * ------------------------------------------------------------------------------------------------------------- */
 export class OrderScreen extends Component {
     static template = "workshop_os.AppOrder";
-    static components = { Plate };
+    static components = { Plate, CustomerField };
     static props = { app: Object, orderId: Number };
 
     setup() {
@@ -429,10 +452,20 @@ export class OrderScreen extends Component {
         this.orm = useService("orm");
         this.notification = useService("notification");
         this.fileInput = useRef("file");
+        this.confirmDelete = useRef("confirmDelete");
         this.state = useState({
             data: null, tab: "services", uploading: 0, busy: false, picker: false, serviceSearch: "", services: [],
-            photoKind: "entry", viewer: null, now: DateTime.now(),
+            photoKind: "entry", viewer: null, now: DateTime.now(), edit: null,
         });
+        // The confirmation shows at the end of the edit sheet: bring it into view.
+        useEffect(
+            (asking) => {
+                if (asking) {
+                    this.confirmDelete.el?.scrollIntoView({ block: "center", behavior: "smooth" });
+                }
+            },
+            () => [this.state.edit?.confirmDelete],
+        );
         onWillStart(() => this.load());
         const tick = setInterval(() => (this.state.now = DateTime.now()), 60000);
         onWillUnmount(() => clearInterval(tick));
@@ -573,6 +606,72 @@ export class OrderScreen extends Component {
         } else {
             this.notification.add(action === "action_undo_done" ? _t("Back to the job.") : _t("Updated"), { type: "success" });
         }
+    }
+
+    /* Corrections: the truck, the customer while nobody approved, the arrival details; and deleting a mistake. */
+    openEdit() {
+        const d = this.state.data;
+        this.state.edit = {
+            saving: false,
+            confirmDelete: false,
+            partner: { id: d.partner_id, name: d.partner, detail: d.partner_detail },
+            values: {
+                plate: d.plate, brand: d.brand, model: d.model, fleet_number: d.fleet_number,
+                odometer: d.odometer ? String(d.odometer) : "", driver_name: d.driver_name, complaint: d.complaint,
+                diagnosis: d.diagnosis, partner_id: d.partner_id, new_partner: null,
+            },
+        };
+    }
+
+    closeEdit() {
+        this.state.edit = null;
+    }
+
+    setEdit(field, value) {
+        this.state.edit.values[field] = value;
+    }
+
+    editPickPartner(item) {
+        this.state.edit.partner = item;
+        Object.assign(this.state.edit.values, { partner_id: item.id, new_partner: null });
+    }
+
+    editNewPartner(name) {
+        this.state.edit.partner = null;
+        Object.assign(this.state.edit.values, { partner_id: false, new_partner: { name, phone: "", is_company: true } });
+    }
+
+    editChangeNewPartner(field, value) {
+        this.state.edit.values.new_partner[field] = value;
+    }
+
+    editClearPartner() {
+        this.state.edit.partner = null;
+        Object.assign(this.state.edit.values, { partner_id: false, new_partner: null });
+    }
+
+    get canSaveEdit() {
+        const edit = this.state.edit;
+        return Boolean(edit && !edit.saving && (edit.values.partner_id || edit.values.new_partner?.name?.trim()));
+    }
+
+    async saveEdit() {
+        const edit = this.state.edit;
+        edit.saving = true;
+        try {
+            await this.run("app_edit", [{ ...edit.values }]);
+            this.state.edit = null;
+            this.notification.add(_t("Order updated."), { type: "success" });
+        } finally {
+            edit.saving = false;
+        }
+    }
+
+    async deleteOrder() {
+        const name = this.state.data.name;
+        await this.orm.call("workshop.order", "app_delete", [[this.props.orderId]]);
+        this.notification.add(_t("%s deleted.", name), { type: "success" });
+        this.props.app.home();
     }
 
     share() {

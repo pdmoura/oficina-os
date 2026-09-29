@@ -182,6 +182,45 @@
         </div>
     </t>
 
+    <!-- Customer of an order: the one picked, a new one being typed in, or the search to find one -->
+    <t t-name="workshop_os.AppCustomerField">
+        <div t-if="props.partner" class="o_workshop_app_choice">
+            <i class="fa fa-user"/>
+            <div>
+                <strong t-esc="props.partner.name"/>
+                <span t-if="props.partner.detail" class="o_workshop_app_muted" t-esc="props.partner.detail"/>
+            </div>
+            <button t-if="!props.readonly" class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="props.onClear" aria-label="Change customer">
+                <i class="fa fa-times"/>
+            </button>
+        </div>
+        <div t-elif="props.newPartner" class="o_workshop_app_new_partner">
+            <div class="o_workshop_app_new_partner__head">
+                <span><i class="fa fa-user-plus"/> New customer</span>
+                <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="props.onClear" aria-label="Cancel the new customer">
+                    <i class="fa fa-times"/>
+                </button>
+            </div>
+            <label class="o_workshop_app_field"><span>Name</span>
+                <input t-att-value="props.newPartner.name" t-on-input="(ev) => props.onChangeNew('name', ev.target.value)"
+                       placeholder="Transportes Exemplo Ltda"/>
+            </label>
+            <label class="o_workshop_app_field"><span>WhatsApp or phone</span>
+                <input type="tel" inputmode="tel" t-att-value="props.newPartner.phone"
+                       t-on-input="(ev) => props.onChangeNew('phone', ev.target.value)" placeholder="(61) 99999-0000"/>
+            </label>
+            <div class="o_workshop_app_chips o_workshop_app_chips--wrap o_workshop_app_new_partner__kind">
+                <button t-att-class="props.newPartner.is_company ? 'o_workshop_app_chip o_workshop_is_active' : 'o_workshop_app_chip'"
+                        t-on-click="() => props.onChangeNew('is_company', true)"><i class="fa fa-building-o"/> Company</button>
+                <button t-att-class="props.newPartner.is_company ? 'o_workshop_app_chip' : 'o_workshop_app_chip o_workshop_is_active'"
+                        t-on-click="() => props.onChangeNew('is_company', false)"><i class="fa fa-user"/> Person</button>
+            </div>
+            <p class="o_workshop_app_muted o_workshop_app_hint">Registered with this order, and the truck with them. The office completes the CNPJ/CPF and the address.</p>
+        </div>
+        <SearchSelect t-else="" placeholder.translate="Name, CNPJ or phone" search="search" selectedIds="[]"
+                      onPick="props.onPick" createLabel.translate="Register" onCreate="props.onNew" limit="30"/>
+    </t>
+
     <t t-name="workshop_os.AppNewOrder">
         <div class="o_workshop_app_screen o_workshop_app_screen--form">
             <header class="o_workshop_app_bar">
@@ -237,42 +276,8 @@
 
                     <t t-if="!(state.lookup and state.lookup.partner_id)">
                         <label class="o_workshop_app_label">Customer</label>
-                        <div t-if="state.partner" class="o_workshop_app_choice">
-                            <i class="fa fa-user"/>
-                            <div>
-                                <strong t-esc="state.partner.name"/>
-                                <span t-if="state.partner.detail" class="o_workshop_app_muted" t-esc="state.partner.detail"/>
-                            </div>
-                            <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="clearPartner" aria-label="Change customer">
-                                <i class="fa fa-times"/>
-                            </button>
-                        </div>
-                        <div t-elif="state.values.new_partner" class="o_workshop_app_new_partner">
-                            <div class="o_workshop_app_new_partner__head">
-                                <span><i class="fa fa-user-plus"/> New customer</span>
-                                <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="clearPartner" aria-label="Cancel the new customer">
-                                    <i class="fa fa-times"/>
-                                </button>
-                            </div>
-                            <label class="o_workshop_app_field"><span>Name</span>
-                                <input t-att-value="state.values.new_partner.name" t-on-input="(ev) => setNewPartner('name', ev.target.value)"
-                                       placeholder="Transportes Exemplo Ltda"/>
-                            </label>
-                            <label class="o_workshop_app_field"><span>WhatsApp or phone</span>
-                                <input type="tel" inputmode="tel" t-att-value="state.values.new_partner.phone"
-                                       t-on-input="(ev) => setNewPartner('phone', ev.target.value)" placeholder="(61) 99999-0000"/>
-                            </label>
-                            <div class="o_workshop_app_chips o_workshop_app_chips--wrap o_workshop_app_new_partner__kind">
-                                <button t-att-class="state.values.new_partner.is_company ? 'o_workshop_app_chip o_workshop_is_active' : 'o_workshop_app_chip'"
-                                        t-on-click="() => setNewPartner('is_company', true)"><i class="fa fa-building-o"/> Company</button>
-                                <button t-att-class="state.values.new_partner.is_company ? 'o_workshop_app_chip' : 'o_workshop_app_chip o_workshop_is_active'"
-                                        t-on-click="() => setNewPartner('is_company', false)"><i class="fa fa-user"/> Person</button>
-                            </div>
-                            <p class="o_workshop_app_muted o_workshop_app_hint">Registered with this order, and the truck with them. The office completes the CNPJ/CPF and the address.</p>
-                        </div>
-                        <SearchSelect t-else="" placeholder.translate="Name, CNPJ or phone" search="searchPartners"
-                                      selectedIds="state.values.partner_id ? [state.values.partner_id] : []" onPick="pickPartner"
-                                      createLabel.translate="Register" onCreate="newPartner" limit="30"/>
+                        <CustomerField partner="state.partner" newPartner="state.values.new_partner" onPick="pickPartner"
+                                       onNew="newPartner" onChangeNew="setNewPartner" onClear="clearPartner"/>
                         <t t-if="!(state.lookup and state.lookup.found)">
                             <div class="o_workshop_app_grid_2">
                                 <label class="o_workshop_app_field"><span>Brand</span>
@@ -350,6 +355,7 @@
             <header class="o_workshop_app_bar">
                 <button class="o_workshop_app_icon_btn" t-on-click="props.app.back" aria-label="Back"><i class="fa fa-arrow-left"/></button>
                 <strong t-esc="d ? d.name : ''"/>
+                <button class="o_workshop_app_icon_btn" t-if="d and d.is_open" t-on-click="openEdit" aria-label="Edit the order"><i class="fa fa-pencil"/></button>
                 <button class="o_workshop_app_icon_btn" t-if="d" t-on-click="share" aria-label="Send to customer"><i class="fa fa-share-alt"/></button>
             </header>
             <t t-if="d">
@@ -497,6 +503,78 @@
                             <small t-if="service.is_part" class="o_workshop_app_tag">Part</small>
                             <strong t-esc="service.price_fmt"/>
                         </button>
+                    </div>
+                </div>
+
+                <div t-if="state.edit" class="o_workshop_app_sheet_backdrop" t-on-click="closeEdit">
+                    <div class="o_workshop_app_sheet o_workshop_app_sheet--tall o_workshop_app_edit" t-on-click.stop="">
+                        <div class="o_workshop_app_sheet__grip"/>
+                        <t t-set="e" t-value="state.edit.values"/>
+                        <div class="o_workshop_app_edit__head">
+                            <strong>Edit <t t-esc="d.name"/></strong>
+                            <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="closeEdit" aria-label="Close">
+                                <i class="fa fa-times"/>
+                            </button>
+                        </div>
+
+                        <label class="o_workshop_app_label">Truck</label>
+                        <label t-if="d.plate_editable" class="o_workshop_app_field"><span>Plate</span>
+                            <input class="o_workshop_app_edit__plate" maxlength="8" autocapitalize="characters" autocomplete="off"
+                                   spellcheck="false" t-att-value="e.plate" t-on-input="(ev) => setEdit('plate', ev.target.value.toUpperCase())"/>
+                        </label>
+                        <div class="o_workshop_app_grid_2">
+                            <label class="o_workshop_app_field"><span>Brand</span>
+                                <input t-att-value="e.brand" t-on-input="(ev) => setEdit('brand', ev.target.value)" placeholder="Scania"/>
+                            </label>
+                            <label class="o_workshop_app_field"><span>Model</span>
+                                <input t-att-value="e.model" t-on-input="(ev) => setEdit('model', ev.target.value)" placeholder="R 450"/>
+                            </label>
+                        </div>
+                        <label class="o_workshop_app_field"><span>Fleet number</span>
+                            <input t-att-value="e.fleet_number" t-on-input="(ev) => setEdit('fleet_number', ev.target.value)" placeholder="101"/>
+                        </label>
+
+                        <label class="o_workshop_app_label">Customer</label>
+                        <CustomerField partner="state.edit.partner" newPartner="e.new_partner" readonly="!d.partner_editable"
+                                       onPick="editPickPartner" onNew="editNewPartner" onChangeNew="editChangeNewPartner" onClear="editClearPartner"/>
+                        <p t-if="!d.partner_editable" class="o_workshop_app_muted o_workshop_app_hint">Only the office changes the customer now: the truck has earlier orders, or the quote was already answered.</p>
+
+                        <label class="o_workshop_app_label">Arrival</label>
+                        <div class="o_workshop_app_grid_2">
+                            <label class="o_workshop_app_field"><span>Odometer (km)</span>
+                                <input inputmode="numeric" t-att-value="e.odometer" t-on-input="(ev) => setEdit('odometer', ev.target.value)"/>
+                            </label>
+                            <label class="o_workshop_app_field"><span>Brought by</span>
+                                <input t-att-value="e.driver_name" t-on-input="(ev) => setEdit('driver_name', ev.target.value)" placeholder="Driver"/>
+                            </label>
+                        </div>
+                        <label class="o_workshop_app_field"><span>What is the problem?</span>
+                            <textarea rows="3" t-att-value="e.complaint" t-on-input="(ev) => setEdit('complaint', ev.target.value)"/>
+                        </label>
+                        <label class="o_workshop_app_field"><span>Diagnosis</span>
+                            <textarea rows="3" t-att-value="e.diagnosis" t-on-input="(ev) => setEdit('diagnosis', ev.target.value)"
+                                      placeholder="What was found"/>
+                        </label>
+
+                        <div t-if="!state.edit.confirmDelete" class="o_workshop_app_edit__actions">
+                            <button class="o_workshop_app_btn o_workshop_app_btn--block" t-att-disabled="!canSaveEdit" t-on-click="saveEdit">
+                                <i t-if="state.edit.saving" class="fa fa-circle-o-notch fa-spin"/> Save changes
+                            </button>
+                            <button t-if="d.can_delete" class="o_workshop_app_btn o_workshop_app_btn--danger o_workshop_app_btn--block"
+                                    t-on-click="() => state.edit.confirmDelete = true">
+                                <i class="fa fa-trash-o"/> Delete this order
+                            </button>
+                        </div>
+                        <div t-else="" class="o_workshop_app_edit__confirm" t-ref="confirmDelete">
+                            <strong>Delete <t t-esc="d.name"/>?</strong>
+                            <p class="o_workshop_app_muted">The order goes with its services and photos. A truck or a customer registered only for it goes too.</p>
+                            <div class="o_workshop_app_grid_2">
+                                <button class="o_workshop_app_btn o_workshop_app_btn--ghost" t-on-click="() => state.edit.confirmDelete = false">Cancel</button>
+                                <button class="o_workshop_app_btn o_workshop_app_btn--danger-solid" t-on-click="deleteOrder">
+                                    <i class="fa fa-trash-o"/> Delete
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

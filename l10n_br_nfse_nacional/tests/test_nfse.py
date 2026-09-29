@@ -11,13 +11,18 @@ from cryptography.x509.oid import NameOID
 from lxml import etree
 
 from odoo.exceptions import UserError
-from odoo.tests import TransactionCase, tagged
+from odoo.tests import Form, TransactionCase, tagged
+from odoo.tools import mute_logger
 
 from ..models import l10n_br_nfse_nacional_document
+from ..models.res_partner import cnpj_is_valid
 from ..tools import nfse_xml
 
 N = {"n": nfse_xml.NS}
 KEY = "31062002211222333000181000000000004226090000000017"
+
+
+REQUESTS_GET = "odoo.addons.l10n_br_nfse_nacional.models.res_partner.requests.get"
 
 
 class FakeResponse:
@@ -234,11 +239,68 @@ class TestNfse(TransactionCase):
         with self.assertRaises(UserError):
             note.unlink()
 
+    def test_company_filled_from_its_cnpj(self):
+        # Typing the CNPJ brings the register's record; the new CEP then brings the names with their accents.
+        record = {"razao_social": "TRANSPORTES DA SERRA LTDA", "descricao_tipo_de_logradouro": "RUA",
+                  "logradouro": "DAS FLORES", "numero": "120", "complemento": "GALPAO 2", "bairro": "SETOR SUL",
+                  "cep": "70040010", "municipio": "BRASILIA", "uf": "DF", "codigo_municipio_ibge": 5300108,
+                  "ddd_telefone_1": "6134939002", "email": "FROTA@SERRA.COM.BR", "descricao_situacao_cadastral": "ATIVA"}
+        cep = {"cep": "70040-010", "logradouro": "SBS Quadra 1", "bairro": "Asa Sul", "localidade": "Brasília",
+               "uf": "DF", "ibge": "5300108"}
+
+        def answer(url, timeout):
+            return FakeResponse(200, cep if "viacep" in url else record)
+
+        with patch(REQUESTS_GET, side_effect=answer):
+            form = Form(self.env["res.partner"])
+            form.vat = "11.444.777/0001-61"
+            partner = form.save()
+        self.assertEqual((partner.name, partner.is_company), ("Transportes da Serra Ltda", True))
+        self.assertEqual((partner.street, partner.nfse_street_number, partner.street2), ("SBS Quadra 1", "120", "Galpao 2"))
+        self.assertEqual((partner.nfse_district, partner.city, partner.state_id.code, partner.nfse_city_ibge),
+                         ("Asa Sul", "Brasília", "DF", "5300108"))
+        self.assertEqual((partner.zip, partner.email), ("70040-010", "frota@serra.com.br"))
+        self.assertIn("3493-9002", partner.phone)
+
+        # A name typed first stays, and everything stays editable after the fill.
+        with patch(REQUESTS_GET, side_effect=answer):
+            form = Form(self.env["res.partner"])
+            form.name = "Serra"
+            form.vat = "11444777000161"
+            form.nfse_street_number = "122"
+        self.assertEqual((form.name, form.nfse_street_number), ("Serra", "122"))
+
+        # An inactive company is filled with a warning; an unknown CNPJ or a service down only warns.
+        with patch(REQUESTS_GET, side_effect=lambda url, timeout: FakeResponse(
+                200, cep if "viacep" in url else dict(record, descricao_situacao_cadastral="BAIXADA"))), \
+                mute_logger("odoo.tests.form.onchange"):
+            form = Form(self.env["res.partner"])
+            form.vat = "11444777000161"
+        self.assertEqual(form.name, "Transportes da Serra Ltda")
+        with patch(REQUESTS_GET, return_value=FakeResponse(404, {"message": "not found"})), \
+                mute_logger("odoo.tests.form.onchange"):
+            form = Form(self.env["res.partner"])
+            form.vat = "11444777000161"
+        self.assertFalse(form.name)
+
+        # The CNPJ field is this lookup's: Odoo's paid autocomplete keeps the name only.
+        arch = etree.fromstring(self.env["res.partner"].get_view(view_type="form")["arch"])
+        self.assertFalse(arch.xpath("//field[@name='vat'][@widget='field_partner_autocomplete']"))
+        self.assertTrue(arch.xpath("//field[@name='name'][@widget='field_partner_autocomplete']"))
+
+        # Only valid CNPJs are looked up, numeric or alphanumeric (July 2026 format).
+        self.assertTrue(cnpj_is_valid("12ABC34501DE35"))
+        self.assertFalse(cnpj_is_valid("11444777000162"))
+        self.assertFalse(cnpj_is_valid("00000000000000"))
+        with patch(REQUESTS_GET) as get:
+            Form(self.env["res.partner"]).vat = "11444777000162"
+        get.assert_not_called()
+
     def test_address_from_cep(self):
         partner = self.env["res.partner"].create({"name": "Frota Nova", "zip": "70040010"})
         answer = FakeResponse(200, {"cep": "70040-010", "logradouro": "SBS Quadra 1", "bairro": "Asa Sul",
                                     "localidade": "Brasília", "uf": "DF", "ibge": "5300108"})
-        with patch("odoo.addons.l10n_br_nfse_nacional.models.res_partner.requests.get", return_value=answer):
+        with patch(REQUESTS_GET, return_value=answer):
             partner.action_nfse_fill_address()
         self.assertEqual((partner.nfse_city_ibge, partner.nfse_district, partner.city), ("5300108", "Asa Sul", "Brasília"))
         self.assertEqual(partner.state_id.code, "DF")

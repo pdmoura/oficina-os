@@ -171,6 +171,13 @@ in the office right away. Someone who prefers the phone call: the office uses **
   message that shows up, or **Reopen** later: the order goes back to the job with the status it had. Once the truck
   is delivered, or the order is in a monthly closing or has an NFS-e, only the office reopens it.
 - **Share** (icon at the top): sends the customer link on WhatsApp or another app.
+- **Edit** (pencil at the top): corrects the plate (on a truck new with this order), brand, model, fleet number,
+  odometer, who brought it, the problem and the diagnosis, and the customer while nobody answered the quote. Changing
+  the customer moves the truck with it, and a contract fleet's order starts approved as when it was opened.
+- **Delete this order** (at the end of the edit sheet): for an order opened by mistake, before anyone approved or
+  finished it; a mechanic deletes only the orders they opened. A truck or a customer registered only for that order
+  goes too (the customer is archived, so the office can bring it back); a truck that is known stays, with a note of
+  the deleted order. Otherwise the office cancels it.
 
 ### Menu (☰)
 
@@ -181,6 +188,14 @@ typed halfway is kept on the phone: a phone call in the middle does not lose it.
 
 - **Workshop → Customers → Customers:** fleets and walk-in customers. On the **Workshop** tab, tick **Pre-approved
   orders** for fleets on contract. The phone on the customer is the one the WhatsApp button uses.
+  - **Type the CNPJ** and the company fills in from the Receita Federal register: legal name, address with number,
+    complement and district, CEP, city with its IBGE code, state, phone and e-mail. The address always follows the
+    CNPJ; a name, phone or e-mail typed before stays. Everything stays editable. A company that is not active at the
+    Receita shows a warning. **Update from the Receita Federal (CNPJ)**, on the **Sales & Purchase** tab, brings it
+    all again later.
+  - **Type the CEP** and the street, district, city, state and IBGE code fill in; the number and complement stay.
+  - Typing the **name** still shows Odoo's own company suggestions; picking one of them uses Odoo's paid credits,
+    while the CNPJ lookup is free.
 - **Workshop → Customers → Vehicles:** plate, the customer's fleet number, brand, model, year, colour, fuel, VIN
   and last odometer. A vehicle shows all its orders.
 

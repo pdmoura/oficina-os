@@ -580,6 +580,15 @@ class WorkshopOrder(models.Model):
             "date_in": fields.Datetime.to_string(self.date_in),
             "public_url": self.get_public_url(),
             "approved_by": self.approved_by or "",
+            "partner_id": self.partner_id.id,
+            "partner_detail": self._app_partner(self.partner_id)["detail"],
+            "brand": self.vehicle_id.brand or "",
+            "model": self.vehicle_id.model or "",
+            "fleet_number": self.vehicle_id.fleet_number or "",
+            "is_open": self.state in OPEN_STATES,
+            "can_delete": not self._app_delete_blocker(),
+            "plate_editable": self._app_plate_editable(),
+            "partner_editable": self._app_partner_editable(),
             "lines": [{
                 "id": l.id, "service_id": l.service_id.id, "name": l.name, "quantity": l.quantity,
                 "price": l.price_unit, "subtotal": l.subtotal,
@@ -631,6 +640,106 @@ class WorkshopOrder(models.Model):
         services = self.env["workshop.service"].browse(service_ids).exists()
         self.write({"line_ids": [Command.create(self.env["workshop.order.line"]._vals_from_service(s)) for s in services]})
         return self.app_read()
+
+    def app_edit(self, values):
+        """The app's corrections: the arrival details, the truck, and the customer while nobody approved the order."""
+        self.ensure_one()
+        if self.state not in OPEN_STATES:
+            raise UserError(_("%s is closed: ask the office to change it.", self.name))
+        order_values = {key: values[key] or False for key in ("driver_name", "complaint", "diagnosis") if key in values}
+        vehicle_values = {key: values[key] or False for key in ("brand", "model", "fleet_number") if key in values}
+        if "odometer" in values:
+            order_values["odometer"] = int("".join(ch for ch in str(values["odometer"] or "") if ch.isdigit()) or 0)
+            if self.vehicle_id.odometer == self.odometer:
+                # The truck's reading came from this order: a typo fixed here must not stay on the truck.
+                vehicle_values["odometer"] = order_values["odometer"]
+        plate = normalize_plate(values.get("plate") or "")
+        if plate and plate != self.vehicle_id.plate:
+            if not self._app_plate_editable():
+                raise UserError(_("This truck has other orders: ask the office to correct its plate."))
+            if not PLATE_RE.match(plate):
+                raise UserError(_("%s is not a valid plate.", plate))
+            if self.env["workshop.vehicle"].search_count([("plate", "=", plate), ("id", "!=", self.vehicle_id.id)]):
+                raise UserError(_("%s is already registered to another truck.", format_plate(plate)))
+            vehicle_values["plate"] = plate
+        partner = self.env["res.partner"]
+        if values.get("partner_id") and values["partner_id"] != self.partner_id.id:
+            partner = partner.browse(values["partner_id"]).exists()
+        elif (values.get("new_partner") or {}).get("name"):
+            if not self._app_partner_editable():
+                raise UserError(_("Only the office changes the customer now: the truck has earlier orders, or the quote was already answered."))
+            partner = self._app_create_partner(values["new_partner"])
+        if partner and partner != self.partner_id:
+            if not self._app_partner_editable():
+                raise UserError(_("Only the office changes the customer now: the truck has earlier orders, or the quote was already answered."))
+            # The truck came in with this order alone, so the customer was wrong for both: it moves first, since an
+            # order's truck must belong to its customer (_check_vehicle_owner).
+            vehicle_values["partner_id"] = partner.id
+        if vehicle_values:
+            self.vehicle_id.write(vehicle_values)
+        if partner and partner != self.partner_id:
+            self._app_change_partner(partner)
+        if order_values:
+            self.write(order_values)
+        return self.app_read()
+
+    def _app_change_partner(self, partner):
+        """Another customer, whose contract decides again whether the order starts approved, as when it was opened."""
+        auto = partner.commercial_partner_id.workshop_auto_approve
+        values = {"partner_id": partner.id}
+        if auto and self.state == "draft":
+            values["state"] = "approved"
+            self.line_ids.filtered(lambda l: l.approval == "pending").sudo().approval = "approved"
+        elif not auto and self.state == "approved":
+            values["state"] = "draft"
+            self.line_ids.filtered(lambda l: l.approval == "approved").sudo().approval = "pending"
+        # Only reached while nobody approved the order (_app_partner_editable), so no decision is overridden.
+        self.sudo().write(values)
+
+    def _app_partner_editable(self):
+        """The customer is corrected from the app while nobody answered the quote, on a truck new with this order:
+        a known truck brings its own customer, and changing that is the office's."""
+        self.ensure_one()
+        return (self.state in ("draft", "approved") and not self.approved_by and not self.billing_id
+                and self._app_vehicle_is_new())
+
+    def _app_plate_editable(self):
+        """A plate is corrected from the app only on a truck that came in with this order alone."""
+        self.ensure_one()
+        return self.state in OPEN_STATES and self._app_vehicle_is_new()
+
+    def _app_vehicle_is_new(self):
+        return self.search_count([("vehicle_id", "=", self.vehicle_id.id)]) == 1
+
+    def _app_delete_blocker(self):
+        """Why the app cannot delete this order, or False. It deletes orders opened by mistake: before anyone
+        approved, finished or billed them, and a mechanic only the ones they opened."""
+        self.ensure_one()
+        if self.state not in ("draft", "approved") or self.approved_by or self.billing_id:
+            return _("%s was already approved or finished: ask the office to cancel it.", self.name)
+        if self.create_uid != self.env.user and not self.env.user.has_group("workshop_os.workshop_os_group_manager"):
+            return _("Only whoever opened %s can delete it: ask the office.", self.name)
+        return False
+
+    def app_delete(self):
+        """Delete an order opened by mistake, with the truck and the customer registered for it alone."""
+        self.ensure_one()
+        if blocker := self._app_delete_blocker():
+            raise UserError(blocker)
+        name, user = self.name, self.env.user
+        vehicle, partner = self.vehicle_id.sudo(), self.partner_id.commercial_partner_id.sudo()
+        # Mechanics cannot delete records in Odoo; the checks above are what allows this one.
+        self.sudo().unlink()
+        Order = self.env["workshop.order"].sudo()
+        if vehicle.create_uid == user and not Order.search_count([("vehicle_id", "=", vehicle.id)]):
+            vehicle.unlink()  # a mistyped plate would stay as a truck that never came in
+        else:
+            vehicle.message_post(body=_("Work order %(name)s deleted by %(user)s.", name=name, user=user.name))
+        if (partner.create_uid == user and partner.workshop_customer
+                and not Order.search_count([("partner_id", "child_of", partner.id)])
+                and not self.env["workshop.vehicle"].sudo().search_count([("partner_id", "child_of", partner.id)])):
+            partner.action_archive()  # kept, archived, in case the office wants it back
+        return True
 
     def app_remove_line(self, line_id):
         self.ensure_one()

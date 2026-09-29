@@ -341,6 +341,29 @@
     .o_workshop_app_hint { margin: 10px 0 0; font-size: 13px; }
 }
 
+// Editing an order ----------------------------------------------------------------------------------------------------
+.o_workshop_app {
+    .o_workshop_app_edit { gap: 0; }
+    .o_workshop_app_edit__head {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        strong { font-size: 18px; }
+    }
+    .o_workshop_app_edit__plate { font-family: var(--Workshop-mono); font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .o_workshop_app_edit__actions { display: grid; gap: 10px; margin-top: 20px; }
+    .o_workshop_app_edit__confirm {
+        margin-top: 20px; padding: 14px; border-radius: 16px;
+        border: 1px solid color-mix(in srgb, var(--Workshop-danger) 55%, transparent);
+        background: color-mix(in srgb, var(--Workshop-danger) 10%, transparent);
+        strong { font-size: 17px; }
+        p { margin: 6px 0 12px; font-size: 14px; }
+    }
+    .o_workshop_app_btn--danger-solid { background: var(--Workshop-danger); color: #fff; }
+    .o_workshop_app_btn--danger {
+        background: transparent; color: var(--Workshop-danger);
+        border: 1px solid color-mix(in srgb, var(--Workshop-danger) 55%, transparent);
+    }
+}
+
 // New order ---------------------------------------------------------------------------------------------------------
 .o_workshop_app {
     .o_workshop_app_plate_entry { text-align: center; padding: 28px 0 10px; }

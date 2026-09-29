@@ -363,6 +363,12 @@ msgid "At least 15 characters, as the national system requires."
 msgstr "No mínimo 15 caracteres, como exige o sistema nacional."
 
 #. module: l10n_br_nfse_nacional
+#. odoo-python
+#: code:addons/l10n_br_nfse_nacional/models/res_partner.py:0
+msgid "At the Receita Federal this company is registered as %s."
+msgstr "Na Receita Federal esta empresa consta como %s."
+
+#. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,field_description:l10n_br_nfse_nacional.field_l10n_br_nfse_nacional_document__message_attachment_count
 msgid "Attachment Count"
 msgstr "Qtd. de anexos"
@@ -393,6 +399,24 @@ msgstr "CEP"
 #: code:addons/l10n_br_nfse_nacional/models/res_partner.py:0
 msgid "CEP %s was not found."
 msgstr "CEP %s não encontrado."
+
+#. module: l10n_br_nfse_nacional
+#. odoo-python
+#: code:addons/l10n_br_nfse_nacional/models/res_partner.py:0
+msgid "CEP lookup"
+msgstr "Consulta do CEP"
+
+#. module: l10n_br_nfse_nacional
+#. odoo-python
+#: code:addons/l10n_br_nfse_nacional/models/res_partner.py:0
+msgid "CNPJ %s is not in the Receita Federal register."
+msgstr "O CNPJ %s não está no cadastro da Receita Federal."
+
+#. module: l10n_br_nfse_nacional
+#. odoo-python
+#: code:addons/l10n_br_nfse_nacional/models/res_partner.py:0
+msgid "CNPJ lookup"
+msgstr "Consulta do CNPJ"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
@@ -1128,7 +1152,8 @@ msgstr "Prestador / Fornecedor"
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
 msgid "Printed on the note as written, line by line (up to 1000 characters)."
-msgstr "Sai na nota exatamente como escrito, linha por linha (até 1000 caracteres)."
+msgstr ""
+"Sai na nota exatamente como escrito, linha por linha (até 1000 caracteres)."
 
 #. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,help:l10n_br_nfse_nacional.field_res_company__nfse_iss_rate
@@ -1351,6 +1376,14 @@ msgstr "O CNPJ vem do cadastro da empresa e o código IBGE, do CEP dela"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python
+#: code:addons/l10n_br_nfse_nacional/models/res_partner.py:0
+msgid ""
+"The CNPJ services did not answer. Fill the data by hand, or try again in a "
+"minute."
+msgstr "Os serviços de consulta do CNPJ não responderam. Preencha os dados à mão ou tente de novo em um minuto."
+
+#. module: l10n_br_nfse_nacional
+#. odoo-python
 #: code:addons/l10n_br_nfse_nacional/models/l10n_br_nfse_nacional_document.py:0
 msgid ""
 "The DANFSe is printed from the authorised note; notes issued on the Emissor "
@@ -1496,8 +1529,19 @@ msgstr "Tributação municipal (ISSQN)"
 #. module: l10n_br_nfse_nacional
 #. odoo-python
 #: code:addons/l10n_br_nfse_nacional/models/res_partner.py:0
+msgid "Type a valid CNPJ first."
+msgstr "Digite um CNPJ válido primeiro."
+
+#. module: l10n_br_nfse_nacional
+#. odoo-python
+#: code:addons/l10n_br_nfse_nacional/models/res_partner.py:0
 msgid "Type the 8-digit CEP first."
 msgstr "Digite primeiro o CEP com 8 dígitos."
+
+#. module: l10n_br_nfse_nacional
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.view_partner_form
+msgid "Update from the Receita Federal (CNPJ)"
+msgstr "Atualizar pela Receita Federal (CNPJ)"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.res_config_settings_view_form

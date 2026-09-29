@@ -98,7 +98,9 @@ Photos, PDFs and every other attachment are stored **in PostgreSQL** in the depl
   `create`/`write`/`unlink`. Any public method is callable over RPC, so this matters. Two narrow exceptions
   run as superuser after their own checks: `action_undo_done()` (a mechanic takes a ready order back to the status
   it had, until it is delivered, billed or invoiced: `_check_can_undo_done()`) and `_app_create_partner()` (a
-  customer registered at the gate, with name, phone and kind only, since mechanics cannot create contacts).
+  customer registered at the gate, with name, phone and kind only, since mechanics cannot create contacts). The
+  app also edits and deletes orders (`app_edit`, `app_delete`) behind the same kind of checks: deleting is for orders
+  opened by mistake, before anyone approved them, and takes along a truck or customer registered for that order alone.
 - **The customer's answer** comes through `/os/<token>/decision`, compared in constant time, and runs the private
   `_customer_decide()`, which cannot be called over RPC.
 - **Photos** only accept URLs from Odoo (`/web/image/`) or `https://res.cloudinary.com/`, and an attachment must
@@ -200,6 +202,12 @@ walk the tour at 390 px and 1280 px.
   note that already exists.
 - **Text:** `tools/nfse_xml.clean_text()` keeps the Latin-1 range the schema accepts; descriptions are capped at
   `MAX_DESCRIPTION` (1000).
+- **Customer data:** `res.partner` fills itself from the CNPJ (`_onchange_vat_fill_from_cnpj`: BrasilAPI, then Minha
+  Receita, both free copies of the Receita Federal register, only the CNPJ is sent) and from the CEP
+  (`_onchange_zip_fill_address`, ViaCEP). The CNPJ onchange sets the CEP, and Odoo's onchange cascade then runs the CEP
+  one, which brings the names with their accents. `cnpj_is_valid()` checks the digits of numeric and alphanumeric
+  CNPJs (July 2026 format) before any request. The module depends on `partner_autocomplete` only to take its paid
+  widget off the `vat` field in `_get_view`; the name keeps it.
 - **Glue:** `workshop.nfse.source` gives orders and closings `action_create_nfse()` (reuses the live note) and
   `_nfse_values()`. The note's amount is `_nfse_amount()`, the services only (parts are billed as goods), and a
   source with no services refuses to create a note. A hand-made note can pick an order or a closing and is filled by

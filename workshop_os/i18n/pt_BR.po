@@ -44,10 +44,28 @@ msgid "%s cannot be marked ready from its current status."
 msgstr "%s não pode ser marcada como pronta no status atual."
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "%s deleted."
+msgstr "%s excluída."
+
+#. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "%s is already in a monthly closing: ask the office to reopen it."
 msgstr "%s já está num fechamento mensal: peça ao escritório para reabrir."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "%s is already registered to another truck."
+msgstr "%s já está cadastrada em outro caminhão."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "%s is closed: ask the office to change it."
+msgstr "%s está encerrada: peça ao escritório para alterar."
 
 #. module: workshop_os
 #. odoo-python
@@ -60,6 +78,12 @@ msgstr "%s não é uma placa válida."
 #: code:addons/workshop_os/models/workshop_vehicle.py:0
 msgid "%s is not a valid plate. Use ABC1234 or ABC1D23."
 msgstr "%s não é uma placa válida. Use ABC1234 ou ABC1D23."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "%s was already approved or finished: ask the office to cancel it."
+msgstr "%s já foi aprovada ou concluída: peça ao escritório para cancelar."
 
 #. module: workshop_os
 #. odoo-python
@@ -514,6 +538,7 @@ msgstr "Arquivados"
 
 #. module: workshop_os
 #. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: code:addons/workshop_os/static/src/app/screens.js:0
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__entry
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_photo__kind__entry
@@ -727,6 +752,8 @@ msgid "Cab ventilation"
 msgstr "Ventilação da cabine"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_print_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Cancel"
@@ -764,10 +791,9 @@ msgstr "Trocar o cliente"
 #: code:addons/workshop_os/static/src/tour/workshop_tour.js:0
 msgid ""
 "Change the stage and the bay with one tap. Below: services, photos by "
-"moment, the checklist and the history."
-msgstr ""
-"Troque a situação e o box com um toque. Abaixo: serviços, fotos por momento,"
-" checklist e histórico."
+"moment, the checklist and the history. The pencil at the top corrects the "
+"order, or deletes one opened by mistake."
+msgstr "Troque a situação e o box com um toque. Abaixo: serviços, fotos por momento, checklist e histórico. O lápis no topo corrige a OS, ou exclui uma aberta sem querer."
 
 #. module: workshop_os
 #. odoo-python
@@ -814,6 +840,12 @@ msgstr "Escolha o cliente da placa %s."
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "Clear"
 msgstr "Limpar"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Close"
+msgstr "Fechar"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1115,6 +1147,18 @@ msgid "Date Start"
 msgstr "Data inicial"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Delete"
+msgstr "Excluir"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Delete this order"
+msgstr "Excluir esta OS"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Deliver"
 msgstr "Entregar"
@@ -1148,6 +1192,8 @@ msgid "Description"
 msgstr "Descrição"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__diagnosis
 msgid "Diagnosis"
 msgstr "Diagnóstico"
@@ -1230,6 +1276,18 @@ msgstr "Duração (horas)"
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_photo__kind__work
 msgid "During the job"
 msgstr "Serviço"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Edit"
+msgstr "Editar"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Edit the order"
+msgstr "Editar a OS"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_vehicle__fuel__electric
@@ -2345,6 +2403,22 @@ msgstr "Só o escritório pode aprovar, recusar, cancelar ou reabrir uma OS."
 
 #. module: workshop_os
 #. odoo-javascript
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid ""
+"Only the office changes the customer now: the truck has earlier orders, or "
+"the quote was already answered."
+msgstr "Agora só o escritório troca o cliente: o caminhão já tem OS anteriores, ou o orçamento já foi respondido."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Only whoever opened %s can delete it: ask the office."
+msgstr "Só quem abriu a %s pode excluí-la: peça ao escritório."
+
+#. module: workshop_os
+#. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
 msgid "Open"
@@ -2433,6 +2507,12 @@ msgstr "Qtd. de OS"
 #: model:ir.model.fields,help:workshop_os.field_workshop_vehicle__open_order_id
 msgid "Order currently open for this vehicle, if any."
 msgstr "OS aberta no momento para este veículo, se houver."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Order updated."
+msgstr "OS atualizada."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
@@ -2587,6 +2667,7 @@ msgstr ""
 
 #. module: workshop_os
 #. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: code:addons/workshop_os/static/src/backend/fields.js:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__plate
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_vehicle__plate
@@ -2786,7 +2867,9 @@ msgstr ""
 msgid ""
 "Registered in the mechanic app by %s. Complete the CNPJ/CPF and the address "
 "before invoicing."
-msgstr "Cadastrado no app do mecânico por %s. Complete o CNPJ/CPF e o endereço antes de faturar."
+msgstr ""
+"Cadastrado no app do mecânico por %s. Complete o CNPJ/CPF e o endereço antes"
+" de faturar."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2794,7 +2877,9 @@ msgstr "Cadastrado no app do mecânico por %s. Complete o CNPJ/CPF e o endereço
 msgid ""
 "Registered with this order, and the truck with them. The office completes "
 "the CNPJ/CPF and the address."
-msgstr "O cliente é cadastrado junto com esta OS, e o caminhão fica no nome dele. O escritório completa o CNPJ/CPF e o endereço."
+msgstr ""
+"O cliente é cadastrado junto com esta OS, e o caminhão fica no nome dele. O "
+"escritório completa o CNPJ/CPF e o endereço."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
@@ -2887,6 +2972,12 @@ msgstr "Teste de rodagem feito"
 #: code:addons/workshop_os/static/src/backend/form_status_indicator.xml:0
 msgid "Save"
 msgstr "Salvar"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Save changes"
+msgstr "Salvar alterações"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -3162,7 +3253,9 @@ msgstr ""
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_order__state_before_done
 msgid "Status before the order was marked ready, restored if that is undone."
-msgstr "Situação da OS antes de ser marcada como pronta, restaurada se isso for desfeito."
+msgstr ""
+"Situação da OS antes de ser marcada como pronta, restaurada se isso for "
+"desfeito."
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__subtotal
@@ -3377,6 +3470,14 @@ msgid "The order board"
 msgstr "O quadro de OS"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid ""
+"The order goes with its services and photos. A truck or a customer "
+"registered only for it goes too."
+msgstr "A OS é excluída com os serviços e as fotos. Um caminhão ou cliente cadastrado só para ela também sai."
+
+#. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "The photo file belongs to another record."
@@ -3433,6 +3534,12 @@ msgstr "Esta OS já foi respondida."
 #: model:ir.model.constraint,message:workshop_os.constraint_workshop_vehicle_plate_company_uniq
 msgid "This plate is already registered."
 msgstr "Esta placa já está cadastrada."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "This truck has other orders: ask the office to correct its plate."
+msgstr "Este caminhão tem outras OS: peça ao escritório para corrigir a placa."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -3535,6 +3642,8 @@ msgid "Transportes Exemplo Ltda"
 msgstr "Transportes Exemplo Ltda"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__truck
 msgid "Truck"
 msgstr "Caminhão"
@@ -3780,6 +3889,12 @@ msgstr ""
 "usar."
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "What was found"
+msgstr "O que foi encontrado"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "What we found"
 msgstr "O que encontramos"
@@ -3801,7 +3916,9 @@ msgstr "WhatsApp ou telefone"
 msgid ""
 "When the job is done, mark it here; the office sees it right away. Marked it"
 " by mistake? Reopen it here too."
-msgstr "Quando o serviço terminar, marque aqui; o escritório vê na hora. Marcou sem querer? Reabra aqui mesmo."
+msgstr ""
+"Quando o serviço terminar, marque aqui; o escritório vê na hora. Marcou sem "
+"querer? Reabra aqui mesmo."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -3865,6 +3982,12 @@ msgstr "Ordens de serviço"
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "Work order"
 msgstr "Ordem de serviço"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Work order %(name)s deleted by %(user)s."
+msgstr "OS %(name)s excluída por %(user)s."
 
 #. module: workshop_os
 #. odoo-javascript

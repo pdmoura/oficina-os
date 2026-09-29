@@ -168,6 +168,13 @@ na hora. Quem prefere pode aprovar por telefone: o escritório usa **Aprovar** n
   tinha. Depois que o caminhão é entregue, ou se a OS já está num fechamento mensal ou tem NFS-e, só o escritório
   reabre.
 - **Compartilhar** (ícone no topo): manda o link do cliente pelo WhatsApp ou outro app.
+- **Editar** (lápis no topo): corrige a placa (de um caminhão novo, que entrou com esta OS), a marca, o modelo, o nº
+  de frota, o hodômetro, quem trouxe, o problema e o diagnóstico, e o cliente enquanto ninguém respondeu o orçamento.
+  Trocar o cliente leva o caminhão junto, e a OS de uma frota com contrato já fica aprovada, como na abertura.
+- **Excluir esta OS** (no fim da folha de edição): para uma OS aberta sem querer, antes de alguém aprovar ou
+  concluir; o mecânico exclui só as OS que ele abriu. Um caminhão ou cliente cadastrado só para aquela OS também sai
+  (o cliente fica arquivado, e o escritório pode recuperá-lo); um caminhão já conhecido fica, com uma anotação da OS
+  excluída. Nos outros casos, o escritório cancela a OS.
 
 ### Menu (☰)
 
@@ -179,6 +186,13 @@ digitado.
 
 - **Oficina → Clientes → Clientes:** as frotas e os clientes avulsos. Na aba **Oficina**, marque **Aprovação
   automática** para frotas com contrato. O telefone do cadastro é o que o botão WhatsApp usa.
+  - **Digite o CNPJ** e a empresa se preenche pelo cadastro da Receita Federal: razão social, endereço com número,
+    complemento e bairro, CEP, cidade com o código IBGE, estado, telefone e e-mail. O endereço sempre segue o CNPJ;
+    nome, telefone ou e-mail digitados antes ficam. Tudo continua editável. Empresa que não está ativa na Receita
+    mostra um aviso. **Atualizar pela Receita Federal (CNPJ)**, na aba **Vendas e Compras**, traz tudo de novo depois.
+  - **Digite o CEP** e a rua, o bairro, a cidade, o estado e o código IBGE se preenchem; número e complemento ficam.
+  - Ao digitar o **nome**, o Odoo continua sugerindo empresas do serviço dele; escolher uma dessas sugestões usa
+    créditos pagos da Odoo, enquanto a consulta pelo CNPJ é gratuita.
 - **Oficina → Clientes → Veículos:** placa, número de frota do cliente, marca, modelo, ano, cor, combustível,
   chassi e último hodômetro. Pelo veículo você vê todas as OS dele.
 

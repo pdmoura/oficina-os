@@ -99,7 +99,8 @@ um dump do banco é um backup completo.
   estreitas rodam como superusuário depois das próprias verificações: `action_undo_done()` (o mecânico volta uma OS
   pronta para a situação que ela tinha, até ser entregue, faturada ou ter nota: `_check_can_undo_done()`) e
   `_app_create_partner()` (cliente cadastrado no portão, só com nome, telefone e tipo, já que mecânico não cria
-  contatos).
+  contatos). O app também edita e exclui OS (`app_edit`, `app_delete`) com as mesmas travas: a exclusão vale para OS
+  abertas por engano, antes de alguém aprovar, e remove junto o caminhão ou o cliente cadastrados só para ela.
 - **A resposta do cliente** vem por `/os/<token>/decision`, comparada em tempo constante, e roda o método privado
   `_customer_decide()`, que não pode ser chamado por RPC.
 - **Fotos** só aceitam endereços do Odoo (`/web/image/`) ou de `https://res.cloudinary.com/`, e o anexo precisa ser
@@ -200,6 +201,12 @@ percorra o guia em 390 px e 1280 px.
   recupera a nota que já existe.
 - **Texto:** `tools/nfse_xml.clean_text()` mantém a faixa Latin-1 que o schema aceita; a descrição tem no máximo
   `MAX_DESCRIPTION` (1000) caracteres.
+- **Dados do cliente:** `res.partner` se preenche pelo CNPJ (`_onchange_vat_fill_from_cnpj`: BrasilAPI e, se ela não
+  responder, Minha Receita, as duas cópias gratuitas do cadastro da Receita Federal; só o CNPJ é enviado) e pelo CEP
+  (`_onchange_zip_fill_address`, ViaCEP). O onchange do CNPJ preenche o CEP, e o encadeamento de onchanges do Odoo
+  roda então o do CEP, que traz os nomes com acento. `cnpj_is_valid()` confere os dígitos de CNPJ numérico e
+  alfanumérico (formato de julho de 2026) antes de qualquer consulta. O módulo depende de `partner_autocomplete` só
+  para tirar, em `_get_view`, o componente pago dele do campo `vat`; o nome continua com ele.
 - **Ligação:** `workshop.nfse.source` dá às OS e aos fechamentos `action_create_nfse()` (reaproveita a nota ativa) e
   `_nfse_values()`. O valor da nota é `_nfse_amount()`, só os serviços (peça é faturada como mercadoria), e uma
   origem sem serviços não cria nota. Uma nota feita à mão pode escolher uma OS ou um fechamento e é preenchida por

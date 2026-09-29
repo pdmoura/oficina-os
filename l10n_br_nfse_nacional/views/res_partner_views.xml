@@ -13,6 +13,8 @@
             </div>
             <xpath expr="//page[@name='sales_purchases']//group[@name='misc']" position="after">
                 <group name="nfse" string="NFS-e">
+                    <button name="action_nfse_fill_from_cnpj" type="object" string="Update from the Receita Federal (CNPJ)"
+                            class="btn-link p-0" icon="fa-refresh" invisible="not vat or not is_company" colspan="2"/>
                     <field name="nfse_street_number"/>
                     <field name="nfse_district"/>
                     <label for="nfse_city_ibge"/>

@@ -97,7 +97,7 @@ Rodar os testes:
 docker compose run --rm odoo odoo -d test -i workshop_os,workshop_os_nfse --test-tags /workshop_os,/l10n_br_nfse_nacional,/workshop_os_nfse --stop-after-init
 ```
 
-Os 93 testes cobrem:
+Os 96 testes cobrem:
 
 - **Oficina:** regras de placa, o fluxo da OS e os passos do escritório por RPC, fotos, a página do cliente, o fechamento mensal, relatórios, descrições de nota, tema e compilação dos estilos, extensões dos templates do Odoo, as preferências do guia do sistema e os padrões brasileiros num banco novo.
 - **NFS-e:** a DPS contra o XSD oficial, as regras de cada regime, verificação da assinatura e adulteração, sucesso, rejeição e recuperação de E0014 com a API simulada, cancelamento, DANFSe e busca pelo CEP.

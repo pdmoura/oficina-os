@@ -175,6 +175,57 @@ class TestOrderFlow(WorkshopCase):
         form = Order.app_new_form([self.service_a.id], customer.id)
         self.assertEqual((form["services"][0]["name"], form["partner"]["id"]), ("Headlight", customer.id))
 
+    def test_mechanic_deletes_an_order_opened_by_mistake(self):
+        # A mistyped plate and a customer typed in by mistake go with the order; the customer is only archived.
+        Order = self.env["workshop.order"].with_user(self.mechanic)
+        order = Order.browse(Order.app_create({"plate": "ERR1A23", "service_ids": [self.service_a.id],
+                                               "new_partner": {"name": "Cliente Errado"}})["id"])
+        vehicle, customer = order.vehicle_id, order.partner_id
+        self.env.invalidate_all()  # as in a new request from the app
+        self.assertTrue(order.app_read()["can_delete"])
+        order.app_delete()
+        self.assertFalse(order.exists() or vehicle.exists())
+        self.assertFalse(customer.active)
+        # A truck that is known stays, with a note of the deleted order.
+        truck = self._vehicle("KNO1W23")
+        known = Order.browse(Order.app_create({"plate": "KNO1W23", "service_ids": [self.service_a.id]})["id"])
+        known.app_delete()
+        self.assertTrue(truck.exists() and self.fleet.active)
+        self.assertIn("deleted", str(truck.message_ids[:1].body))
+        # Someone else's order, or one the office or the customer approved, is the office's to cancel.
+        others = self._order(self._vehicle("OTH1R23"))
+        self.assertFalse(others.with_user(self.mechanic).app_read()["can_delete"])
+        with self.assertRaises(UserError):
+            others.with_user(self.mechanic).app_delete()
+        approved = Order.browse(Order.app_create({"plate": "APR1V23", "partner_id": self.fleet.id,
+                                                  "service_ids": [self.service_a.id]})["id"])
+        approved.with_user(self.office).action_approve()
+        with self.assertRaises(UserError):
+            approved.app_delete()
+
+    def test_mechanic_corrects_an_order(self):
+        # A wrong plate, an extra zero on the odometer and the wrong customer, fixed from the app.
+        Order = self.env["workshop.order"].with_user(self.mechanic)
+        order = Order.browse(Order.app_create({"plate": "TYP0A12", "partner_id": self.fleet.id, "odometer": "2600000",
+                                               "service_ids": [self.service_a.id]})["id"])
+        self.assertEqual(order.vehicle_id.odometer, 2600000)
+        self.env.invalidate_all()
+        data = order.app_edit({"plate": "typ0a21", "odometer": "260.000", "brand": "Volvo", "complaint": "Farol",
+                               "partner_id": self.contract_fleet.id})
+        vehicle = order.vehicle_id
+        self.assertEqual((vehicle.plate, vehicle.odometer, vehicle.brand, order.complaint), ("TYP0A21", 260000, "Volvo", "Farol"))
+        self.assertEqual((order.partner_id, vehicle.partner_id), (self.contract_fleet, self.contract_fleet))
+        self.assertEqual((order.state, order.line_ids.approval), ("approved", "approved"),
+                         "the contract fleet's orders start approved, as when opened")
+        self.assertTrue(data["partner_editable"] and data["plate_editable"])
+        # Once the customer answered, the customer is the office's; a truck with history keeps its plate.
+        order.sudo().approved_by = "Cliente"
+        with self.assertRaises(UserError):
+            order.app_edit({"partner_id": self.fleet.id})
+        self._order(vehicle)
+        with self.assertRaises(UserError):
+            order.app_edit({"plate": "TYP0A99"})
+
     def test_mechanic_undoes_ready(self):
         # "Job ready" tapped by mistake: the mechanic takes the order back to the job, with the status it had.
         approved = self._order(self._vehicle("UND1A11"))
