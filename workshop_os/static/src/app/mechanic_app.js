@@ -16,6 +16,7 @@ export class MechanicApp extends Component {
 
     setup() {
         this.action = useService("action");
+        this.tour = useService("workshop_tour");
         const start = [{ screen: "home", key: 1 }];
         const orderId = this.props.action?.context?.active_id;
         if (orderId) {
@@ -45,6 +46,11 @@ export class MechanicApp extends Component {
                 return saveWorkshopTheme(this.state.theme);
             },
             openOffice: () => this.action.doAction("workshop_os.workshop_order_action_dashboard"),
+            startTour: () => {
+                this.state.menu = false;
+                this.api.home();
+                return this.tour.start("app");
+            },
             logout: () => (window.location.href = "/web/session/logout"),
         };
     }

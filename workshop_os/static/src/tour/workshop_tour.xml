@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="workshop_os.Tour">
+        <div t-if="state.active" class="o_workshop_tour" t-attf-class="o_workshop_tour--{{ layout.placement }}">
+            <!-- Catches the clicks meant for the page: the tour moves between screens by itself. -->
+            <div class="o_workshop_tour__blocker"/>
+            <div t-if="layout.rect" class="o_workshop_tour__spot" t-att-style="layout.rect"/>
+            <div t-else="" class="o_workshop_tour__dim"/>
+            <section class="o_workshop_tour__card" t-att-style="layout.card" t-ref="card" tabindex="-1"
+                     role="dialog" aria-modal="true" t-att-aria-label="step.title">
+                <div class="o_workshop_tour__progress">
+                    <span class="o_workshop_tour__count"><t t-esc="state.index + 1"/> / <t t-esc="count"/></span>
+                    <span class="o_workshop_tour__dots" aria-hidden="true">
+                        <i t-foreach="state.steps" t-as="dot" t-key="dot_index"
+                           t-att-class="{ 'o_workshop_is_done': dot_index &lt; state.index, 'o_workshop_is_current': dot_index === state.index }"/>
+                    </span>
+                    <button type="button" class="o_workshop_tour__close" t-on-click="() => tour.finish()" aria-label="Close the tour">
+                        <i class="fa fa-times"/>
+                    </button>
+                </div>
+                <h3 class="o_workshop_tour__title" t-esc="step.title"/>
+                <p class="o_workshop_tour__body" t-esc="step.body"/>
+                <div class="o_workshop_tour__actions">
+                    <button type="button" class="btn btn-link o_workshop_tour__skip" t-if="!isLast" t-on-click="() => tour.finish()">Skip tour</button>
+                    <button type="button" class="btn btn-secondary" t-if="state.index" t-att-disabled="state.busy" t-on-click="() => tour.prev()">
+                        <i class="fa fa-arrow-left"/> Back
+                    </button>
+                    <button type="button" class="btn btn-primary" t-att-disabled="state.busy" t-on-click="() => isLast ? tour.finish() : tour.next()">
+                        <i t-if="state.busy" class="fa fa-circle-o-notch fa-spin"/>
+                        <t t-if="isLast">Finish</t>
+                        <t t-else="">Next <i class="fa fa-arrow-right"/></t>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,80 @@
+// Guided tour (see workshop_tour.js): a spotlight on what a step talks about and a card that explains it.
+// It sits above everything, the full-screen mechanic app included, and works the same on light and dark screens.
+.o_workshop_tour {
+    --WorkshopTour-accent: #{$o-brand-primary};
+    position: fixed;
+    inset: 0;
+    z-index: $zindex-modal + 20;
+    font-family: $font-family-base;
+
+    .o_workshop_tour__blocker { position: absolute; inset: 0; }
+    .o_workshop_tour__dim { position: absolute; inset: 0; background: rgba(8, 10, 14, .62); }
+    .o_workshop_tour__spot {
+        position: absolute;
+        border-radius: 14px;
+        box-shadow: 0 0 0 9999px rgba(8, 10, 14, .62), 0 0 0 3px var(--WorkshopTour-accent);
+        transition: top .25s ease, left .25s ease, width .25s ease, height .25s ease;
+        pointer-events: none;
+    }
+
+    .o_workshop_tour__card {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 16px 18px 14px;
+        border-radius: 16px;
+        background: #fff;
+        color: #1f2328;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, .35);
+        outline: none;
+        animation: o_workshop_tour_in .2s ease-out;
+    }
+    &.o_workshop_tour--center .o_workshop_tour__card {
+        top: 50%; left: 50%; width: 440px; max-width: calc(100vw - 32px); transform: translate(-50%, -50%);
+    }
+
+    .o_workshop_tour__progress { display: flex; align-items: center; gap: 10px; }
+    .o_workshop_tour__count { font-size: 12px; font-weight: 700; color: #6b7280; font-variant-numeric: tabular-nums; }
+    .o_workshop_tour__dots {
+        display: flex; flex-wrap: wrap; gap: 4px; flex: 1;
+        i { width: 6px; height: 6px; border-radius: 50%; background: #d1d5db; }
+        i.o_workshop_is_done { background: #9ca3af; }
+        i.o_workshop_is_current { width: 16px; border-radius: 999px; background: var(--WorkshopTour-accent); }
+    }
+    .o_workshop_tour__close {
+        border: 0; background: none; color: #6b7280; width: 32px; height: 32px; margin: -6px -8px -6px 0;
+        border-radius: 8px; &:hover { background: #f3f4f6; color: #111827; }
+    }
+    .o_workshop_tour__title { margin: 2px 0 0; font-size: 18px; font-weight: 800; color: #111827; }
+    .o_workshop_tour__body { margin: 0; font-size: 15px; line-height: 1.5; color: #374151; }
+    .o_workshop_tour__actions {
+        display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 6px;
+        .btn { display: inline-flex; align-items: center; gap: 6px; }
+        .o_workshop_tour__skip { margin-right: auto; padding-left: 0; color: #6b7280; }
+    }
+
+    // Phone: a full-width sheet with big buttons, at the bottom or, when the spotlight is low, at the top.
+    @include media-breakpoint-down(md) {
+        .o_workshop_tour__card {
+            left: 10px; right: 10px; width: auto !important; top: auto; bottom: auto;
+            padding: 16px 16px 14px;
+        }
+        &.o_workshop_tour--bottom .o_workshop_tour__card,
+        &.o_workshop_tour--center .o_workshop_tour__card {
+            bottom: calc(10px + env(safe-area-inset-bottom)); top: auto; left: 10px; transform: none;
+        }
+        &.o_workshop_tour--top .o_workshop_tour__card { top: calc(10px + env(safe-area-inset-top)); }
+        .o_workshop_tour__actions .btn { min-height: 44px; padding-inline: 14px; }
+        .o_workshop_tour__actions .btn-primary { flex: 1; justify-content: center; }
+    }
+}
+
+@keyframes o_workshop_tour_in {
+    from { opacity: 0; translate: 0 8px; }
+    to { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .o_workshop_tour .o_workshop_tour__spot, .o_workshop_tour .o_workshop_tour__card { transition: none; animation: none; }
+}

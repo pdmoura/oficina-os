@@ -475,6 +475,19 @@ class TestBrazilDefaults(WorkshopCase):
         settings.with_user(self.mechanic).set_res_users_settings({"workshop_theme": "light"})
         self.assertEqual(settings.workshop_theme, "light", "each user switches their own theme")
 
+    def test_guided_tour_opens_once_per_user(self):
+        # The browser reads these flags to open each tour on a user's first visit, and sets them when it ends.
+        mechanic = self.env["res.users.settings"]._find_or_create_for_user(self.mechanic)
+        office = self.env["res.users.settings"]._find_or_create_for_user(self.office)
+        sent = mechanic._res_users_settings_format()
+        self.assertFalse(sent["workshop_tour_app_done"])
+        self.assertFalse(sent["workshop_tour_office_done"])
+        mechanic.with_user(self.mechanic).set_res_users_settings({"workshop_tour_app_done": True})
+        self.assertTrue(mechanic.workshop_tour_app_done)
+        self.assertFalse(office.workshop_tour_app_done, "someone else's tour still opens")
+        files = [path for path, *_rest in self.env["ir.asset"]._get_asset_paths("web.assets_backend", {})]
+        self.assertTrue(any(path.endswith("/tour/workshop_tour.js") for path in files), "the tour ships with the web client")
+
     def test_odoobot_stays_quiet(self):
         # Its onboarding chat would open over the screen on the first login.
         self.mechanic._on_webclient_bootstrap()

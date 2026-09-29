@@ -1,7 +1,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { Component, onWillStart, onWillUnmount, useState } from "@odoo/owl";
+import { Component, onMounted, onWillStart, onWillUnmount, useState } from "@odoo/owl";
 
 import {
     bindMethods, brandStyle, displayPlate, elapsedSince, saveWorkshopTheme, workshopTheme,
@@ -20,6 +20,8 @@ export class WorkshopDashboard extends Component {
         this.lightLabel = _t("Light theme");
         this.darkLabel = _t("Dark theme");
         onWillStart(() => this.load());
+        const tour = useService("workshop_tour");
+        onMounted(() => tour.maybeStart("office"));
         const timer = setInterval(() => !document.hidden && this.load(), 60000);
         onWillUnmount(() => clearInterval(timer));
     }

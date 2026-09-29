@@ -37,8 +37,12 @@ export class HomeScreen extends Component {
             data: null, search: "", stageId: null, loading: true, now: DateTime.now(), stageView: this.savedStageView(),
         });
         onWillStart(() => this.load());
+        const tour = useService("workshop_tour");
         // Only after mounting: updating the parent while this screen is still starting would restart it.
-        onMounted(() => this.props.app.setMeta(this.state.data));
+        onMounted(() => {
+            this.props.app.setMeta(this.state.data);
+            tour.maybeStart("app");
+        });
         const tick = setInterval(() => {
             this.state.now = DateTime.now();
             if (!document.hidden) {
