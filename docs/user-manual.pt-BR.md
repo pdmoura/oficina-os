@@ -85,7 +85,8 @@ O número (OS 00001, OS 00002...) é dado ao salvar; até lá a OS aparece como 
 **Seções** (no celular, escolha a seção na lista amarela logo acima do conteúdo):
 
 - **Serviços:** um por linha, com descrição, mecânico, quantidade, horas, preço e aprovação. Escolha no catálogo
-  ou digite uma linha livre, por exemplo uma peça.
+  ou digite uma linha livre. Marque **Peça** nas peças e materiais: elas ganham a etiqueta PEÇA, e abaixo das linhas
+  a OS mostra **Mão de obra** e **Peças** separadas. Peças ficam fora da NFS-e (seção 9).
 - **Problema e diagnóstico:** o que o motorista relatou, o que o mecânico encontrou, notas internas e o texto de
   garantia.
 - **Checklist:** o checklist de entrada respondido no app (OK, Atenção, Com defeito, N/A).
@@ -148,7 +149,7 @@ na hora. Quem prefere pode aprovar por telefone: o escritório usa **Aprovar** n
 
 - **Situação** e **Localização:** um toque para mudar.
 - **Serviços:** adicione pelos favoritos ou pela busca e remova com a lixeira. Serviço já aprovado só o escritório
-  remove.
+  remove. Peças do catálogo entram com a etiqueta PEÇA.
 - **Fotos:** três blocos, **Entrada** (como o caminhão chegou: frente, laterais, painel e avarias), **Serviço** (o
   defeito e o reparo, que o cliente vê no link) e **Saída** (o caminhão pronto). Cada bloco tem o seu botão
   **Foto**, e o bloco do momento atual da OS fica em destaque. As fotos são reduzidas no próprio celular antes de
@@ -180,6 +181,7 @@ Para frotas que pagam uma vez por mês (**Oficina → Faturamento → Fechamento
 3. Confira e **Confirmar**. As OS ficam presas a este fechamento.
 4. **Imprimir relatório:** um serviço por linha, com quantidade, preço unitário e valor, e a lista das OS.
 5. **Emitir NFS-e:** emite a nota do mês (veja a seção 9). Depois de emitida, o fechamento fica **Faturado**.
+   As peças do mês aparecem numa tabela própria no relatório e ficam fora da nota.
 6. **Marcar como pago** quando o pagamento entrar.
 
 **Oficina → Faturamento → Análise de serviços** mostra os serviços por período, cliente, setor e mecânico.
@@ -199,7 +201,8 @@ A nota de serviço sai pelo **Sistema Nacional NFS-e**. Há dois modos, escolhid
 - **Pelo menu NFS-e → Novo:** escolha, no topo, a **Ordem de serviço** ou o **Fechamento mensal**, e a nota se
   preenche sozinha.
 
-Nos três casos a nota traz o cliente, o valor, a competência e a **descrição do serviço**, uma linha por serviço:
+Nos três casos a nota traz o cliente, o valor dos serviços, a competência e a **descrição do serviço**, uma linha
+por serviço:
 
 ```
 Serviços referentes à OS 00011, placa NXR4D27 (Mercedes-Benz Axor 2544):
@@ -225,9 +228,8 @@ Uma OS ou um fechamento só pode ter uma nota ativa. Para emitir de novo, cancel
 No modo direto, o botão **Emitir NFS-e** da nota faz tudo isso sozinho. Nos dois modos, o **DANFSe** (PDF da nota) fica
 disponível depois da emissão, e uma nota emitida pode ser cancelada pelo botão **Cancelar NFS-e**.
 
-> **Peças:** hoje a nota inclui todas as linhas da OS, peças também. Para conserto de veículos, peças costumam
-> ser tributadas como mercadoria (ICMS), fora da nota de serviço. Confirme com o contador da oficina como ela
-> deve faturar as peças.
+> **Peças:** as linhas marcadas como **Peça** ficam fora da nota. O valor e a descrição cobrem só a mão de obra,
+> porque peça é faturada como mercadoria (ICMS), fora da nota de serviço. Uma OS só com peças não tem NFS-e.
 
 ## 10. Configurações
 
@@ -263,7 +265,8 @@ Onde as fotos ficam guardadas:
 
 ### Cadastros da oficina (menu Configuração)
 
-- **Serviços:** nome, setor, horas e preço. Os marcados como **favoritos** aparecem primeiro no app.
+- **Serviços:** nome, setor, horas e preço. Os marcados como **favoritos** aparecem primeiro no app. Marque
+  **Peça** nas peças e materiais, e eles já chegam marcados na OS.
 - **Situações:** as colunas do quadro, na ordem da oficina, com cor. O tempo numa **situação de espera** (peças,
   aprovação) não conta como tempo de trabalho.
 - **Localizações:** boxes, pátio, "em teste na rua", "no cliente".

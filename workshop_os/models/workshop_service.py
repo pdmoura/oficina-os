@@ -10,6 +10,8 @@ class WorkshopService(models.Model):
     name = fields.Char(required=True, index="trigram")
     code = fields.Char()
     sector_id = fields.Many2one("workshop.sector", string="Sector")
+    is_part = fields.Boolean("Part", help="A part or material rather than labour. Parts are billed as goods and "
+                                          "stay out of the service invoice (NFS-e).")
     list_price = fields.Monetary("Price", currency_field="currency_id")
     cost = fields.Monetary(currency_field="currency_id", help="Parts or third-party cost, for margin reports.")
     hours = fields.Float("Labour hours", digits=(6, 2), help="Estimated time, in hours (1.5 = 1h30).")

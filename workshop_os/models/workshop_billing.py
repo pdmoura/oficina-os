@@ -20,6 +20,9 @@ class WorkshopBilling(models.Model):
     order_ids = fields.One2many("workshop.order", "billing_id", string="Work orders")
     order_count = fields.Integer(compute="_compute_totals", store=True)
     amount_total = fields.Monetary(compute="_compute_totals", store=True, currency_field="currency_id")
+    amount_services = fields.Monetary("Labour", compute="_compute_totals", store=True, currency_field="currency_id",
+                                      help="Labour, the part of the month the service invoice (NFS-e) covers.")
+    amount_parts = fields.Monetary("Parts", compute="_compute_totals", store=True, currency_field="currency_id")
     state = fields.Selection([
         ("draft", "Draft"),
         ("confirmed", "Confirmed"),
@@ -36,12 +39,14 @@ class WorkshopBilling(models.Model):
             period = billing.date_to.strftime("%m/%Y") if billing.date_to else ""
             billing.name = f"{billing.partner_id.commercial_partner_id.name or ''} · {period}".strip(" ·")
 
-    @api.depends("order_ids.amount_total", "order_ids.state")
+    @api.depends("order_ids.amount_total", "order_ids.amount_parts", "order_ids.state")
     def _compute_totals(self):
         for billing in self:
             orders = billing.order_ids.filtered(lambda o: o.state != "cancel")
             billing.order_count = len(orders)
             billing.amount_total = sum(orders.mapped("amount_total"))
+            billing.amount_parts = sum(orders.mapped("amount_parts"))
+            billing.amount_services = billing.amount_total - billing.amount_parts
 
     @api.ondelete(at_uninstall=False)
     def _unlink_except_confirmed(self):

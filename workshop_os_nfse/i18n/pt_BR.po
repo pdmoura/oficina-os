@@ -152,6 +152,14 @@ msgstr "Serviços referentes à %(order)s, placa %(plate)s"
 
 #. module: workshop_os_nfse
 #. odoo-python
+#: code:addons/workshop_os_nfse/models/workshop_nfse_source.py:0
+msgid ""
+"There is nothing to invoice: the NFS-e covers services only, and parts are "
+"billed as goods."
+msgstr "Não há o que faturar: a NFS-e cobre só serviços, e as peças são faturadas como mercadoria."
+
+#. module: workshop_os_nfse
+#. odoo-python
 #: code:addons/workshop_os_nfse/models/workshop_order.py:0
 msgid "This order is billed in the monthly closing %s."
 msgstr "Esta OS é faturada no fechamento mensal %s."

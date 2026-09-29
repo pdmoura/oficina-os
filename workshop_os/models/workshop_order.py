@@ -76,6 +76,9 @@ class WorkshopOrder(models.Model):
     company_id = fields.Many2one("res.company", default=lambda self: self.env.company, required=True, index=True)
     currency_id = fields.Many2one(related="company_id.currency_id")
     amount_total = fields.Monetary(compute="_compute_amounts", store=True, currency_field="currency_id")
+    amount_services = fields.Monetary("Labour", compute="_compute_amounts", store=True, currency_field="currency_id",
+                                      help="Labour, the part of the order the service invoice (NFS-e) covers.")
+    amount_parts = fields.Monetary("Parts", compute="_compute_amounts", store=True, currency_field="currency_id")
     amount_approved = fields.Monetary(compute="_compute_amounts", store=True, currency_field="currency_id")
     hours_total = fields.Float("Labour hours", compute="_compute_amounts", store=True)
     photo_count = fields.Integer(compute="_compute_counts")
@@ -96,11 +99,13 @@ class WorkshopOrder(models.Model):
     # ------------------------------------------------------------------
     # Computes
     # ------------------------------------------------------------------
-    @api.depends("line_ids.subtotal", "line_ids.approval", "line_ids.hours", "line_ids.quantity")
+    @api.depends("line_ids.subtotal", "line_ids.approval", "line_ids.hours", "line_ids.quantity", "line_ids.is_part")
     def _compute_amounts(self):
         for order in self:
             lines = order.line_ids.filtered(lambda l: l.approval != "rejected")
             order.amount_total = sum(lines.mapped("subtotal"))
+            order.amount_parts = sum(lines.filtered("is_part").mapped("subtotal"))
+            order.amount_services = order.amount_total - order.amount_parts
             order.amount_approved = sum(lines.filtered(lambda l: l.approval == "approved").mapped("subtotal"))
             order.hours_total = sum(l.hours * l.quantity for l in lines)
 
@@ -507,7 +512,7 @@ class WorkshopOrder(models.Model):
                 "id": l.id, "service_id": l.service_id.id, "name": l.name, "quantity": l.quantity,
                 "price": l.price_unit, "subtotal": l.subtotal,
                 "subtotal_fmt": format_amount(self.env, l.subtotal, self.currency_id),
-                "hours": l.hours, "approval": l.approval,
+                "hours": l.hours, "approval": l.approval, "is_part": l.is_part,
             } for l in self.line_ids],
             "state_actions": self._app_state_actions(),
             "photos": [{"id": p.id, "url": p.url, "thumb": p.thumb_url, "caption": p.caption or "", "kind": p.kind}
@@ -539,7 +544,7 @@ class WorkshopOrder(models.Model):
     def app_services(self, search=""):
         domain = [("name", "ilike", search)] if search else []
         return [{"id": s.id, "name": s.name, "price_fmt": format_amount(self.env, s.list_price, s.currency_id),
-                 "hours": s.hours, "favorite": s.favorite}
+                 "hours": s.hours, "favorite": s.favorite, "is_part": s.is_part}
                 for s in self.env["workshop.service"].search(domain, limit=40)]
 
     def app_update(self, values):
@@ -598,6 +603,8 @@ class WorkshopOrderLine(models.Model):
     sequence = fields.Integer(default=10)
     service_id = fields.Many2one("workshop.service", "Service", check_company=True)
     name = fields.Char("Description", required=True)
+    is_part = fields.Boolean("Part", help="A part or material rather than labour. Parts are billed as goods and "
+                                          "stay out of the service invoice (NFS-e).")
     sector_id = fields.Many2one("workshop.sector", "Sector")
     user_id = fields.Many2one("res.users", "Mechanic", default=lambda self: self.env.user)
     quantity = fields.Float(default=1.0, digits=(10, 2))
@@ -647,13 +654,14 @@ class WorkshopOrderLine(models.Model):
         if self.filtered(lambda l: l.approval == "approved"):
             self.env["workshop.order"]._check_office(_("Approved items can only be removed by the office."))
 
-    def _service_rows(self):
+    def _service_rows(self, parts=False):
         """[(name, unit price, quantity, amount)] per service and price, refused lines left out, largest first.
+        Services only, or parts only with parts=True.
 
         Shared by the closing report and the service invoice, so both show the same breakdown.
         """
         totals = {}
-        for line in self.filtered(lambda l: l.approval != "rejected"):
+        for line in self.filtered(lambda l: l.approval != "rejected" and l.is_part == parts):
             row = totals.setdefault((line.name, line.price_unit), [0.0, 0.0])
             row[0] += line.quantity
             row[1] += line.subtotal
@@ -662,7 +670,7 @@ class WorkshopOrderLine(models.Model):
 
     def _invoice_description(self, heading, orders_note=None, max_length=None):
         """Text of these services for a service invoice: the heading, one line per service and price
-        ("- Revisão do alternador: 3 × R$ 280,00 = R$ 840,00"), the total and the orders.
+        ("- Revisão do alternador: 3 × R$ 280,00 = R$ 840,00"), the total and the orders. Parts are left out.
 
         Over max_length the orders go first, then the smallest services are summed into one "Other services"
         line, and as a last resort the heading is cut, so the note always fits and never loses its total.
@@ -705,6 +713,7 @@ class WorkshopOrderLine(models.Model):
         return {
             "service_id": service.id,
             "name": service.name,
+            "is_part": service.is_part,
             "price_unit": service.list_price,
             "hours": service.hours,
             "sector_id": service.sector_id.id,

@@ -26,7 +26,7 @@ class WorkshopOrder(models.Model):
         return {
             "company_id": self.company_id.id,
             "partner_id": self.partner_id.commercial_partner_id.id,
-            "amount": self.amount_total,
+            "amount": self._nfse_amount(),
             "description": self.line_ids._invoice_description(head + ":", max_length=MAX_DESCRIPTION),
             "date_competence": fields.Date.context_today(self, self.date_done) if self.date_done else fields.Date.context_today(self),
             "origin": self.name,

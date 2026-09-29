@@ -1,4 +1,5 @@
-from odoo import api, models
+from odoo import _, api, models
+from odoo.exceptions import UserError
 
 NFSE_STATES = [("none", "Not issued"), ("draft", "To issue"), ("done", "Issued")]
 
@@ -19,6 +20,12 @@ class NfseSourceMixin(models.AbstractModel):
 
     def _nfse_values(self):
         raise NotImplementedError
+
+    def _nfse_amount(self):
+        """What the note invoices: labour only, since parts are billed as goods."""
+        if self.amount_services <= 0:
+            raise UserError(_("There is nothing to invoice: the NFS-e covers services only, and parts are billed as goods."))
+        return self.amount_services
 
     def action_create_nfse(self):
         self.ensure_one()

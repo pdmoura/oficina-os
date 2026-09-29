@@ -318,6 +318,27 @@ class TestBilling(WorkshopCase):
         self.assertLessEqual(len(tiny), 60, "as a last resort the heading is cut")
         self.assertIn("Total:", tiny)
 
+    def test_parts_are_billed_apart_from_labour(self):
+        # A part from the catalogue comes marked; the order, the closing and their reports split labour and parts.
+        part = self.env["workshop.service"].create({"name": "H7 bulb", "list_price": 40, "is_part": True})
+        order = self._order(services=self.service_a | part)
+        self.assertEqual(order.line_ids.mapped("is_part"), [False, True])
+        self.assertEqual([line["is_part"] for line in order.app_read()["lines"]], [False, True])
+        self.assertEqual((order.amount_services, order.amount_parts, order.amount_total), (180, 40, 220))
+        self.assertEqual([row[0] for row in order.line_ids._service_rows()], ["Headlight"])
+        self.assertEqual([row[0] for row in order.line_ids._service_rows(parts=True)], ["H7 bulb"])
+        text = order.line_ids._invoice_description("Services:")
+        self.assertNotIn("H7 bulb", text)
+        self.assertRegex(text, r"Total: \D*180[.,]00")
+        html, _type = self.env["ir.actions.report"]._render_qweb_html("workshop_os.report_workshop_order", order.ids)
+        self.assertIn(b"H7 bulb", html, "the work order still lists the part")
+
+        billing = self.env["workshop.billing"].create({"partner_id": self.fleet.id})
+        order.billing_id = billing
+        self.assertEqual((billing.amount_services, billing.amount_parts, billing.amount_total), (180, 40, 220))
+        html, _type = self.env["ir.actions.report"]._render_qweb_html("workshop_os.report_workshop_billing", billing.ids)
+        self.assertIn(b"H7 bulb", html, "the closing report has its own parts table")
+
     def test_photos_without_a_moment_count_as_arrival(self):
         order = self._order()
         pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="

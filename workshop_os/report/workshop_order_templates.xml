@@ -25,6 +25,8 @@
                                  padding: 6px 4px; text-align: left; }
             .wo table.items td { border-bottom: 1px solid #eef0f3; padding: 6px 4px; }
             .wo .total { font-size: 18px; font-weight: 800; }
+            .wo .tag { display: inline-block; border: 1px solid #9ca3af; border-radius: 8px; padding: 0 6px; margin-left: 4px;
+                       font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #4b5563; }
             .wo .photos img { width: 23%; margin: 0 1% 8px 0; border-radius: 6px; }
             .wo .sign { border-top: 1px solid #1f2933; padding-top: 4px; text-align: center; }
             .wo .sign-space { height: 60px; margin-top: 28px; }
@@ -102,7 +104,7 @@
                     </thead>
                     <tbody>
                         <tr t-foreach="lines" t-as="line">
-                            <td><span t-field="line.name"/><div t-if="line.user_id" class="muted" style="font-size: 10px;" t-field="line.user_id.name"/></td>
+                            <td><span t-field="line.name"/><span t-if="line.is_part" class="tag">Part</span><div t-if="line.user_id" class="muted" style="font-size: 10px;" t-field="line.user_id.name"/></td>
                             <td style="text-align: right;"><span t-out="'%g' % line.quantity"/></td>
                             <td style="text-align: right;"><span t-field="line.price_unit"/></td>
                             <td style="text-align: right;"><span t-field="line.subtotal"/></td>
@@ -115,6 +117,7 @@
                             <t t-if="o.hours_total">Labour: <span t-field="o.hours_total" t-options='{"widget": "float_time"}'/> h</t>
                         </td>
                         <td style="text-align: right;">
+                            <div t-if="o.amount_parts" class="muted" style="margin-bottom: 4px;">Labour <span t-field="o.amount_services"/> · Parts <span t-field="o.amount_parts"/></div>
                             <span class="label">Total</span><br/>
                             <span class="total" t-field="o.amount_total"/>
                         </td>

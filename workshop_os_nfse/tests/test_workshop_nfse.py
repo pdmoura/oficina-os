@@ -73,6 +73,20 @@ class TestWorkshopNfse(WorkshopCase):
         with self.assertRaises(UserError):
             draft.action_create_nfse()
 
+    def test_parts_stay_out_of_the_note(self):
+        part = self.env["workshop.service"].create({"name": "H7 bulb", "list_price": 40, "is_part": True})
+        order = self._order(self._vehicle("GGG7G77"), services=self.service_a | part)
+        order.action_approve()
+        order.action_done()
+        note = self.env["l10n_br_nfse_nacional.document"].browse(order.action_create_nfse()["res_id"])
+        self.assertEqual(note.amount, 180, "labour only: the part is billed as goods")
+        self.assertNotIn("H7 bulb", note.description)
+        only_parts = self._order(self._vehicle("HHH8H88"), services=part)
+        only_parts.action_approve()
+        only_parts.action_done()
+        with self.assertRaises(UserError):
+            only_parts.action_create_nfse()
+
     def test_mechanic_has_no_access_to_notes(self):
         self.assertFalse(self.mechanic.has_group("l10n_br_nfse_nacional.l10n_br_nfse_nacional_group_user"))
         self.assertTrue(self.office.has_group("l10n_br_nfse_nacional.l10n_br_nfse_nacional_group_user"))

@@ -89,7 +89,7 @@
                             <label>
                                 <input t-if="order.state == 'draft'" type="checkbox" checked="checked" class="o_workshop_page_line__check"
                                        t-att-value="line.id" t-att-data-amount="line.subtotal"/>
-                                <span class="o_workshop_page_line__name" t-out="line.name"/>
+                                <span class="o_workshop_page_line__name"><t t-out="line.name"/><span t-if="line.is_part" class="o_workshop_page_line__tag">Part</span></span>
                                 <span class="o_workshop_page_line__qty" t-if="line.quantity != 1" t-out="'× %g' % line.quantity"/>
                                 <span class="o_workshop_page_line__amount" t-field="line.subtotal"/>
                             </label>

@@ -129,6 +129,11 @@
 .o_workshop_page_line__check { width: 22px; height: 22px; accent-color: var(--Workshop-accent); flex: 0 0 auto; }
 .o_workshop_page_line__name { flex: 1; font-size: 15px; }
 .o_workshop_page_line__qty { color: var(--Workshop-muted); font-size: 13px; }
+.o_workshop_page_line__tag {
+    display: inline-block; margin-left: 8px; padding: 1px 8px; border: 1px solid var(--Workshop-border); border-radius: 999px;
+    color: var(--Workshop-muted); font-size: 11px; font-weight: 700; letter-spacing: .3px; text-transform: uppercase;
+    vertical-align: 2px;
+}
 .o_workshop_page_line__amount { font-weight: 700; font-variant-numeric: tabular-nums; }
 .o_workshop_page_total {
     display: flex;

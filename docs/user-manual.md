@@ -88,7 +88,8 @@ promised date. The number (OS 00001, OS 00002...) is given when you save; until 
 **Sections** (on a phone, pick the section in the yellow list above the content):
 
 - **Services:** one per line, with description, mechanic, quantity, hours, price and approval. Pick from the
-  catalogue or type a free line, for example a part.
+  catalogue or type a free line. Tick **Part** on parts and materials: they show a PART tag, and under the lines the
+  order shows **Labour** and **Parts** apart. Parts stay out of the NFS-e (section 9).
 - **Problem and diagnosis:** what the driver reported, what the mechanic found, internal notes and the warranty
   text.
 - **Checklist:** the arrival checklist answered in the app (OK, Attention, Problem, N/A).
@@ -152,7 +153,7 @@ in the office right away. Someone who prefers the phone call: the office uses **
 
 - **Stage** and **Location:** one tap to change.
 - **Services:** add from favourites or search, remove with the bin. An approved service can only be removed by
-  the office.
+  the office. Parts from the catalogue come in with a PART tag.
 - **Photos:** three blocks, **Arrival** (how the truck came in: front, sides, dashboard and any damage), **Job**
   (the fault and the repair, which the customer sees on the link) and **Delivery** (the truck ready to leave).
   Each block has its own **Photo** button, and the block for the order's current moment stands out. Photos are
@@ -181,7 +182,8 @@ For fleets that pay once a month (**Workshop → Billing → Monthly Closing**):
 1. **New:** pick the customer and the period (the previous month by default).
 2. **Load orders of the period:** brings the customer's finished orders that are not closed yet.
 3. Check and **Confirm**. The orders are now tied to this closing.
-4. **Print report:** one line per service, with quantity, unit price and amount, and the list of orders.
+4. **Print report:** one line per service, with quantity, unit price and amount, the parts in a table of their
+   own, and the list of orders.
 5. **Issue NFS-e:** issues the month's note (see section 9). Once issued, the closing becomes **Invoiced**.
 6. **Mark paid** when the payment comes in.
 
@@ -202,8 +204,8 @@ Brazil's service invoice goes through the **Sistema Nacional NFS-e**. There are 
 - **From the NFS-e menu → New:** pick the **Work order** or the **Monthly closing** at the top, and the note fills
   itself in.
 
-In all three the note brings the customer, amount, competence and the **service description**, one line per
-service:
+In all three the note brings the customer, the amount of the services, the competence and the **service
+description**, one line per service:
 
 ```
 Services on work order OS 00011, plate NXR4D27 (Mercedes-Benz Axor 2544):
@@ -229,8 +231,8 @@ An order or a closing can have only one live note. To issue again, cancel the pr
 In direct mode, the note's **Issue NFS-e** button does all of that by itself. In both modes the **DANFSe** (the
 note's PDF) is available once issued, and an issued note can be cancelled with **Cancel NFS-e**.
 
-> **Parts:** today the note includes every line of the order, parts too. For vehicle repair, parts are usually
-> taxed as goods (ICMS), outside the service note. Check with the shop's accountant how parts should be invoiced.
+> **Parts:** lines marked **Part** stay out of the note. Its amount and description cover labour only, because
+> parts are billed as goods (ICMS), outside the service invoice. An order with parts only has no NFS-e.
 
 ## 10. Settings
 
@@ -266,7 +268,8 @@ Where the photos are kept:
 
 ### The shop's lists (Configuration menu)
 
-- **Services:** name, sector, hours and price. Those marked **favourite** come first in the app.
+- **Services:** name, sector, hours and price. Those marked **favourite** come first in the app. Mark **Part** on
+  parts and materials, and they reach the order already marked.
 - **Stages:** the board's columns, in the shop's order, with a colour. Time in a **waiting stage** (parts, approval)
   does not count as work time.
 - **Locations:** bays, yard, road test, at the customer's.

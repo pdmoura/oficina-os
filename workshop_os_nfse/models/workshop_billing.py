@@ -20,7 +20,7 @@ class WorkshopBilling(models.Model):
         return {
             "company_id": self.company_id.id,
             "partner_id": self.partner_id.commercial_partner_id.id,
-            "amount": self.amount_total,
+            "amount": self._nfse_amount(),
             "description": self._service_description(max_length=MAX_DESCRIPTION),
             "date_competence": self.date_to,
             "origin": self.name,

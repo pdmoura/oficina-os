@@ -109,6 +109,13 @@ msgstr "<i class=\"fa fa-wrench me-1\" title=\"Ordens de serviço\"/>"
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid ""
+"<span class=\"badge rounded-pill text-bg-secondary ms-1\" invisible=\"not "
+"is_part\">Part</span>"
+msgstr "<span class=\"badge rounded-pill text-bg-secondary ms-1\" invisible=\"not is_part\">Peça</span>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+msgid ""
 "<span class=\"badge text-bg-light\" invisible=\"not "
 "is_waiting\">Waiting</span>"
 msgstr ""
@@ -134,6 +141,11 @@ msgstr "<span class=\"label\">Total do período</span><br/>"
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "<span class=\"label\">Total</span><br/>"
 msgstr "<span class=\"label\">Total</span><br/>"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_kanban
+msgid "<span class=\"o_workshop_chip\" invisible=\"not is_part\">Part</span>"
+msgstr "<span class=\"o_workshop_chip\" invisible=\"not is_part\">Peça</span>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_stage_view_kanban
@@ -195,13 +207,24 @@ msgid "<span>–</span>"
 msgstr ""
 
 #. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order_line__is_part
+#: model:ir.model.fields,help:workshop_os.field_workshop_service__is_part
+msgid ""
+"A part or material rather than labour. Parts are billed as goods and stay "
+"out of the service invoice (NFS-e)."
+msgstr "Peça ou material, e não mão de obra. Peças são faturadas como mercadoria e ficam fora da nota de serviço (NFS-e)."
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/tour/workshop_tour.js:0
 msgid ""
 "A short tour of the office's day: the dashboard, the orders, the mechanic "
 "app, customers, the monthly closing and the settings. It takes about two "
 "minutes."
-msgstr "Um passeio rápido pelo dia do escritório: o painel, as OS, o app do mecânico, os clientes, o fechamento mensal e as configurações. Leva uns dois minutos."
+msgstr ""
+"Um passeio rápido pelo dia do escritório: o painel, as OS, o app do "
+"mecânico, os clientes, o fechamento mensal e as configurações. Leva uns dois"
+" minutos."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -423,7 +446,10 @@ msgid ""
 "Approve or reject the quote, send it on WhatsApp, copy the customer link "
 "(they approve on the phone, with a signature) and print. On the right, the "
 "order's progress."
-msgstr "Aprove ou recuse o orçamento, mande pelo WhatsApp, copie o link do cliente (ele aprova pelo celular, com assinatura) e imprima. À direita, o andamento da OS."
+msgstr ""
+"Aprove ou recuse o orçamento, mande pelo WhatsApp, copie o link do cliente "
+"(ele aprova pelo celular, com assinatura) e imprima. À direita, o andamento "
+"da OS."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
@@ -508,7 +534,9 @@ msgstr "No cliente"
 msgid ""
 "At the end of the month, one closing per fleet: load the finished orders, "
 "confirm, print the report and issue the NFS-e with one click."
-msgstr "No fim do mês, um fechamento por frota: carregue as OS concluídas, confirme, imprima o relatório e emita a NFS-e com um clique."
+msgstr ""
+"No fim do mês, um fechamento por frota: carregue as OS concluídas, confirme,"
+" imprima o relatório e emita a NFS-e com um clique."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
@@ -709,7 +737,9 @@ msgstr "Legenda"
 msgid ""
 "Change the stage and the bay with one tap. Below: services, photos by "
 "moment, the checklist and the history."
-msgstr "Troque a situação e o box com um toque. Abaixo: serviços, fotos por momento, checklist e histórico."
+msgstr ""
+"Troque a situação e o box com um toque. Abaixo: serviços, fotos por momento,"
+" checklist e histórico."
 
 #. module: workshop_os
 #. odoo-python
@@ -1207,7 +1237,9 @@ msgstr "Etanol"
 msgid ""
 "Every open order by stage. Drag a card to another stage or open it for the "
 "details. On a phone, swipe between the stages."
-msgstr "Todas as OS abertas por situação. Arraste um cartão para outra situação ou abra-o para ver os detalhes. No celular, deslize entre as situações."
+msgstr ""
+"Todas as OS abertas por situação. Arraste um cartão para outra situação ou "
+"abra-o para ver os detalhes. No celular, deslize entre as situações."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1215,7 +1247,9 @@ msgstr "Todas as OS abertas por situação. Arraste um cartão para outra situa�
 msgid ""
 "Everything the yard needs, on the phone. Tip: add it to the home screen to "
 "open it like any other app."
-msgstr "Tudo o que o pátio precisa, no celular. Dica: adicione à tela inicial para abrir como qualquer outro app."
+msgstr ""
+"Tudo o que o pátio precisa, no celular. Dica: adicione à tela inicial para "
+"abrir como qualquer outro app."
 
 #. module: workshop_os
 #: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_entry_item_40
@@ -1248,7 +1282,9 @@ msgstr "Preencha antes o cloud name, a chave de API e o segredo da API."
 msgid ""
 "Filter the trucks by stage. The button on the right switches between a row "
 "and a grid."
-msgstr "Filtre os caminhões por situação. O botão à direita alterna entre fileira e grade."
+msgstr ""
+"Filtre os caminhões por situação. O botão à direita alterna entre fileira e "
+"grade."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1639,10 +1675,28 @@ msgid "Kind"
 msgstr "Tipo"
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__amount_services
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__amount_services
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Labour"
+msgstr "Mão de obra"
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__hours_total
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__hours
 msgid "Labour hours"
 msgstr "Horas de mão de obra"
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_billing__amount_services
+msgid "Labour, the part of the month the service invoice (NFS-e) covers."
+msgstr "Mão de obra: a parte do mês que a nota de serviço (NFS-e) cobre."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__amount_services
+msgid "Labour, the part of the order the service invoice (NFS-e) covers."
+msgstr "Mão de obra: a parte da OS que a nota de serviço (NFS-e) cobre."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
@@ -1711,7 +1765,9 @@ msgstr "Em atraso"
 msgid ""
 "Late orders, trucks ready for pickup and the month's customers, each one a "
 "tap away."
-msgstr "OS atrasadas, caminhões prontos para retirada e os clientes do mês, cada um a um toque."
+msgstr ""
+"OS atrasadas, caminhões prontos para retirada e os clientes do mês, cada um "
+"a um toque."
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__res_users_settings__workshop_theme__light
@@ -1729,7 +1785,9 @@ msgstr "Claro"
 msgid ""
 "Light or dark theme, refresh, the office view and this tour. Sign out here "
 "too."
-msgstr "Tema claro ou escuro, atualizar, a visão do escritório e este guia. Para sair, também é aqui."
+msgstr ""
+"Tema claro ou escuro, atualizar, a visão do escritório e este guia. Para "
+"sair, também é aqui."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1795,7 +1853,10 @@ msgid ""
 "Logos and colours, warranty and approval texts, where the photos are kept "
 "and the NFS-e. Services, stages, bays and users are in the Configuration "
 "menu."
-msgstr "Logos e cores, textos de garantia e de aprovação, onde as fotos ficam guardadas e a NFS-e. Serviços, situações, boxes e usuários ficam no menu Configuração."
+msgstr ""
+"Logos e cores, textos de garantia e de aprovação, onde as fotos ficam "
+"guardadas e a NFS-e. Serviços, situações, boxes e usuários ficam no menu "
+"Configuração."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -1820,6 +1881,13 @@ msgid "Mark paid"
 msgstr "Marcar como pago"
 
 #. module: workshop_os
+#: model_terms:ir.actions.act_window,help:workshop_os.workshop_service_action
+msgid ""
+"Mark parts and materials as parts: they are billed as goods and stay out of "
+"the service invoice (NFS-e)."
+msgstr "Marque peças e materiais como peça: eles são faturados como mercadoria e ficam fora da nota de serviço (NFS-e)."
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Mark ready"
 msgstr "Marcar como pronta"
@@ -1833,7 +1901,7 @@ msgid "Mechanic"
 msgstr "Mecânico"
 
 #. module: workshop_os
-#: model:ir.actions.client,name:workshop_os.action_mechanic_app
+#: model:ir.actions.client,name:workshop_os.workshop_order_action_mechanic_app
 #: model:ir.ui.menu,name:workshop_os.workshop_order_menu_mechanic_app
 msgid "Mechanic App"
 msgstr "App do mecânico"
@@ -2166,7 +2234,9 @@ msgstr "Serviço parado"
 msgid ""
 "One card per stage of the shop, with how many trucks are in it. Tap a stage "
 "to see them."
-msgstr "Um cartão por situação da oficina, com quantos caminhões estão nela. Toque numa situação para vê-los."
+msgstr ""
+"Um cartão por situação da oficina, com quantos caminhões estão nela. Toque "
+"numa situação para vê-los."
 
 #. module: workshop_os
 #. odoo-python
@@ -2239,7 +2309,9 @@ msgstr "Abra este guia de novo pelo menu quando quiser."
 msgid ""
 "Open this tour again whenever you like from your user menu, at the top "
 "right."
-msgstr "Abra este guia de novo quando quiser pelo menu do seu usuário, no canto superior direito."
+msgstr ""
+"Abra este guia de novo quando quiser pelo menu do seu usuário, no canto "
+"superior direito."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2326,6 +2398,25 @@ msgstr "Outro"
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_billing__state__paid
 msgid "Paid"
 msgstr "Pago"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__is_part
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_service__is_part
+#: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "Part"
+msgstr "Peça"
+
+#. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__amount_parts
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__amount_parts
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_search
+msgid "Parts"
+msgstr "Peças"
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_workshop_service__cost
@@ -2434,7 +2525,8 @@ msgstr "Placa, OS ou cliente"
 #: code:addons/workshop_os/static/src/tour/workshop_tour.js:0
 msgid ""
 "Plate, vehicle, stage, time in the stage and bay. Tap it to open the order."
-msgstr "Placa, veículo, situação, tempo na situação e box. Toque para abrir a OS."
+msgstr ""
+"Placa, veículo, situação, tempo na situação e box. Toque para abrir a OS."
 
 #. module: workshop_os
 #. odoo-python
@@ -2596,7 +2688,9 @@ msgstr "Atualizar"
 msgid ""
 "Register the fleets and their trucks here. A fleet on contract can have its "
 "quotes approved automatically."
-msgstr "Cadastre aqui as frotas e seus caminhões. Uma frota com contrato pode ter os orçamentos aprovados automaticamente."
+msgstr ""
+"Cadastre aqui as frotas e seus caminhões. Uma frota com contrato pode ter os"
+" orçamentos aprovados automaticamente."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
@@ -2769,6 +2863,7 @@ msgstr "Serviço adicionado"
 #: model:ir.ui.menu,name:workshop_os.workshop_service_menu
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_service_view_search
 msgid "Services"
 msgstr "Serviços"
 
@@ -2785,7 +2880,10 @@ msgid ""
 "Services and prices, problem and diagnosis, checklist, photos by moment "
 "(arrival, job, delivery), stage history and approval. On a phone, pick the "
 "section in this list."
-msgstr "Serviços e preços, problema e diagnóstico, checklist, fotos por momento (entrada, serviço, saída), histórico de situações e aprovação. No celular, escolha a seção nesta lista."
+msgstr ""
+"Serviços e preços, problema e diagnóstico, checklist, fotos por momento "
+"(entrada, serviço, saída), histórico de situações e aprovação. No celular, "
+"escolha a seção nesta lista."
 
 #. module: workshop_os
 #. odoo-python
@@ -2915,7 +3013,9 @@ msgstr "Situações"
 msgid ""
 "Start here when a truck arrives: type the plate, and a known truck brings "
 "its customer and odometer."
-msgstr "Comece aqui quando um caminhão chegar: digite a placa, e um caminhão já cadastrado traz o cliente e o hodômetro."
+msgstr ""
+"Comece aqui quando um caminhão chegar: digite a placa, e um caminhão já "
+"cadastrado traz o cliente e o hodômetro."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2953,7 +3053,9 @@ msgstr "Subtotal"
 msgid ""
 "Switch between the light and the dark theme, open the mechanic app, or see "
 "every order on the board."
-msgstr "Alterne entre o tema claro e o escuro, abra o app do mecânico ou veja todas as OS no quadro."
+msgstr ""
+"Alterne entre o tema claro e o escuro, abra o app do mecânico ou veja todas "
+"as OS no quadro."
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_logo_mark
@@ -3326,7 +3428,10 @@ msgstr "Saída do caminhão"
 msgid ""
 "Trucks in the shop, late orders, quotes waiting for approval, trucks ready "
 "for pickup and what the month brought in. Each card opens its orders."
-msgstr "Caminhões na oficina, OS atrasadas, orçamentos aguardando aprovação, caminhões prontos para retirada e o que o mês rendeu. Cada cartão abre as suas OS."
+msgstr ""
+"Caminhões na oficina, OS atrasadas, orçamentos aguardando aprovação, "
+"caminhões prontos para retirada e o que o mês rendeu. Cada cartão abre as "
+"suas OS."
 
 #. module: workshop_os
 #: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_13
@@ -3523,7 +3628,10 @@ msgid ""
 "What the mechanics use on their phones: receive a truck from the plate, move"
 " it through the stages, add services, photos and the checklist. You can use "
 "it too."
-msgstr "O que os mecânicos usam no celular: receber um caminhão pela placa, levá-lo pelas situações, lançar serviços, fotos e o checklist. Você também pode usar."
+msgstr ""
+"O que os mecânicos usam no celular: receber um caminhão pela placa, levá-lo "
+"pelas situações, lançar serviços, fotos e o checklist. Você também pode "
+"usar."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
@@ -3670,7 +3778,7 @@ msgstr "Tema da oficina"
 #. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
-#: model:ir.actions.client,name:workshop_os.action_workshop_dashboard
+#: model:ir.actions.client,name:workshop_os.workshop_order_action_dashboard
 #: model:ir.ui.menu,name:workshop_os.workshop_order_menu_dashboard
 #: model:workshop.location,name:workshop_os.location_yard
 msgid "Yard"
@@ -3739,6 +3847,12 @@ msgid "orders ·"
 msgstr "OS ·"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "pcs"
+msgstr "un."
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_print_view_form
 msgid ""
 "photo(s) the customer can see, grouped as arrival, job and delivery (up to 8"
@@ -3774,6 +3888,12 @@ msgstr "a"
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
 msgid "work orders"
 msgstr "OS"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
+msgid "· Parts"
+msgstr "· Peças"
 
 #. module: workshop_os
 #. odoo-javascript

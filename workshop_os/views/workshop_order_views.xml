@@ -126,6 +126,7 @@
                                     <field name="sequence" widget="handle"/>
                                     <field name="service_id" options="{'no_create': True}"/>
                                     <field name="name"/>
+                                    <field name="is_part" optional="show"/>
                                     <field name="sector_id" optional="hide"/>
                                     <field name="user_id" widget="many2one_avatar_user" optional="show"/>
                                     <field name="quantity"/>
@@ -139,6 +140,7 @@
                                 <!-- Phones get one card per service instead of a table cut to "Reparo do…". -->
                                 <kanban class="o_workshop_line_kanban">
                                     <field name="currency_id"/>
+                                    <field name="is_part"/>
                                     <templates>
                                         <t t-name="card">
                                             <div class="d-flex justify-content-between align-items-start gap-2">
@@ -148,13 +150,14 @@
                                             <div class="d-flex justify-content-between align-items-center gap-2 mt-1 text-muted">
                                                 <span class="d-flex align-items-center gap-1">
                                                     <field name="quantity"/> × <field name="price_unit" widget="monetary"/>
+                                                    <span class="badge rounded-pill text-bg-secondary ms-1" invisible="not is_part">Part</span>
                                                 </span>
                                                 <field name="approval" widget="badge" decoration-warning="approval == 'pending'"
                                                        decoration-success="approval == 'approved'" decoration-danger="approval == 'rejected'"/>
                                             </div>
                                             <div class="d-flex align-items-center gap-2 mt-1 text-muted">
                                                 <field name="user_id" widget="many2one_avatar_user"/>
-                                                <field name="hours" widget="float_time"/>
+                                                <field name="hours" widget="float_time" invisible="is_part"/>
                                             </div>
                                         </t>
                                     </templates>
@@ -163,6 +166,7 @@
                                     <group>
                                         <field name="service_id" options="{'no_create': True}"/>
                                         <field name="name"/>
+                                        <field name="is_part"/>
                                         <field name="sector_id"/>
                                         <field name="user_id" widget="many2one_avatar_user"/>
                                         <field name="quantity"/>
@@ -176,6 +180,8 @@
                             </field>
                             <group class="oe_subtotal_footer">
                                 <field name="hours_total" widget="float_time"/>
+                                <field name="amount_services" invisible="not amount_parts"/>
+                                <field name="amount_parts" invisible="not amount_parts"/>
                                 <field name="amount_approved"/>
                                 <field name="amount_total" class="oe_subtotal_footer_separator"/>
                             </group>

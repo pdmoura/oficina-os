@@ -71,7 +71,7 @@ docs/                   manuais, roteiros, imagens
 |---|---|---|
 | `workshop.vehicle` | Um caminhão, pela placa | Placa normalizada (Mercosul e antiga) e única por empresa; OS aberta e histórico calculados. |
 | `workshop.order` | Uma OS | Número da sequência `workshop.order` ao criar ("Novo" até lá). `state`: rascunho → aprovada → pronta → entregue (e recusada, cancelada). `stage_id` é a posição no pátio, independente do `state`. `access_token` público e `public_url` calculado. |
-| `workshop.order.line` | Um serviço ou peça da OS | `approval` pendente/aprovado/recusado; `_service_rows()` e `_invoice_description()` montam o detalhamento usado pelo relatório do fechamento e pela NFS-e. |
+| `workshop.order.line` | Um serviço ou peça da OS | `approval` pendente/aprovado/recusado; `is_part` (copiado do catálogo) divide a OS em `amount_services` e `amount_parts`; `_service_rows(parts=False)` e `_invoice_description()` montam o detalhamento usado pelo relatório do fechamento e pela NFS-e, sem as peças na nota. |
 | `workshop.order.photo` | Uma foto | `kind` entrada/serviço/saída; guardada como anexo ou no Cloudinary (URL); `show_to_customer`. |
 | `workshop.order.checklist` | Uma resposta do checklist | Copiada de um modelo (`load_checklist`). |
 | `workshop.order.stage.log` | Tempo em cada situação | Gravado a cada troca de situação; situações de espera não contam como trabalho. |
@@ -180,7 +180,8 @@ percorra o guia em 390 px e 1280 px.
 - **OS** (`workshop_os.report_workshop_order`): `web.basic_layout` com a marca da oficina, serviços, totais, fotos
   por momento (até oito, embutidas quando estão no banco), garantia e assinaturas. `action_print()` pergunta pelas
   fotos quando há alguma e imprime com `config=False`, porque o relatório não usa o layout externo do Odoo.
-- **Fechamento mensal** (`workshop_os.report_workshop_billing`): o detalhamento de `_service_rows()` e as OS.
+- **Fechamento mensal** (`workshop_os.report_workshop_billing`): o detalhamento de `_service_rows()`, as peças
+  (`_service_rows(parts=True)`) e as OS.
 - **DANFSe** (`l10n_br_nfse_nacional`): desenhado a partir do XML autorizado, conforme a NT 008, com o QR code da
   consulta pública.
 
@@ -195,8 +196,9 @@ percorra o guia em 390 px e 1280 px.
 - **Texto:** `tools/nfse_xml.clean_text()` mantém a faixa Latin-1 que o schema aceita; a descrição tem no máximo
   `MAX_DESCRIPTION` (1000) caracteres.
 - **Ligação:** `workshop.nfse.source` dá às OS e aos fechamentos `action_create_nfse()` (reaproveita a nota ativa) e
-  `_nfse_values()`. Uma nota feita à mão pode escolher uma OS ou um fechamento e é preenchida por onchange; uma
-  restrição mantém uma nota ativa por origem.
+  `_nfse_values()`. O valor da nota é `_nfse_amount()`, só os serviços (peça é faturada como mercadoria), e uma
+  origem sem serviços não cria nota. Uma nota feita à mão pode escolher uma OS ou um fechamento e é preenchida por
+  onchange; uma restrição mantém uma nota ativa por origem.
 
 ## 9. Traduções
 

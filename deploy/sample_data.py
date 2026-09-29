@@ -139,8 +139,8 @@ def create():
         line_values = []
         for line in lines:
             if isinstance(line, tuple):  # a part: (description, price)
-                line_values.append(Command.create({"name": line[0], "price_unit": line[1], "user_id": user.id,
-                                                   "sector_id": ref("sector_misc").id}))
+                line_values.append(Command.create({"name": line[0], "price_unit": line[1], "is_part": True,
+                                                   "user_id": user.id, "sector_id": ref("sector_misc").id}))
             else:
                 values = env["workshop.order.line"]._vals_from_service(services[line])
                 line_values.append(Command.create({**values, "user_id": user.id}))
@@ -190,7 +190,7 @@ def create():
           ["Teste de vazamento com nitrogênio", "Carga de gás do ar-condicionado (R-134a)"], hours(20), state="draft",
           promised=-hours(4), location="location_yard", driver="José Carlos")
     order("o03", "actros", "stage_parts", "Compressor do ar-condicionado fazendo barulho e desarmando.",
-          ["Revisão do compressor do ar-condicionado", ("Embreagem eletromagnética do compressor (peça)", 890)],
+          ["Revisão do compressor do ar-condicionado", ("Embreagem eletromagnética do compressor", 890)],
           days(2), since=hours(30), user=mechanic, promised=days(2), location="location_yard",
           diagnosis="Embreagem eletromagnética com folga e rolamento com ruído. Peça pedida ao fornecedor.",
           approver="Contrato de frota", checklist=12,
@@ -226,7 +226,7 @@ def create():
           days(2), since=hours(26), user=mechanic, location="location_yard", approver="Carlos (Rodovia Sul)",
           done=hours(2), photos=[("saida-cavalo-azul.jpg", "exit", "Pronto para retirada")])
     order("o11", "axor", "stage_test", "Ar-condicionado fraco.",
-          ["Carga de gás do ar-condicionado (R-134a)", "Troca do filtro secador", ("Filtro secador (peça)", 310)],
+          ["Carga de gás do ar-condicionado (R-134a)", "Troca do filtro secador", ("Filtro secador", 310)],
           days(5), since=days(4), user=admin, approver="Contrato de frota", done=days(4), delivered=days(3))
     order("o12", "g420", "stage_test", "Alternador não carrega.", ["Revisão do alternador"], days(22),
           since=days(21), user=admin, approver="José Carlos Pereira", done=days(21), delivered=days(20))

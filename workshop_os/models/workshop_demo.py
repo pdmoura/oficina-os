@@ -35,7 +35,7 @@ class WorkshopOrderDemo(models.Model):
     def _load_demo_data(self):
         rng = random.Random(7)
         ref = self.env.ref
-        services = self.env["workshop.service"].search([])
+        services = self.env["workshop.service"].search([("is_part", "=", False)])
         mechanics = ref("base.user_admin") | ref("workshop_os.demo_user_mechanic")
         vehicles = self.env["workshop.vehicle"]
         for plate, brand, model, year, fleet_no, partner_xmlid in TRUCKS:
@@ -81,6 +81,11 @@ class WorkshopOrderDemo(models.Model):
         chosen = services.browse(rng.sample(services.ids, k=rng.randint(1, 3)))
         mechanic = rng.choice(mechanics.ids)
         Line = self.env["workshop.order.line"]
+        lines = [Command.create(dict(Line._vals_from_service(s), user_id=mechanic)) for s in chosen]
+        # A bulb replacement brings its bulb: a part, billed apart from the labour.
+        if self.env.ref("workshop_os.demo_service_bulb") in chosen:
+            lines.append(Command.create(dict(Line._vals_from_service(self.env.ref("workshop_os.demo_part_bulb")),
+                                             user_id=mechanic)))
         order = self.create({
             "partner_id": vehicle.partner_id.id,
             "vehicle_id": vehicle.id,
@@ -88,7 +93,7 @@ class WorkshopOrderDemo(models.Model):
             "driver_name": rng.choice(["João", "Marcos", "Adriano", "Célio", "Wesley"]),
             "complaint": rng.choice(COMPLAINTS),
             "user_id": mechanic,
-            "line_ids": [Command.create(dict(Line._vals_from_service(s), user_id=mechanic)) for s in chosen],
+            "line_ids": lines,
         })
         order.write({"date_in": arrived})
         order.stage_log_ids.write({"date_start": arrived})

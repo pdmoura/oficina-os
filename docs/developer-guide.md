@@ -71,7 +71,7 @@ docs/                   manuals, runbooks, screenshots
 |---|---|---|
 | `workshop.vehicle` | A truck, by plate | Plate normalised (Mercosul and old format) and unique per company; open order and history computed. |
 | `workshop.order` | A work order | Number from the `workshop.order` sequence on create ("New" until then). `state`: draft → approved → done → delivered (and rejected, cancel). `stage_id` is the yard position, independent from `state`. Public `access_token`, computed `public_url`. |
-| `workshop.order.line` | A service or part on an order | `approval` pending/approved/rejected; `_service_rows()` and `_invoice_description()` build the breakdown shared by the closing report and the NFS-e. |
+| `workshop.order.line` | A service or part on an order | `approval` pending/approved/rejected; `is_part` (copied from the catalogue) splits the order into `amount_services` and `amount_parts`; `_service_rows(parts=False)` and `_invoice_description()` build the breakdown shared by the closing report and the NFS-e, parts left out of the note. |
 | `workshop.order.photo` | A photo | `kind` entry/work/exit; kept as an attachment or on Cloudinary (URL); `show_to_customer`. |
 | `workshop.order.checklist` | A checklist answer | Copied from a template (`load_checklist`). |
 | `workshop.order.stage.log` | Time spent in each stage | Written on every stage change; `is_waiting` stages do not count as work. |
@@ -180,7 +180,8 @@ walk the tour at 390 px and 1280 px.
   totals, photos grouped by moment (up to eight, embedded when stored in the database), warranty and signatures.
   `action_print()` asks about photos when there are some and prints with `config=False`, because the report does not
   use Odoo's external layout.
-- **Monthly closing** (`workshop_os.report_workshop_billing`): the breakdown of `_service_rows()` and the orders.
+- **Monthly closing** (`workshop_os.report_workshop_billing`): the breakdown of `_service_rows()`, the parts
+  (`_service_rows(parts=True)`) and the orders.
 - **DANFSe** (`l10n_br_nfse_nacional`): drawn from the authorised XML per NT 008, with the public-consultation QR
   code.
 
@@ -195,8 +196,9 @@ walk the tour at 390 px and 1280 px.
 - **Text:** `tools/nfse_xml.clean_text()` keeps the Latin-1 range the schema accepts; descriptions are capped at
   `MAX_DESCRIPTION` (1000).
 - **Glue:** `workshop.nfse.source` gives orders and closings `action_create_nfse()` (reuses the live note) and
-  `_nfse_values()`. A hand-made note can pick an order or a closing and is filled by onchange; a constraint keeps
-  one live note per source.
+  `_nfse_values()`. The note's amount is `_nfse_amount()`, the services only (parts are billed as goods), and a
+  source with no services refuses to create a note. A hand-made note can pick an order or a closing and is filled by
+  onchange; a constraint keeps one live note per source.
 
 ## 9. Translations
 

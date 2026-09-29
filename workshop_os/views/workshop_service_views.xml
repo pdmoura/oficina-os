@@ -7,6 +7,7 @@
             <list editable="bottom" multi_edit="1">
                 <field name="favorite" widget="boolean_favorite" nolabel="1"/>
                 <field name="name"/>
+                <field name="is_part" optional="show"/>
                 <field name="code" optional="hide"/>
                 <field name="sector_id" optional="show"/>
                 <field name="list_price" sum="Total"/>
@@ -24,6 +25,7 @@
         <field name="arch" type="xml">
             <kanban class="o_workshop_kanban">
                 <field name="currency_id"/>
+                <field name="is_part"/>
                 <templates>
                     <t t-name="card" class="o_workshop_card">
                         <div class="d-flex align-items-center gap-2">
@@ -33,6 +35,7 @@
                         </div>
                         <footer class="pt-1 small text-muted">
                             <field name="sector_id" class="o_workshop_chip" invisible="not sector_id"/>
+                            <span class="o_workshop_chip" invisible="not is_part">Part</span>
                             <span class="ms-auto d-inline-flex align-items-center gap-1">
                                 <i class="fa fa-clock-o" title="Labour hours"/><field name="hours" widget="float_time"/>
                             </span>
@@ -54,6 +57,7 @@
                     </div>
                     <group>
                         <group>
+                            <field name="is_part"/>
                             <field name="sector_id"/>
                             <field name="code"/>
                             <field name="hours" widget="float_time"/>
@@ -77,6 +81,10 @@
                 <field name="name" filter_domain="['|', ('name', 'ilike', self), ('code', 'ilike', self)]"/>
                 <field name="sector_id"/>
                 <filter name="favorite" string="Favourites" domain="[('favorite', '=', True)]"/>
+                <separator/>
+                <filter name="labour" string="Services" domain="[('is_part', '=', False)]"/>
+                <filter name="parts" string="Parts" domain="[('is_part', '=', True)]"/>
+                <separator/>
                 <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
                 <group>
                     <filter name="group_sector" string="Sector" context="{'group_by': 'sector_id'}"/>
@@ -92,6 +100,7 @@
             <p class="o_view_nocontent_smiling_face">Add the services you sell</p>
             <p>Price and labour hours are copied to the work order. Starred services become one-tap buttons in the
                 mechanic app.</p>
+            <p>Mark parts and materials as parts: they are billed as goods and stay out of the service invoice (NFS-e).</p>
         </field>
     </record>
 </odoo>

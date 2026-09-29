@@ -12,7 +12,7 @@ import { Component, onMounted, onWillUnmount, reactive, useEffect, useRef, useSt
  * Two tracks: "office" (dashboard, order board, an order, the mechanic app, customers, monthly closing, settings)
  * and "app" (the mechanic app). Each opens by itself the first time a user reaches the dashboard or the app, and
  * again from the user menu or the app menu. On a computer the card sits next to what it points at; on a phone it is
- * a sheet at the bottom, or at the top when what it points at is low on the screen.
+ * a sheet at the bottom, or at the top when what it points at would be hidden under it.
  *
  * A step is { title, body, page, target, open, when, optional }: `target` is the selector to point at (none: the
  * card is centred), `page` the screen it belongs to (a client action tag, a model, or "model#form"), `open` brings
@@ -351,7 +351,11 @@ export class WorkshopTour extends Component {
         return this.state.index === this.count - 1;
     }
 
-    /** Spotlight on the target and the card beside it (computer) or as a sheet at the bottom or the top (phone). */
+    /**
+     * Spotlight on the target and the card beside it (computer) or as a sheet (phone). The phone sheet stays at the
+     * bottom, so the top of a tall target (the order board) stays in view, and goes up only for a target it would hide
+     * that fits in full below a top sheet (the button to receive a truck).
+     */
     reposition() {
         if (!this.state.active) {
             return;
@@ -375,7 +379,9 @@ export class WorkshopTour extends Component {
         let placement = "center";
         let card = "";
         if (vw < SMALL) {
-            placement = rect && rect.top + rect.height / 2 > vh * 0.55 ? "top" : "bottom";
+            const sheet = cardH + 16;
+            const hidden = rect && rect.top + rect.height > vh - sheet;
+            placement = hidden && rect.top >= sheet ? "top" : "bottom";
         } else if (rect) {
             const width = Math.min(380, vw - 32);
             const left = Math.min(Math.max(rect.left, 16), vw - width - 16);

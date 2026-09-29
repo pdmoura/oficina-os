@@ -28,7 +28,25 @@
                         </tr>
                     </tbody>
                 </table>
+                <t t-set="part_rows" t-value="b.order_ids.line_ids._service_rows(parts=True)"/>
+                <t t-if="part_rows">
+                    <div class="label" style="margin-top: 14px;">Parts</div>
+                    <table class="items">
+                        <thead>
+                            <tr><th>Part</th><th style="text-align: right;">Qty</th><th style="text-align: right;">Unit price</th><th style="text-align: right;">Amount</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="part_rows" t-as="row">
+                                <td t-out="row[0]"/>
+                                <td style="text-align: right;" t-out="'%g' % row[2]"/>
+                                <td style="text-align: right;"><span t-out="row[1]" t-options='{"widget": "monetary", "display_currency": b.currency_id}'/></td>
+                                <td style="text-align: right;"><span t-out="row[3]" t-options='{"widget": "monetary", "display_currency": b.currency_id}'/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
                 <div style="text-align: right; margin: 8px 0 18px;">
+                    <div t-if="b.amount_parts" class="muted" style="margin-bottom: 4px;">Labour <span t-field="b.amount_services"/> · Parts <span t-field="b.amount_parts"/></div>
                     <span class="label">Total of the period</span><br/>
                     <span class="total" t-field="b.amount_total"/>
                 </div>

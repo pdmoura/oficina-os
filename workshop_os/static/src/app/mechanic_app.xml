@@ -332,7 +332,8 @@
                         <div class="o_workshop_app_line__main">
                             <strong t-esc="line.name"/>
                             <span class="o_workshop_app_muted">
-                                <t t-if="line.quantity !== 1"><t t-esc="line.quantity"/> × </t><t t-esc="hours(line.hours)"/>
+                                <t t-if="line.is_part"><small class="o_workshop_app_tag">Part</small><t t-if="line.quantity !== 1"> <t t-esc="line.quantity"/> pcs</t></t>
+                                <t t-else=""><t t-if="line.quantity !== 1"><t t-esc="line.quantity"/> × </t><t t-esc="hours(line.hours)"/></t>
                                 <t t-if="line.approval === 'pending'"> · awaiting approval</t>
                                 <t t-if="line.approval === 'rejected'"> · rejected</t>
                             </span>
@@ -424,6 +425,7 @@
                             <i t-if="addedServiceIds.has(service.id)" class="fa fa-check-circle"/>
                             <i t-elif="service.favorite" class="fa fa-star"/>
                             <span t-esc="service.name"/>
+                            <small t-if="service.is_part" class="o_workshop_app_tag">Part</small>
                             <strong t-esc="service.price_fmt"/>
                         </button>
                     </div>

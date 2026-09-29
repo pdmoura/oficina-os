@@ -76,6 +76,10 @@
         <field name="name">Troca de lâmpada do farol</field><field name="list_price">35</field>
         <field name="hours">0.25</field><field name="favorite" eval="True"/><field name="sector_id" ref="sector_electric"/>
     </record>
+    <record id="demo_part_bulb" model="workshop.service">
+        <field name="name">Lâmpada H7 24V</field><field name="list_price">38</field><field name="cost">14</field>
+        <field name="is_part" eval="True"/><field name="sector_id" ref="sector_electric"/>
+    </record>
     <record id="demo_service_harness" model="workshop.service">
         <field name="name">Correção de chicote elétrico</field><field name="list_price">220</field><field name="cost">60</field>
         <field name="hours">2.5</field><field name="favorite" eval="True"/><field name="sector_id" ref="sector_electric"/>
