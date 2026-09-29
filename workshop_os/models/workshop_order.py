@@ -10,7 +10,7 @@ import requests
 from odoo import Command, _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.fields import Domain
-from odoo.tools import consteq, format_amount
+from odoo.tools import consteq, format_amount, formatLang
 
 from .res_config_settings import PARAM
 from .workshop_vehicle import PLATE_RE, format_plate, normalize_plate
@@ -645,6 +645,49 @@ class WorkshopOrderLine(models.Model):
             self.env["workshop.order"]._check_office(_("Approved items can only be removed by the office."))
 
     @api.model
+    def _invoice_description(self, heading, orders_note=None, max_length=None):
+        """Text of these services for a service invoice: the heading, one line per service and price
+        ("- Revisão do alternador: 3 × R$ 280,00 = R$ 840,00"), the total and the orders.
+
+        Refused lines are left out. Over max_length the orders go first, then the smallest services are summed
+        into one "Other services" line, so the note never loses its total.
+        """
+        currency = self.currency_id[:1] or self.env.company.currency_id
+
+        def money(amount):
+            # The note only takes plain spaces: a non-breaking one would be dropped and glue "R$" to the number.
+            return format_amount(self.env, amount, currency).replace("\xa0", " ")
+
+        totals = {}
+        for line in self.filtered(lambda l: l.approval != "rejected"):
+            row = totals.setdefault((line.name, line.price_unit), [0.0, 0.0])
+            row[0] += line.quantity
+            row[1] += line.subtotal
+        rows = sorted(((name, price, qty, amount) for (name, price), (qty, amount) in totals.items()),
+                      key=lambda row: -row[3])
+        total = sum(row[3] for row in rows)
+
+        def build(kept, others, with_orders):
+            lines = [heading]
+            for name, price, qty, amount in kept:
+                count = f"{qty:g}" if float(qty).is_integer() else formatLang(self.env, qty, digits=2)
+                lines.append(f"- {name}: {count} × {money(price)} = {money(amount)}")
+            if others:
+                lines.append(_("- Other services: %s", money(others)))
+            lines.append(_("Total: %s", money(total)))
+            if orders_note and with_orders:
+                lines.append(orders_note)
+            return "\n".join(lines)
+
+        text = build(rows, 0, True)
+        if max_length and len(text) > max_length:
+            kept, others = list(rows), 0.0
+            text = build(kept, others, False)
+            while len(text) > max_length and kept:
+                others += kept.pop()[3]
+                text = build(kept, others, False)
+        return text
+
     def _vals_from_service(self, service):
         return {
             "service_id": service.id,

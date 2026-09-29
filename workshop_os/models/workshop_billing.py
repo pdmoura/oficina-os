@@ -93,13 +93,11 @@ class WorkshopBilling(models.Model):
             totals[line.name][1] += line.subtotal
         return sorted(((name, q, a) for name, (q, a) in totals.items()), key=lambda row: -row[2])
 
-    def _service_description(self):
-        """Plain text used as the service description of the NFS-e."""
+    def _service_description(self, max_length=None):
+        """Service description of the month's NFS-e: one line per service and price, the total and the orders."""
         self.ensure_one()
-        lines = [_("Services on %(count)s work orders, %(start)s to %(end)s:",
-                   count=len(self.order_ids), start=self.date_from.strftime("%d/%m/%Y"),
-                   end=self.date_to.strftime("%d/%m/%Y"))]
-        for name, qty, amount in self._service_summary():
-            lines.append(f"- {name}: {qty:g} x = R$ {amount:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."))
-        lines.append(_("Orders: %s", ", ".join(self.order_ids.sorted("name").mapped("name"))))
-        return "\n".join(lines)
+        heading = _("Services on %(count)s work orders, %(start)s to %(end)s:",
+                    count=len(self.order_ids), start=self.date_from.strftime("%d/%m/%Y"),
+                    end=self.date_to.strftime("%d/%m/%Y"))
+        orders = _("Orders: %s", ", ".join(self.order_ids.sorted("name").mapped("name")))
+        return self.order_ids.line_ids._invoice_description(heading, orders, max_length=max_length)

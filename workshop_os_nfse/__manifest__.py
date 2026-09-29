@@ -1,6 +1,6 @@
 {
     "name": "Workshop Orders: NFS-e",
-    "version": "19.0.1.2.0",
+    "version": "19.0.1.2.1",
     "category": "Services",
     "summary": "Issue the NFS-e of a monthly closing or a work order",
     "author": "Pedro Alves",

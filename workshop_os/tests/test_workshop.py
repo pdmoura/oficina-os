@@ -300,6 +300,21 @@ class TestBilling(WorkshopCase):
         with self.assertRaises(UserError):
             orders[0].action_cancel()
 
+    def test_invoice_description_fits_the_note(self):
+        # Same service at two prices: two lines. Over the limit the orders go, then the smallest services are summed.
+        order = self._order(services=self.service_a | self.service_b)
+        order.line_ids[:1].copy({"order_id": order.id, "price_unit": 200})
+        lines = order.line_ids
+        orders_note = "Orders: " + ", ".join(["OS 00001"] * 30)
+        full = lines._invoice_description("Services:", orders_note)
+        self.assertEqual(full.count("- Headlight:"), 2)
+        self.assertIn("Orders:", full)
+        short = lines._invoice_description("Services:", orders_note, max_length=90)
+        self.assertLessEqual(len(short), 90)
+        self.assertNotIn("Orders:", short)
+        self.assertIn("- Other services:", short)
+        self.assertRegex(short, r"Total: \D*500[.,]00", "the total survives")
+
     def test_reports_render(self):
         order = self._order()
         html, _type = self.env["ir.actions.report"]._render_qweb_html("workshop_os.report_workshop_order", order.ids)

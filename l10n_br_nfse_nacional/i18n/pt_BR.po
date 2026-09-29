@@ -1126,6 +1126,11 @@ msgid "Prestador / Fornecedor"
 msgstr "Prestador / Fornecedor"
 
 #. module: l10n_br_nfse_nacional
+#: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
+msgid "Printed on the note as written, line by line (up to 1000 characters)."
+msgstr "Sai na nota exatamente como escrito, linha por linha (até 1000 caracteres)."
+
+#. module: l10n_br_nfse_nacional
 #: model:ir.model.fields,help:l10n_br_nfse_nacional.field_res_company__nfse_iss_rate
 #: model:ir.model.fields,help:l10n_br_nfse_nacional.field_res_config_settings__nfse_iss_rate
 msgid ""
@@ -1506,8 +1511,8 @@ msgstr "Valor total da NFS-e"
 
 #. module: l10n_br_nfse_nacional
 #: model_terms:ir.ui.view,arch_db:l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form
-msgid "What was done, as it should read on the note"
-msgstr "O que foi feito, como deve aparecer na nota"
+msgid "What was done, as it should read on the note: one line per service"
+msgstr "O que foi feito, como deve aparecer na nota: uma linha por serviço"
 
 #. module: l10n_br_nfse_nacional
 #. odoo-python

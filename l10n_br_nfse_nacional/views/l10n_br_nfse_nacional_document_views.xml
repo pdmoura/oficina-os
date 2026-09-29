@@ -57,7 +57,12 @@
                                 <field name="municipal_service_code" readonly="state != 'draft'"/>
                                 <field name="nbs_code" readonly="state != 'draft'"/>
                             </group>
-                            <field name="description" readonly="state != 'draft'" placeholder="What was done, as it should read on the note"/>
+                            <div class="d-flex flex-column mt-3">
+                                <label for="description" class="o_form_label mb-1"/>
+                                <field name="description" readonly="state != 'draft'" class="w-100"
+                                       placeholder="What was done, as it should read on the note: one line per service"/>
+                                <div class="text-muted small mt-1">Printed on the note as written, line by line (up to 1000 characters).</div>
+                            </div>
                         </page>
                         <page string="Emissor Nacional" name="assisted" invisible="mode != 'assisted'">
                             <!-- Notebooks do not wrap text by default: this page is mostly sentences and long values. -->

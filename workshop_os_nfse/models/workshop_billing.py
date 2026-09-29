@@ -1,6 +1,8 @@
 from odoo import _, fields, models
 from odoo.exceptions import UserError
 
+from odoo.addons.l10n_br_nfse_nacional.tools.nfse_xml import MAX_DESCRIPTION
+
 from .workshop_nfse_source import NFSE_STATES
 
 
@@ -19,7 +21,7 @@ class WorkshopBilling(models.Model):
             "company_id": self.company_id.id,
             "partner_id": self.partner_id.commercial_partner_id.id,
             "amount": self.amount_total,
-            "description": self._service_description(),
+            "description": self._service_description(max_length=MAX_DESCRIPTION),
             "date_competence": self.date_to,
             "origin": self.name,
             "workshop_billing_id": self.id,

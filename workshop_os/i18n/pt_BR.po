@@ -72,6 +72,12 @@ msgid "'Monthly closing - %s' % (object.name)"
 msgstr "'Fechamento - %s' % (object.name)"
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "- Other services: %s"
+msgstr "- Outros serviços: %s"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "<br/><span class=\"muted\">Customer</span>"
 msgstr "<br/><span class=\"muted\">Cliente</span>"
@@ -1419,8 +1425,8 @@ msgid ""
 "In Cloudinary, go to Settings (the gear) → API Keys: that page shows the "
 "three values below."
 msgstr ""
-"No Cloudinary, entre em Settings (a engrenagem) → API Keys: essa página "
-"mostra os três valores abaixo."
+"and go to Settings (the gear) → API Keys: that page shows the three values "
+"below."
 
 #. module: workshop_os
 #: model:workshop.stage,name:workshop_os.stage_working
@@ -2998,6 +3004,12 @@ msgid "Total"
 msgstr "Total"
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Total: %s"
+msgstr "Total: %s"
+
+#. module: workshop_os
 #: model:workshop.checklist.template.item,name:workshop_os.checklist_truck_entry_item_20
 msgid "Trailer electrical socket"
 msgstr "Tomada elétrica do semirreboque"
@@ -3375,7 +3387,9 @@ msgstr "OS ·"
 msgid ""
 "photo(s) the customer can see, grouped as arrival, job and delivery (up to 8"
 " on the page)."
-msgstr "foto(s) que o cliente pode ver, agrupadas em entrada, serviço e saída (até 8 na página)."
+msgstr ""
+"foto(s) que o cliente pode ver, agrupadas em entrada, serviço e saída (até 8"
+" na página)."
 
 #. module: workshop_os
 #. odoo-javascript

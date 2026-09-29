@@ -5,9 +5,12 @@
         <field name="model">l10n_br_nfse_nacional.document</field>
         <field name="inherit_id" ref="l10n_br_nfse_nacional.l10n_br_nfse_nacional_document_view_form"/>
         <field name="arch" type="xml">
-            <field name="origin" position="after">
-                <field name="workshop_billing_id" invisible="not workshop_billing_id" readonly="1"/>
-                <field name="workshop_order_id" invisible="not workshop_order_id" readonly="1"/>
+            <!-- Picking the order or the closing fills in the note; a note is usually created from them. -->
+            <field name="partner_id" position="before">
+                <field name="workshop_order_id" readonly="state != 'draft'" invisible="workshop_billing_id"
+                       options="{'no_create': True}" placeholder="Pick a finished order to fill in the note"/>
+                <field name="workshop_billing_id" readonly="state != 'draft'" invisible="workshop_order_id"
+                       options="{'no_create': True}" placeholder="…or a confirmed monthly closing"/>
             </field>
         </field>
     </record>
