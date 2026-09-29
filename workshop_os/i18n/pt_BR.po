@@ -430,7 +430,7 @@ msgstr "Arquivados"
 
 #. module: workshop_os
 #. odoo-javascript
-#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: code:addons/workshop_os/static/src/app/screens.js:0
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__entry
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_photo__kind__entry
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_search
@@ -626,6 +626,7 @@ msgid "Cab ventilation"
 msgstr "Ventilação da cabine"
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_print_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Cancel"
 msgstr "Cancelar"
@@ -816,6 +817,7 @@ msgstr "Não foi possível acessar o Cloudinary: %s"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__create_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__create_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__create_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__create_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__create_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__create_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__create_uid
@@ -839,6 +841,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__create_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__create_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__create_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__create_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__create_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__create_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__create_date
@@ -977,7 +980,7 @@ msgstr "Entregue em"
 
 #. module: workshop_os
 #. odoo-javascript
-#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: code:addons/workshop_os/static/src/app/screens.js:0
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__exit
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_order_photo__kind__exit
 #: model:workshop.checklist.template.item,section:workshop_os.checklist_truck_exit_item_20
@@ -1023,6 +1026,7 @@ msgstr "Descartar"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__display_name
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__display_name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__display_name
@@ -1344,6 +1348,12 @@ msgid "How many order lines used this service."
 msgstr "Quantas vezes este serviço foi usado em OS."
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "How the truck came in: front, sides, dashboard and any damage."
+msgstr "Como o caminhão chegou: frente, laterais, painel e avarias."
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_ir_http__id
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__id
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__id
@@ -1358,6 +1368,7 @@ msgstr "Quantas vezes este serviço foi usado em OS."
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__id
@@ -1424,6 +1435,11 @@ msgid "In the yard"
 msgstr "Na oficina"
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__include_photos
+msgid "Include photos"
+msgstr "Incluir fotos"
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__kind__inspection
 msgid "Inspection"
 msgstr "Inspeção"
@@ -1469,7 +1485,7 @@ msgstr "Itens"
 
 #. module: workshop_os
 #. odoo-javascript
-#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+#: code:addons/workshop_os/static/src/app/screens.js:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Job"
 msgstr "Serviço"
@@ -1506,6 +1522,7 @@ msgstr "Mão de obra:"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__write_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__write_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__write_uid
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__write_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__write_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__write_uid
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__write_uid
@@ -1523,6 +1540,7 @@ msgstr "Última atualização por"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__write_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__write_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__write_date
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__write_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__write_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_sector__write_date
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_service__write_date
@@ -2043,6 +2061,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__order_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__order_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__order_id
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__order_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_stage_log__order_id
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
 msgid "Order"
@@ -2122,6 +2141,8 @@ msgid "Phone app icon"
 msgstr "Ícone do app no celular"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Photo"
@@ -2129,6 +2150,7 @@ msgstr "Foto"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__photo_count
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order_print__photo_count
 msgid "Photo Count"
 msgstr "Qtd. de fotos"
 
@@ -2232,9 +2254,21 @@ msgstr ""
 "                app do mecânico."
 
 #. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_print_view_form
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Print"
 msgstr "Imprimir"
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Print %s"
+msgstr "Imprimir %s"
+
+#. module: workshop_os
+#: model:ir.model,name:workshop_os.model_workshop_order_print
+msgid "Print Work Order"
+msgstr "Imprimir OS"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
@@ -2695,13 +2729,6 @@ msgid "Tail lights"
 msgstr "Lanternas traseiras"
 
 #. module: workshop_os
-#. odoo-javascript
-#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
-msgid ""
-"Take photos of the problem: the customer sees them on the approval link."
-msgstr "Fotografe o problema: o cliente vê as fotos no link de aprovação."
-
-#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__template_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_checklist__template_id
 msgid "Template"
@@ -2809,6 +2836,12 @@ msgid "The customer's own number for this vehicle (prefixo, frota)."
 msgstr "Número que o próprio cliente usa para este veículo (prefixo, frota)."
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "The fault and the repair: the customer sees them on the approval link."
+msgstr "O defeito e o reparo: o cliente vê estas fotos no link de aprovação."
+
+#. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_res_company__workshop_logo_mark
 #: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_logo_mark
 msgid ""
@@ -2853,6 +2886,12 @@ msgstr "O símbolo mostrado no tema claro do app do mecânico e do painel."
 #: model:ir.model.fields,help:workshop_os.field_res_config_settings__workshop_login_background
 msgid "The system's top bar and the page behind the login card."
 msgstr "A barra superior do sistema e o fundo da tela de login."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "The truck ready to leave."
+msgstr "O caminhão pronto para sair."
 
 #. module: workshop_os
 #: model:ir.model.fields,help:workshop_os.field_res_users_settings__workshop_theme
@@ -3330,6 +3369,13 @@ msgstr "km"
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 msgid "orders ·"
 msgstr "OS ·"
+
+#. module: workshop_os
+#: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_print_view_form
+msgid ""
+"photo(s) the customer can see, grouped as arrival, job and delivery (up to 8"
+" on the page)."
+msgstr "foto(s) que o cliente pode ver, agrupadas em entrada, serviço e saída (até 8 na página)."
 
 #. module: workshop_os
 #. odoo-javascript

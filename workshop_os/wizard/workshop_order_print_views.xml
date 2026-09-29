@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="workshop_order_print_view_form" model="ir.ui.view">
+        <field name="name">workshop.order.print.view.form</field>
+        <field name="model">workshop.order.print</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="order_id" invisible="1"/>
+                <div class="d-flex align-items-center justify-content-between gap-3">
+                    <label for="include_photos" class="fs-5 fw-bold mb-0"/>
+                    <field name="include_photos" widget="boolean_toggle" nolabel="1"/>
+                </div>
+                <p class="text-muted mt-2 mb-0">
+                    <field name="photo_count" class="d-inline"/> photo(s) the customer can see, grouped as arrival, job and delivery (up to 8 on the page).
+                </p>
+                <footer>
+                    <button name="action_print" type="object" string="Print" class="btn-primary" icon="fa-print"
+                            data-hotkey="q"/>
+                    <button special="cancel" string="Cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -241,6 +241,21 @@ class WorkshopOrder(models.Model):
         self.write({"state": "approved", "date_done": False, "date_delivered": False})
         return True
 
+    def action_print(self):
+        """Print button: straight to the PDF, or first a question about the photos when the order has some."""
+        self.ensure_one()
+        if not self.photo_ids.filtered("show_to_customer"):
+            # config=False: the PDF has its own layout, so Odoo's document layout set-up has nothing to ask.
+            return self.env.ref("workshop_os.action_report_workshop_order").report_action(self, config=False)
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Print %s", self.name),
+            "res_model": "workshop.order.print",
+            "view_mode": "form",
+            "target": "new",
+            "context": {"default_order_id": self.id},
+        }
+
     def action_send_whatsapp(self):
         self.ensure_one()
         phone = "".join(ch for ch in (self.partner_id.phone or "") if ch.isdigit())
@@ -274,6 +289,12 @@ class WorkshopOrder(models.Model):
     def get_public_url(self):
         self.ensure_one()
         return f"{self.get_base_url()}/os/{self.access_token}"
+
+    def _photo_groups(self, photos):
+        """[(label, photos)] in the order they are taken (arrival, job, delivery), leaving out empty ones."""
+        labels = dict(photos._fields["kind"]._description_selection(self.env))
+        groups = [(labels[kind], photos.filtered(lambda p, kind=kind: p.kind == kind)) for kind in labels]
+        return [(label, group) for label, group in groups if group]
 
     @api.model
     def _get_by_token(self, token):

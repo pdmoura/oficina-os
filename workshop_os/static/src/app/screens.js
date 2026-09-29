@@ -355,6 +355,21 @@ export class OrderScreen extends Component {
         return this.run("app_remove_line", [lineId]);
     }
 
+    /** Photos by moment of the job; the moment the order is in is highlighted, as the likely next photo. */
+    get photoGroups() {
+        const data = this.state.data;
+        const photos = data?.photos || [];
+        const current = ["done", "delivered"].includes(data?.state) ? "exit" : data?.state === "approved" ? "work" : "entry";
+        return [
+            { kind: "entry", icon: "fa-truck", title: _t("Arrival"),
+              hint: _t("How the truck came in: front, sides, dashboard and any damage.") },
+            { kind: "work", icon: "fa-wrench", title: _t("Job"),
+              hint: _t("The fault and the repair: the customer sees them on the approval link.") },
+            { kind: "exit", icon: "fa-check", title: _t("Delivery"),
+              hint: _t("The truck ready to leave.") },
+        ].map((group) => ({ ...group, current: group.kind === current, photos: photos.filter((p) => p.kind === group.kind) }));
+    }
+
     takePhoto(kind) {
         this.state.photoKind = kind;
         this.fileInput.el.click();

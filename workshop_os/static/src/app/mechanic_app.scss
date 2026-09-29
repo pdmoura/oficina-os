@@ -392,7 +392,19 @@
     .o_workshop_app_line--pending { border-left: 4px solid var(--Workshop-warning); }
     .o_workshop_app_line--approved { border-left: 4px solid var(--Workshop-success); }
 
-    .o_workshop_app_photo_actions { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8px; .o_workshop_app_btn { padding: 0 8px; font-size: 14px; } }
+    .o_workshop_app_photo_group {
+        padding: 12px; margin-bottom: 10px; border-radius: 16px;
+        background: var(--Workshop-surface); border: 1px solid var(--Workshop-border);
+        &.o_workshop_is_current { border-color: var(--Workshop-accent); }
+        .o_workshop_app_gallery { margin-top: 10px; }
+    }
+    .o_workshop_app_photo_group__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .o_workshop_app_photo_group__text {
+        display: flex; flex-direction: column; gap: 2px; min-width: 0;
+        strong { font-size: 16px; i { width: 18px; color: var(--Workshop-muted); } }
+        small { font-size: 12px; line-height: 1.35; }
+    }
+    .o_workshop_app_photo_group__add { flex: 0 0 auto; min-height: 44px; padding: 0 14px; font-size: 14px; }
     .o_workshop_app_gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .o_workshop_app_gallery__item {
         padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: var(--Workshop-surface-2); aspect-ratio: 1;

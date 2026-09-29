@@ -21,3 +21,4 @@ access_checklist_item_user,workshop.checklist.template.item user,model_workshop_
 access_checklist_item_manager,workshop.checklist.template.item manager,model_workshop_checklist_template_item,workshop_os_group_manager,1,1,1,1
 access_order_checklist_user,workshop.order.checklist user,model_workshop_order_checklist,workshop_os_group_user,1,1,1,1
 access_billing_manager,workshop.billing manager,model_workshop_billing,workshop_os_group_manager,1,1,1,1
+access_order_print_user,workshop.order.print user,model_workshop_order_print,workshop_os_group_user,1,1,1,1

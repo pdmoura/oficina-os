@@ -345,18 +345,28 @@
 
                 <section t-if="state.tab === 'photos'" class="o_workshop_app_panel">
                     <input type="file" accept="image/*" capture="environment" multiple="multiple" class="d-none" t-ref="file" t-on-change="onFiles"/>
-                    <div class="o_workshop_app_photo_actions">
-                        <button class="o_workshop_app_btn" t-on-click="() => takePhoto('entry')"><i class="fa fa-camera"/> Arrival</button>
-                        <button class="o_workshop_app_btn o_workshop_app_btn--ghost" t-on-click="() => takePhoto('work')"><i class="fa fa-wrench"/> Job</button>
-                        <button class="o_workshop_app_btn o_workshop_app_btn--ghost" t-on-click="() => takePhoto('exit')"><i class="fa fa-check"/> Delivery</button>
-                    </div>
                     <p t-if="state.uploading" class="o_workshop_app_muted"><i class="fa fa-circle-o-notch fa-spin"/> Sending <t t-esc="state.uploading"/> photo(s)…</p>
-                    <div class="o_workshop_app_gallery">
-                        <button t-foreach="d.photos" t-as="photo" t-key="photo.id" class="o_workshop_app_gallery__item" t-on-click="() => state.viewer = photo.url">
-                            <img t-att-src="photo.thumb" loading="lazy" alt=""/>
-                        </button>
+                    <!-- One block per moment of the job, each with its own camera button; the current moment stands out. -->
+                    <div t-foreach="photoGroups" t-as="group" t-key="group.kind" class="o_workshop_app_photo_group"
+                         t-att-class="group.current ? 'o_workshop_is_current' : ''">
+                        <div class="o_workshop_app_photo_group__head">
+                            <div class="o_workshop_app_photo_group__text">
+                                <strong><i t-attf-class="fa {{ group.icon }}"/> <t t-esc="group.title"/>
+                                    <span class="o_workshop_app_muted" t-if="group.photos.length"> · <t t-esc="group.photos.length"/></span></strong>
+                                <small class="o_workshop_app_muted" t-esc="group.hint"/>
+                            </div>
+                            <button class="o_workshop_app_btn o_workshop_app_photo_group__add"
+                                    t-att-class="group.current ? '' : 'o_workshop_app_btn--ghost'"
+                                    t-att-aria-label="group.title" t-on-click="() => takePhoto(group.kind)">
+                                <i class="fa fa-camera"/> Photo
+                            </button>
+                        </div>
+                        <div t-if="group.photos.length" class="o_workshop_app_gallery">
+                            <button t-foreach="group.photos" t-as="photo" t-key="photo.id" class="o_workshop_app_gallery__item" t-on-click="() => state.viewer = photo.url">
+                                <img t-att-src="photo.thumb" loading="lazy" alt=""/>
+                            </button>
+                        </div>
                     </div>
-                    <div t-if="!d.photos.length and !state.uploading" class="o_workshop_app_empty o_workshop_app_empty--sm"><p>Take photos of the problem: the customer sees them on the approval link.</p></div>
                 </section>
 
                 <section t-if="state.tab === 'checklist'" class="o_workshop_app_panel">

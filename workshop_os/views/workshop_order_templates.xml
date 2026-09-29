@@ -72,11 +72,14 @@
 
                 <section class="o_workshop_page_card" t-if="photos">
                     <div class="o_workshop_page_card__label">Photos</div>
-                    <div class="o_workshop_page_gallery">
-                        <a t-foreach="photos" t-as="photo" t-att-href="photo.url" target="_blank" rel="noopener">
-                            <img t-att-src="photo.thumb_url" loading="lazy" alt="Photo of the vehicle"/>
-                        </a>
-                    </div>
+                    <t t-foreach="order._photo_groups(photos)" t-as="group">
+                        <div class="o_workshop_page_gallery__title" t-out="group[0]"/>
+                        <div class="o_workshop_page_gallery">
+                            <a t-foreach="group[1]" t-as="photo" t-att-href="photo.url" target="_blank" rel="noopener">
+                                <img t-att-src="photo.thumb_url" loading="lazy" alt="Photo of the vehicle"/>
+                            </a>
+                        </div>
+                    </t>
                 </section>
 
                 <section class="o_workshop_page_card" t-if="lines">

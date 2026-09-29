@@ -111,6 +111,7 @@
     strong { font-size: 15px; }
 }
 
+.o_workshop_page_gallery__title { font-size: 13px; font-weight: 700; color: var(--Workshop-muted); margin: 12px 0 6px; }
 .o_workshop_page_gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

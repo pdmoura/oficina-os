@@ -1,6 +1,6 @@
 {
     "name": "Workshop Orders",
-    "version": "19.0.1.4.5",
+    "version": "19.0.1.5.0",
     "category": "Services/Workshop",
     "summary": "Work orders for fleet workshops: plate-first mobile app for mechanics, kanban, checklists, photos, "
                "customer approval by link and monthly billing per fleet",
@@ -53,6 +53,7 @@ the office controls the yard, approvals and the monthly closing per customer.
         "views/workshop_os_menus.xml",
         "views/workshop_order_templates.xml",
         "views/webclient_templates.xml",
+        "wizard/workshop_order_print_views.xml",
     ],
     "demo": [
         "demo/workshop_order_demo.xml",

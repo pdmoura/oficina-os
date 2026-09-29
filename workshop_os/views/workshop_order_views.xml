@@ -85,7 +85,7 @@
                             invisible="state in ('cancel', 'delivered')"/>
                     <!-- Copies the link on the tap itself: iPhones refuse to copy once a server call has run. -->
                     <widget name="workshop_customer_link" invisible="not id"/>
-                    <button name="%(action_report_workshop_order)d" type="action" string="Print" icon="fa-print"/>
+                    <button name="action_print" type="object" string="Print" icon="fa-print"/>
                     <button name="action_reopen" type="object" string="Reopen" invisible="state not in ('done', 'delivered', 'cancel')"
                             groups="workshop_os.workshop_os_group_manager"/>
                     <button name="action_cancel" type="object" string="Cancel" class="btn-outline-danger"

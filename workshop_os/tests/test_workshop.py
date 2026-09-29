@@ -309,6 +309,27 @@ class TestBilling(WorkshopCase):
         html, _type = self.env["ir.actions.report"]._render_qweb_html("workshop_os.report_workshop_billing", billing.ids)
         self.assertIn(b"Fleet Test", html)
 
+    def test_print_asks_about_photos_only_when_there_are_some(self):
+        order = self._order()
+        self.assertEqual(order.action_print()["type"], "ir.actions.report", "no photos: straight to the PDF")
+        pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+        for kind in ("work", "entry"):
+            self.env["workshop.order.photo"].add_photo(order.id, {"data": pixel, "kind": kind})
+        self.assertEqual([label for label, _photos in order._photo_groups(order.photo_ids)], ["Arrival", "During the job"],
+                         "grouped in the order they are taken")
+        action = order.action_print()
+        self.assertEqual(action["res_model"], "workshop.order.print")
+        wizard = self.env["workshop.order.print"].with_context(action["context"]).create({})
+        self.assertEqual(wizard.photo_count, 2)
+        Report = self.env["ir.actions.report"]
+        with_photos, _type = Report._render_qweb_html("workshop_os.report_workshop_order", order.ids)
+        wizard.include_photos = False
+        action = wizard.action_print()
+        self.assertTrue(action["close_on_report_download"])
+        without, _type = Report.with_context(action["context"])._render_qweb_html("workshop_os.report_workshop_order", order.ids)
+        self.assertIn(b'class="photos"', with_photos)
+        self.assertNotIn(b'class="photos"', without)
+
     def test_dashboard(self):
         self._order(date_promised=fields.Datetime.now() - timedelta(hours=3))
         data = self.env["workshop.order"].dashboard_data()

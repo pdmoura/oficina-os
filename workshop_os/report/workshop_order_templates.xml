@@ -121,12 +121,16 @@
                     </tr>
                 </table>
 
-                <t t-set="photos" t-value="o.photo_ids.filtered('show_to_customer')[:8]"/>
+                <!-- Left out when "Include photos" was switched off at print time. -->
+                <t t-set="photos" t-value="o.photo_ids.filtered('show_to_customer')[:8] if not o.env.context.get('workshop_without_photos') else o.photo_ids.browse()"/>
                 <div t-if="photos" class="photos" style="margin-top: 14px;">
                     <div class="label" style="margin-bottom: 6px;">Photos</div>
-                    <!-- Photos kept in the database are embedded, so the PDF never depends on reaching the server. -->
-                    <img t-foreach="photos" t-as="photo" alt="Photo"
-                         t-att-src="image_data_uri(photo.attachment_id.datas) if photo.attachment_id else photo.thumb_url"/>
+                    <div t-foreach="o._photo_groups(photos)" t-as="group" style="margin-bottom: 6px;">
+                        <div class="muted" style="font-size: 10px; margin-bottom: 4px;" t-out="group[0]"/>
+                        <!-- Photos kept in the database are embedded, so the PDF never depends on reaching the server. -->
+                        <img t-foreach="group[1]" t-as="photo" alt="Photo"
+                             t-att-src="image_data_uri(photo.attachment_id.datas) if photo.attachment_id else photo.thumb_url"/>
+                    </div>
                 </div>
 
                 <div t-if="o.warranty_text" class="box muted" style="margin-top: 14px; font-size: 10px;" t-field="o.warranty_text"/>
