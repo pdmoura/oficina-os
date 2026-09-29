@@ -16,13 +16,15 @@
                 <div class="label">By service</div>
                 <table class="items">
                     <thead>
-                        <tr><th>Service</th><th style="text-align: right;">Qty</th><th style="text-align: right;">Amount</th></tr>
+                        <tr><th>Service</th><th style="text-align: right;">Qty</th><th style="text-align: right;">Unit price</th><th style="text-align: right;">Amount</th></tr>
                     </thead>
                     <tbody>
-                        <tr t-foreach="b._service_summary()" t-as="row">
+                        <!-- The same breakdown as the month's NFS-e: one row per service and price. -->
+                        <tr t-foreach="b.order_ids.line_ids._service_rows()" t-as="row">
                             <td t-out="row[0]"/>
-                            <td style="text-align: right;" t-out="'%g' % row[1]"/>
-                            <td style="text-align: right;"><span t-out="row[2]" t-options='{"widget": "monetary", "display_currency": b.currency_id}'/></td>
+                            <td style="text-align: right;" t-out="'%g' % row[2]"/>
+                            <td style="text-align: right;"><span t-out="row[1]" t-options='{"widget": "monetary", "display_currency": b.currency_id}'/></td>
+                            <td style="text-align: right;"><span t-out="row[3]" t-options='{"widget": "monetary", "display_currency": b.currency_id}'/></td>
                         </tr>
                     </tbody>
                 </table>

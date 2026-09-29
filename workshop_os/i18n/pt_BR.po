@@ -724,6 +724,14 @@ msgstr ""
 "apagada em seguida."
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/res_config_settings.py:0
+msgid ""
+"Cloudinary connected: photos will work. The test photo “%s” could not be "
+"deleted; you can delete it in Cloudinary."
+msgstr "Cloudinary conectado: as fotos vão funcionar. A foto de teste “%s” não pôde ser apagada; você pode apagá-la no Cloudinary."
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/utils.js:0
 msgid "Cloudinary did not accept the photo."
@@ -3053,6 +3061,7 @@ msgstr "Unitário"
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__price_unit
+#: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_billing_document
 msgid "Unit price"
 msgstr "Preço unitário"
 

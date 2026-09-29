@@ -43,7 +43,9 @@ export class WorkshopDashboard extends Component {
             res_model: "workshop.order",
             views: [[false, "kanban"], [false, "list"], [false, "form"]],
             domain,
-            context: { workshop_used_stages_only: true },
+            // A phone shows one column at a time: only stages with orders, not empty ones in front of them. A computer
+            // keeps every column, so an order can still be dragged to a stage that is empty.
+            context: this.env.isSmall ? { workshop_used_stages_only: true } : {},
         });
     }
 

@@ -68,14 +68,20 @@ class ResConfigSettings(models.TransientModel):
             **params, "file": TEST_PIXEL, "api_key": config["api_key"],
             "signature": Photo._cloudinary_sign(params, config["api_secret"]),
         })
-        params = {"public_id": photo["public_id"], "timestamp": int(time.time())}
-        self._workshop_cloudinary_call("post", f"{api_url}/image/destroy", data={
-            **params, "api_key": config["api_key"], "signature": Photo._cloudinary_sign(params, config["api_secret"]),
-        })
-        return {"type": "ir.actions.client", "tag": "display_notification", "params": {
-            "type": "success",
-            "message": _("Cloudinary connected: a test photo went into the “%s” folder and was deleted.", config["folder"]),
-        }}
+        # The upload worked, so the settings are right: a failed clean-up only leaves the test photo behind.
+        public_id = photo.get("public_id") or f"{config['folder']}/connection-test"
+        params = {"public_id": public_id, "timestamp": int(time.time())}
+        try:
+            self._workshop_cloudinary_call("post", f"{api_url}/image/destroy", data={
+                **params, "api_key": config["api_key"], "signature": Photo._cloudinary_sign(params, config["api_secret"]),
+            })
+        except UserError:
+            message = _("Cloudinary connected: photos will work. The test photo “%s” could not be deleted; you can "
+                        "delete it in Cloudinary.", public_id)
+        else:
+            message = _("Cloudinary connected: a test photo went into the “%s” folder and was deleted.", config["folder"])
+        return {"type": "ir.actions.client", "tag": "display_notification",
+                "params": {"type": "success", "message": message}}
 
     def _workshop_cloudinary_call(self, method, url, **kwargs):
         try:

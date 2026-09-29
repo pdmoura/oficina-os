@@ -19,6 +19,13 @@ msgstr ""
 #. module: workshop_os_nfse
 #. odoo-python
 #: code:addons/workshop_os_nfse/models/l10n_br_nfse_nacional_document.py:0
+msgid ""
+"%(source)s already has the NFS-e %(note)s; cancel it before making another."
+msgstr "%(source)s já tem a NFS-e %(note)s; cancele-a antes de fazer outra."
+
+#. module: workshop_os_nfse
+#. odoo-python
+#: code:addons/workshop_os_nfse/models/l10n_br_nfse_nacional_document.py:0
 msgid "Cannot invoice %s"
 msgstr "Não é possível emitir nota para %s"
 
@@ -41,14 +48,17 @@ msgstr "Nome exibido"
 msgid ""
 "Fills in the customer, the amount and the description from a confirmed "
 "monthly closing."
-msgstr "Preenche o cliente, o valor e a descrição a partir de um fechamento mensal confirmado."
+msgstr ""
+"Preenche o cliente, o valor e a descrição a partir de um fechamento mensal "
+"confirmado."
 
 #. module: workshop_os_nfse
 #: model:ir.model.fields,help:workshop_os_nfse.field_l10n_br_nfse_nacional_document__workshop_order_id
 msgid ""
 "Fills in the customer, the amount and the description from a finished work "
 "order."
-msgstr "Preenche o cliente, o valor e a descrição a partir de uma OS concluída."
+msgstr ""
+"Preenche o cliente, o valor e a descrição a partir de uma OS concluída."
 
 #. module: workshop_os_nfse
 #: model:ir.model.fields,field_description:workshop_os_nfse.field_l10n_br_nfse_nacional_document__id
@@ -69,6 +79,12 @@ msgstr "Emitir NFS-e"
 #: model:ir.model.fields.selection,name:workshop_os_nfse.selection__workshop_order__nfse_state__done
 msgid "Issued"
 msgstr "Emitida"
+
+#. module: workshop_os_nfse
+#. odoo-python
+#: code:addons/workshop_os_nfse/models/l10n_br_nfse_nacional_document.py:0
+msgid "It already has the NFS-e %s."
+msgstr "Já tem a NFS-e %s."
 
 #. module: workshop_os_nfse
 #: model:ir.model,name:workshop_os_nfse.model_workshop_billing

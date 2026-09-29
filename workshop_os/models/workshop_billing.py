@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
@@ -83,15 +81,6 @@ class WorkshopBilling(models.Model):
             ("date_done", ">=", fields.Datetime.to_datetime(self.date_from)),
             ("date_done", "<", fields.Datetime.to_datetime(self.date_to + relativedelta(days=1))),
         ]
-
-    def _service_summary(self):
-        """Lines grouped by service for the report: [(name, quantity, amount)], largest amount first."""
-        self.ensure_one()
-        totals = defaultdict(lambda: [0.0, 0.0])
-        for line in self.order_ids.line_ids.filtered(lambda l: l.approval != "rejected"):
-            totals[line.name][0] += line.quantity
-            totals[line.name][1] += line.subtotal
-        return sorted(((name, q, a) for name, (q, a) in totals.items()), key=lambda row: -row[2])
 
     def _service_description(self, max_length=None):
         """Service description of the month's NFS-e: one line per service and price, the total and the orders."""

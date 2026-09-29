@@ -146,7 +146,7 @@ class WorkshopOrder(models.Model):
 
     @api.model
     def _read_group_stage_ids(self, stages, domain):
-        # Lists opened from a dashboard card show the stages that have orders, not empty columns in front of them.
+        # Boards opened from a dashboard card on a phone show the stages that have orders, not empty columns first.
         if self.env.context.get("workshop_used_stages_only"):
             return stages
         return stages.search([], order=stages._order)
@@ -291,9 +291,12 @@ class WorkshopOrder(models.Model):
         return f"{self.get_base_url()}/os/{self.access_token}"
 
     def _photo_groups(self, photos):
-        """[(label, photos)] in the order they are taken (arrival, job, delivery), leaving out empty ones."""
+        """[(label, photos)] in the order they are taken (arrival, job, delivery), leaving out empty ones.
+
+        A photo without a moment counts as arrival, the default, so it is never left out of the page or the PDF.
+        """
         labels = dict(photos._fields["kind"]._description_selection(self.env))
-        groups = [(labels[kind], photos.filtered(lambda p, kind=kind: p.kind == kind)) for kind in labels]
+        groups = [(labels[kind], photos.filtered(lambda p, kind=kind: (p.kind or "entry") == kind)) for kind in labels]
         return [(label, group) for label, group in groups if group]
 
     @api.model
@@ -644,13 +647,25 @@ class WorkshopOrderLine(models.Model):
         if self.filtered(lambda l: l.approval == "approved"):
             self.env["workshop.order"]._check_office(_("Approved items can only be removed by the office."))
 
-    @api.model
+    def _service_rows(self):
+        """[(name, unit price, quantity, amount)] per service and price, refused lines left out, largest first.
+
+        Shared by the closing report and the service invoice, so both show the same breakdown.
+        """
+        totals = {}
+        for line in self.filtered(lambda l: l.approval != "rejected"):
+            row = totals.setdefault((line.name, line.price_unit), [0.0, 0.0])
+            row[0] += line.quantity
+            row[1] += line.subtotal
+        return sorted(((name, price, qty, amount) for (name, price), (qty, amount) in totals.items()),
+                      key=lambda row: -row[3])
+
     def _invoice_description(self, heading, orders_note=None, max_length=None):
         """Text of these services for a service invoice: the heading, one line per service and price
         ("- Revisão do alternador: 3 × R$ 280,00 = R$ 840,00"), the total and the orders.
 
-        Refused lines are left out. Over max_length the orders go first, then the smallest services are summed
-        into one "Other services" line, so the note never loses its total.
+        Over max_length the orders go first, then the smallest services are summed into one "Other services"
+        line, and as a last resort the heading is cut, so the note always fits and never loses its total.
         """
         currency = self.currency_id[:1] or self.env.company.currency_id
 
@@ -658,16 +673,10 @@ class WorkshopOrderLine(models.Model):
             # The note only takes plain spaces: a non-breaking one would be dropped and glue "R$" to the number.
             return format_amount(self.env, amount, currency).replace("\xa0", " ")
 
-        totals = {}
-        for line in self.filtered(lambda l: l.approval != "rejected"):
-            row = totals.setdefault((line.name, line.price_unit), [0.0, 0.0])
-            row[0] += line.quantity
-            row[1] += line.subtotal
-        rows = sorted(((name, price, qty, amount) for (name, price), (qty, amount) in totals.items()),
-                      key=lambda row: -row[3])
+        rows = self._service_rows()
         total = sum(row[3] for row in rows)
 
-        def build(kept, others, with_orders):
+        def build(kept, others, with_orders, heading=heading):
             lines = [heading]
             for name, price, qty, amount in kept:
                 count = f"{qty:g}" if float(qty).is_integer() else formatLang(self.env, qty, digits=2)
@@ -686,8 +695,12 @@ class WorkshopOrderLine(models.Model):
             while len(text) > max_length and kept:
                 others += kept.pop()[3]
                 text = build(kept, others, False)
+            if len(text) > max_length:
+                cut = max(len(heading) - (len(text) - max_length) - 1, 0)
+                text = build(kept, others, False, heading=heading[:cut].rstrip() + "…")[:max_length]
         return text
 
+    @api.model
     def _vals_from_service(self, service):
         return {
             "service_id": service.id,

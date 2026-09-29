@@ -292,7 +292,7 @@ class TestBilling(WorkshopCase):
         billing.action_load_orders()
         self.assertEqual(billing.order_ids, orders)
         self.assertEqual(billing.amount_total, 600)
-        self.assertEqual(billing._service_summary()[0], ("Headlight", 2.0, 360.0))
+        self.assertEqual(billing.order_ids.line_ids._service_rows()[0], ("Headlight", 180.0, 2.0, 360.0))
         self.assertIn("Headlight", billing._service_description())
         billing.action_confirm()
         with self.assertRaises(UserError):
@@ -314,6 +314,17 @@ class TestBilling(WorkshopCase):
         self.assertNotIn("Orders:", short)
         self.assertIn("- Other services:", short)
         self.assertRegex(short, r"Total: \D*500[.,]00", "the total survives")
+        tiny = lines._invoice_description("A heading far too long for the note " * 5, max_length=60)
+        self.assertLessEqual(len(tiny), 60, "as a last resort the heading is cut")
+        self.assertIn("Total:", tiny)
+
+    def test_photos_without_a_moment_count_as_arrival(self):
+        order = self._order()
+        pixel = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=="
+        self.env["workshop.order.photo"].add_photo(order.id, {"data": pixel})
+        order.photo_ids.kind = False
+        self.assertEqual([(label, len(photos)) for label, photos in order._photo_groups(order.photo_ids)],
+                         [("Arrival", 1)], "shown on the customer page and the PDF, not dropped")
 
     def test_reports_render(self):
         order = self._order()

@@ -3,12 +3,15 @@
 Runs in an Odoo shell, as the superuser, in Portuguese (the starting data is translated):
 
     SAMPLE=create PHOTOS=/tmp/sample-photos odoo shell -c <conf> -d <db> --no-http < sample_data.py
+    SAMPLE=check odoo shell -c <conf> -d <db> --no-http < sample_data.py     # what "remove" would delete
     SAMPLE=remove odoo shell -c <conf> -d <db> --no-http < sample_data.py
 
-Every customer, vehicle and order it creates gets an external id under "oficina_exemplo"; "remove" deletes exactly
-those (photos included) and, when no other order is left, restarts the order numbering at 1. Services are a real
-starting catalogue: they are only added when missing and "remove" keeps them. The mechanic assigned to orders is
-the user whose login is in MECHANIC (default "mecanico"), or the administrator when there is none.
+Every customer, vehicle and order it creates gets an external id under "oficina_exemplo". "remove" deletes those
+and what people made on top of them while trying the system out (orders on the sample trucks, closings and unissued
+service invoices of the sample customers), photos included, then restarts the order numbering at 1 when no other
+order is left. An issued service invoice for a sample customer stops it: fiscal documents are not deleted.
+Services are a real starting catalogue: they are only added when missing and "remove" keeps them. The mechanic
+assigned to orders is the user whose login is in MECHANIC (default "mecanico"), or the administrator.
 """
 import base64
 import os
@@ -231,17 +234,50 @@ def create():
           "orders; mechanic:", mechanic.name)
 
 
+def sample_records():
+    """The sample records and everything people made on top of them while trying the system out: orders on the
+    sample trucks or customers, monthly closings and service invoices of the sample customers."""
+    partners = tagged("res.partner")
+    vehicles = tagged("workshop.vehicle")
+    orders = tagged("workshop.order") | env["workshop.order"].with_context(active_test=False).search(
+        ["|", ("vehicle_id", "in", vehicles.ids), ("partner_id", "child_of", partners.ids)])
+    billings = env["workshop.billing"].search([("partner_id", "child_of", partners.ids)]) | orders.billing_id
+    notes = env["l10n_br_nfse_nacional.document"] if "l10n_br_nfse_nacional.document" in env else None
+    if notes is not None:
+        notes = notes.search(["|", ("partner_id", "child_of", partners.ids), ("workshop_order_id", "in", orders.ids)])
+    return partners, vehicles, orders, billings, notes
+
+
+def check():
+    partners, vehicles, orders, billings, notes = sample_records()
+    extra = orders - tagged("workshop.order")
+    print(f"Would remove {len(partners)} customers, {len(vehicles)} vehicles, {len(orders)} orders "
+          f"({len(extra)} made on the samples: {', '.join(extra.mapped('name')) or '-'}), "
+          f"{len(billings)} monthly closings, {len(notes or [])} unissued service invoices.")
+    issued = notes and notes.filtered(lambda n: n.state not in ("draft", "error"))
+    if issued:
+        print("Blocked by issued service invoices, which cannot be deleted:", ", ".join(issued.mapped("display_name")))
+    return not issued
+
+
 def remove():
-    orders = tagged("workshop.order")
+    if not check():
+        raise SystemExit("Nothing removed.")
+    partners, vehicles, orders, billings, notes = sample_records()
+    if notes:
+        notes.unlink()
+    orders.write({"billing_id": False})
+    billings.write({"state": "draft"})  # a confirmed closing refuses to be deleted
+    billings.unlink()
     orders.photo_ids.unlink()  # also deletes the photo files
     orders.unlink()
-    tagged("workshop.vehicle").unlink()
-    tagged("res.partner").unlink()
+    vehicles.unlink()
+    partners.unlink()
     env["ir.model.data"].search([("module", "=", TAG)]).unlink()
     if not env["workshop.order"].with_context(active_test=False).search_count([]):
         env["ir.sequence"].search([("code", "=", "workshop.order")]).number_next = 1
-    print("Removed", len(orders), "sample orders.")
+    print("Removed.")
 
 
-{"create": create, "remove": remove}[os.environ.get("SAMPLE", "create")]()
+{"create": create, "check": check, "remove": remove}[os.environ.get("SAMPLE", "create")]()
 env.cr.commit()

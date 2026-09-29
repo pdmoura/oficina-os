@@ -1,8 +1,9 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tests import Form, tagged
+from odoo.tools import mute_logger
 
 from odoo.addons.workshop_os.tests.common import WorkshopCase
 
@@ -85,3 +86,19 @@ class TestWorkshopNfse(WorkshopCase):
         self.assertEqual(note.amount, 300)
         self.assertEqual(note.origin, order.name)
         self.assertIn("- Headlight: 1 ×", note.description)
+
+    def test_an_order_is_never_invoiced_twice(self):
+        # The order's own button reuses its note; a note started by hand cannot pick it, nor be linked to it later.
+        order = self._done_order("FFF6F66")
+        Note = self.env["l10n_br_nfse_nacional.document"].with_user(self.office)
+        first = Note.browse(order.action_create_nfse()["res_id"])
+        with mute_logger("odoo.tests.form.onchange"):
+            form = Form(Note)
+            form.workshop_order_id = order
+        self.assertFalse(form.workshop_order_id, "refused with a warning")
+        self.assertNotEqual(form.origin, order.name, "and nothing copied from it")
+        with self.assertRaises(ValidationError):
+            Note.create({**order._nfse_values(), "company_id": self.env.company.id})
+        first.sudo().state = "cancel"
+        second = Note.create({**order._nfse_values(), "company_id": self.env.company.id})
+        self.assertEqual(second.workshop_order_id, order, "a cancelled note frees the order")

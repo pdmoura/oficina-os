@@ -367,7 +367,12 @@ export class OrderScreen extends Component {
               hint: _t("The fault and the repair: the customer sees them on the approval link.") },
             { kind: "exit", icon: "fa-check", title: _t("Delivery"),
               hint: _t("The truck ready to leave.") },
-        ].map((group) => ({ ...group, current: group.kind === current, photos: photos.filter((p) => p.kind === group.kind) }));
+        ].map((group) => ({
+            ...group,
+            current: group.kind === current,
+            // A photo without a moment counts as arrival, the default.
+            photos: photos.filter((p) => (p.kind || "entry") === group.kind),
+        }));
     }
 
     takePhoto(kind) {
