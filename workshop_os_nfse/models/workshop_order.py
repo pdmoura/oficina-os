@@ -14,6 +14,12 @@ class WorkshopOrder(models.Model):
     nfse_count = fields.Integer(compute="_compute_nfse_state")
     nfse_state = fields.Selection(NFSE_STATES, string="NFS-e", compute="_compute_nfse_state")
 
+    def _check_can_undo_done(self):
+        super()._check_can_undo_done()
+        # Mechanics cannot read notes, and this check is for them.
+        if self.sudo().nfse_document_ids.filtered(lambda d: d.state != "cancel"):
+            raise UserError(_("%s already has an NFS-e: ask the office to reopen it.", self.name))
+
     def _nfse_values(self):
         if self.state not in ("done", "delivered"):
             raise UserError(_("Only finished work orders can be invoiced."))

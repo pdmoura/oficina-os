@@ -212,7 +212,7 @@ function appSteps({ action }) {
         { target: ".o_workshop_app_tabs", open: toOrder, optional: true, title: _t("Inside an order"),
           body: _t("Change the stage and the bay with one tap. Below: services, photos by moment, the checklist and the history.") },
         { target: ".o_workshop_app_footer--actions", open: toOrder, optional: true, title: _t("The next step"),
-          body: _t("When the job is done, mark it here; the office sees it right away.") },
+          body: _t("When the job is done, mark it here; the office sees it right away. Marked it by mistake? Reopen it here too.") },
         { target: ".o_workshop_app_top .o_workshop_app_icon_btn", open: toHome, title: _t("The menu"),
           body: _t("Light or dark theme, refresh, the office view and this tour. Sign out here too.") },
         { screen: home, open: toHome, title: _t("All set"),

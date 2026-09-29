@@ -142,8 +142,15 @@ na hora. Quem prefere pode aprovar por telefone: o escritório usa **Aprovar** n
 1. Digite a placa (Mercosul ou antiga).
 2. Caminhão já cadastrado: o app traz o cliente e o último hodômetro. Se ele já tem uma OS aberta, o app abre essa
    OS em vez de criar outra.
-3. Caminhão novo: preencha o cliente, a marca e o modelo; ele é cadastrado junto.
+3. Caminhão novo: escolha o cliente e preencha a marca e o modelo; ele é cadastrado junto.
+   - **Cliente:** toque na caixa e os clientes mais recentes aparecem; digite parte do nome, o CNPJ ou o telefone
+     para achar qualquer outro. Cliente ainda não cadastrado: digite o nome e toque em **Cadastrar**, informe o
+     telefone e se é empresa ou pessoa física. O cliente é criado junto com a OS e o caminhão fica no nome dele; o
+     escritório completa o CNPJ/CPF e o endereço depois.
 4. Informe o hodômetro, quem trouxe, o problema relatado e os serviços, e confirme.
+   - **Serviços:** toque na caixa e o catálogo abre como lista (favoritos e mais usados primeiro). Role e marque
+     quantos precisar, ou digite para filtrar, e toque em **Pronto**. Os escolhidos aparecem acima da caixa; toque
+     num deles para tirar.
 
 ### Dentro da OS no app
 
@@ -156,7 +163,10 @@ na hora. Quem prefere pode aprovar por telefone: o escritório usa **Aprovar** n
   enviar.
 - **Checklist:** responda item por item; o progresso aparece na aba.
 - **Histórico:** as situações pelas quais a OS passou.
-- **Serviço pronto:** quando o trabalho terminar. O escritório vê na hora.
+- **Serviço pronto:** quando o trabalho terminar. O escritório vê na hora. Tocou sem querer? Toque em
+  **Desfazer** na mensagem que aparece, ou em **Reabrir** depois: a OS volta para o serviço com a situação que
+  tinha. Depois que o caminhão é entregue, ou se a OS já está num fechamento mensal ou tem NFS-e, só o escritório
+  reabre.
 - **Compartilhar** (ícone no topo): manda o link do cliente pelo WhatsApp ou outro app.
 
 ### Menu (☰)

@@ -61,6 +61,8 @@ class WorkshopOrder(models.Model):
     date_in = fields.Datetime("Arrived", default=fields.Datetime.now, required=True, index=True)
     date_promised = fields.Datetime("Promised for", tracking=True)
     date_done = fields.Datetime("Ready on", readonly=True, copy=False)
+    state_before_done = fields.Char(readonly=True, copy=False,
+                                    help="Status before the order was marked ready, restored if that is undone.")
     date_delivered = fields.Datetime("Delivered on", readonly=True, copy=False)
     complaint = fields.Text("Reported problem")
     diagnosis = fields.Text()
@@ -222,7 +224,22 @@ class WorkshopOrder(models.Model):
                 raise UserError(_("%s cannot be marked ready from its current status.", order.name))
             if not order.line_ids:
                 raise UserError(_("Add at least one service to %s before marking it ready.", order.name))
-        self.write({"state": "done", "date_done": fields.Datetime.now()})
+        now = fields.Datetime.now()
+        for order in self:
+            order.write({"state": "done", "date_done": now, "state_before_done": order.state})
+        return True
+
+    def action_undo_done(self):
+        """Back from "ready" to the job, for a mechanic who marked it by mistake.
+
+        Only until the truck leaves or the order is billed; after that, reopening is the office's (action_reopen).
+        """
+        for order in self:
+            order._check_can_undo_done()
+            previous = order.state_before_done or (
+                "approved" if order.approved_on or "approved" in order.line_ids.mapped("approval") else "draft")
+            # "Approved" is an office status: the mechanic only gets back the one the office or the customer gave.
+            order.sudo().write({"state": previous, "date_done": False, "state_before_done": False})
         return True
 
     def action_deliver(self):
@@ -274,6 +291,14 @@ class WorkshopOrder(models.Model):
     # ------------------------------------------------------------------
     # Business methods
     # ------------------------------------------------------------------
+    def _check_can_undo_done(self):
+        """Raise when a ready order can no longer go back to the job; the NFS-e module adds its own reason."""
+        self.ensure_one()
+        if self.state != "done":
+            raise UserError(_("Only an order marked ready can go back to the job."))
+        if self.billing_id:
+            raise UserError(_("%s is already in a monthly closing: ask the office to reopen it.", self.name))
+
     def _check_office(self, message=None):
         """Approving, refusing, cancelling and reopening belong to the office, whoever calls the method and how."""
         if not self.env.su and not self.env.user.has_group("workshop_os.workshop_os_group_manager"):
@@ -439,21 +464,66 @@ class WorkshopOrder(models.Model):
         }
 
     @api.model
-    def app_new_form(self):
-        """Everything the new-order screen needs, in one call."""
-        services = self.env["workshop.service"].search([], limit=60)
-        partners = self.env["res.partner"].search([("workshop_customer", "=", True)], limit=50)
+    def app_new_form(self, service_ids=None, partner_id=None):
+        """Everything the new-order screen needs, in one call. Services and customers are searched as the mechanic
+        types (app_services, app_partners); only the ones a saved draft already holds come here, for their names."""
+        partner = self.env["res.partner"].browse(partner_id).exists() if partner_id else self.env["res.partner"]
         return {
             "stages": [{"id": s.id, "name": s.name, "color": s.color} for s in self.env["workshop.stage"].search([])],
             "locations": [{"id": l.id, "name": l.name} for l in self.env["workshop.location"].search([])],
             "sectors": [{"id": s.id, "name": s.name} for s in self.env["workshop.sector"].search([])],
-            "services": [{"id": s.id, "name": s.name, "price": s.list_price, "hours": s.hours, "favorite": s.favorite,
-                          "price_fmt": format_amount(self.env, s.list_price, s.currency_id),
-                          "sector_id": s.sector_id.id} for s in services],
-            "partners": [{"id": p.id, "name": p.display_name} for p in partners],
+            "services": [self._app_service(s) for s in self.env["workshop.service"].browse(service_ids or []).exists()],
+            "partner": self._app_partner(partner) if partner else False,
             "templates": [{"id": t.id, "name": t.name, "kind": t.kind}
                           for t in self.env["workshop.checklist.template"].search([])],
         }
+
+    @api.model
+    def app_partners(self, search=""):
+        """Customers for the app's picker: by name, CNPJ/CPF or phone; with nothing typed, the latest ones first."""
+        Partner = self.env["res.partner"]
+        domain = [("workshop_customer", "=", True)]
+        if search:
+            partners = Partner.search(domain + ["|", "|", ("name", "ilike", search), ("vat", "ilike", search),
+                                                ("phone", "ilike", search)], limit=30)
+        else:
+            recent = self.search([], order="date_in desc", limit=100).partner_id.commercial_partner_id
+            partners = (recent.filtered("workshop_customer") | Partner.search(domain, limit=30))[:30]
+        return [self._app_partner(p) for p in partners]
+
+    @api.model
+    def _app_partner(self, partner):
+        return {"id": partner.id, "name": partner.display_name, "detail": partner.vat or partner.phone or partner.city or ""}
+
+    @api.model
+    def _app_service(self, service):
+        return {"id": service.id, "name": service.name, "hours": service.hours, "favorite": service.favorite,
+                "is_part": service.is_part, "price_fmt": format_amount(self.env, service.list_price, service.currency_id)}
+
+    @api.model
+    def _app_create_partner(self, values):
+        """A customer registered by a mechanic at the gate: name, phone and kind; the office completes the rest.
+
+        Mechanics cannot create contacts in Odoo, so the app creates this one for them, with these fields only. A
+        customer of the same name is reused rather than doubled.
+        """
+        name = " ".join((values.get("name") or "").split())[:120]
+        if not name:
+            raise UserError(_("Type the new customer's name."))
+        Partner = self.env["res.partner"]
+        # Compared in Python: "%" or "_" in a name would be wildcards to the database.
+        partner = Partner.search([("workshop_customer", "=", True), ("name", "ilike", name)]).filtered(
+            lambda p: p.name.casefold() == name.casefold())[:1]
+        if not partner:
+            partner = Partner.sudo().create({
+                "name": name,
+                "phone": (values.get("phone") or "").strip()[:40] or False,
+                "is_company": values.get("is_company", True) is not False,
+                "workshop_customer": True,
+            })
+            partner.message_post(body=_("Registered in the mechanic app by %s. Complete the CNPJ/CPF and the address "
+                                        "before invoicing.", self.env.user.name))
+        return partner.sudo(False)
 
     @api.model
     def app_create(self, values):
@@ -464,6 +534,8 @@ class WorkshopOrder(models.Model):
         Vehicle = self.env["workshop.vehicle"]
         vehicle = Vehicle.search([("plate", "=", plate)], limit=1)
         partner_id = values.get("partner_id") or vehicle.partner_id.id
+        if not partner_id and (values.get("new_partner") or {}).get("name"):
+            partner_id = self._app_create_partner(values["new_partner"]).id
         if not partner_id:
             raise UserError(_("Choose the customer for %s.", format_plate(plate)))
         if not vehicle:
@@ -537,15 +609,15 @@ class WorkshopOrder(models.Model):
         if self.state in ("draft", "approved") and self.line_ids:
             actions.append({"action": "action_done", "label": _("Job ready"), "style": "primary" if self.state == "approved" else "ghost"})
         if self.state == "done":
+            actions.append({"action": "action_undo_done", "label": _("Reopen"), "style": "ghost"})
             actions.append({"action": "action_deliver", "label": _("Delivered"), "style": "primary"})
         return actions
 
     @api.model
-    def app_services(self, search=""):
-        domain = [("name", "ilike", search)] if search else []
-        return [{"id": s.id, "name": s.name, "price_fmt": format_amount(self.env, s.list_price, s.currency_id),
-                 "hours": s.hours, "favorite": s.favorite, "is_part": s.is_part}
-                for s in self.env["workshop.service"].search(domain, limit=40)]
+    def app_services(self, search="", limit=40):
+        """Services for the app's pickers: favourites and the most used first (the model's order)."""
+        domain = ["|", ("name", "ilike", search), ("code", "ilike", search)] if search else []
+        return [self._app_service(s) for s in self.env["workshop.service"].search(domain, limit=min(limit, 200))]
 
     def app_update(self, values):
         """Small edits from the app: stage, location, odometer, diagnosis."""
@@ -567,7 +639,7 @@ class WorkshopOrder(models.Model):
 
     def app_action(self, action):
         self.ensure_one()
-        if action not in ("action_done", "action_deliver", "action_approve"):
+        if action not in ("action_done", "action_undo_done", "action_deliver", "action_approve"):
             raise UserError(_("Unknown action."))
         getattr(self, action)()
         return self.app_read()

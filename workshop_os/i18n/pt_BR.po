@@ -46,6 +46,12 @@ msgstr "%s não pode ser marcada como pronta no status atual."
 #. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
+msgid "%s is already in a monthly closing: ask the office to reopen it."
+msgstr "%s já está num fechamento mensal: peça ao escritório para reabrir."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
 msgid "%s is not a valid plate."
 msgstr "%s não é uma placa válida."
 
@@ -111,7 +117,9 @@ msgstr "<i class=\"fa fa-wrench me-1\" title=\"Ordens de serviço\"/>"
 msgid ""
 "<span class=\"badge rounded-pill text-bg-secondary ms-1\" invisible=\"not "
 "is_part\">Part</span>"
-msgstr "<span class=\"badge rounded-pill text-bg-secondary ms-1\" invisible=\"not is_part\">Peça</span>"
+msgstr ""
+"<span class=\"badge rounded-pill text-bg-secondary ms-1\" invisible=\"not "
+"is_part\">Peça</span>"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
@@ -212,7 +220,9 @@ msgstr ""
 msgid ""
 "A part or material rather than labour. Parts are billed as goods and stay "
 "out of the service invoice (NFS-e)."
-msgstr "Peça ou material, e não mão de obra. Peças são faturadas como mercadoria e ficam fora da nota de serviço (NFS-e)."
+msgstr ""
+"Peça ou material, e não mão de obra. Peças são faturadas como mercadoria e "
+"ficam fora da nota de serviço (NFS-e)."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -593,6 +603,12 @@ msgid "Back to draft"
 msgstr "Voltar para rascunho"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Back to the job."
+msgstr "De volta ao serviço."
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_res_company__workshop_login_background
 #: model:ir.model.fields,field_description:workshop_os.field_res_config_settings__workshop_login_background
 msgid "Background colour"
@@ -717,6 +733,12 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Cancel the new customer"
+msgstr "Cancelar o cliente novo"
+
+#. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Cancel this work order?"
 msgstr "Cancelar esta OS?"
@@ -730,6 +752,12 @@ msgstr "Cancelada"
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_photo__caption
 msgid "Caption"
 msgstr "Legenda"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Change customer"
+msgstr "Trocar o cliente"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -786,6 +814,12 @@ msgstr "Escolha o cliente da placa %s."
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "Clear"
 msgstr "Limpar"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Close list"
+msgstr "Fechar a lista"
 
 #. module: workshop_os
 #: model_terms:ir.actions.act_window,help:workshop_os.workshop_billing_action
@@ -868,6 +902,8 @@ msgid "Companies"
 msgstr "Empresas"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__company_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__company_id
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__company_id
@@ -1157,6 +1193,12 @@ msgstr "Nome exibido"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Do the arrival checklist"
 msgstr "Fazer o checklist de entrada"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Done"
+msgstr "Pronto"
 
 #. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_billing__state__draft
@@ -1885,12 +1927,20 @@ msgstr "Marcar como pago"
 msgid ""
 "Mark parts and materials as parts: they are billed as goods and stay out of "
 "the service invoice (NFS-e)."
-msgstr "Marque peças e materiais como peça: eles são faturados como mercadoria e ficam fora da nota de serviço (NFS-e)."
+msgstr ""
+"Marque peças e materiais como peça: eles são faturados como mercadoria e "
+"ficam fora da nota de serviço (NFS-e)."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Mark ready"
 msgstr "Marcar como pronta"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Marked as ready."
+msgstr "Marcada como pronta."
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order__user_id
@@ -2003,6 +2053,8 @@ msgid "N/A"
 msgstr "N/A"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template__name
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_checklist_template_item__name
@@ -2016,10 +2068,22 @@ msgid "Name"
 msgstr "Nome"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Name, CNPJ or phone"
+msgstr "Nome, CNPJ ou telefone"
+
+#. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "New"
 msgstr "Novo"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "New customer"
+msgstr "Cliente novo"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2137,6 +2201,12 @@ msgstr "Nada encontrado nesta busca."
 
 #. module: workshop_os
 #. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Nothing found."
+msgstr "Nada encontrado."
+
+#. module: workshop_os
+#. odoo-javascript
 #: code:addons/workshop_os/static/src/backend/dashboard.xml:0
 msgid "Nothing late. Nice."
 msgstr "Nada atrasado. Boa!"
@@ -2237,6 +2307,12 @@ msgid ""
 msgstr ""
 "Um cartão por situação da oficina, com quantos caminhões estão nela. Toque "
 "numa situação para vê-los."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Only an order marked ready can go back to the job."
+msgstr "Só uma OS marcada como pronta pode voltar para o serviço."
 
 #. module: workshop_os
 #. odoo-python
@@ -2432,6 +2508,12 @@ msgstr "Pendente"
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_billing_view_form
 msgid "Period"
 msgstr "Período"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Person"
+msgstr "Pessoa física"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.res_config_settings_view_form
@@ -2684,6 +2766,12 @@ msgstr "Atualizar"
 
 #. module: workshop_os
 #. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Register"
+msgstr "Cadastrar"
+
+#. module: workshop_os
+#. odoo-javascript
 #: code:addons/workshop_os/static/src/tour/workshop_tour.js:0
 msgid ""
 "Register the fleets and their trucks here. A fleet on contract can have its "
@@ -2691,6 +2779,22 @@ msgid ""
 msgstr ""
 "Cadastre aqui as frotas e seus caminhões. Uma frota com contrato pode ter os"
 " orçamentos aprovados automaticamente."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid ""
+"Registered in the mechanic app by %s. Complete the CNPJ/CPF and the address "
+"before invoicing."
+msgstr "Cadastrado no app do mecânico por %s. Complete o CNPJ/CPF e o endereço antes de faturar."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid ""
+"Registered with this order, and the truck with them. The office completes "
+"the CNPJ/CPF and the address."
+msgstr "O cliente é cadastrado junto com esta OS, e o caminhão fica no nome dele. O escritório completa o CNPJ/CPF e o endereço."
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
@@ -2727,6 +2831,8 @@ msgid "Remove"
 msgstr "Remover"
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
 #: model_terms:ir.ui.view,arch_db:workshop_os.workshop_order_view_form
 msgid "Reopen"
 msgstr "Reabrir"
@@ -2787,6 +2893,12 @@ msgstr "Salvar"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Scania"
 msgstr "Scania"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Search or pick services"
+msgstr "Busque ou escolha os serviços"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -3024,6 +3136,11 @@ msgid "Start “"
 msgstr "Iniciar “"
 
 #. module: workshop_os
+#: model:ir.model.fields,field_description:workshop_os.field_workshop_order__state_before_done
+msgid "State Before Done"
+msgstr "Situação antes de pronta"
+
+#. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_billing__state
 #: model_terms:ir.ui.view,arch_db:workshop_os.public_order_page
 msgid "Status"
@@ -3041,6 +3158,11 @@ msgstr ""
 "Atrasada: a data de vencimento já passou\n"
 "Hoje: a data da atividade é hoje\n"
 "Planejada: atividades futuras."
+
+#. module: workshop_os
+#: model:ir.model.fields,help:workshop_os.field_workshop_order__state_before_done
+msgid "Status before the order was marked ready, restored if that is undone."
+msgstr "Situação da OS antes de ser marcada como pronta, restaurada se isso for desfeito."
 
 #. module: workshop_os
 #: model:ir.model.fields,field_description:workshop_os.field_workshop_order_line__subtotal
@@ -3407,6 +3529,12 @@ msgid "Trailer electrical socket"
 msgstr "Tomada elétrica do semirreboque"
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Transportes Exemplo Ltda"
+msgstr "Transportes Exemplo Ltda"
+
+#. module: workshop_os
 #: model:ir.model.fields.selection,name:workshop_os.selection__workshop_checklist_template__vehicle_type__truck
 msgid "Truck"
 msgstr "Caminhão"
@@ -3450,10 +3578,28 @@ msgid "Type part of the plate, the order number or the customer."
 msgstr "Digite parte da placa, o número da OS ou o cliente."
 
 #. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Type the new customer's name."
+msgstr "Digite o nome do cliente novo."
+
+#. module: workshop_os
 #. odoo-javascript
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Type the plate"
 msgstr "Digite a placa"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Type to find the others."
+msgstr "Digite para encontrar os outros."
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/screens.js:0
+msgid "Undo"
+msgstr "Desfazer"
 
 #. module: workshop_os
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
@@ -3645,9 +3791,17 @@ msgstr "WhatsApp"
 
 #. module: workshop_os
 #. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "WhatsApp or phone"
+msgstr "WhatsApp ou telefone"
+
+#. module: workshop_os
+#. odoo-javascript
 #: code:addons/workshop_os/static/src/tour/workshop_tour.js:0
-msgid "When the job is done, mark it here; the office sees it right away."
-msgstr "Quando o serviço terminar, marque aqui; o escritório vê na hora."
+msgid ""
+"When the job is done, mark it here; the office sees it right away. Marked it"
+" by mistake? Reopen it here too."
+msgstr "Quando o serviço terminar, marque aqui; o escritório vê na hora. Marcou sem querer? Reabra aqui mesmo."
 
 #. module: workshop_os
 #. odoo-javascript

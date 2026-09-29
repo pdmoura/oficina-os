@@ -130,13 +130,95 @@ export class HomeScreen extends Component {
 }
 
 /* ---------------------------------------------------------------------------------------------------------------
+ * Search box that opens a scrollable list under it: tap to pick (several in a row when `multi`) or type to narrow
+ * the list. The list comes from the server as the mechanic types, so a catalogue of hundreds stays quick to use.
+ * ------------------------------------------------------------------------------------------------------------- */
+export class SearchSelect extends Component {
+    static template = "workshop_os.AppSearchSelect";
+    static props = {
+        placeholder: String,
+        search: Function, // (query, limit) => Promise of [{ id, name, detail?, price_fmt?, is_part? }]
+        selectedIds: Array,
+        onPick: Function, // (item) => void
+        multi: { type: Boolean, optional: true },
+        createLabel: { type: String, optional: true },
+        onCreate: { type: Function, optional: true }, // (typed text) => void: a last button creates what was typed
+        limit: { type: Number, optional: true },
+    };
+    static defaultProps = { multi: false, limit: 100 };
+
+    setup() {
+        bindMethods(this);
+        this.root = useRef("root");
+        this.state = useState({ open: false, query: "", items: [], loading: false });
+        const outside = (ev) => this.state.open && !this.root.el?.contains(ev.target) && this.close();
+        onMounted(() => document.addEventListener("pointerdown", outside, true));
+        onWillUnmount(() => {
+            document.removeEventListener("pointerdown", outside, true);
+            clearTimeout(this.timer);
+        });
+    }
+
+    async open() {
+        if (this.state.open) {
+            return;
+        }
+        this.state.open = true;
+        // Bring the box to the top, so the list has room above the phone's keyboard.
+        this.root.el?.scrollIntoView({ block: "start", behavior: "smooth" });
+        await this.load();
+    }
+
+    /** Closing forgets the search, so the list opens whole next time. */
+    close() {
+        Object.assign(this.state, { open: false, query: "" });
+    }
+
+    onInput(ev) {
+        this.state.query = ev.target.value;
+        this.state.open = true;
+        clearTimeout(this.timer);
+        this.timer = setTimeout(this.load, 200);
+    }
+
+    async load() {
+        const query = this.state.query;
+        this.state.loading = true;
+        const items = await this.props.search(query.trim(), this.props.limit);
+        if (query === this.state.query) {
+            Object.assign(this.state, { items, loading: false });
+        }
+    }
+
+    get more() {
+        return this.state.items.length >= this.props.limit;
+    }
+
+    isSelected(item) {
+        return this.props.selectedIds.includes(item.id);
+    }
+
+    pick(item) {
+        this.props.onPick(item);
+        if (!this.props.multi) {
+            this.close();
+        }
+    }
+
+    create() {
+        this.props.onCreate(this.state.query.trim());
+        this.close();
+    }
+}
+
+/* ---------------------------------------------------------------------------------------------------------------
  * New order: plate first, everything else pre-filled from the vehicle when it is known.
  * ------------------------------------------------------------------------------------------------------------- */
 const DRAFT_KEY = "workshop_os.new_order_draft";
 
 export class NewOrderScreen extends Component {
     static template = "workshop_os.AppNewOrder";
-    static components = { Plate };
+    static components = { Plate, SearchSelect };
     static props = { app: Object };
 
     setup() {
@@ -152,15 +234,24 @@ export class NewOrderScreen extends Component {
             saving: false,
             step: draft?.plate?.length === 7 ? 2 : 1,
             values: {
-                plate: "", partner_id: false, brand: "", model: "", fleet_number: "", odometer: "", driver_name: "",
-                complaint: "", stage_id: false, location_id: false, service_ids: [], template_id: false,
+                plate: "", partner_id: false, new_partner: null, brand: "", model: "", fleet_number: "", odometer: "",
+                driver_name: "", complaint: "", stage_id: false, location_id: false, service_ids: [], template_id: false,
                 ...(draft || {}),
             },
-            serviceSearch: "",
+            // Names of what is picked: the lists themselves are searched on the server.
+            serviceItems: {},
+            partner: null,
         });
         onWillStart(async () => {
-            this.state.form = await this.orm.call("workshop.order", "app_new_form", []);
-            this.state.values.stage_id ||= this.state.form.stages[0]?.id || false;
+            const values = this.state.values;
+            this.state.form = await this.orm.call("workshop.order", "app_new_form", [values.service_ids, values.partner_id]);
+            for (const service of this.state.form.services) {
+                this.state.serviceItems[service.id] = service;
+            }
+            values.service_ids = values.service_ids.filter((id) => id in this.state.serviceItems);
+            this.state.partner = this.state.form.partner || null;
+            values.partner_id = this.state.partner?.id || false;
+            values.stage_id ||= this.state.form.stages[0]?.id || false;
             const entry = this.state.form.templates.find((t) => t.kind === "entry");
             if (!draft && entry) {
                 this.state.values.template_id = entry.id;
@@ -216,11 +307,10 @@ export class NewOrderScreen extends Component {
         const result = await this.orm.call("workshop.vehicle", "find_by_plate", [this.state.values.plate]);
         this.state.lookup = result;
         this.state.looking = false;
-        if (result.found) {
-            Object.assign(this.state.values, {
-                partner_id: result.partner_id || this.state.values.partner_id,
-                odometer: this.state.values.odometer || "",
-            });
+        if (result.partner_id) {
+            // A known truck brings its customer; what was picked for another plate no longer applies.
+            this.state.partner = null;
+            Object.assign(this.state.values, { partner_id: result.partner_id, new_partner: null });
         }
     }
 
@@ -238,18 +328,51 @@ export class NewOrderScreen extends Component {
         this.saveDraft();
     }
 
-    toggleService(id) {
+    searchServices(query, limit) {
+        return this.orm.call("workshop.order", "app_services", [query, limit]);
+    }
+
+    toggleService(item) {
         const ids = this.state.values.service_ids;
-        this.state.values.service_ids = ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id];
+        if (ids.includes(item.id)) {
+            this.state.values.service_ids = ids.filter((id) => id !== item.id);
+        } else {
+            this.state.serviceItems[item.id] = item;
+            this.state.values.service_ids = [...ids, item.id];
+        }
         this.saveDraft();
     }
 
-    get services() {
-        const search = this.state.serviceSearch.trim().toLowerCase();
-        const all = this.state.form?.services || [];
-        const list = search ? all.filter((s) => s.name.toLowerCase().includes(search)) : all.filter((s) => s.favorite);
-        const chosen = all.filter((s) => this.state.values.service_ids.includes(s.id) && !list.includes(s));
-        return [...chosen, ...list].slice(0, 30);
+    get chosenServices() {
+        return this.state.values.service_ids.map((id) => this.state.serviceItems[id]).filter(Boolean);
+    }
+
+    searchPartners(query) {
+        return this.orm.call("workshop.order", "app_partners", [query]);
+    }
+
+    pickPartner(item) {
+        this.state.partner = item;
+        Object.assign(this.state.values, { partner_id: item.id, new_partner: null });
+        this.saveDraft();
+    }
+
+    /** A customer not registered yet: created with the order, and the truck is registered to them. */
+    newPartner(name) {
+        this.state.partner = null;
+        Object.assign(this.state.values, { partner_id: false, new_partner: { name, phone: "", is_company: true } });
+        this.saveDraft();
+    }
+
+    setNewPartner(field, value) {
+        this.state.values.new_partner[field] = value;
+        this.saveDraft();
+    }
+
+    clearPartner() {
+        this.state.partner = null;
+        Object.assign(this.state.values, { partner_id: false, new_partner: null });
+        this.saveDraft();
     }
 
     get odometerHint() {
@@ -264,7 +387,8 @@ export class NewOrderScreen extends Component {
 
     get canSave() {
         const v = this.state.values;
-        return this.plateValid && (v.partner_id || this.state.lookup?.partner_id) && !this.state.saving;
+        const customer = v.partner_id || this.state.lookup?.partner_id || v.new_partner?.name?.trim();
+        return this.plateValid && Boolean(customer) && !this.state.saving;
     }
 
     async save(forceNew = false) {
@@ -433,7 +557,22 @@ export class OrderScreen extends Component {
 
     async doAction(action) {
         await this.run("app_action", [action]);
-        this.notification.add(_t("Updated"), { type: "success" });
+        if (action === "action_done") {
+            // Tapped by mistake: undo right here, or later with "Reopen" while the truck is still in the yard.
+            const close = this.notification.add(_t("Marked as ready."), {
+                type: "success",
+                buttons: [{
+                    name: _t("Undo"),
+                    primary: true,
+                    onClick: () => {
+                        close();
+                        this.doAction("action_undo_done");
+                    },
+                }],
+            });
+        } else {
+            this.notification.add(action === "action_undo_done" ? _t("Back to the job.") : _t("Updated"), { type: "success" });
+        }
     }
 
     share() {

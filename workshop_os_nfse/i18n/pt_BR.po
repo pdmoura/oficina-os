@@ -25,6 +25,12 @@ msgstr "%(source)s já tem a NFS-e %(note)s; cancele-a antes de fazer outra."
 
 #. module: workshop_os_nfse
 #. odoo-python
+#: code:addons/workshop_os_nfse/models/workshop_order.py:0
+msgid "%s already has an NFS-e: ask the office to reopen it."
+msgstr "%s já tem NFS-e: peça ao escritório para reabrir."
+
+#. module: workshop_os_nfse
+#. odoo-python
 #: code:addons/workshop_os_nfse/models/l10n_br_nfse_nacional_document.py:0
 msgid "Cannot invoice %s"
 msgstr "Não é possível emitir nota para %s"
@@ -156,7 +162,9 @@ msgstr "Serviços referentes à %(order)s, placa %(plate)s"
 msgid ""
 "There is nothing to invoice: the NFS-e covers services only, and parts are "
 "billed as goods."
-msgstr "Não há o que faturar: a NFS-e cobre só serviços, e as peças são faturadas como mercadoria."
+msgstr ""
+"Não há o que faturar: a NFS-e cobre só serviços, e as peças são faturadas "
+"como mercadoria."
 
 #. module: workshop_os_nfse
 #. odoo-python

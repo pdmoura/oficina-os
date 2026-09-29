@@ -283,6 +283,64 @@
     }
 }
 
+// Search-and-pick lists: services and customers ---------------------------------------------------------------------
+.o_workshop_app {
+    .o_workshop_app_select {
+        margin-bottom: 12px;
+        scroll-margin-top: calc(84px + env(safe-area-inset-top));
+        .o_workshop_app_search--sm { margin-bottom: 0; }
+        &.o_workshop_is_open .o_workshop_app_search { border-radius: 16px 16px 0 0; }
+    }
+    .o_workshop_app_select__close { border: 0; background: transparent; color: var(--Workshop-muted); padding: 8px 4px; }
+    .o_workshop_app_select__panel {
+        overflow: hidden;
+        border: 1px solid var(--Workshop-accent);
+        border-top: 0;
+        border-radius: 0 0 16px 16px;
+        background: var(--Workshop-surface);
+    }
+    .o_workshop_app_select__list {
+        max-height: unquote("min(46vh, 380px)");
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+    .o_workshop_app_option {
+        display: flex; align-items: center; gap: 12px; width: 100%; min-height: 52px; padding: 10px 14px;
+        border: 0; border-bottom: 1px solid var(--Workshop-border); background: transparent;
+        color: var(--Workshop-text); font-size: 15px; text-align: left;
+        > i { flex: none; width: 20px; font-size: 19px; color: var(--Workshop-faint); }
+        &.o_workshop_is_active {
+            background: color-mix(in srgb, var(--Workshop-accent) 12%, transparent);
+            > i { color: var(--Workshop-accent-text); }
+        }
+    }
+    .o_workshop_app_option__name { flex: 1; min-width: 0; overflow-wrap: anywhere; .o_workshop_app_tag { margin: 0 0 0 6px; } }
+    .o_workshop_app_option__detail { flex: none; color: var(--Workshop-muted); font-size: 13px; font-weight: 700; }
+    .o_workshop_app_select__note { margin: 0; padding: 14px; color: var(--Workshop-muted); font-size: 14px; text-align: center; }
+    .o_workshop_app_select__foot {
+        display: flex; gap: 8px; padding: 10px;
+        border-top: 1px solid var(--Workshop-border); background: var(--Workshop-surface-2);
+        .o_workshop_app_btn { flex: 1; min-width: 0; height: 46px; font-size: 15px; }
+        .o_workshop_app_btn--ghost strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    }
+    .o_workshop_app_choice {
+        display: flex; align-items: center; gap: 12px; margin-bottom: 12px; padding: 12px 14px;
+        border-radius: 16px; background: var(--Workshop-surface); border: 1px solid var(--Workshop-border);
+        > i { font-size: 20px; color: var(--Workshop-accent-text); }
+        div { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    }
+    .o_workshop_app_new_partner {
+        margin-bottom: 12px; padding: 12px 14px 14px;
+        border-radius: 16px; border: 1px dashed var(--Workshop-accent); background: var(--Workshop-surface);
+    }
+    .o_workshop_app_new_partner__head {
+        display: flex; align-items: center; justify-content: space-between; font-weight: 700;
+        i { color: var(--Workshop-accent-text); }
+    }
+    .o_workshop_app_new_partner__kind { padding-top: 12px; padding-bottom: 0; }
+    .o_workshop_app_hint { margin: 10px 0 0; font-size: 13px; }
+}
+
 // New order ---------------------------------------------------------------------------------------------------------
 .o_workshop_app {
     .o_workshop_app_plate_entry { text-align: center; padding: 28px 0 10px; }

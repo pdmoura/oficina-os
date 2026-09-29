@@ -95,7 +95,11 @@ um dump do banco é um backup completo.
 - **Regras de registro:** todo modelo é restrito às empresas do usuário (`<modelo>_rule_company`).
 - **Os passos do escritório são garantidos no modelo**, não só escondidos na tela: aprovar, recusar, cancelar,
   reabrir, os campos da aprovação e remover linhas aprovadas passam por `workshop.order._check_office()` em
-  `create`/`write`/`unlink`. Todo método público pode ser chamado por RPC, por isso isso importa.
+  `create`/`write`/`unlink`. Todo método público pode ser chamado por RPC, por isso isso importa. Duas exceções
+  estreitas rodam como superusuário depois das próprias verificações: `action_undo_done()` (o mecânico volta uma OS
+  pronta para a situação que ela tinha, até ser entregue, faturada ou ter nota: `_check_can_undo_done()`) e
+  `_app_create_partner()` (cliente cadastrado no portão, só com nome, telefone e tipo, já que mecânico não cria
+  contatos).
 - **A resposta do cliente** vem por `/os/<token>/decision`, comparada em tempo constante, e roda o método privado
   `_customer_decide()`, que não pode ser chamado por RPC.
 - **Fotos** só aceitam endereços do Odoo (`/web/image/`) ou de `https://res.cloudinary.com/`, e o anexo precisa ser
@@ -112,8 +116,9 @@ um dump do banco é um backup completo.
 Uma client action em tela cheia (`workshop_os.mechanic_app`, caminho `/odoo/mechanic-app`) escrita em OWL. As
 telas (`HomeScreen`, `NewOrderScreen`, `OrderScreen`) ficam numa pilha pequena, para o botão de voltar funcionar como
 num app de celular. Cada tela carrega os dados numa só chamada a um método do modelo: `app_home`, `app_read`,
-`app_create`, `app_add_services`, `app_action`, `app_save_checklist`, `upload_ticket` + `add_photo`,
-`find_by_plate`.
+`app_new_form`, `app_create`, `app_add_services`, `app_action`, `app_save_checklist`, `upload_ticket` + `add_photo`,
+`find_by_plate`. Serviços e clientes nunca vêm inteiros: o componente `SearchSelect` consulta `app_services` e
+`app_partners` enquanto o mecânico digita.
 
 Pode ser instalado como app (PWA): `controllers/web.py` dá ao manifesto o nome da oficina e o inicia em `/odoo`, que
 leva cada perfil à sua tela (`_workshop_home_action`). O celular guarda a OS digitada pela metade no `localStorage`.

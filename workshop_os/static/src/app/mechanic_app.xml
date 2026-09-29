@@ -141,6 +141,47 @@
     </t>
 
     <!-- New order -->
+    <!-- Search box with a scrollable list of choices under it: services, customers -->
+    <t t-name="workshop_os.AppSearchSelect">
+        <div class="o_workshop_app_select" t-att-class="{ 'o_workshop_is_open': state.open }" t-ref="root">
+            <div class="o_workshop_app_search o_workshop_app_search--sm">
+                <i class="fa fa-search"/>
+                <input type="search" autocomplete="off" t-att-placeholder="props.placeholder" t-att-value="state.query"
+                       t-on-focus="open" t-on-click="open" t-on-input="onInput"/>
+                <button t-if="state.open" class="o_workshop_app_select__close" t-on-click="close" aria-label="Close list">
+                    <i class="fa fa-chevron-up"/>
+                </button>
+            </div>
+            <div t-if="state.open" class="o_workshop_app_select__panel">
+                <div class="o_workshop_app_select__list">
+                    <button t-foreach="state.items" t-as="item" t-key="item.id" class="o_workshop_app_option"
+                            t-att-class="{ 'o_workshop_is_active': isSelected(item) }" t-on-mousedown.prevent=""
+                            t-on-click="() => pick(item)">
+                        <i t-if="props.multi" t-att-class="isSelected(item) ? 'fa fa-check-square' : 'fa fa-square-o'"/>
+                        <i t-else="" t-att-class="isSelected(item) ? 'fa fa-check-circle' : 'fa fa-circle-thin'"/>
+                        <span class="o_workshop_app_option__name">
+                            <t t-esc="item.name"/>
+                            <small t-if="item.is_part" class="o_workshop_app_tag">Part</small>
+                        </span>
+                        <span t-if="item.price_fmt or item.detail" class="o_workshop_app_option__detail" t-esc="item.price_fmt or item.detail"/>
+                    </button>
+                    <p t-if="state.loading and !state.items.length" class="o_workshop_app_select__note"><i class="fa fa-circle-o-notch fa-spin"/></p>
+                    <p t-elif="!state.items.length" class="o_workshop_app_select__note">Nothing found.</p>
+                    <p t-if="more" class="o_workshop_app_select__note">Type to find the others.</p>
+                </div>
+                <div t-if="props.multi or (props.onCreate and state.query.trim())" class="o_workshop_app_select__foot">
+                    <button t-if="props.onCreate and state.query.trim()" class="o_workshop_app_btn o_workshop_app_btn--ghost"
+                            t-on-mousedown.prevent="" t-on-click="create">
+                        <i class="fa fa-user-plus"/> <t t-esc="props.createLabel"/> <strong t-esc="state.query.trim()"/>
+                    </button>
+                    <button t-if="props.multi" class="o_workshop_app_btn" t-on-click="close">
+                        Done<t t-if="props.selectedIds.length"> · <t t-esc="props.selectedIds.length"/></t>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+
     <t t-name="workshop_os.AppNewOrder">
         <div class="o_workshop_app_screen o_workshop_app_screen--form">
             <header class="o_workshop_app_bar">
@@ -196,11 +237,42 @@
 
                     <t t-if="!(state.lookup and state.lookup.partner_id)">
                         <label class="o_workshop_app_label">Customer</label>
-                        <div class="o_workshop_app_chips o_workshop_app_chips--wrap">
-                            <button t-foreach="state.form.partners" t-as="partner" t-key="partner.id" class="o_workshop_app_chip"
-                                    t-att-class="state.values.partner_id === partner.id ? 'o_workshop_is_active' : ''"
-                                    t-on-click="() => set('partner_id', partner.id)" t-esc="partner.name"/>
+                        <div t-if="state.partner" class="o_workshop_app_choice">
+                            <i class="fa fa-user"/>
+                            <div>
+                                <strong t-esc="state.partner.name"/>
+                                <span t-if="state.partner.detail" class="o_workshop_app_muted" t-esc="state.partner.detail"/>
+                            </div>
+                            <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="clearPartner" aria-label="Change customer">
+                                <i class="fa fa-times"/>
+                            </button>
                         </div>
+                        <div t-elif="state.values.new_partner" class="o_workshop_app_new_partner">
+                            <div class="o_workshop_app_new_partner__head">
+                                <span><i class="fa fa-user-plus"/> New customer</span>
+                                <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="clearPartner" aria-label="Cancel the new customer">
+                                    <i class="fa fa-times"/>
+                                </button>
+                            </div>
+                            <label class="o_workshop_app_field"><span>Name</span>
+                                <input t-att-value="state.values.new_partner.name" t-on-input="(ev) => setNewPartner('name', ev.target.value)"
+                                       placeholder="Transportes Exemplo Ltda"/>
+                            </label>
+                            <label class="o_workshop_app_field"><span>WhatsApp or phone</span>
+                                <input type="tel" inputmode="tel" t-att-value="state.values.new_partner.phone"
+                                       t-on-input="(ev) => setNewPartner('phone', ev.target.value)" placeholder="(61) 99999-0000"/>
+                            </label>
+                            <div class="o_workshop_app_chips o_workshop_app_chips--wrap o_workshop_app_new_partner__kind">
+                                <button t-att-class="state.values.new_partner.is_company ? 'o_workshop_app_chip o_workshop_is_active' : 'o_workshop_app_chip'"
+                                        t-on-click="() => setNewPartner('is_company', true)"><i class="fa fa-building-o"/> Company</button>
+                                <button t-att-class="state.values.new_partner.is_company ? 'o_workshop_app_chip' : 'o_workshop_app_chip o_workshop_is_active'"
+                                        t-on-click="() => setNewPartner('is_company', false)"><i class="fa fa-user"/> Person</button>
+                            </div>
+                            <p class="o_workshop_app_muted o_workshop_app_hint">Registered with this order, and the truck with them. The office completes the CNPJ/CPF and the address.</p>
+                        </div>
+                        <SearchSelect t-else="" placeholder.translate="Name, CNPJ or phone" search="searchPartners"
+                                      selectedIds="state.values.partner_id ? [state.values.partner_id] : []" onPick="pickPartner"
+                                      createLabel.translate="Register" onCreate="newPartner" limit="30"/>
                         <t t-if="!(state.lookup and state.lookup.found)">
                             <div class="o_workshop_app_grid_2">
                                 <label class="o_workshop_app_field"><span>Brand</span>
@@ -232,18 +304,15 @@
                     </label>
 
                     <label class="o_workshop_app_label">Services <span class="o_workshop_app_muted" t-if="state.values.service_ids.length">· <t t-esc="state.values.service_ids.length"/> selected</span></label>
-                    <div class="o_workshop_app_search o_workshop_app_search--sm">
-                        <i class="fa fa-search"/>
-                        <input type="search" placeholder="Search services" t-model="state.serviceSearch"/>
-                    </div>
-                    <div class="o_workshop_app_chips o_workshop_app_chips--wrap">
-                        <button t-foreach="services" t-as="service" t-key="service.id" class="o_workshop_app_chip o_workshop_app_chip--service"
-                                t-att-class="state.values.service_ids.includes(service.id) ? 'o_workshop_is_active' : ''"
-                                t-on-click="() => toggleService(service.id)">
-                            <i t-att-class="state.values.service_ids.includes(service.id) ? 'fa fa-check' : 'fa fa-plus'"/>
-                            <t t-esc="service.name"/>
+                    <div t-if="chosenServices.length" class="o_workshop_app_chips o_workshop_app_chips--wrap">
+                        <button t-foreach="chosenServices" t-as="service" t-key="service.id"
+                                class="o_workshop_app_chip o_workshop_app_chip--service o_workshop_is_active"
+                                t-on-click="() => toggleService(service)" t-att-aria-label="service.name">
+                            <t t-esc="service.name"/><i class="fa fa-times"/>
                         </button>
                     </div>
+                    <SearchSelect placeholder.translate="Search or pick services" search="searchServices"
+                                  selectedIds="state.values.service_ids" onPick="toggleService" multi="true"/>
 
                     <label class="o_workshop_app_label">Stage</label>
                     <div class="o_workshop_app_chips o_workshop_app_chips--wrap">

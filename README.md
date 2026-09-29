@@ -97,7 +97,7 @@ Run the tests:
 docker compose run --rm odoo odoo -d test -i workshop_os,workshop_os_nfse --test-tags /workshop_os,/l10n_br_nfse_nacional,/workshop_os_nfse --stop-after-init
 ```
 
-The 90 tests cover:
+The 93 tests cover:
 
 - **Workshop:** plate rules, the order flow and its office-only steps over RPC, photos, the customer page, the monthly closing, reports, invoice descriptions, the theme and style compilation, extensions of Odoo's templates, the guided tour's settings, Brazilian defaults on a new database.
 - **NFS-e:** the DPS against the official XSD, each regime's rules, signature verification and tampering, mocked API success, rejection and E0014 recovery, cancellation, DANFSe, CEP lookup.

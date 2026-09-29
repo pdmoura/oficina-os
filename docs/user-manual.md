@@ -146,8 +146,15 @@ in the office right away. Someone who prefers the phone call: the office uses **
 1. Type the plate (Mercosul or the old format).
 2. A known truck brings its customer and last odometer. If it already has an open order, the app opens that order
    instead of creating another.
-3. A new truck: fill in the customer, brand and model; it is registered on the way.
+3. A new truck: pick the customer, and fill in the brand and model; it is registered on the way.
+   - **Customer:** tap the box and the latest customers show up; type part of the name, the CNPJ or the phone to
+     find any other. A customer not registered yet: type the name and tap **Register**, add the phone and whether
+     it is a company or a person. The customer is created with the order and the truck is registered to them; the
+     office completes the CNPJ/CPF and the address later.
 4. Enter the odometer, who brought it, the reported problem and the services, and confirm.
+   - **Services:** tap the box and the catalogue opens as a list (favourites and the most used first). Scroll and
+     tick as many as needed, or type to narrow the list, then tap **Done**. The chosen ones show above the box; tap
+     one to take it out.
 
 ### Inside an order in the app
 
@@ -160,7 +167,9 @@ in the office right away. Someone who prefers the phone call: the office uses **
   shrunk on the phone before they are sent.
 - **Checklist:** answer item by item; the progress shows on the tab.
 - **History:** the stages the order went through.
-- **Job ready:** when the work is finished. The office sees it right away.
+- **Job ready:** when the work is finished. The office sees it right away. Tapped by mistake? Tap **Undo** in the
+  message that shows up, or **Reopen** later: the order goes back to the job with the status it had. Once the truck
+  is delivered, or the order is in a monthly closing or has an NFS-e, only the office reopens it.
 - **Share** (icon at the top): sends the customer link on WhatsApp or another app.
 
 ### Menu (☰)

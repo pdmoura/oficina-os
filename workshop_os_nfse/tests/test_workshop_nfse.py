@@ -1,7 +1,7 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import Form, tagged
 from odoo.tools import mute_logger
 
@@ -86,6 +86,14 @@ class TestWorkshopNfse(WorkshopCase):
         only_parts.action_done()
         with self.assertRaises(UserError):
             only_parts.action_create_nfse()
+
+    def test_an_order_with_a_note_stays_ready(self):
+        order = self._done_order("III9I99")
+        order.action_create_nfse()
+        self.env.invalidate_all()  # as in a new request: nothing read by the office is left in the cache
+        with self.assertRaises(UserError) as caught:
+            order.with_user(self.mechanic).action_undo_done()
+        self.assertNotIsInstance(caught.exception, AccessError, "refused for the note, not for reading it")
 
     def test_mechanic_has_no_access_to_notes(self):
         self.assertFalse(self.mechanic.has_group("l10n_br_nfse_nacional.l10n_br_nfse_nacional_group_user"))

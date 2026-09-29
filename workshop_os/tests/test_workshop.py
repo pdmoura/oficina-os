@@ -154,6 +154,50 @@ class TestOrderFlow(WorkshopCase):
         with self.assertRaises(AccessError):
             self.env["res.partner"].with_user(self.mechanic).create({"name": "Frota Oeste"})
 
+    def test_mechanic_registers_a_customer_at_the_gate(self):
+        # Unknown plate, unknown customer: the app creates both, with the truck registered to the customer.
+        Order = self.env["workshop.order"].with_user(self.mechanic)
+        result = Order.app_create({"plate": "gat1e23", "service_ids": [self.service_a.id],
+                                   "new_partner": {"name": "  Transportes   Novo Rumo ", "phone": "61 99999-0000"}})
+        order = Order.browse(result["id"])
+        customer = order.partner_id
+        self.assertEqual(customer.name, "Transportes Novo Rumo")
+        self.assertTrue(customer.workshop_customer and customer.is_company)
+        self.assertEqual(order.vehicle_id.partner_id, customer)
+        self.assertIn(customer.id, [p["id"] for p in Order.app_partners("novo rumo")])
+        again = Order.app_create({"plate": "GAT2E34", "new_partner": {"name": "transportes novo rumo"}})
+        self.assertEqual(Order.browse(again["id"]).partner_id, customer, "the same name is the same customer")
+        with self.assertRaises(UserError):
+            Order.app_create({"plate": "GAT3E45", "new_partner": {"name": "  "}})
+        # The pickers search on the server; a saved draft gets the names of what it holds.
+        self.assertEqual([s["name"] for s in Order.app_services("headl")], ["Headlight"])
+        self.assertEqual(len(Order.app_services("", 1)), 1)
+        form = Order.app_new_form([self.service_a.id], customer.id)
+        self.assertEqual((form["services"][0]["name"], form["partner"]["id"]), ("Headlight", customer.id))
+
+    def test_mechanic_undoes_ready(self):
+        # "Job ready" tapped by mistake: the mechanic takes the order back to the job, with the status it had.
+        approved = self._order(self._vehicle("UND1A11"))
+        approved.action_approve()
+        draft = self._order(self._vehicle("UND2B22"))
+        for order, before in ((approved, "approved"), (draft, "draft")):
+            mine = order.with_user(self.mechanic)
+            self.env.invalidate_all()  # as in a new request from the app
+            mine.app_action("action_done")
+            self.assertIn("action_undo_done", [a["action"] for a in mine._app_state_actions()])
+            self.env.invalidate_all()
+            mine.app_action("action_undo_done")
+            self.assertEqual((order.state, order.date_done), (before, False))
+        # Once the truck has left, or the order is in a monthly closing, only the office reopens it.
+        approved.action_done()
+        approved.action_deliver()
+        with self.assertRaises(UserError):
+            approved.with_user(self.mechanic).action_undo_done()
+        draft.action_done()
+        draft.billing_id = self.env["workshop.billing"].create({"partner_id": self.fleet.id})
+        with self.assertRaises(UserError):
+            draft.with_user(self.mechanic).action_undo_done()
+
     def test_orders_read_new_until_numbered(self):
         # The form and its breadcrumb show "New" before saving, never the "/" placeholder.
         self.assertEqual(self.env["workshop.order"].new({}).display_name, "New")

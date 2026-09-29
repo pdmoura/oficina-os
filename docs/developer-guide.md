@@ -95,7 +95,10 @@ Photos, PDFs and every other attachment are stored **in PostgreSQL** in the depl
 - **Record rules:** every model is restricted to the user's companies (`<model>_rule_company`).
 - **Office-only steps are enforced in the model**, not only hidden in views: approving, rejecting, cancelling,
   reopening, the approval fields and removing approved lines all go through `workshop.order._check_office()` in
-  `create`/`write`/`unlink`. Any public method is callable over RPC, so this matters.
+  `create`/`write`/`unlink`. Any public method is callable over RPC, so this matters. Two narrow exceptions
+  run as superuser after their own checks: `action_undo_done()` (a mechanic takes a ready order back to the status
+  it had, until it is delivered, billed or invoiced: `_check_can_undo_done()`) and `_app_create_partner()` (a
+  customer registered at the gate, with name, phone and kind only, since mechanics cannot create contacts).
 - **The customer's answer** comes through `/os/<token>/decision`, compared in constant time, and runs the private
   `_customer_decide()`, which cannot be called over RPC.
 - **Photos** only accept URLs from Odoo (`/web/image/`) or `https://res.cloudinary.com/`, and an attachment must
@@ -111,8 +114,10 @@ Photos, PDFs and every other attachment are stored **in PostgreSQL** in the depl
 
 A full-screen client action (`workshop_os.mechanic_app`, path `/odoo/mechanic-app`) written in OWL. Screens
 (`HomeScreen`, `NewOrderScreen`, `OrderScreen`) live in a small stack so the back button behaves like a phone app.
-Each screen loads its data in one call to a model method: `app_home`, `app_read`, `app_create`,
-`app_add_services`, `app_action`, `app_save_checklist`, `upload_ticket` + `add_photo`, `find_by_plate`.
+Each screen loads its data in one call to a model method: `app_home`, `app_read`, `app_new_form`, `app_create`,
+`app_add_services`, `app_action`, `app_save_checklist`, `upload_ticket` + `add_photo`, `find_by_plate`. Services
+and customers are never sent whole: the `SearchSelect` component asks `app_services` and `app_partners` as the
+mechanic types.
 
 It is installable as a PWA: `controllers/web.py` names the manifest after the shop and starts it on `/odoo`, which
 routes each role to its screen (`_workshop_home_action`). The phone keeps half-typed orders in `localStorage`.
