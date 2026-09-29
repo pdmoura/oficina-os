@@ -97,9 +97,9 @@ Run the tests:
 docker compose run --rm odoo odoo -d test -i workshop_os,workshop_os_nfse --test-tags /workshop_os,/l10n_br_nfse_nacional,/workshop_os_nfse --stop-after-init
 ```
 
-The 39 tests cover:
+The 88 tests cover:
 
-- **Workshop:** plate rules, approval, customer page, billing, reports, style compilation, Brazilian defaults on a new database.
+- **Workshop:** plate rules, the order flow and its office-only steps over RPC, photos, the customer page, the monthly closing, reports, invoice descriptions, the theme and style compilation, extensions of Odoo's templates, the guided tour's settings, Brazilian defaults on a new database.
 - **NFS-e:** the DPS against the official XSD, each regime's rules, signature verification and tampering, mocked API success, rejection and E0014 recovery, cancellation, DANFSe, CEP lookup.
 
 ## Deploy
@@ -157,6 +157,15 @@ To use a PostgreSQL you already run, remove the `db` service and set `DATABASE_U
 [`keepalive.yml`](.github/workflows/keepalive.yml) pings the service and its database during shop hours when the repository variable `KEEPALIVE_URL` is set. That keeps a free service awake and a free Supabase project from pausing.
 
 To give the public demo a new database, follow [docs/demo-database.md](docs/demo-database.md): new provider account, paused project, or a clean start.
+
+## Documentation
+
+| | |
+|---|---|
+| [User manual](docs/user-manual.md) | The office, the mechanic app, the customer approval, the monthly closing, NFS-e and the settings, step by step. |
+| [Developer guide](docs/developer-guide.md) | Architecture, data model, security, front end, translations, tests, deployment and operations. |
+
+Both are also in Portuguese: see [docs/](docs).
 
 ## License
 

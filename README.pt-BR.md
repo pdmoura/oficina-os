@@ -97,9 +97,9 @@ Rodar os testes:
 docker compose run --rm odoo odoo -d test -i workshop_os,workshop_os_nfse --test-tags /workshop_os,/l10n_br_nfse_nacional,/workshop_os_nfse --stop-after-init
 ```
 
-Os 39 testes cobrem:
+Os 88 testes cobrem:
 
-- **Oficina:** regras de placa, aprovação, página do cliente, fechamento, relatórios, compilação dos estilos e os padrões brasileiros num banco novo.
+- **Oficina:** regras de placa, o fluxo da OS e os passos do escritório por RPC, fotos, a página do cliente, o fechamento mensal, relatórios, descrições de nota, tema e compilação dos estilos, extensões dos templates do Odoo, as preferências do guia do sistema e os padrões brasileiros num banco novo.
 - **NFS-e:** a DPS contra o XSD oficial, as regras de cada regime, verificação da assinatura e adulteração, sucesso, rejeição e recuperação de E0014 com a API simulada, cancelamento, DANFSe e busca pelo CEP.
 
 ## Publicar
@@ -157,6 +157,15 @@ O [`render.yaml`](render.yaml) é um Blueprint para um serviço web gratuito no 
 O [`keepalive.yml`](.github/workflows/keepalive.yml) acorda o serviço e o banco no horário da oficina quando a variável `KEEPALIVE_URL` está definida no repositório. Assim o serviço gratuito não dorme e um projeto gratuito do Supabase não pausa.
 
 Para dar um banco novo à demonstração pública, siga o [docs/demo-database.pt-BR.md](docs/demo-database.pt-BR.md): conta nova no provedor, projeto pausado ou recomeço do zero.
+
+## Documentação
+
+| | |
+|---|---|
+| [Manual do usuário](docs/user-manual.pt-BR.md) | O escritório, o app do mecânico, a aprovação do cliente, o fechamento mensal, a NFS-e e as configurações, passo a passo. |
+| [Guia do desenvolvedor](docs/developer-guide.pt-BR.md) | Arquitetura, modelo de dados, segurança, interface, traduções, testes, implantação e operação. |
+
+Os dois também estão em inglês: veja [docs/](docs).
 
 ## Licença
 
