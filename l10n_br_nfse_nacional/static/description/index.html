@@ -1,0 +1,101 @@
+<section class="container" style="max-width: 1100px; margin: 0 auto; font-family: inherit;">
+
+    <div style="background: #0f1115; color: #f3f4f6; border-radius: 18px; padding: 40px 36px; margin: 16px 0 28px;">
+        <p style="color: #e8b21e; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 8px;">NFS-e Nacional · Odoo 19</p>
+        <h1 style="color: #ffffff; font-size: 2.2rem; font-weight: 800; margin: 0 0 12px;">Nota Fiscal de Serviço Eletrônica pelo Sistema Nacional, dentro do Odoo</h1>
+        <p style="font-size: 1.15rem; color: #c9ced6; margin: 0;">
+            Brazilian service invoices (NFS-e) through the national system (www.nfse.gov.br), from any service company
+            on Odoo 19. Start in assisted mode with no certificate, and switch to direct emission through the API when
+            the company's A1 certificate is at hand.
+        </p>
+    </div>
+
+    <img src="main_screenshot.png" alt="NFS-e in assisted mode" class="img-fluid" style="border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.18); margin-bottom: 32px;"/>
+
+    <h2 style="font-weight: 800; margin: 8px 0 18px;">What it does</h2>
+    <div class="row">
+        <div class="col-md-6" style="margin-bottom: 18px;">
+            <h4 style="font-weight: 700;">Two ways to issue</h4>
+            <ul>
+                <li><b>Assisted mode, no certificate:</b> every value the Emissor Nacional website asks for is laid out with a copy button (customer, service code, amount, ISS, description); paste back the access key and the note is recorded.</li>
+                <li><b>Direct mode:</b> the DPS is built by the national layout, checked against the official XSD (layout 1.01) with readable messages, signed (XMLDSig) with the company's ICP-Brasil A1 certificate and sent to SEFIN Nacional over mutual TLS. The authorised NFS-e XML stays on the note.</li>
+                <li>Test environment (produção restrita) and production.</li>
+            </ul>
+        </div>
+        <div class="col-md-6" style="margin-bottom: 18px;">
+            <h4 style="font-weight: 700;">After issuing</h4>
+            <ul>
+                <li>DANFSe drawn from the authorised XML (NT 008), with the QR code of the public consultation.</li>
+                <li>Cancellation event with its reason.</li>
+                <li>A lost answer is recovered instead of issuing the note twice (E0014).</li>
+                <li>Regimes: Simples Nacional, MEI and the others, with ISS withholding.</li>
+            </ul>
+        </div>
+        <div class="col-md-6" style="margin-bottom: 18px;">
+            <h4 style="font-weight: 700;">Customers filled in for you</h4>
+            <ul>
+                <li>Type the <b>CNPJ</b> and the company comes from the Receita Federal register: legal name, address with number and district, CEP, city with its IBGE code, state, phone and e-mail. Numeric and the new alphanumeric CNPJ (July 2026).</li>
+                <li>Type the <b>CEP</b> and the street, district, city, state and IBGE code fill in.</li>
+                <li>Everything stays editable, and a button brings the Receita data again later.</li>
+            </ul>
+        </div>
+        <div class="col-md-6" style="margin-bottom: 18px;">
+            <h4 style="font-weight: 700;">Works on its own</h4>
+            <ul>
+                <li>No dependency on Accounting: notes are made by hand, or from other modules.</li>
+                <li>With <b>Oficina OS</b> and <b>Oficina OS – NFS-e</b>, a work order or a monthly closing becomes a note with one click.</li>
+                <li>English source and full Brazilian Portuguese.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row" style="text-align: center;">
+        <div class="col-md-5" style="margin-bottom: 20px;">
+            <img src="shot_danfse.png" alt="DANFSe" class="img-fluid" style="border-radius: 12px; border: 1px solid #e5e7eb;"/>
+            <p style="margin-top: 8px;">DANFSe from the authorised XML</p>
+        </div>
+        <div class="col-md-7" style="margin-bottom: 20px;">
+            <img src="shot_cnpj.png" alt="Customer filled from the CNPJ" class="img-fluid" style="border-radius: 12px;"/>
+            <p style="margin-top: 8px;">A customer filled in from the CNPJ</p>
+        </div>
+    </div>
+
+    <h2 style="font-weight: 800; margin: 18px 0 12px;">Good to know before installing</h2>
+    <div class="row">
+        <div class="col-md-6" style="margin-bottom: 18px;">
+            <h4 style="font-weight: 700;">Outside services, and what is sent</h4>
+            <ul>
+                <li><b>Sistema Nacional NFS-e</b> (SEFIN Nacional): in direct mode, when you issue or cancel a note, or recover the answer to one.</li>
+                <li><b>BrasilAPI</b>, or <b>Minha Receita</b> when it does not answer: only the CNPJ you type, to read the public register.</li>
+                <li><b>ViaCEP</b>: only the CEP you type.</li>
+                <li>No data is sent to the author, and there is no tracking.</li>
+            </ul>
+        </div>
+        <div class="col-md-6" style="margin-bottom: 18px;">
+            <h4 style="font-weight: 700;">Requirements and changes</h4>
+            <ul>
+                <li>Odoo 19, Community or Enterprise, on your own server or on Odoo.sh (not Odoo Online).</li>
+                <li>Python: cryptography, lxml, qrcode and requests, all shipped with Odoo 19.</li>
+                <li>Your municipality must be on the Sistema Nacional NFS-e. Check the service code, the ISS and the regime with your accountant, and issue in the test environment first.</li>
+                <li>Odoo's paid Partner Autocomplete leaves the Tax ID field, which the free CNPJ lookup now fills; it stays on the name.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="background: #f6f7f9; border-radius: 16px; padding: 26px 28px; margin: 18px 0 28px;">
+        <h2 style="font-weight: 800; margin: 0 0 10px;">Em português</h2>
+        <p style="margin: 0;">
+            Emita a NFS-e do padrão nacional direto do Odoo 19. Comece no modo assistido, sem certificado: o sistema
+            organiza cada valor para copiar no Emissor Nacional. Com o certificado A1, emita direto pela API, com
+            validação pelo XSD oficial, assinatura, DANFSe, cancelamento e recuperação de resposta perdida. Clientes
+            preenchidos pelo CNPJ (cadastro da Receita Federal) e pelo CEP, de graça. Serve para qualquer empresa de
+            serviços.
+        </p>
+        <img src="shot_pt_assisted.png" alt="NFS-e no modo assistido" class="img-fluid" style="border-radius: 12px; margin-top: 18px;"/>
+    </div>
+
+    <p style="color: #6b7280; font-size: .95rem;">
+        Licence: Odoo Proprietary License v1.0 (OPL-1). Questions and support: use the contact button on this page.
+        This module helps you issue notes; it is not tax advice.
+    </p>
+</section>

@@ -76,6 +76,9 @@ class WorkshopOrderDemo(models.Model):
             if index == 0:
                 order.load_checklist(ref("workshop_os.checklist_truck_entry").id)
         self.env["workshop.billing"].create({"partner_id": ref("workshop_os.demo_partner_fleet_a").id}).action_load_orders()
+        # Orders copy the warranty text when created, here in the install's English: the demo yard is Brazilian.
+        if "pt_BR" in dict(self.env["res.lang"].get_installed()):
+            self.search([]).write({"warranty_text": self.env.company.with_context(lang="pt_BR").workshop_warranty_text})
 
     def _demo_order(self, vehicle, arrived, services, rng, mechanics):
         chosen = services.browse(rng.sample(services.ids, k=rng.randint(1, 3)))

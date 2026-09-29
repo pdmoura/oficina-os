@@ -22,6 +22,7 @@ Como o Oficina OS é construído, testado, traduzido, implantado e operado. Para
 12. [Operação](#12-operação)
 13. [Convenções](#13-convenções)
 14. [Personalização para um cliente](#14-personalização-para-um-cliente)
+    - [Loja Odoo Apps](#14a-loja-odoo-apps)
 15. [Problemas comuns](#15-problemas-comuns)
 
 ## 1. Visão geral
@@ -351,6 +352,24 @@ sudo docker logs -f oficina-os-odoo-1      # "[deploy] new release: upgrading ..
 - **Licença:** os módulos estão sob a Odoo Proprietary License (OPL-1). O código é público para leitura e
   avaliação; usar de verdade, adaptar para um cliente ou vender exige uma licença por escrito do autor (veja
   `COPYRIGHT`). O módulo privado de um cliente pode ter qualquer licença compatível com a OPL-1.
+
+## 14a. Loja Odoo Apps
+
+Os três módulos ficam na apps.odoo.com a partir do branch `19.0` deste repositório (o Odoo lê um branch com o nome
+da série do Odoo).
+
+- **O que o anúncio mostra:** `name`, `summary`, `price`/`currency` (EUR), `images` (a primeira é a capa,
+  `main_screenshot.png` a imagem grande), `live_test_url` (a demonstração pública) do manifesto, e
+  `static/description/index.html`, a página de descrição, com as imagens ao lado. As seções em português das páginas
+  usam as imagens `shot_pt_*`.
+- **Cadastro:** na apps.odoo.com, *Upload* → o repositório como `ssh://git@github.com/pdmoura/oficina-os#19.0`. Um
+  repositório privado precisa de acesso de leitura para o usuário `online-odoo` do GitHub.
+- **Publicar uma atualização:** junte no `main`, teste, e rode `git push origin main:19.0`. O Odoo lê o branch de
+  novo (a página do vendedor também tem um botão para reler). Suba a versão dos módulos a cada publicação.
+- **Regras da loja a manter:** nada escondido e nenhum dado enviado sem avisar. Tudo o que a instalação muda, e cada
+  serviço externo com o que é enviado a ele, está nas páginas de descrição; mantenha-as em dia.
+- **As imagens** foram tiradas de um banco de demonstração, com usuários em inglês e em português; refaça quando uma
+  tela mudar.
 
 ## 15. Problemas comuns
 

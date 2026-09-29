@@ -169,6 +169,13 @@ class TestOrderFlow(WorkshopCase):
         self.assertEqual(Order.browse(again["id"]).partner_id, customer, "the same name is the same customer")
         with self.assertRaises(UserError):
             Order.app_create({"plate": "GAT3E45", "new_partner": {"name": "  "}})
+        # The phone is checked and written the same way as Odoo writes it: DDD and 8 or 9 digits.
+        self.assertEqual(customer.phone, "+55 61 99999-0000")
+        with self.assertRaises(UserError):
+            Order.app_create({"plate": "GAT3E45", "new_partner": {"name": "Frota Longa", "phone": "5467998989899999999"}})
+        mobile = Order.browse(Order.app_create({"plate": "GAT4F56", "new_partner": {
+            "name": "Frota Celular", "phone": "+55 (61) 99888-7766"}})["id"]).partner_id
+        self.assertEqual(mobile.phone, "+55 61 99888-7766")
         # The pickers search on the server; a saved draft gets the names of what it holds.
         self.assertEqual([s["name"] for s in Order.app_services("headl")], ["Headlight"])
         self.assertEqual(len(Order.app_services("", 1)), 1)

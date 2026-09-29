@@ -1,9 +1,12 @@
 import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
-import { Component, onMounted, onWillStart, onWillUnmount, useEffect, useRef, useState } from "@odoo/owl";
+import {
+    Component, onMounted, onWillStart, onWillUnmount, onWillUpdateProps, useEffect, useRef, useState,
+} from "@odoo/owl";
 
 import {
-    bindMethods, displayPlate, elapsedSince, isValidPlate, normalizePlate, shareLink, shortDate, uploadPhoto,
+    bindMethods, displayPlate, elapsedSince, formatBrPhone, isValidBrPhone, isValidPlate, normalizePlate, shareLink,
+    shortDate, uploadPhoto,
 } from "./utils";
 
 const { DateTime } = luxon;
@@ -231,10 +234,58 @@ export class CustomerField extends Component {
     setup() {
         bindMethods(this);
         this.orm = useService("orm");
+        this.box = useRef("newPartner");
+        // A new customer is typed in an open box; once the mechanic moves on, it shows as a customer like any other.
+        this.state = useState({ expanded: !this.newPartnerComplete(this.props.newPartner), phoneTouched: false });
+        onWillUpdateProps((next) => {
+            if (next.newPartner && !this.props.newPartner) {
+                Object.assign(this.state, { expanded: true, phoneTouched: false });
+            }
+        });
+        const outside = (ev) => {
+            if (this.state.expanded && this.props.newPartner && !this.box.el?.contains(ev.target)) {
+                this.collapse();
+            }
+        };
+        onMounted(() => {
+            document.addEventListener("pointerdown", outside, true);
+            document.addEventListener("focusin", outside, true);
+        });
+        onWillUnmount(() => {
+            document.removeEventListener("pointerdown", outside, true);
+            document.removeEventListener("focusin", outside, true);
+        });
     }
 
     search(query) {
         return this.orm.call("workshop.order", "app_partners", [query]);
+    }
+
+    newPartnerComplete(partner) {
+        return Boolean(partner?.name?.trim()) && isValidBrPhone(partner.phone);
+    }
+
+    collapse() {
+        if (this.newPartnerComplete(this.props.newPartner)) {
+            this.state.expanded = false;
+        } else {
+            this.state.phoneTouched = true; // stays open, showing what is missing
+        }
+    }
+
+    expand() {
+        this.state.expanded = true;
+    }
+
+    onPhoneInput(ev) {
+        const phone = formatBrPhone(ev.target.value);
+        ev.target.value = phone;
+        this.props.onChangeNew("phone", phone);
+    }
+
+    get phoneError() {
+        const partner = this.props.newPartner;
+        return this.state.phoneTouched && partner && !isValidBrPhone(partner.phone);
     }
 }
 
@@ -410,7 +461,8 @@ export class NewOrderScreen extends Component {
 
     get canSave() {
         const v = this.state.values;
-        const customer = v.partner_id || this.state.lookup?.partner_id || v.new_partner?.name?.trim();
+        const newPartner = v.new_partner && v.new_partner.name?.trim() && isValidBrPhone(v.new_partner.phone);
+        const customer = v.partner_id || this.state.lookup?.partner_id || newPartner;
         return this.plateValid && Boolean(customer) && !this.state.saving;
     }
 
@@ -652,7 +704,9 @@ export class OrderScreen extends Component {
 
     get canSaveEdit() {
         const edit = this.state.edit;
-        return Boolean(edit && !edit.saving && (edit.values.partner_id || edit.values.new_partner?.name?.trim()));
+        const newPartner = edit?.values.new_partner;
+        const valid = newPartner ? newPartner.name?.trim() && isValidBrPhone(newPartner.phone) : edit?.values.partner_id;
+        return Boolean(edit && !edit.saving && valid);
     }
 
     async saveEdit() {

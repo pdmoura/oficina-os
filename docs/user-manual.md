@@ -149,7 +149,9 @@ in the office right away. Someone who prefers the phone call: the office uses **
 3. A new truck: pick the customer, and fill in the brand and model; it is registered on the way.
    - **Customer:** tap the box and the latest customers show up; type part of the name, the CNPJ or the phone to
      find any other. A customer not registered yet: type the name and tap **Register**, add the phone and whether
-     it is a company or a person. The customer is created with the order and the truck is registered to them; the
+     it is a company or a person. The phone takes the DDD and the number, formatted as you type, like
+     (61) 99999-0000. Once you move on to the truck, the new customer shows as a card; tap it to change it. The
+     customer is created with the order and the truck is registered to them; the
      office completes the CNPJ/CPF and the address later.
 4. Enter the odometer, who brought it, the reported problem and the services, and confirm.
    - **Services:** tap the box and the catalogue opens as a list (favourites and the most used first). Scroll and

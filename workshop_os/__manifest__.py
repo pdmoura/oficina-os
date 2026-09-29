@@ -1,26 +1,32 @@
 {
-    "name": "Workshop Orders",
-    "version": "19.0.1.9.0",
+    # The Odoo Apps listing is found by these words: the brand first, then what buyers search for.
+    "name": "Oficina OS – Truck & Fleet Workshop | Vehicle Repair Orders | Mechanic App",
+    "version": "19.0.1.10.0",
     "category": "Services/Workshop",
-    "summary": "Work orders for fleet workshops: plate-first mobile app for mechanics, kanban, checklists, photos, "
-               "customer approval by link and monthly billing per fleet",
+    "summary": "Work orders for truck and fleet workshops: plate-first mechanic mobile app, customer approval by link "
+               "with signature, photos, checklists, labour and parts, monthly billing per fleet. English and Brazilian "
+               "Portuguese.",
     "description": """
-Workshop Orders
-===============
+Oficina OS
+==========
 Built for workshops that maintain fleets (trucks, vans, buses): the mechanic opens and runs orders from a phone,
 the office controls the yard, approvals and the monthly closing per customer.
 
 * Plate-first mobile app (full screen, installable) for mechanics
 * Stages, locations (bays) and sectors, with time spent in each stage
-* Service catalog with prices and labour hours, per-line approval
-* Entry and exit checklists, photos stored on Cloudinary
-* Customer approval by link, with optional signature
-* Work order and monthly PDF reports with the company logo
+* Service and parts catalogue with prices and labour hours, per-line approval
+* Arrival and delivery checklists, photos by moment, in the database or on Cloudinary
+* Customer approval by link, with signature
+* Work order and monthly PDF reports with the company's brand
 * Monthly closing per fleet customer, ready for NFS-e
 """,
     "author": "Pedro Alves",
+    "maintainer": "Pedro Alves",
     "website": "https://github.com/pdmoura/oficina-os",
+    "live_test_url": "https://oficina-os.onrender.com",
     "license": "OPL-1",
+    "price": 199.0,
+    "currency": "EUR",
     "depends": ["base", "web", "mail", "mail_bot", "auth_signup"],
     "data": [
         "security/workshop_os_groups.xml",
@@ -70,7 +76,7 @@ the office controls the yard, approvals and the monthly closing per customer.
             "workshop_os/static/src/public/**/*",
         ],
     },
-    "images": ["static/description/banner.png"],
+    "images": ["static/description/banner.png", "static/description/main_screenshot.png"],
     "installable": True,
     "application": True,
 }

@@ -22,6 +22,7 @@ How Oficina OS is built, tested, translated, deployed and run. For using the sys
 12. [Operations](#12-operations)
 13. [Conventions](#13-conventions)
 14. [Customising for a client](#14-customising-for-a-client)
+    - [Odoo Apps store](#14a-odoo-apps-store)
 15. [Troubleshooting](#15-troubleshooting)
 
 ## 1. Overview
@@ -347,6 +348,24 @@ sudo docker logs -f oficina-os-odoo-1      # "[deploy] new release: upgrading ..
 - **Licence:** the modules are under the Odoo Proprietary License (OPL-1). The code is public to read and to
   evaluate; using it for real, adapting it for a client or selling it needs a written licence from the author (see
   `COPYRIGHT`). A client's private addon may use any licence compatible with the OPL-1.
+
+## 14a. Odoo Apps store
+
+The three modules are listed on apps.odoo.com from the `19.0` branch of this repository (Odoo reads a branch named
+after the Odoo series).
+
+- **What the listing shows:** the manifest's `name`, `summary`, `price`/`currency` (EUR), `images` (the first is the
+  cover, `main_screenshot.png` the big picture), `live_test_url` (the public demo) and
+  `static/description/index.html`, the description page, with its images next to it. The Portuguese sections of the
+  pages use the `shot_pt_*` images.
+- **Register:** on apps.odoo.com, *Upload* → the repository as `ssh://git@github.com/pdmoura/oficina-os#19.0`. A
+  private repository needs read access for the GitHub user `online-odoo`.
+- **Release an update:** merge into `main`, test, then `git push origin main:19.0`. Odoo scans the branch again
+  (the vendor page also has a button to rescan). Bump the module versions with every release.
+- **Store rules to keep:** no hidden features and no data sent without saying so. Everything installing changes, and
+  every outside service with what is sent to it, is listed on the description pages; keep them up to date.
+- **Screenshots** were taken from a demo database with the store images' scripts (English and Portuguese users);
+  redo them when a screen changes.
 
 ## 15. Troubleshooting
 

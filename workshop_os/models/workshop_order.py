@@ -1,5 +1,6 @@
 import hashlib
 import logging
+import re
 import secrets
 import time
 from datetime import timedelta
@@ -510,6 +511,11 @@ class WorkshopOrder(models.Model):
         name = " ".join((values.get("name") or "").split())[:120]
         if not name:
             raise UserError(_("Type the new customer's name."))
+        phone = re.sub(r"\D", "", values.get("phone") or "")
+        if len(phone) > 11 and phone.startswith("55"):
+            phone = phone[2:]
+        if phone and not (re.match(r"[1-9]{2}", phone) and (len(phone) == 10 or (len(phone) == 11 and phone[2] == "9"))):
+            raise UserError(_("Type the phone with the DDD, like (61) 99999-0000."))
         Partner = self.env["res.partner"]
         # Compared in Python: "%" or "_" in a name would be wildcards to the database.
         partner = Partner.search([("workshop_customer", "=", True), ("name", "ilike", name)]).filtered(
@@ -517,7 +523,7 @@ class WorkshopOrder(models.Model):
         if not partner:
             partner = Partner.sudo().create({
                 "name": name,
-                "phone": (values.get("phone") or "").strip()[:40] or False,
+                "phone": f"+55 {phone[:2]} {phone[2:-4]}-{phone[-4:]}" if phone else False,
                 "is_company": values.get("is_company", True) is not False,
                 "workshop_customer": True,
             })

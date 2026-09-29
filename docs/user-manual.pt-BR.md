@@ -145,7 +145,9 @@ na hora. Quem prefere pode aprovar por telefone: o escritório usa **Aprovar** n
 3. Caminhão novo: escolha o cliente e preencha a marca e o modelo; ele é cadastrado junto.
    - **Cliente:** toque na caixa e os clientes mais recentes aparecem; digite parte do nome, o CNPJ ou o telefone
      para achar qualquer outro. Cliente ainda não cadastrado: digite o nome e toque em **Cadastrar**, informe o
-     telefone e se é empresa ou pessoa física. O cliente é criado junto com a OS e o caminhão fica no nome dele; o
+     telefone e se é empresa ou pessoa física. O telefone leva o DDD e o número, formatado enquanto você digita,
+     como (61) 99999-0000. Ao passar para o caminhão, o cliente novo vira um cartão; toque nele para alterar. O
+     cliente é criado junto com a OS e o caminhão fica no nome dele; o
      escritório completa o CNPJ/CPF e o endereço depois.
 4. Informe o hodômetro, quem trouxe, o problema relatado e os serviços, e confirme.
    - **Serviços:** toque na caixa e o catálogo abre como lista (favoritos e mais usados primeiro). Role e marque

@@ -194,7 +194,18 @@
                 <i class="fa fa-times"/>
             </button>
         </div>
-        <div t-elif="props.newPartner" class="o_workshop_app_new_partner">
+        <div t-elif="props.newPartner and !state.expanded" class="o_workshop_app_choice o_workshop_app_choice--new" role="button"
+             t-on-click="expand" aria-label="Edit the new customer">
+            <i class="fa fa-user-plus"/>
+            <div>
+                <strong t-esc="props.newPartner.name"/>
+                <span class="o_workshop_app_muted"><t t-if="props.newPartner.phone"><t t-esc="props.newPartner.phone"/> · </t>new customer</span>
+            </div>
+            <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click.stop="props.onClear" aria-label="Cancel the new customer">
+                <i class="fa fa-times"/>
+            </button>
+        </div>
+        <div t-elif="props.newPartner" class="o_workshop_app_new_partner" t-ref="newPartner">
             <div class="o_workshop_app_new_partner__head">
                 <span><i class="fa fa-user-plus"/> New customer</span>
                 <button class="o_workshop_app_icon_btn o_workshop_app_icon_btn--sm" t-on-click="props.onClear" aria-label="Cancel the new customer">
@@ -205,9 +216,10 @@
                 <input t-att-value="props.newPartner.name" t-on-input="(ev) => props.onChangeNew('name', ev.target.value)"
                        placeholder="Transportes Exemplo Ltda"/>
             </label>
-            <label class="o_workshop_app_field"><span>WhatsApp or phone</span>
-                <input type="tel" inputmode="tel" t-att-value="props.newPartner.phone"
-                       t-on-input="(ev) => props.onChangeNew('phone', ev.target.value)" placeholder="(61) 99999-0000"/>
+            <label class="o_workshop_app_field" t-att-class="{ 'o_workshop_is_invalid': phoneError }"><span>WhatsApp or phone</span>
+                <input type="tel" inputmode="tel" maxlength="15" autocomplete="off" t-att-value="props.newPartner.phone"
+                       t-on-input="onPhoneInput" t-on-blur="() => state.phoneTouched = true" placeholder="(61) 99999-0000"/>
+                <small t-if="phoneError" class="o_workshop_app_field__error">Type the DDD and the number, like (61) 99999-0000.</small>
             </label>
             <div class="o_workshop_app_chips o_workshop_app_chips--wrap o_workshop_app_new_partner__kind">
                 <button t-att-class="props.newPartner.is_company ? 'o_workshop_app_chip o_workshop_is_active' : 'o_workshop_app_chip'"

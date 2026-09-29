@@ -793,7 +793,10 @@ msgid ""
 "Change the stage and the bay with one tap. Below: services, photos by "
 "moment, the checklist and the history. The pencil at the top corrects the "
 "order, or deletes one opened by mistake."
-msgstr "Troque a situação e o box com um toque. Abaixo: serviços, fotos por momento, checklist e histórico. O lápis no topo corrige a OS, ou exclui uma aberta sem querer."
+msgstr ""
+"Troque a situação e o box com um toque. Abaixo: serviços, fotos por momento,"
+" checklist e histórico. O lápis no topo corrige a OS, ou exclui uma aberta "
+"sem querer."
 
 #. module: workshop_os
 #. odoo-python
@@ -1282,6 +1285,12 @@ msgstr "Serviço"
 #: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
 msgid "Edit"
 msgstr "Editar"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Edit the new customer"
+msgstr "Editar o cliente novo"
 
 #. module: workshop_os
 #. odoo-javascript
@@ -2409,7 +2418,9 @@ msgstr "Só o escritório pode aprovar, recusar, cancelar ou reabrir uma OS."
 msgid ""
 "Only the office changes the customer now: the truck has earlier orders, or "
 "the quote was already answered."
-msgstr "Agora só o escritório troca o cliente: o caminhão já tem OS anteriores, ou o orçamento já foi respondido."
+msgstr ""
+"Agora só o escritório troca o cliente: o caminhão já tem OS anteriores, ou o"
+" orçamento já foi respondido."
 
 #. module: workshop_os
 #. odoo-python
@@ -3475,7 +3486,9 @@ msgstr "O quadro de OS"
 msgid ""
 "The order goes with its services and photos. A truck or a customer "
 "registered only for it goes too."
-msgstr "A OS é excluída com os serviços e as fotos. Um caminhão ou cliente cadastrado só para ela também sai."
+msgstr ""
+"A OS é excluída com os serviços e as fotos. Um caminhão ou cliente "
+"cadastrado só para ela também sai."
 
 #. module: workshop_os
 #. odoo-python
@@ -3539,7 +3552,8 @@ msgstr "Esta placa já está cadastrada."
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "This truck has other orders: ask the office to correct its plate."
-msgstr "Este caminhão tem outras OS: peça ao escritório para corrigir a placa."
+msgstr ""
+"Este caminhão tem outras OS: peça ao escritório para corrigir a placa."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -3687,10 +3701,22 @@ msgid "Type part of the plate, the order number or the customer."
 msgstr "Digite parte da placa, o número da OS ou o cliente."
 
 #. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "Type the DDD and the number, like (61) 99999-0000."
+msgstr "Digite o DDD e o número, como (61) 99999-0000."
+
+#. module: workshop_os
 #. odoo-python
 #: code:addons/workshop_os/models/workshop_order.py:0
 msgid "Type the new customer's name."
 msgstr "Digite o nome do cliente novo."
+
+#. module: workshop_os
+#. odoo-python
+#: code:addons/workshop_os/models/workshop_order.py:0
+msgid "Type the phone with the DDD, like (61) 99999-0000."
+msgstr "Digite o telefone com o DDD, como (61) 99999-0000."
 
 #. module: workshop_os
 #. odoo-javascript
@@ -4116,6 +4142,12 @@ msgstr "h em média na oficina"
 #: model_terms:ir.ui.view,arch_db:workshop_os.report_workshop_order_document
 msgid "km"
 msgstr "km"
+
+#. module: workshop_os
+#. odoo-javascript
+#: code:addons/workshop_os/static/src/app/mechanic_app.xml:0
+msgid "new customer"
+msgstr "cliente novo"
 
 #. module: workshop_os
 #. odoo-javascript

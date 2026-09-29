@@ -1,8 +1,10 @@
 {
-    "name": "NFS-e Nacional (Brasil)",
+    "name": "NFS-e Nacional Brasil – Nota Fiscal de Serviço Eletrônica (NFSe) | Emissor Nacional",
     "version": "19.0.1.3.0",
     "category": "Accounting/Localizations",
-    "summary": "Service invoices (NFS-e) through Brazil's national system: assisted or direct API emission",
+    "summary": "Brazilian service invoices through the national system: assisted mode without a certificate or direct "
+               "API emission with an A1 certificate, DANFSe, cancellation, customers filled from the CNPJ and the CEP. "
+               "Emissão de NFS-e padrão nacional.",
     "description": """
 Issue NFS-e through the Sistema Nacional NFS-e (www.nfse.gov.br).
 
@@ -15,8 +17,12 @@ Issue NFS-e through the Sistema Nacional NFS-e (www.nfse.gov.br).
 * Test environment (produção restrita) and production, cancellation event, recovery of lost answers.
 """,
     "author": "Pedro Alves",
-    "website": "https://github.com/pdmoura",
+    "maintainer": "Pedro Alves",
+    "website": "https://github.com/pdmoura/oficina-os",
+    "live_test_url": "https://oficina-os.onrender.com",
     "license": "OPL-1",
+    "price": 199.0,
+    "currency": "EUR",
     # partner_autocomplete: so that _get_view runs after its own and can take its widget off the CNPJ field.
     "depends": ["base", "mail", "certificate", "partner_autocomplete"],
     "external_dependencies": {"python": ["cryptography", "lxml", "qrcode", "requests"]},
@@ -32,6 +38,7 @@ Issue NFS-e through the Sistema Nacional NFS-e (www.nfse.gov.br).
         "wizard/l10n_br_nfse_nacional_document_cancel_views.xml",
         "views/l10n_br_nfse_nacional_menus.xml",
     ],
+    "images": ["static/description/banner.png", "static/description/main_screenshot.png"],
     "installable": True,
     "application": False,
 }

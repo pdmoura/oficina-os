@@ -44,6 +44,36 @@ export function isValidPlate(plate) {
     return /^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$/.test(plate);
 }
 
+/** Digits of a Brazilian phone without the country code: the DDD and 8 or 9 digits. */
+function phoneDigits(value) {
+    let digits = String(value || "").replace(/\D/g, "");
+    if (digits.length > 11 && digits.startsWith("55")) {
+        digits = digits.slice(2);
+    }
+    return digits.slice(0, 11);
+}
+
+/** "(61) 99999-0000" as it is typed; a pasted "+55 61 ..." loses the country code. */
+export function formatBrPhone(value) {
+    const digits = phoneDigits(value);
+    if (digits.length <= 2) {
+        return digits ? `(${digits}` : "";
+    }
+    const ddd = digits.slice(0, 2);
+    const rest = digits.slice(2);
+    const cut = rest.length > 8 ? 5 : 4;
+    return rest.length > cut ? `(${ddd}) ${rest.slice(0, cut)}-${rest.slice(cut)}` : `(${ddd}) ${rest}`;
+}
+
+/** Empty, or a DDD with a landline (8 digits) or a mobile (9 digits starting with 9). */
+export function isValidBrPhone(value) {
+    const digits = phoneDigits(value);
+    if (!digits) {
+        return true;
+    }
+    return /^[1-9]{2}/.test(digits) && (digits.length === 10 || (digits.length === 11 && digits[2] === "9"));
+}
+
 /** Old plates are shown as ABC-1234, Mercosur plates as ABC1D23. */
 export function displayPlate(plate) {
     plate = normalizePlate(plate);
