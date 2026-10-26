@@ -1,6 +1,6 @@
 # Keeps the public demo responsive. Render's free plan sleeps after 15 idle minutes, and a free Supabase
 # project pauses after a week without database activity. When the repository variable KEEPALIVE_URL is set
-# (e.g. https://oficina-os.onrender.com), this calls the health check with db_server_status=1, which also
+# (e.g. https://oficina-os-pqjw.onrender.com), this calls the health check with db_server_status=1, which also
 # opens a database connection, every 10 minutes from 07:00 to 21:00 in Brazil, Monday to Saturday.
 # GitHub turns scheduled workflows off after 60 days without commits: re-enable it in the Actions tab.
 name: Keep alive

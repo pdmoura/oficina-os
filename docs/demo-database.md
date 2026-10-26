@@ -86,7 +86,7 @@ The administrator is the one from `ODOO_ADMIN_EMAIL` and `ODOO_ADMIN_PASSWORD`. 
 ## 6. Keep it awake
 
 Set the repository variable `KEEPALIVE_URL` to the service URL, for example
-`https://oficina-os.onrender.com`. It lives under **Settings → Secrets and variables → Actions → Variables**.
+`https://oficina-os-pqjw.onrender.com`. It lives under **Settings → Secrets and variables → Actions → Variables**.
 
 The [keep-alive workflow](../.github/workflows/keepalive.yml) then calls the health check with the database
 check. It runs every 10 minutes from 07:00 to 21:00 (Brazil), Monday to Saturday. That prevents both

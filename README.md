@@ -10,7 +10,7 @@ closes the month and issues the **NFS-e** through Brazil's national system.
 White-label: each shop gets its own logos, colours and phone icon, and the colours reach Odoo's own
 screens too. The interface is in Brazilian Portuguese.
 
-**Try it:** https://oficina-os.onrender.com. Log in as `escritorio` / `escritorio` (office) or
+**Try it:** https://oficina-os-pqjw.onrender.com. Log in as `escritorio` / `escritorio` (office) or
 `mecanico` / `mecanico` (mechanic app; open it on a phone). The demo runs on a free plan, so the first
 visit of the day can take about a minute to wake up.
 

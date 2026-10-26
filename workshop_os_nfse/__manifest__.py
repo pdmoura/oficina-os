@@ -7,7 +7,7 @@
     "author": "Pedro Alves",
     "maintainer": "Pedro Alves",
     "website": "https://github.com/pdmoura/oficina-os",
-    "live_test_url": "https://oficina-os.onrender.com",
+    "live_test_url": "https://oficina-os-pqjw.onrender.com",
     "license": "OPL-1",
     "depends": ["workshop_os", "l10n_br_nfse_nacional"],
     "data": [

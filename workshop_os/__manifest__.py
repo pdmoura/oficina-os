@@ -23,7 +23,7 @@ the office controls the yard, approvals and the monthly closing per customer.
     "author": "Pedro Alves",
     "maintainer": "Pedro Alves",
     "website": "https://github.com/pdmoura/oficina-os",
-    "live_test_url": "https://oficina-os.onrender.com",
+    "live_test_url": "https://oficina-os-pqjw.onrender.com",
     "license": "OPL-1",
     "price": 199.0,
     "currency": "EUR",

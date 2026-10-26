@@ -87,7 +87,7 @@ O administrador é o de `ODOO_ADMIN_EMAIL` e `ODOO_ADMIN_PASSWORD`. Não publiqu
 ## 6. Manter acordado
 
 Defina a variável `KEEPALIVE_URL` do repositório com o endereço do serviço, por exemplo
-`https://oficina-os.onrender.com`. Ela fica em **Settings → Secrets and variables → Actions → Variables**.
+`https://oficina-os-pqjw.onrender.com`. Ela fica em **Settings → Secrets and variables → Actions → Variables**.
 
 O [workflow de keep-alive](../.github/workflows/keepalive.yml) chama então a verificação de saúde com o teste
 do banco. Ele roda a cada 10 minutos, das 07:00 às 21:00 (horário de Brasília), de segunda a sábado. Isso
